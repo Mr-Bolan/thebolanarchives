@@ -58,13 +58,15 @@ The slug must exist. Draft targets are allowed in draft work, but links to draft
 
 When an agent adds or updates content:
 
-1. Read `codex.md`, `docs/content-model.md`, and this file.
+1. Read `AGENTS.md`, `codex.md`, `docs/content-model.md`, and this file.
 2. Prefer `content/inbox/` for rough capture.
 3. Use the matching template for new records.
 4. Preserve existing `slug`, filename, `record_id`, `created`, and `type` unless the owner asked for a rename or move.
 5. Update `updated` when the body or metadata changes.
 6. Keep `field_confirmed` only when `last_verified`, `source_context`, or body evidence supports it.
 7. Run `npm run content:audit`; run `npm run build` before public promotion.
+
+Use `docs/project-linking.md` when adding public links to Mr-Bolan projects or outside artifacts.
 
 ## when only adding writing
 

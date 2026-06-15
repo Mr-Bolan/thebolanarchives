@@ -1,0 +1,46 @@
+name: Content request
+description: Request a new or updated archive record.
+title: "content: "
+labels:
+  - content
+body:
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options:
+        - content-capture
+        - content-draft
+        - content-update
+        - content-publish
+    validations:
+      required: true
+  - type: input
+    id: slug
+    attributes:
+      label: Existing slug or proposed slug
+      placeholder: "operator-knowledge-as-signal"
+  - type: dropdown
+    id: visibility
+    attributes:
+      label: Target visibility
+      options:
+        - draft
+        - unlisted
+        - public
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Include source notes, intended status/confidence, related slugs, and privacy concerns.
+    validations:
+      required: true
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Guardrails
+      options:
+        - label: No personal identity or private data included.
+          required: true
+        - label: Blackbox Garden tone is intended.
+          required: true

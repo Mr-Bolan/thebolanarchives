@@ -1,7 +1,7 @@
 # codex.md — thebolanarchives map
 
-Read this first. It says where everything is and what it does, so anything (human or agent)
-can route without re-reading the whole brief.
+Agents start at `AGENTS.md` first. This file remains the repo map: where everything is and
+what it does, so anything (human or agent) can route without re-reading the whole brief.
 
 > Things built. Things broken. Things understood later.
 
@@ -33,7 +33,9 @@ exist. No `public/CNAME` is committed until a real custom domain is known.
 ```text
 thebolanarchives/
   codex.md            <- this file: master routing map
+  AGENTS.md           <- required operating entry point for agents
   docs/               <- briefs + design docs
+    agent-workflow.md <- task modes, allowed files, checks, commit/report format
     content-authoring.md <- how to draft, audit, and promote archive writing
   content/            <- all writing (MDX), one subfolder per content type
     entries/          entry        -> /entries

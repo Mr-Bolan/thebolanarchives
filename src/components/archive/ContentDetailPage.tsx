@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import type { CollectionFolder } from "@/lib/content";
+import type { CollectionFolder, ExternalLink } from "@/lib/content";
 import { getContentByFolderAndSlug, getRelatedContent } from "@/lib/content";
 import { getMarkdownHeadings } from "@/lib/headings";
 import { ArchiveMetaCard } from "@/components/archive/ArchiveMetaCard";
@@ -41,9 +41,37 @@ export async function ContentDetailPage({ folder, slug }: ContentDetailPageProps
           <MdxRenderer item={item} relatedItems={relatedItems} source={body} />
         </div>
 
+        <ExternalLinks links={item.external_links} />
         <RelatedArtifacts items={relatedItems} />
       </div>
     </article>
+  );
+}
+
+function ExternalLinks({ links }: { links?: ExternalLink[] }) {
+  if (!links?.length) {
+    return null;
+  }
+
+  return (
+    <section className="related-artifacts" aria-labelledby="external-links-title">
+      <p className="section-label">outside references</p>
+      <h2 id="external-links-title">external links</h2>
+      <ol className="record-list related-list">
+        {links.map((link) => (
+          <li key={`${link.kind}-${link.url}`}>
+            <article className="record" data-variant="compact">
+              <p className="record-meta">{link.kind}</p>
+              <h3>
+                <a href={link.url} rel="noreferrer" target="_blank">
+                  {link.label}
+                </a>
+              </h3>
+            </article>
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 

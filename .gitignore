@@ -4,3 +4,4 @@ out/
 .agents/
 *.log
 .env*.local
+privacy-blocklist.json

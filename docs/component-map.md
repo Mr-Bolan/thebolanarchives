@@ -32,6 +32,7 @@ ArchiveItem:
   narrative_origin
   visibility
   related
+  external_links?
   record_id?
 ```
 

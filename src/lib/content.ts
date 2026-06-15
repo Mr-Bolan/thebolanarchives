@@ -61,12 +61,19 @@ const statuses = [
 
 const confidences = ["low", "partial", "medium", "high", "field_confirmed"] as const;
 const visibilities = ["public", "unlisted", "draft"] as const;
+const externalLinkKinds = ["repository", "demo", "documentation", "related-site", "artifact"] as const;
 
 export type CollectionFolder = keyof typeof COLLECTIONS;
 export type ContentType = (typeof COLLECTIONS)[CollectionFolder]["type"];
 export type ContentStatus = (typeof statuses)[number];
 export type ContentConfidence = (typeof confidences)[number];
 export type ContentVisibility = (typeof visibilities)[number];
+export type ExternalLinkKind = (typeof externalLinkKinds)[number];
+export type ExternalLink = {
+  label: string;
+  url: string;
+  kind: ExternalLinkKind;
+};
 
 export type ArchiveItem = {
   title: string;
@@ -82,6 +89,7 @@ export type ArchiveItem = {
   narrative_origin: string;
   visibility: ContentVisibility;
   related: string[];
+  external_links?: ExternalLink[];
   folder: CollectionFolder;
   route: string;
   record_id?: string;
@@ -96,7 +104,8 @@ export type ContentItem = ArchiveItem & {
   body: string;
 };
 
-type Frontmatter = Record<string, string | number | string[]>;
+type FrontmatterObject = Record<string, string | number | string[]>;
+type Frontmatter = Record<string, string | number | string[] | FrontmatterObject[]>;
 
 let contentCache: ContentItem[] | undefined;
 const relatedWarnings = new Set<string>();
@@ -210,6 +219,7 @@ function readContentFile(folder: CollectionFolder, file: string): ContentItem {
     narrative_origin: stringField(data, "narrative_origin", filePath),
     visibility: enumField(data, "visibility", visibilities, filePath),
     related: stringArrayField(data, "related", filePath),
+    external_links: optionalExternalLinksField(data, "external_links", filePath),
     body,
     folder,
     route: `${collection.route}/${slug}`,
@@ -262,6 +272,7 @@ function parseFrontmatter(source: string, filePath: string): { data: Frontmatter
 
   const data: Frontmatter = {};
   let currentKey: string | undefined;
+  let currentObjectKey: string | undefined;
 
   for (const rawLine of match[1].split(/\r?\n/)) {
     const line = rawLine.trimEnd();
@@ -270,10 +281,33 @@ function parseFrontmatter(source: string, filePath: string): { data: Frontmatter
       continue;
     }
 
+    const objectListItem = line.match(/^\s*-\s+([A-Za-z_][\w-]*):\s*(.*)$/);
+    if (objectListItem && currentKey) {
+      const value = data[currentKey];
+      const item = { [objectListItem[1]]: cleanValue(objectListItem[2] ?? "") };
+      data[currentKey] = Array.isArray(value) ? [...(value as FrontmatterObject[]), item] : [item];
+      currentObjectKey = currentKey;
+      continue;
+    }
+
     const listItem = line.match(/^\s*-\s+(.*)$/);
     if (listItem && currentKey) {
       const value = data[currentKey];
-      data[currentKey] = Array.isArray(value) ? [...value, cleanScalar(listItem[1])] : [cleanScalar(listItem[1])];
+      data[currentKey] = Array.isArray(value) ? [...(value as string[]), cleanScalar(listItem[1])] : [cleanScalar(listItem[1])];
+      currentObjectKey = undefined;
+      continue;
+    }
+
+    const nestedField = line.match(/^\s+([A-Za-z_][\w-]*):\s*(.*)$/);
+    if (nestedField && currentKey && currentObjectKey === currentKey) {
+      const value = data[currentKey];
+      const last = Array.isArray(value) ? value[value.length - 1] : undefined;
+
+      if (!isFrontmatterObject(last)) {
+        throw new Error(`${filePath}: unsupported frontmatter line "${line}"`);
+      }
+
+      last[nestedField[1]] = cleanValue(nestedField[2] ?? "");
       continue;
     }
 
@@ -283,6 +317,7 @@ function parseFrontmatter(source: string, filePath: string): { data: Frontmatter
     }
 
     currentKey = field[1];
+    currentObjectKey = undefined;
     data[currentKey] = cleanValue(field[2] ?? "");
   }
 
@@ -367,6 +402,32 @@ function optionalStringArrayField(data: Frontmatter, key: string, filePath: stri
   return value;
 }
 
+function optionalExternalLinksField(data: Frontmatter, key: string, filePath: string): ExternalLink[] | undefined {
+  const value = data[key];
+
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (!Array.isArray(value)) {
+    throw new Error(`${filePath}: ${key} must be an array`);
+  }
+
+  return value.map((link, index) => {
+    if (!isFrontmatterObject(link)) {
+      throw new Error(`${filePath}: ${key}[${index}] must be an object`);
+    }
+
+    const label = objectStringField(link, "label", `${filePath}: ${key}[${index}]`);
+    const url = objectStringField(link, "url", `${filePath}: ${key}[${index}]`);
+    const kind = objectEnumField(link, "kind", externalLinkKinds, `${filePath}: ${key}[${index}]`);
+
+    assertPublicUrl(url, `${filePath}: ${key}[${index}].url`);
+
+    return { label, url, kind };
+  });
+}
+
 function enumField<const T extends readonly string[]>(
   data: Frontmatter,
   key: string,
@@ -390,6 +451,47 @@ function dateField(data: Frontmatter, key: string, filePath: string): string {
   }
 
   return value;
+}
+
+function objectStringField(data: FrontmatterObject, key: string, filePath: string): string {
+  const value = data[key];
+
+  if (typeof value !== "string" || value.length === 0) {
+    throw new Error(`${filePath}: ${key} must be a string`);
+  }
+
+  return value;
+}
+
+function objectEnumField<const T extends readonly string[]>(
+  data: FrontmatterObject,
+  key: string,
+  allowed: T,
+  filePath: string,
+): T[number] {
+  const value = objectStringField(data, key, filePath);
+
+  if (!allowed.includes(value)) {
+    throw new Error(`${filePath}: ${key} must be one of ${allowed.join(", ")}`);
+  }
+
+  return value;
+}
+
+function assertPublicUrl(value: string, filePath: string) {
+  try {
+    const url = new URL(value);
+
+    if (url.protocol !== "http:" && url.protocol !== "https:") {
+      throw new Error("unsupported protocol");
+    }
+  } catch {
+    throw new Error(`${filePath} must be a public http or https URL`);
+  }
+}
+
+function isFrontmatterObject(value: unknown): value is FrontmatterObject {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function optionalDateField(data: Frontmatter, key: string, filePath: string): string | undefined {

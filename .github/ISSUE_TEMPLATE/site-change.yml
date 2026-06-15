@@ -1,0 +1,38 @@
+name: Site change
+description: Request a feature, visual polish, deploy maintenance, or project link change.
+title: "site: "
+labels:
+  - site
+body:
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options:
+        - project-link
+        - site-feature
+        - visual-polish
+        - deploy-maintenance
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Requested change
+      description: Describe the smallest useful change.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: Mention routes, theme, deploy, privacy, or content behavior that must not change.
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Guardrails
+      options:
+        - label: This should not add a CMS, database, search, or new deployment model unless explicitly stated above.
+          required: true
+        - label: This should preserve anonymity and the Blackbox Garden theme.
+          required: true

@@ -343,7 +343,7 @@ Required from the first build:
 
 ## static export constraints
 
-The site targets Next.js App Router with MDX and `output: 'export'` on GitHub Pages using a user or custom domain.
+The site targets Next.js App Router with MDX and `output: 'export'` on a GitHub Pages project site at `/thebolanarchives`.
 
 Constraints:
 
@@ -357,7 +357,8 @@ Constraints:
 - filters can be client-side over prebuilt content metadata
 - search, if added later, should use a static JSON index
 - every interactive demo must degrade to readable static content
-- no `basePath` is needed for the planned custom domain
+- production needs `basePath: "/thebolanarchives"` and `assetPrefix: "/thebolanarchives/"`; local development stays at `/`
+- a future custom domain served at root may require revisiting `basePath` and `assetPrefix`
 
 ## first implementation task list
 
@@ -372,6 +373,6 @@ Constraints:
 9. Build `/index` as a static metadata list with filters.
 10. Add writing components: code, terminal, diagram, table of contents, side notes, and open questions.
 11. Add `ExperimentFrame` with a static fallback slot before building custom experiments.
-12. Add GitHub Pages deploy workflow and `public/CNAME`.
+12. Add GitHub Pages deploy workflow. Keep `public/CNAME` absent until a real custom domain is known.
 
 Skipped for now: visual graph, site search, design history route, and custom experiment modules. Add them when there is enough content to justify them.

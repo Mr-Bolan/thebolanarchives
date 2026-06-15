@@ -42,6 +42,10 @@ last_verified: "2026-06-14"
 source_context: "operator observation during a production run"
 aliases:
   - "dashboard-truth"
+external_links:
+  - label: "project repository"
+    url: "https://github.com/Mr-Bolan/example-project"
+    kind: "repository"
 ```
 
 ## required vs optional fields
@@ -74,6 +78,7 @@ Optional fields:
 | `last_verified` | date string | useful for technical claims |
 | `source_context` | string | short evidence context |
 | `aliases` | string array | old names or alternate slugs |
+| `external_links` | object array | public project/artifact links; see `docs/project-linking.md` |
 
 ## validation rules
 
@@ -86,6 +91,7 @@ General:
 - `updated` must be the same as or later than `created`.
 - `summary` should be 80-220 characters.
 - `tags`, `tools`, `related`, and `aliases` must be arrays of strings.
+- `external_links`, when present, must use `label`, `url`, and `kind`.
 - `tags` should be lowercase kebab-case.
 - `related` must not include the current `slug`.
 - `related` slugs should resolve to existing content before launch.
@@ -99,6 +105,7 @@ Content rules:
 - `experiment` content must include a static written explanation even if it later embeds an interactive module.
 - `field_confirmed` confidence should include either `last_verified`, `source_context`, or clear evidence in the body.
 - `record_id`, when present, must be stable and not generated from list order.
+- `external_links` URLs must be public `http` or `https` URLs.
 
 Route mapping:
 

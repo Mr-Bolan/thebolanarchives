@@ -18,6 +18,7 @@ const collections = {
 const statuses = new Set(["fragment", "sketch", "working_note", "field_tested", "stable_artefact", "retired"]);
 const confidences = new Set(["low", "partial", "medium", "high", "field_confirmed"]);
 const visibilities = new Set(["public", "unlisted", "draft"]);
+const externalLinkKinds = new Set(["repository", "demo", "documentation", "related-site", "artifact"]);
 const required = [
   "title",
   "slug",
@@ -39,6 +40,11 @@ const warnings = [];
 const missingMetadata = [];
 const relatedLinkIssues = [];
 const records = [];
+
+if (process.argv.includes("--self-check")) {
+  runSelfCheck();
+  process.exit(0);
+}
 
 for (const [folder, collection] of Object.entries(collections)) {
   const directory = path.join(contentRoot, folder);
@@ -147,6 +153,7 @@ function validateRecord({ body, collection, data, filePath, folder, slugFromFile
   const tools = arrayValue(data.tools);
   const related = arrayValue(data.related);
   const aliases = data.aliases === undefined ? undefined : arrayValue(data.aliases);
+  const externalLinks = data.external_links;
   const slug = stringValue(data.slug);
   const created = stringValue(data.created);
   const updated = stringValue(data.updated);
@@ -199,6 +206,10 @@ function validateRecord({ body, collection, data, filePath, folder, slugFromFile
     checkStringArray(aliases, "aliases", filePath);
   }
 
+  if (externalLinks !== undefined) {
+    checkExternalLinks(externalLinks, filePath);
+  }
+
   if (data.sequence !== undefined && typeof data.sequence !== "number") {
     errors.push(`${filePath}: sequence must be a number`);
   }
@@ -239,6 +250,7 @@ function validateRecord({ body, collection, data, filePath, folder, slugFromFile
     narrative_origin: stringValue(data.narrative_origin),
     visibility,
     related,
+    external_links: Array.isArray(externalLinks) ? externalLinks : undefined,
     folder,
     route: `${collection.route}/${slug}`,
     record_id: data.record_id,
@@ -260,6 +272,7 @@ function parseFrontmatter(source, filePath) {
 
   const data = {};
   let currentKey;
+  let currentObjectKey;
 
   for (const rawLine of match[1].split(/\r?\n/)) {
     const line = rawLine.trimEnd();
@@ -268,10 +281,33 @@ function parseFrontmatter(source, filePath) {
       continue;
     }
 
+    const objectListItem = line.match(/^\s*-\s+([A-Za-z_][\w-]*):\s*(.*)$/);
+    if (objectListItem && currentKey) {
+      const value = data[currentKey];
+      const item = { [objectListItem[1]]: cleanValue(objectListItem[2] ?? "") };
+      data[currentKey] = Array.isArray(value) ? [...value, item] : [item];
+      currentObjectKey = currentKey;
+      continue;
+    }
+
     const listItem = line.match(/^\s*-\s+(.*)$/);
     if (listItem && currentKey) {
       const value = data[currentKey];
       data[currentKey] = Array.isArray(value) ? [...value, cleanScalar(listItem[1])] : [cleanScalar(listItem[1])];
+      currentObjectKey = undefined;
+      continue;
+    }
+
+    const nestedField = line.match(/^\s+([A-Za-z_][\w-]*):\s*(.*)$/);
+    if (nestedField && currentKey && currentObjectKey === currentKey) {
+      const value = data[currentKey];
+      const last = Array.isArray(value) ? value[value.length - 1] : undefined;
+
+      if (!isObject(last)) {
+        throw new Error(`${filePath}: unsupported frontmatter line "${line}"`);
+      }
+
+      last[nestedField[1]] = cleanValue(nestedField[2] ?? "");
       continue;
     }
 
@@ -281,6 +317,7 @@ function parseFrontmatter(source, filePath) {
     }
 
     currentKey = field[1];
+    currentObjectKey = undefined;
     data[currentKey] = cleanValue(field[2] ?? "");
   }
 
@@ -331,6 +368,34 @@ function checkStringArray(value, field, filePath) {
   }
 }
 
+function checkExternalLinks(value, filePath) {
+  if (!Array.isArray(value)) {
+    errors.push(`${filePath}: external_links must be an array`);
+    return;
+  }
+
+  for (const [index, link] of value.entries()) {
+    const label = `${filePath}: external_links[${index}]`;
+
+    if (!isObject(link)) {
+      errors.push(`${label} must be an object`);
+      continue;
+    }
+
+    checkString(link.label, "external_links.label", label);
+    checkString(link.url, "external_links.url", label);
+    checkString(link.kind, "external_links.kind", label);
+
+    if (typeof link.kind === "string" && !externalLinkKinds.has(link.kind)) {
+      errors.push(`${label}: kind must be one of ${Array.from(externalLinkKinds).join(", ")}`);
+    }
+
+    if (typeof link.url === "string" && !isPublicUrl(link.url)) {
+      errors.push(`${label}: url must be a public http or https URL`);
+    }
+  }
+}
+
 function checkDate(value, field, filePath) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
     errors.push(`${filePath}: ${field} must use YYYY-MM-DD`);
@@ -343,6 +408,19 @@ function isKebabCase(value) {
 
 function hasBodyEvidence(body) {
   return /\b(evidence|verified|observed|measured|field confirmed|source)\b/i.test(body);
+}
+
+function isObject(value) {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isPublicUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
 }
 
 function toIndexRecord(record) {
@@ -364,4 +442,27 @@ function reportRecords(label, items) {
 function hasRecordIssue(record) {
   const prefix = `${record.file}:`;
   return [...errors, ...warnings].some((issue) => issue.startsWith(prefix));
+}
+
+function runSelfCheck() {
+  const source = `---
+external_links:
+  - label: "project repository"
+    url: "https://github.com/Mr-Bolan/example-project"
+    kind: "repository"
+---
+body`;
+  const { data } = parseFrontmatter(source, "self-check.mdx");
+  checkExternalLinks(data.external_links, "self-check.mdx");
+  const [link] = data.external_links;
+
+  if (!isObject(link) || link.label !== "project repository" || link.kind !== "repository") {
+    throw new Error("self-check.mdx: external_links parser failed");
+  }
+
+  if (errors.length > 0) {
+    throw new Error(errors.join("\n"));
+  }
+
+  console.log("content audit self-check: ok");
 }
