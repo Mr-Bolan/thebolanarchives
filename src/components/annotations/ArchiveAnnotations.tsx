@@ -71,7 +71,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle }: Archi
             aria-pressed={visible}
             onClick={() => setVisible((current) => !current)}
           >
-            {visible ? "hide annotations" : `show annotations (${annotations.length})`}
+            {visible ? "annotations: shown" : `annotations: hidden (${annotations.length})`}
           </button>
         </div>
 
