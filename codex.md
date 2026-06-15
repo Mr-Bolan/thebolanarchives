@@ -37,6 +37,9 @@ thebolanarchives/
   docs/               <- briefs + design docs
     agent-workflow.md <- task modes, allowed files, checks, commit/report format
     content-authoring.md <- how to draft, audit, and promote archive writing
+    archive-annotations-design-plan.md <- Archive Annotations concept and design rules
+    archive-annotations-technical-plan.md <- planned static implementation shape
+    archive-annotations-roadmap.md <- phased path from prototype to possible live notes
   content/            <- all writing (MDX), one subfolder per content type
     entries/          entry        -> /entries
     field-notes/      field_note   -> /field-notes
@@ -55,6 +58,7 @@ thebolanarchives/
       navigation/     Nav
       archive/        ArchiveCard, ArchiveMetaCard, StatusBadge, ConfidenceBadge, TagList, RelatedArtifacts, ArchiveIndex
       writing/        CodeBlock, TerminalBlock, DiagramBlock, SideNote, TableOfContents, OpenQuestions
+      annotations/    future Archive Annotations components
       experiments/    ExperimentFrame + future interactive modules
     styles/           tokens.css, global.css, typography.css, archive.css
     lib/              content.ts, headings.ts, page-metadata.ts
@@ -118,6 +122,7 @@ content folders are ignored by the loader.
 | `ArchiveIndex` | `src/components/archive/` | filterable list (powers `/index`) |
 | `CodeBlock`, `TerminalBlock`, `DiagramBlock` | `src/components/writing/` | content blocks |
 | `SideNote`/`FootnoteRail`, `TableOfContents`, `OpenQuestions` | `src/components/writing/` | reading aids |
+| `ArchiveAnnotations`, `AnnotationAnchor`, `AnnotationMarker`, `AnnotationNote` | `src/components/annotations/` | future contextual article notes |
 | `ExperimentFrame` | `src/components/experiments/` | interactive wrapper |
 
 ---

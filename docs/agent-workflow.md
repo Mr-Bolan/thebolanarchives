@@ -2,6 +2,12 @@
 
 Pick one mode before editing. If a task spans modes, do the smallest needed set and report each mode touched.
 
+For `site-feature` implementation, read matching feature-specific docs before editing
+feature code. Archive Annotations work must read
+`docs/archive-annotations-design-plan.md`,
+`docs/archive-annotations-technical-plan.md`, and
+`docs/archive-annotations-roadmap.md`.
+
 | mode | editable files | forbidden files | required commands | commit message | final report |
 | --- | --- | --- | --- | --- | --- |
 | `content-capture` | local `content/inbox/**` | `src/**`, `.github/**`, `next.config.mjs`, `package*.json`, public routes, committed inbox notes except `.gitkeep` | none if inbox only; `npm run content:audit` if promoted | `capture content: <topic>` | files, capture location, promotion status, checks |

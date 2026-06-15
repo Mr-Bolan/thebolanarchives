@@ -240,6 +240,57 @@ ArchiveItem:
 - dependencies: none.
 - acceptance criteria: zero questions render nothing; one question does not look broken.
 
+## annotation components
+
+Archive Annotations are planned reading-layer components for contextual paragraph and
+heading notes. Read `docs/archive-annotations-design-plan.md`,
+`docs/archive-annotations-technical-plan.md`, and `docs/archive-annotations-roadmap.md`
+before implementing them.
+
+### `ArchiveAnnotations`
+
+- purpose: coordinate the annotation layer for a content detail page, including show/hide state, open note stack state, and the optional archive-lamp enhancement.
+- file path: `src/components/annotations/ArchiveAnnotations.tsx`
+- props/interface: `item`, `annotations`, `children` or a similarly narrow wrapper API chosen during implementation.
+- visual behavior: article remains primary; annotation mode reveals quiet markers, margin notes, and optional texture without disrupting reading.
+- accessibility: keyboard usable toggle/open/collapse controls, visible focus, no hover-only behavior, no required cursor effect.
+- build priority: `P2`
+- dependencies: `AnnotationAnchor`, `AnnotationMarker`, `AnnotationNote`, static annotation lookup.
+- acceptance criteria: content remains readable with annotations hidden, shown, reduced motion enabled, and JavaScript unavailable.
+
+### `AnnotationAnchor`
+
+- purpose: attach annotations to deterministic paragraph or heading anchors in rendered MDX.
+- file path: `src/components/annotations/AnnotationAnchor.tsx`
+- props/interface: `anchorId`, `annotations`, `children`, optional `as`.
+- visual behavior: quiet inline wrapper that can expose a marker without changing the article measure.
+- accessibility: note content remains near its anchor in DOM order; anchor IDs are stable enough for static prototype use.
+- build priority: `P2`
+- dependencies: MDX renderer anchor generation.
+- acceptance criteria: plain paragraphs/headings render normally when no annotations exist and remain readable when annotated.
+
+### `AnnotationMarker`
+
+- purpose: show a compact marker/count for notes attached to one anchor.
+- file path: `src/components/annotations/AnnotationMarker.tsx`
+- props/interface: `anchorId`, `count`, `isOpen`, event handlers.
+- visual behavior: muted post-it/tab marker with text count; large enough for touch.
+- accessibility: real button with descriptive label, `aria-expanded`, and `aria-controls` when a note stack exists.
+- build priority: `P2`
+- dependencies: `AnnotationNote` stack container.
+- acceptance criteria: markers work by keyboard and touch, and status/count is not color-only.
+
+### `AnnotationNote`
+
+- purpose: render one archive annotation as a lifted note card or inline mobile note.
+- file path: `src/components/annotations/AnnotationNote.tsx`
+- props/interface: `annotation`.
+- visual behavior: warm muted paper tone, thin border, metadata strip, readable body, collapse affordance supplied by parent stack.
+- accessibility: note body is text, metadata is readable, status is text, and no focus trap is introduced.
+- build priority: `P2`
+- dependencies: static annotation data shape.
+- acceptance criteria: multiple notes on one anchor can be read as a stack on desktop and a normal list on mobile.
+
 ## experiment components
 
 ### `ExperimentFrame`
@@ -330,6 +381,7 @@ ArchiveItem:
 7. `ArchiveIndex`
 8. `ExperimentFrame`
 9. `BuildStatusPanel`
-10. Future interactive modules only after matching content exists
+10. Annotation components after explicit approval
+11. Future interactive modules only after matching content exists
 
 Skipped for now: custom graph engine, animation framework, command palette, and full-text search. Add them when the archive has enough material to need them.

@@ -24,6 +24,11 @@ Required entry point for any agent working on `thebolanarchives`. Assume this re
 
 Use one mode from `docs/agent-workflow.md`: `content-capture`, `content-draft`, `content-update`, `content-publish`, `project-link`, `site-feature`, `visual-polish`, or `deploy-maintenance`.
 
+For `site-feature` work involving Archive Annotations, read
+`docs/archive-annotations-design-plan.md`,
+`docs/archive-annotations-technical-plan.md`, and
+`docs/archive-annotations-roadmap.md` before implementation.
+
 | mode | allowed | forbidden unless explicitly requested |
 | --- | --- | --- |
 | `content-capture` | local `content/inbox/`, content notes | `src/`, routes, deploy, package files |
