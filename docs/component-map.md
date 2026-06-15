@@ -247,6 +247,11 @@ heading notes. Read `docs/archive-annotations-design-plan.md`,
 `docs/archive-annotations-technical-plan.md`, and `docs/archive-annotations-roadmap.md`
 before implementing them.
 
+Phase A status: static/read-only prototype implemented with sanitized sample data in
+`src/lib/annotations.ts`. The prototype intentionally does not include live comments,
+submission UI, backend storage, moderation tools, exact text selection, replies, likes,
+profiles, scores, search, route changes, or the optional archive-lamp effect.
+
 ### `ArchiveAnnotations`
 
 - purpose: coordinate the annotation layer for a content detail page, including show/hide state, open note stack state, and the optional archive-lamp enhancement.
@@ -257,6 +262,8 @@ before implementing them.
 - build priority: `P2`
 - dependencies: `AnnotationAnchor`, `AnnotationMarker`, `AnnotationNote`, static annotation lookup.
 - acceptance criteria: content remains readable with annotations hidden, shown, reduced motion enabled, and JavaScript unavailable.
+- implementation note: `src/components/annotations/ArchiveAnnotations.tsx` coordinates the
+  static layer toggle, active anchor state, and Escape close behavior.
 
 ### `AnnotationAnchor`
 
@@ -268,6 +275,9 @@ before implementing them.
 - build priority: `P2`
 - dependencies: MDX renderer anchor generation.
 - acceptance criteria: plain paragraphs/headings render normally when no annotations exist and remain readable when annotated.
+- implementation note: `src/components/annotations/AnnotationAnchor.tsx` wraps annotated
+  paragraphs/headings; unannotated paragraphs still receive deterministic `p-n` IDs from
+  `src/components/writing/MdxRenderer.tsx`.
 
 ### `AnnotationMarker`
 
@@ -279,6 +289,8 @@ before implementing them.
 - build priority: `P2`
 - dependencies: `AnnotationNote` stack container.
 - acceptance criteria: markers work by keyboard and touch, and status/count is not color-only.
+- implementation note: `src/components/annotations/AnnotationMarker.tsx` renders one real
+  button per annotated anchor with visible count text and expanded state.
 
 ### `AnnotationNote`
 
@@ -290,6 +302,8 @@ before implementing them.
 - build priority: `P2`
 - dependencies: static annotation data shape.
 - acceptance criteria: multiple notes on one anchor can be read as a stack on desktop and a normal list on mobile.
+- implementation note: `src/components/annotations/AnnotationNote.tsx` renders each static
+  note card; the no-JS fallback uses native details near the anchor.
 
 ## experiment components
 

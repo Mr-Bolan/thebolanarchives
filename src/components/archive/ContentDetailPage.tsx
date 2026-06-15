@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import type { CollectionFolder, ExternalLink } from "@/lib/content";
 import { getContentByFolderAndSlug, getRelatedContent } from "@/lib/content";
+import { getAnnotationsForRecord } from "@/lib/annotations";
 import { getMarkdownHeadings } from "@/lib/headings";
 import { ArchiveMetaCard } from "@/components/archive/ArchiveMetaCard";
+import { ArchiveAnnotations } from "@/components/annotations/ArchiveAnnotations";
 import { RelatedArtifacts } from "@/components/archive/RelatedArtifacts";
 import { MdxRenderer } from "@/components/writing/MdxRenderer";
 import { TableOfContents } from "@/components/writing/TableOfContents";
@@ -20,6 +22,7 @@ export async function ContentDetailPage({ folder, slug }: ContentDetailPageProps
   }
 
   const relatedItems = getRelatedContent(item);
+  const annotations = getAnnotationsForRecord(item.slug);
   const body = stripLeadingHeading(item.body);
   const headings = getMarkdownHeadings(body);
 
@@ -37,9 +40,22 @@ export async function ContentDetailPage({ folder, slug }: ContentDetailPageProps
         <ArchiveMetaCard item={item} />
         <TableOfContents headings={headings} />
 
-        <div className="mdx-body">
-          <MdxRenderer item={item} relatedItems={relatedItems} source={body} />
-        </div>
+        {annotations.length > 0 ? (
+          <ArchiveAnnotations annotations={annotations} recordTitle={item.title}>
+            <div className="mdx-body">
+              <MdxRenderer
+                annotations={annotations}
+                item={item}
+                relatedItems={relatedItems}
+                source={body}
+              />
+            </div>
+          </ArchiveAnnotations>
+        ) : (
+          <div className="mdx-body">
+            <MdxRenderer item={item} relatedItems={relatedItems} source={body} />
+          </div>
+        )}
 
         <ExternalLinks links={item.external_links} />
         <RelatedArtifacts items={relatedItems} />
