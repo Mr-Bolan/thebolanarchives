@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Required entry point for any agent working on `thebolanarchives`.
+Required entry point for any agent working on `thebolanarchives`. Assume this repository is public.
 
 ## Identity
 
@@ -15,9 +15,10 @@ Required entry point for any agent working on `thebolanarchives`.
 5. `docs/content-model.md`
 6. `docs/archive-style-guide.md`
 7. `docs/project-linking.md`
-8. `docs/design-plan.md`
-9. `docs/component-map.md`
-10. `docs/deploy.md`
+8. `docs/privacy-and-public-repo.md`
+9. `docs/design-plan.md`
+10. `docs/component-map.md`
+11. `docs/deploy.md`
 
 ## Task Modes
 
@@ -25,7 +26,7 @@ Use one mode from `docs/agent-workflow.md`: `content-capture`, `content-draft`, 
 
 | mode | allowed | forbidden unless explicitly requested |
 | --- | --- | --- |
-| `content-capture` | `content/inbox/`, content notes | `src/`, routes, deploy, package files |
+| `content-capture` | local `content/inbox/`, content notes | `src/`, routes, deploy, package files |
 | `content-draft` | `content/**`, `templates/content/**` | routes, styles, deploy, package files |
 | `content-update` | existing MDX records, content docs | route/design/deploy changes |
 | `content-publish` | MDX visibility/status metadata, generated public index | body rewrites not requested |
@@ -34,7 +35,9 @@ Use one mode from `docs/agent-workflow.md`: `content-capture`, `content-draft`, 
 | `visual-polish` | CSS/components/theme docs | content meaning, routes, deploy model |
 | `deploy-maintenance` | `.github/**`, `next.config.mjs`, deploy docs/scripts | content rewrites, theme redesign |
 
-Never commit `out/`, `.next/`, `node_modules/`, `.env*.local`, `privacy-blocklist.json`, private names, private emails, private URLs, credentials, or unpublished personal context.
+Never commit `out/`, `.next/`, `node_modules/`, `.env*`, `privacy-blocklist.json`, private names, private emails, private URLs, credentials, or unpublished personal context.
+
+Do not commit `content/inbox/` except `content/inbox/.gitkeep`. Do not commit `content/private/`, `docs/private/`, `notes/private/`, `scratch/`, `transcripts/`, local agent/tool state, or private blocklist values.
 
 ## Publishing Rules
 
@@ -47,7 +50,9 @@ Never commit `out/`, `.next/`, `node_modules/`, `.env*.local`, `privacy-blocklis
 
 ## Theme And Privacy
 
+- Assume the GitHub repo is public; website visibility is not repository privacy.
 - Follow `docs/archive-style-guide.md`.
+- Follow `docs/privacy-and-public-repo.md`.
 - Keep the author anonymous; the work is the identity.
 - No corporate voice, influencer voice, or fake hacker theatre.
 - State uncertainty honestly with `status`, `confidence`, `last_verified`, and `source_context`.
@@ -70,8 +75,10 @@ npm run deploy:check
 
 ## Git Workflow
 
+- Run `git status` before committing.
 - Work from a clean understanding of `git status`; do not revert changes you did not make.
 - Commit only the files needed for the task.
+- If unsure whether something is sensitive, leave it uncommitted and report it.
 - Commit messages follow the pattern in `docs/agent-workflow.md`.
 - Push direct to `main` only when the owner explicitly asks, or for small content/docs fixes after checks pass.
 - Use a branch and PR for site features, visual polish, deploy changes, uncertain content changes, or anything that changes routes/design behavior without explicit direct-push instruction.

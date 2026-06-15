@@ -45,7 +45,7 @@ thebolanarchives/
     patterns/         pattern      -> /patterns
     experiments/      experiment   -> /experiments
     graveyard/        graveyard_note -> /graveyard
-    inbox/            raw notes ignored by loader/audit until promoted
+    inbox/            local-only raw notes ignored by loader/audit; commit only .gitkeep
   templates/
     content/          copyable MDX templates for each content type
   src/

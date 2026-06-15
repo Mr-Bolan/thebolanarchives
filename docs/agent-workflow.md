@@ -4,7 +4,7 @@ Pick one mode before editing. If a task spans modes, do the smallest needed set 
 
 | mode | editable files | forbidden files | required commands | commit message | final report |
 | --- | --- | --- | --- | --- | --- |
-| `content-capture` | `content/inbox/**` | `src/**`, `.github/**`, `next.config.mjs`, `package*.json`, public routes | none if inbox only; `npm run content:audit` if promoted | `capture content: <topic>` | files, capture location, promotion status, checks |
+| `content-capture` | local `content/inbox/**` | `src/**`, `.github/**`, `next.config.mjs`, `package*.json`, public routes, committed inbox notes except `.gitkeep` | none if inbox only; `npm run content:audit` if promoted | `capture content: <topic>` | files, capture location, promotion status, checks |
 | `content-draft` | `content/<type>/*.mdx`, `templates/content/**` | `src/**`, deploy files, package files | `npm run content:audit` | `draft content: <slug>` | files, type, visibility, audit result |
 | `content-update` | existing `content/<type>/*.mdx`, content docs | routes, styles, deploy files, package files | `npm run content:audit`; `npm run build` if public/unlisted | `update content: <slug>` | files, changed record, visibility, checks |
 | `content-publish` | MDX frontmatter/body needed for publication, `public/archive-index.json` via build | route/design/deploy changes, unrelated rewrites | `npm run content:audit`, `npm run privacy:audit`, `npm run build`, `npm run pages:verify` | `publish content: <slug>` | files, public/unlisted/draft behavior, checks |

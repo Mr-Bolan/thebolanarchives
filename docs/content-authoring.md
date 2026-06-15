@@ -26,13 +26,17 @@ Folder map:
 
 ## draft, unlisted, public
 
-Use `content/inbox/` for loose notes that should not be audited or published. The loader does not read that folder.
+Use `content/inbox/` for local rough notes only. The loader does not read that folder, but inbox notes are still public if committed to GitHub. The folder is ignored except for `.gitkeep`.
 
 Use `visibility: "draft"` inside a real content folder when the record should be audited but should not generate a static route.
 
 Use `visibility: "unlisted"` when the record should generate a direct URL but stay out of homepage, collection pages, `/index`, and `archive-index.json`. Unlisted pages also ask robots not to index them.
 
 Use `visibility: "public"` when the record is ready for public lists and the public archive index.
+
+Public, unlisted, and draft visibility control website publication only. They do not make committed source private in the public GitHub repository.
+
+Move only sanitized writing from local rough notes into real content folders. Do not commit private notes, transcripts, credentials, personal data, private URLs, client-identifying details, or unpublished personal context.
 
 ## status vs confidence
 
@@ -59,7 +63,7 @@ The slug must exist. Draft targets are allowed in draft work, but links to draft
 When an agent adds or updates content:
 
 1. Read `AGENTS.md`, `codex.md`, `docs/content-model.md`, and this file.
-2. Prefer `content/inbox/` for rough capture.
+2. Prefer local `content/inbox/` for rough capture, but do not commit inbox notes.
 3. Use the matching template for new records.
 4. Preserve existing `slug`, filename, `record_id`, `created`, and `type` unless the owner asked for a rename or move.
 5. Update `updated` when the body or metadata changes.
