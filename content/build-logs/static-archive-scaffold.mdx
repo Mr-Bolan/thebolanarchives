@@ -1,0 +1,51 @@
+---
+title: "static archive scaffold"
+slug: "static-archive-scaffold"
+type: "build_log"
+status: "working_note"
+confidence: "medium"
+summary: "A build log for turning a folder of records into a static archive with routes, metadata, and readable MDX pages."
+created: "2026-06-14"
+updated: "2026-06-14"
+tags:
+  - archive
+  - static-export
+  - nextjs
+tools:
+  - nextjs
+  - mdx
+  - typescript
+narrative_origin: "build bench"
+visibility: "public"
+related:
+  - "why-this-exists"
+  - "data-trust-ladder"
+record_id: "build_log_001"
+---
+
+# build_log_001 // static_archive_scaffold
+
+## current state
+
+The archive is still small, but it now has enough structure to behave like an archive instead of a pile of notes.
+
+<TerminalBlock title="build target" prompt="$">
+{`next build
+static export
+no server runtime`}
+</TerminalBlock>
+
+## what changed
+
+The useful move was making content metadata the shared source for collection pages, detail pages, related records, and the full archive index.
+
+## what still feels weak
+
+The validation is intentionally simple. It catches broken frontmatter and missing related slugs, but it does not yet produce a full editorial report.
+
+## open questions
+
+<OpenQuestions questions={[
+  "Should validation become a separate archive audit command?",
+  "Which metadata fields will become noisy once there are fifty records?"
+]} />

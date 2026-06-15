@@ -1,0 +1,45 @@
+:root {
+  --bg: #101211;
+  --bg-soft: #151817;
+  --panel: #1b1f1d;
+  --text: #e8e3d7;
+  --text-muted: #9b9f98;
+  --text-faint: #838980;
+  --accent-amber: #d6a84f;
+  --accent-green: #7f9f7a;
+  --accent-cyan: #7ba7a6;
+  --accent-red: #b97066;
+  --border: #2a302d;
+  --border-soft: #202522;
+
+  --surface-page: var(--bg);
+  --surface-raised: var(--bg-soft);
+  --surface-record: var(--panel);
+  --text-primary: var(--text);
+  --text-secondary: var(--text-muted);
+  --text-tertiary: var(--text-faint);
+  --line-primary: var(--border);
+  --line-soft: var(--border-soft);
+  --focus-ring: var(--accent-cyan);
+  --link: var(--accent-cyan);
+  --warning: var(--accent-amber);
+  --success: var(--accent-green);
+  --danger: var(--accent-red);
+
+  --font-body: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-interface: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-meta: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  --max-page: 73.75rem;
+  --max-reading: 72ch;
+}

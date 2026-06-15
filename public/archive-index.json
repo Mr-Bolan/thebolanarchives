@@ -1,0 +1,173 @@
+[
+  {
+    "title": "dashboard without decisions",
+    "slug": "dashboard-without-decisions",
+    "type": "graveyard_note",
+    "status": "retired",
+    "confidence": "medium",
+    "summary": "A graveyard note for a dashboard idea that displayed activity but did not help anyone decide what to do next.",
+    "created": "2026-06-14",
+    "updated": "2026-06-14",
+    "tags": [
+      "dashboards",
+      "decisions",
+      "retired-work"
+    ],
+    "tools": [
+      "spreadsheet",
+      "dashboard"
+    ],
+    "narrative_origin": "discarded build",
+    "related": [
+      "data-trust-ladder",
+      "operator-knowledge-as-signal"
+    ],
+    "route": "/graveyard/dashboard-without-decisions",
+    "record_id": "graveyard_001"
+  },
+  {
+    "title": "data trust ladder",
+    "slug": "data-trust-ladder",
+    "type": "experiment",
+    "status": "sketch",
+    "confidence": "low",
+    "summary": "A static experiment sketch for separating raw data, clean data, trusted data, explanation, and action.",
+    "created": "2026-06-14",
+    "updated": "2026-06-14",
+    "tags": [
+      "dashboards",
+      "data-quality",
+      "experiments"
+    ],
+    "tools": [
+      "mdx"
+    ],
+    "narrative_origin": "dashboard notes",
+    "related": [
+      "the-operator-knows-before-the-database-does",
+      "dashboard-without-decisions"
+    ],
+    "route": "/experiments/data-trust-ladder",
+    "record_id": "experiment_001"
+  },
+  {
+    "title": "operator knowledge as signal",
+    "slug": "operator-knowledge-as-signal",
+    "type": "pattern",
+    "status": "working_note",
+    "confidence": "medium",
+    "summary": "A pattern for treating experienced human observation as a system signal rather than an anecdote outside the model.",
+    "created": "2026-06-14",
+    "updated": "2026-06-14",
+    "tags": [
+      "operators",
+      "systems",
+      "evidence"
+    ],
+    "tools": [
+      "field observation"
+    ],
+    "narrative_origin": "field notes",
+    "related": [
+      "the-operator-knows-before-the-database-does"
+    ],
+    "route": "/patterns/operator-knowledge-as-signal",
+    "record_id": "pattern_001"
+  },
+  {
+    "title": "static archive scaffold",
+    "slug": "static-archive-scaffold",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "medium",
+    "summary": "A build log for turning a folder of records into a static archive with routes, metadata, and readable MDX pages.",
+    "created": "2026-06-14",
+    "updated": "2026-06-14",
+    "tags": [
+      "archive",
+      "static-export",
+      "nextjs"
+    ],
+    "tools": [
+      "nextjs",
+      "mdx",
+      "typescript"
+    ],
+    "narrative_origin": "build bench",
+    "related": [
+      "why-this-exists",
+      "data-trust-ladder"
+    ],
+    "route": "/build-logs/static-archive-scaffold",
+    "record_id": "build_log_001"
+  },
+  {
+    "title": "the operator knows before the database does",
+    "slug": "the-operator-knows-before-the-database-does",
+    "type": "field_note",
+    "status": "sketch",
+    "confidence": "partial",
+    "summary": "A field note about human observation as a richer signal set than the data model sometimes captures.",
+    "created": "2026-06-14",
+    "updated": "2026-06-14",
+    "tags": [
+      "operators",
+      "data",
+      "machine-signals"
+    ],
+    "tools": [
+      "field observation"
+    ],
+    "narrative_origin": "machine room",
+    "related": [
+      "operator-knowledge-as-signal",
+      "data-trust-ladder"
+    ],
+    "route": "/field-notes/the-operator-knows-before-the-database-does",
+    "record_id": "field_note_001",
+    "source_context": "anonymized production floor observation"
+  },
+  {
+    "title": "why this exists",
+    "slug": "why-this-exists",
+    "type": "entry",
+    "status": "working_note",
+    "confidence": "medium",
+    "summary": "The opening record for an anonymous archive of systems, tools, fragments, and things understood later.",
+    "created": "2026-06-14",
+    "updated": "2026-06-14",
+    "tags": [
+      "archive",
+      "unfinished-work",
+      "build-logs"
+    ],
+    "tools": [],
+    "narrative_origin": "personal archive",
+    "related": [
+      "static-archive-scaffold",
+      "you-pay-for-the-problem-that-disappears"
+    ],
+    "route": "/entries/why-this-exists",
+    "record_id": "entry_001"
+  },
+  {
+    "title": "you pay for the problem that disappears",
+    "slug": "you-pay-for-the-problem-that-disappears",
+    "type": "fragment",
+    "status": "fragment",
+    "confidence": "partial",
+    "summary": "A short note about valuing solved problems rather than visible effort.",
+    "created": "2026-06-14",
+    "updated": "2026-06-14",
+    "tags": [
+      "work"
+    ],
+    "tools": [],
+    "narrative_origin": "private note",
+    "related": [
+      "why-this-exists"
+    ],
+    "route": "/fragments/you-pay-for-the-problem-that-disappears",
+    "record_id": "fragment_001"
+  }
+]

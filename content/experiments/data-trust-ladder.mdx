@@ -1,0 +1,55 @@
+---
+title: "data trust ladder"
+slug: "data-trust-ladder"
+type: "experiment"
+status: "sketch"
+confidence: "low"
+summary: "A static experiment sketch for separating raw data, clean data, trusted data, explanation, and action."
+created: "2026-06-14"
+updated: "2026-06-14"
+tags:
+  - dashboards
+  - data-quality
+  - experiments
+tools:
+  - mdx
+narrative_origin: "dashboard notes"
+visibility: "public"
+related:
+  - "the-operator-knows-before-the-database-does"
+  - "dashboard-without-decisions"
+record_id: "experiment_001"
+---
+
+# experiment_001 // data_trust_ladder
+
+## question
+
+What changes when a dashboard moves from showing that data exists to showing that the data can support action?
+
+<ExperimentFrame
+  title="data trust ladder"
+  explanation="A static frame for the later interactive version."
+  fallback="Data can exist, be clean, be trusted, explain a problem, or support action. Those are different states."
+>
+  <DiagramBlock caption="The five states this experiment will eventually let readers adjust." alt="A five-step ladder from raw data to action">
+    <ol className="diagram-steps">
+      <li>raw data</li>
+      <li>clean data</li>
+      <li>trusted data</li>
+      <li>explanation</li>
+      <li>action</li>
+    </ol>
+  </DiagramBlock>
+</ExperimentFrame>
+
+## static fallback
+
+The ladder is deliberately simple. Each step can fail independently, and a dashboard can look impressive while still being stuck on the first rung.
+
+## open questions
+
+<OpenQuestions questions={[
+  "Which step should the first interactive control change?",
+  "What example failure makes the difference obvious without exposing real data?"
+]} />

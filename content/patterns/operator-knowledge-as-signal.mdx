@@ -1,0 +1,41 @@
+---
+title: "operator knowledge as signal"
+slug: "operator-knowledge-as-signal"
+type: "pattern"
+status: "working_note"
+confidence: "medium"
+summary: "A pattern for treating experienced human observation as a system signal rather than an anecdote outside the model."
+created: "2026-06-14"
+updated: "2026-06-14"
+tags:
+  - operators
+  - systems
+  - evidence
+tools:
+  - field observation
+narrative_origin: "field notes"
+visibility: "public"
+related:
+  - "the-operator-knows-before-the-database-does"
+record_id: "pattern_001"
+---
+
+# pattern_001 // operator_knowledge_as_signal
+
+## definition
+
+Operator knowledge is a sensor layer. It is noisy, contextual, and sometimes hard to store, but it often sees state before formal instrumentation does.
+
+<CodeBlock language="ts" filename="signal.ts">
+{`type Signal = "logged" | "measured" | "observed";
+
+const firstWarning: Signal = "observed";`}
+</CodeBlock>
+
+## where it helps
+
+Use this pattern when a dashboard says the system is fine, but the people close to the work have already changed their behavior.
+
+## limits
+
+Human observation can be biased or local. The point is not to crown it as truth. The point is to stop throwing it away.
