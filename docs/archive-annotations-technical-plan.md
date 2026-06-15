@@ -106,6 +106,8 @@ queues, credentials, or production submissions.
 
 - Keep the article reading column primary and stable.
 - Mark annotated paragraphs/headings with a quiet marker near the text edge.
+- Keep sealed-layer markers present as quiet paper clues; the inspection-layer toggle should
+  increase their emphasis without making the article depend on the layer.
 - Use one marker per anchor; show count text for multiple notes.
 - Open notes in a right margin rail when the viewport is wide enough.
 - Use a faint connector only if it does not reduce readability.
@@ -169,13 +171,11 @@ Smallest useful Phase A:
 4. Open/collapse note stack behavior.
 5. Desktop margin rail.
 6. Mobile inline expansion.
-7. Annotation visibility toggle.
-8. Reduced-motion support.
-9. No-JS readable fallback.
-
-Optional within Phase A only if the core UI is already clean:
-
-- Subtle archive-lamp cursor effect, disabled for reduced motion and touch/mobile.
+7. Inspection-layer toggle with sealed and open states.
+8. Pointer-only proximity glow and gentle marker glint, disabled for touch/mobile and
+   reduced motion.
+9. Reduced-motion support.
+10. No-JS readable fallback.
 
 Explicitly skipped in Phase A:
 

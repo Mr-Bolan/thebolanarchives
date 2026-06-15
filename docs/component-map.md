@@ -250,7 +250,9 @@ before implementing them.
 Phase A status: static/read-only prototype implemented with sanitized sample data in
 `src/lib/annotations.ts`. The prototype intentionally does not include live comments,
 submission UI, backend storage, moderation tools, exact text selection, replies, likes,
-profiles, scores, search, route changes, or the optional archive-lamp effect.
+profiles, scores, search, or route changes. The current visual polish includes an
+inspection-layer discovery control, quiet paper markers, and a pointer-only proximity
+glow/glint that remains nonessential.
 
 ### `ArchiveAnnotations`
 
@@ -263,7 +265,9 @@ profiles, scores, search, route changes, or the optional archive-lamp effect.
 - dependencies: `AnnotationAnchor`, `AnnotationMarker`, `AnnotationNote`, static annotation lookup.
 - acceptance criteria: content remains readable with annotations hidden, shown, reduced motion enabled, and JavaScript unavailable.
 - implementation note: `src/components/annotations/ArchiveAnnotations.tsx` coordinates the
-  static layer toggle, active anchor state, and Escape close behavior.
+  static inspection-layer toggle, active anchor state, pointer proximity state, and
+  Escape close behavior. Activating a marker opens the sealed layer before revealing its
+  stack.
 
 ### `AnnotationAnchor`
 
@@ -290,7 +294,8 @@ profiles, scores, search, route changes, or the optional archive-lamp effect.
 - dependencies: `AnnotationNote` stack container.
 - acceptance criteria: markers work by keyboard and touch, and status/count is not color-only.
 - implementation note: `src/components/annotations/AnnotationMarker.tsx` renders one real
-  button per annotated anchor with visible count text and expanded state.
+  button per annotated anchor with visible count text and expanded state. Markers stay
+  reachable as quiet paper clues when the annotation layer is sealed.
 
 ### `AnnotationNote`
 

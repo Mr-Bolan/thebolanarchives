@@ -23,9 +23,10 @@ export function AnnotationAnchor({
   children,
   className,
 }: AnnotationAnchorProps) {
-  const { activeAnchorId, toggleAnchor, visible } = useAnnotationLayer();
+  const { activeAnchorId, nearAnchorId, toggleAnchor, visible } = useAnnotationLayer();
   const Tag = as;
   const isOpen = visible && activeAnchorId === anchorId;
+  const isNear = nearAnchorId === anchorId;
   const stackId = `annotation-stack-${anchorId}`;
 
   if (annotations.length === 0) {
@@ -40,6 +41,8 @@ export function AnnotationAnchor({
     <div
       className="annotation-anchor"
       data-anchor-kind={as === "p" ? "paragraph" : "heading"}
+      data-anchor-id={anchorId}
+      data-near={isNear ? "true" : "false"}
       data-open={isOpen ? "true" : "false"}
     >
       <Tag className={className} id={anchorId}>

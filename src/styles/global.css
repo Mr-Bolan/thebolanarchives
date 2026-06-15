@@ -419,6 +419,7 @@ pre,
 .archive-annotations {
   min-width: 0;
   --annotation-paper: #d8bd79;
+  --annotation-paper-quiet: #b89a5c;
   --annotation-paper-shadow: #9e7740;
   --annotation-ink: #241b10;
   --annotation-ink-muted: #5b4a2e;
@@ -443,40 +444,99 @@ pre,
 }
 
 .annotation-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   min-height: 44px;
-  border: 1px solid var(--line-soft);
-  border-radius: 999px;
-  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--line-primary), transparent 18%);
+  border-radius: 3px;
+  background:
+    linear-gradient(90deg, rgba(214, 168, 79, 0.07), transparent 42%),
+    rgba(16, 18, 17, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.24) inset,
+    0 0.5rem 1.3rem rgba(0, 0, 0, 0.12);
   color: var(--text-tertiary);
   cursor: pointer;
   font-family: var(--font-meta);
   font-size: 0.75rem;
   line-height: 1.35;
-  padding: 0 var(--space-4);
+  padding: 0 var(--space-3);
   transition:
     border-color 160ms ease,
+    box-shadow 160ms ease,
     color 160ms ease,
     background-color 160ms ease;
 }
 
-.annotation-toggle:hover {
-  background: rgba(232, 227, 215, 0.035);
+.annotation-toggle::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: var(--bg);
+  opacity: 0.7;
+}
+
+.annotation-toggle:hover,
+.annotation-toggle:focus-visible {
+  border-color: color-mix(in srgb, var(--warning), transparent 45%);
   color: var(--text-secondary);
 }
 
 .annotation-toggle[aria-pressed="true"] {
-  border-color: color-mix(in srgb, var(--warning), transparent 65%);
+  border-color: color-mix(in srgb, var(--warning), transparent 38%);
+  color: var(--text-primary);
+}
+
+.annotation-toggle[aria-pressed="true"]::before {
+  background: var(--warning);
+  box-shadow: 0 0 0.7rem color-mix(in srgb, var(--warning), transparent 35%);
+  opacity: 1;
 }
 
 .annotation-marker:hover,
-.annotation-marker[data-open="true"] {
+.annotation-marker:focus-visible,
+.annotation-marker[data-open="true"],
+.annotation-anchor[data-near="true"] .annotation-marker {
   border-color: color-mix(in srgb, var(--warning), transparent 25%);
 }
 
-.archive-annotations-shell[data-annotations-visible="false"] .annotation-marker,
 .archive-annotations-shell[data-annotations-visible="false"] .annotation-note-stack,
 .archive-annotations-shell[data-annotations-visible="false"] .annotation-nojs-fallback {
   display: none;
+}
+
+.archive-annotations-shell {
+  position: relative;
+  isolation: isolate;
+  --lamp-x: 50%;
+  --lamp-y: 50%;
+}
+
+.archive-annotations-shell::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: calc(var(--space-4) * -1);
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle 11rem at var(--lamp-x) var(--lamp-y),
+      rgba(214, 168, 79, 0.11),
+      rgba(123, 167, 166, 0.045) 38%,
+      transparent 72%
+    );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.archive-annotations-shell > .mdx-body {
+  position: relative;
+  z-index: 1;
 }
 
 .annotation-anchor {
@@ -487,7 +547,8 @@ pre,
   margin-left: calc(var(--space-3) * -1);
 }
 
-.annotation-anchor[data-open="true"] {
+.annotation-anchor[data-open="true"],
+.annotation-anchor[data-near="true"] {
   border-left-color: color-mix(in srgb, var(--warning), transparent 35%);
 }
 
@@ -514,29 +575,44 @@ pre,
   border: 1px solid var(--annotation-paper-line);
   border-radius: 2px 7px 5px 2px;
   background:
-    linear-gradient(115deg, rgba(255, 247, 207, 0.22), transparent 42%),
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.18) 0 1px, transparent 1.5px),
+    linear-gradient(115deg, rgba(255, 247, 207, 0.14), transparent 42%),
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.12) 0 1px, transparent 1.5px),
     linear-gradient(0deg, rgba(92, 62, 23, 0.08) 1px, transparent 1px),
-    var(--annotation-paper);
+    var(--annotation-paper-quiet);
   background-size: auto, 9px 9px, 100% 0.55rem, auto;
-  box-shadow: 0 0.45rem 0.8rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.35rem 0.65rem rgba(0, 0, 0, 0.16);
   color: var(--annotation-ink);
   cursor: pointer;
   font-family: var(--font-meta);
   font-size: 0.7rem;
   line-height: 1.2;
   margin-top: var(--space-2);
+  opacity: 0.72;
   padding: 0 var(--space-3);
   transform: rotate(-0.55deg);
   transition:
     border-color 160ms ease,
     box-shadow 160ms ease,
+    filter 160ms ease,
+    opacity 160ms ease,
     transform 160ms ease;
 }
 
+.annotation-marker::before,
 .annotation-marker::after {
   content: "";
   position: absolute;
+  pointer-events: none;
+}
+
+.annotation-marker::before {
+  inset: 0;
+  background: linear-gradient(105deg, transparent 15%, rgba(255, 252, 221, 0.55) 48%, transparent 68%);
+  opacity: 0;
+  transform: translateX(-55%);
+}
+
+.annotation-marker::after {
   top: -1px;
   right: -1px;
   width: 0.85rem;
@@ -545,16 +621,70 @@ pre,
   border-left: 1px solid rgba(79, 54, 22, 0.22);
   background: linear-gradient(135deg, rgba(255, 247, 207, 0.78), rgba(151, 106, 44, 0.2));
   clip-path: polygon(100% 0, 0 0, 100% 100%);
-  pointer-events: none;
 }
 
-.annotation-marker:hover {
+.archive-annotations-shell[data-annotations-visible="true"] .annotation-marker,
+.annotation-marker:hover,
+.annotation-marker:focus-visible,
+.annotation-marker[data-open="true"],
+.annotation-anchor[data-near="true"] .annotation-marker {
+  background:
+    linear-gradient(115deg, rgba(255, 247, 207, 0.22), transparent 42%),
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.18) 0 1px, transparent 1.5px),
+    linear-gradient(0deg, rgba(92, 62, 23, 0.08) 1px, transparent 1px),
+    var(--annotation-paper);
   box-shadow: 0 0.55rem 0.95rem rgba(0, 0, 0, 0.24);
+  filter: saturate(1.08);
+  opacity: 0.92;
 }
 
 .annotation-marker[data-open="true"] {
   box-shadow: 0 0.7rem 1.1rem rgba(0, 0, 0, 0.3);
+  opacity: 1;
   transform: translateY(-0.08rem) rotate(0.4deg);
+}
+
+@keyframes annotation-glint {
+  0%,
+  68%,
+  100% {
+    opacity: 0;
+    transform: translateX(-55%);
+  }
+
+  38% {
+    opacity: 0.24;
+    transform: translateX(52%);
+  }
+}
+
+@keyframes annotation-flicker {
+  0%,
+  100% {
+    box-shadow: 0 0.55rem 0.95rem rgba(0, 0, 0, 0.24);
+  }
+
+  48% {
+    box-shadow:
+      0 0.55rem 0.95rem rgba(0, 0, 0, 0.24),
+      0 0 0.75rem rgba(214, 168, 79, 0.16);
+  }
+}
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  .archive-annotations-shell[data-lamp-enabled="true"][data-lamp-active="true"]::before {
+    opacity: 1;
+  }
+
+  .annotation-anchor[data-near="true"] .annotation-marker {
+    animation: annotation-flicker 2400ms ease-in-out infinite;
+  }
+
+  .annotation-anchor[data-near="true"] .annotation-marker::before,
+  .annotation-marker:hover::before,
+  .annotation-marker:focus-visible::before {
+    animation: annotation-glint 2200ms ease-in-out infinite;
+  }
 }
 
 .annotation-note-stack,
@@ -1054,8 +1184,20 @@ pre,
 
   .annotation-note,
   .annotation-marker,
-  .annotation-toggle {
+  .annotation-toggle,
+  .archive-annotations-shell::before {
     transition: none;
+  }
+
+  .archive-annotations-shell::before {
+    display: none;
+  }
+
+  .annotation-anchor[data-near="true"] .annotation-marker,
+  .annotation-anchor[data-near="true"] .annotation-marker::before,
+  .annotation-marker:hover::before,
+  .annotation-marker:focus-visible::before {
+    animation: none;
   }
 
   .annotation-note-stack > li,
