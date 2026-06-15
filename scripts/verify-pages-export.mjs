@@ -3,6 +3,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 
 const outDir = path.resolve("out");
+const projectBasePath = "/thebolanarchives";
 const collectionRoutes = [
   "/entries",
   "/field-notes",
@@ -54,6 +55,23 @@ function htmlFiles(dir = outDir) {
   });
 }
 
+function htmlAttributeValues() {
+  const attributePattern = /\b(href|src|action)=["']([^"']+)["']/g;
+
+  return htmlFiles().flatMap((file) => {
+    const html = readFileSync(file, "utf8");
+    const relativeFile = path.relative(outDir, file);
+    const values = [];
+    let match;
+
+    while ((match = attributePattern.exec(html))) {
+      values.push({ attr: match[1], file: relativeFile, value: match[2] });
+    }
+
+    return values;
+  });
+}
+
 function htmlReferencesNextAssets() {
   return htmlFiles().some((file) => readFileSync(file, "utf8").includes("/_next/"));
 }
@@ -85,7 +103,7 @@ const needsNextDir = htmlReferencesNextAssets();
 addCheck(
   "out/_next/ exists if generated",
   needsNextDir ? dirExists("_next") : true,
-  needsNextDir ? "exported HTML references /_next/" : "not referenced by exported HTML",
+  needsNextDir ? "exported HTML references Next assets" : "not referenced by exported HTML",
 );
 
 for (const route of ["/about", "/index", ...collectionRoutes]) {
@@ -93,10 +111,39 @@ for (const route of ["/about", "/index", ...collectionRoutes]) {
   addCheck(`route ${route}`, Boolean(routeFile), routeFile ?? `expected ${routeCandidates(route).join(" or ")}`);
 }
 
-for (const route of readArchiveRoutes()) {
+const archiveRoutes = readArchiveRoutes();
+
+for (const route of archiveRoutes) {
   const routeFile = findRouteFile(route);
   addCheck(`record route ${route}`, Boolean(routeFile), routeFile ?? `expected ${routeCandidates(route).join(" or ")}`);
 }
+
+const htmlAttrs = htmlAttributeValues();
+const badRootAttrs = htmlAttrs.filter(({ value }) => {
+  return value.startsWith("/") && !value.startsWith("//") && value !== projectBasePath && !value.startsWith(`${projectBasePath}/`);
+});
+
+addCheck(
+  "HTML links/assets use project base path",
+  badRootAttrs.length === 0,
+  badRootAttrs.slice(0, 5).map(({ attr, file, value }) => `${file} ${attr}=${value}`).join("; "),
+);
+
+for (const route of ["/entries", "/about", "/graveyard/dashboard-without-decisions"]) {
+  const expected = `${projectBasePath}${route}`;
+  addCheck(
+    `HTML references ${expected}`,
+    htmlAttrs.some(({ value }) => value === expected || value.startsWith(`${expected}#`) || value.startsWith(`${expected}?`)),
+    "expected project-prefixed internal link",
+  );
+}
+
+const nextAssetAttrs = htmlAttrs.filter(({ value }) => value.includes("/_next/"));
+addCheck(
+  "Next assets use project base path",
+  nextAssetAttrs.every(({ value }) => value.startsWith(`${projectBasePath}/_next/`)),
+  nextAssetAttrs.filter(({ value }) => !value.startsWith(`${projectBasePath}/_next/`)).slice(0, 5).map(({ file, value }) => `${file} ${value}`).join("; "),
+);
 
 console.log("GitHub Pages export verification");
 

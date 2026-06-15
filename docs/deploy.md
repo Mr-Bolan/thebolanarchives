@@ -1,8 +1,14 @@
 # deploy
 
-This archive deploys to GitHub Pages as a static Next.js export. The site already uses
-`output: "export"` in `next.config.mjs`; the workflow builds the `out/` directory and
-publishes that directory as the Pages artifact.
+This archive deploys to GitHub Pages as a static Next.js export at the project URL
+`https://mr-bolan.github.io/thebolanarchives/`. The site uses `output: "export"` in
+`next.config.mjs`; the workflow builds the `out/` directory and publishes that directory
+as the Pages artifact.
+
+Because this is a GitHub Pages project site, production builds use
+`basePath: "/thebolanarchives"` and `assetPrefix: "/thebolanarchives/"`. Local
+development stays at root `/`. If the site later moves to a real custom domain served at
+root, revisit this configuration before publishing.
 
 GitHub Pages serves a static site from an `index.html` file. For this site, Next.js
 generates that file at `out/index.html` during `npm run build`. The repository should use
@@ -80,7 +86,7 @@ To inspect the exported site locally after the build:
 python -m http.server 4173 --directory out
 ```
 
-Then open `http://localhost:4173` and check the main navigation routes.
+Then open `http://localhost:4173/thebolanarchives/` and check the main navigation routes.
 
 ## preflight checklist
 
@@ -92,5 +98,5 @@ Then open `http://localhost:4173` and check the main navigation routes.
 - Confirm no personal identity leaks in content, metadata, docs, or public assets.
 - Confirm draft records do not generate routes.
 - Confirm unlisted records have direct routes but stay out of public lists and `archive-index.json`.
-- Confirm navigation routes work: `/`, `/entries`, `/field-notes`, `/build-logs`, `/fragments`, `/patterns`, `/experiments`, `/graveyard`, `/index`, `/about`.
+- Confirm navigation routes work under `/thebolanarchives`: `/`, `/entries`, `/field-notes`, `/build-logs`, `/fragments`, `/patterns`, `/experiments`, `/graveyard`, `/index`, `/about`.
 - Confirm the custom domain and `public/CNAME` are correct before publish, or leave `public/CNAME` absent.

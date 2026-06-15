@@ -15,8 +15,9 @@ Theme: **The Blackbox Garden**. Full brief: [docs/thebolanarchives_website_theme
 
 - **Framework:** Next.js (App Router) with MDX content.
 - **Export:** static export (`output: 'export'`) — fully static site.
-- **Host:** GitHub Pages on a **user / custom domain**. No `basePath` needed; add
-  `public/CNAME` only after the real domain is known.
+- **Host:** GitHub Pages project site at `/thebolanarchives`. Production builds use
+  `basePath`/`assetPrefix`; local development stays at `/`. Add `public/CNAME` only
+  after the real domain is known.
 - **Content:** MDX files with frontmatter (schema in `docs/content-model.md`).
 
 ## Current build status
@@ -138,3 +139,4 @@ preferred. Non-negotiables: brief section 30.
 ## Remaining phase
 
 1. Add `public/CNAME` only after the real custom domain is known and verified in GitHub Pages.
+2. If the site later moves to a root custom domain, revisit the production `basePath`.
