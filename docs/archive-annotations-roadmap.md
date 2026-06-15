@@ -104,12 +104,12 @@ Includes:
 
 - no backend yet
 - no public submission storage yet
-- no database yet
+- no database
 - no CMS
 - no search
 - no route redesign
-- no full comment system
+- no social-media-style comment system
 - no social profiles
 - no likes, scores, reactions, or engagement metrics
-- no archive-lamp dependency for reading
+- no required flashlight or archive-lamp effect
 - no committed private notes or real user submissions

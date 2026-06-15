@@ -15,8 +15,8 @@ or search.
 - Local development stays at `/`.
 - The first implementation must not use API routes, server actions, runtime
   persistence, a CMS, a database, or authenticated state.
-- Content detail pages are centralized in `src/components/archive/ContentDetailPage.tsx`.
-- MDX component mapping is centralized in `src/components/writing/MdxRenderer.tsx`.
+- Likely integration points are `src/components/archive/ContentDetailPage.tsx` and
+  `src/components/writing/MdxRenderer.tsx`.
 - Annotation work must preserve the Blackbox Garden tone: quiet archive marginalia, not
   a social feed.
 
@@ -56,7 +56,7 @@ Lookup should use:
 
 ```ts
 {
-  slug: string;
+  recordSlug: string;
   anchorId: string;
 }
 ```
