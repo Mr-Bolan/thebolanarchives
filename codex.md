@@ -69,7 +69,7 @@ thebolanarchives/
   scripts/
     project-update.mjs <- local agent/owner tool for appending audited build-log updates
                           and importing sanitized cross-project check-ins
-                          or writing local owner check-in forms
+                          or writing/validating local owner check-in forms
     public-output-audit.mjs <- scans exported HTML/JSON for public filler text
 ```
 

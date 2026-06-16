@@ -7,13 +7,18 @@ const root = process.cwd();
 const buildLogsRoot = path.join(root, "content", "build-logs");
 let args = parseArgs(process.argv.slice(2));
 
-if (args["from-json"]) {
-  args = argsFromCheckin(args);
-}
-
 if (args["self-check"]) {
   runSelfCheck();
   process.exit(0);
+}
+
+if (args["validate-checkin"]) {
+  validateCheckinFile();
+  process.exit(0);
+}
+
+if (args["from-json"]) {
+  args = argsFromCheckin(args);
 }
 
 if (args["write-checkin"]) {
@@ -31,28 +36,18 @@ if (args.list) {
   process.exit(0);
 }
 
-const slug = required("slug");
-const note = readNote();
-const today = args.date || new Date().toISOString().slice(0, 10);
-const filePath = path.join(buildLogsRoot, `${slug}.mdx`);
-
-assertSlug(slug);
-assertDate(today, "date");
-assertSafeText([args.title, args.summary, note, args.next].filter(Boolean).join("\n"));
-
-if (!note.trim()) {
-  fail("missing update note; pass --note or --stdin");
-}
+const update = updateInput(args);
+validateUpdate(args, update);
 
 mkdirSync(buildLogsRoot, { recursive: true });
 
-if (existsSync(filePath)) {
-  const source = readFileSync(filePath, "utf8");
-  writeFileSync(filePath, appendUpdate(setUpdated(source, today), today, note, args.next), "utf8");
-  console.log(`project update: appended ${path.relative(root, filePath)}`);
+if (existsSync(update.filePath)) {
+  const source = readFileSync(update.filePath, "utf8");
+  writeFileSync(update.filePath, appendUpdate(setUpdated(source, update.today), update.today, update.note, args.next), "utf8");
+  console.log(`project update: appended ${path.relative(root, update.filePath)}`);
 } else {
-  writeFileSync(filePath, newBuildLog({ args, note, slug, today }), "utf8");
-  console.log(`project update: created ${path.relative(root, filePath)}`);
+  writeFileSync(update.filePath, newBuildLog({ args, note: update.note, slug: update.slug, today: update.today }), "utf8");
+  console.log(`project update: created ${path.relative(root, update.filePath)}`);
 }
 
 function newBuildLog({ args, note, slug, today }) {
@@ -119,12 +114,37 @@ function nextMove(value) {
   return text ? `\n**next move:** ${text}\n` : "\n";
 }
 
-function readNote() {
-  if (args.stdin) {
+function readNoteFrom(values) {
+  if (values.stdin) {
     return readFileSync(0, "utf8");
   }
 
-  return args.note ?? "";
+  return values.note ?? "";
+}
+
+function updateInput(values) {
+  const slug = requiredArg(values, "slug");
+  const note = readNoteFrom(values);
+  const today = values.date || new Date().toISOString().slice(0, 10);
+  const filePath = path.join(buildLogsRoot, `${slug}.mdx`);
+
+  return { filePath, note, slug, today };
+}
+
+function validateUpdate(values, update) {
+  assertSlug(update.slug);
+  assertDate(update.today, "date");
+  assertSafeText([values.title, values.summary, update.note, values.next].filter(Boolean).join("\n"));
+
+  if (!update.note.trim()) {
+    fail("missing update note; pass --note or --stdin");
+  }
+
+  if (existsSync(update.filePath)) {
+    setUpdated(readFileSync(update.filePath, "utf8"), update.today);
+  } else {
+    newBuildLog({ args: values, note: update.note, slug: update.slug, today: update.today });
+  }
 }
 
 function argsFromCheckin(values) {
@@ -148,6 +168,22 @@ function argsFromCheckin(values) {
   delete overrides["from-json"];
 
   return { ...loaded, ...overrides };
+}
+
+function validateCheckinFile() {
+  const checkinFile = args["validate-checkin"];
+
+  if (typeof checkinFile !== "string" || !checkinFile.trim()) {
+    fail("--validate-checkin needs a file path");
+  }
+
+  const values = argsFromCheckin({ ...args, "from-json": checkinFile });
+  delete values["validate-checkin"];
+  const update = updateInput(values);
+  validateUpdate(values, update);
+
+  const target = existsSync(update.filePath) ? "existing" : "new";
+  console.log(`project update: ${path.relative(root, path.resolve(root, checkinFile))} is importable for ${target} build log ${update.slug}`);
 }
 
 function normalizeCheckin(data, filePath) {
@@ -478,10 +514,6 @@ function parseArgs(values) {
   return result;
 }
 
-function required(key) {
-  return requiredArg(args, key);
-}
-
 function requiredArg(values, key) {
   const value = values[key];
 
@@ -608,6 +640,21 @@ function runSelfCheck() {
   assert.equal(defaultBuildLog.includes('status: "working_note"'), true);
   assert.equal(defaultBuildLog.includes('confidence: "partial"'), true);
   assert.equal(defaultBuildLog.includes('visibility: "draft"'), true);
+  validateUpdate(
+    {
+      slug: "agent-loop-validation",
+      title: "agent loop validation",
+      summary: "A plain summary for checking a project update before it writes archive content.",
+      tags: "agents,archive",
+      note: "The dry run can validate a sanitized check-in before writing MDX.",
+    },
+    {
+      filePath: path.join(root, ".project-update-self-check.mdx"),
+      note: "The dry run can validate a sanitized check-in before writing MDX.",
+      slug: "agent-loop-validation",
+      today: "2026-06-16",
+    },
+  );
   assert.deepEqual(checkinTemplate({ slug: "agent-loop", tags: "agents,archive", tools: "codex" }), {
     slug: "agent-loop",
     title: "",

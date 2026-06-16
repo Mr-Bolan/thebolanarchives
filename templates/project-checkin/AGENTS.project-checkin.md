@@ -32,9 +32,10 @@ npm run project:update -- --write-checkin ../project/archive-checkin.json --slug
 ```
 
 After writing the file, hand its path to the archive agent. From `thebolanarchives`, the
-agent imports it with:
+agent validates and imports it with:
 
 ```bash
+npm run project:update -- --validate-checkin ../project/archive-checkin.json
 npm run project:update -- --from-json ../project/archive-checkin.json
 ```
 

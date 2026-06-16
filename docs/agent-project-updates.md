@@ -30,6 +30,7 @@ the same handoff, add `archive-checkin.json` to that project's `.gitignore` too.
 Import a check-in file from another project:
 
 ```bash
+npm run project:update -- --validate-checkin ../some-project/archive-checkin.json
 npm run project:update -- --from-json ../some-project/archive-checkin.json
 ```
 
@@ -89,10 +90,11 @@ that repo or paste its contents into that repo's existing agent instructions.
 
 1. Take the owner's rough update or project evidence.
 2. Remove private names, private URLs, credentials, client details, and filler.
-3. Write the smallest honest update with `npm run project:update --` or `--from-json`.
-4. Run `npm run content:audit`.
-5. Run `npm run project:ledger` to inspect the current tracked project state.
-6. Run `npm run agent:check` before public promotion or push.
+3. Validate cross-project files with `--validate-checkin` before importing them.
+4. Write the smallest honest update with `npm run project:update --` or `--from-json`.
+5. Run `npm run content:audit`.
+6. Run `npm run project:ledger` to inspect the current tracked project state.
+7. Run `npm run agent:check` before public promotion or push.
 
 Use `--visibility public` only when the note is already safe to publish and has tags.
 
