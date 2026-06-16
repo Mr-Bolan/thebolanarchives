@@ -31,8 +31,16 @@ npm run project:update -- --write-checkin ../project/archive-checkin.json --slug
 }
 ```
 
-After writing the file, hand its path to the archive agent. From `thebolanarchives`, the
-agent validates and imports it with:
+After writing the file, leave it in this project. If this project is listed in the
+archive repo's local `archive-projects.txt`, the archive agent can validate wiring and
+import every ready check-in with:
+
+```bash
+npm run project:update -- --sync-project-list archive-projects.txt
+```
+
+For one-off imports from `thebolanarchives`, the agent can still validate and import this
+file directly:
 
 ```bash
 npm run project:update -- --validate-checkin ../project/archive-checkin.json

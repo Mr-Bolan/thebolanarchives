@@ -42,7 +42,7 @@ Before committing:
 ```bash
 git status
 git ls-files content/inbox
-git check-ignore archive-checkin.json
+git check-ignore archive-checkin.json archive-projects.txt
 npm run agent:check
 ```
 
