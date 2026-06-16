@@ -60,6 +60,17 @@ npm run project:update -- --install-project-list archive-projects.txt
 npm run project:update -- --check-project-list archive-projects.txt
 ```
 
+When listed projects have local `archive-checkin.json` files ready, validate or import all
+present check-ins:
+
+```bash
+npm run project:update -- --validate-project-list archive-projects.txt
+npm run project:update -- --import-project-list archive-projects.txt
+```
+
+Missing `archive-checkin.json` files are skipped. This lets an agent run the loop across
+all wired projects without requiring every project to have a fresh update.
+
 Import a check-in file from another project:
 
 ```bash
@@ -134,8 +145,10 @@ contents into that repo's existing agent instructions.
 2. Remove private names, private URLs, credentials, client details, and filler.
 3. Run `--check-project-list` for the local source list, or `--check-install` for one
    source project.
-4. Validate cross-project files with `--validate-checkin` before importing them.
-5. Write the smallest honest update with `npm run project:update --` or `--from-json`.
+4. Validate cross-project files with `--validate-project-list` or `--validate-checkin`
+   before importing them.
+5. Write the smallest honest update with `--import-project-list`, `--from-json`, or a
+   direct `npm run project:update --` command.
 6. Run `npm run content:audit`.
 7. Run `npm run project:ledger -- --all` to inspect the current tracked project state.
 8. Run `npm run agent:check` before public promotion or push.

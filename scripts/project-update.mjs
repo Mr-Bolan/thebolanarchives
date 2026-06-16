@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 
 const root = process.cwd();
@@ -17,8 +18,9 @@ if (args["validate-checkin"]) {
   process.exit(0);
 }
 
-if (args["from-json"]) {
-  args = argsFromCheckin(args);
+if (args["validate-project-list"]) {
+  validateProjectList();
+  process.exit(0);
 }
 
 if (args["write-checkin"]) {
@@ -38,6 +40,11 @@ if (args["write-project-list"]) {
 
 if (args["install-project-list"]) {
   installProjectList();
+  process.exit(0);
+}
+
+if (args["import-project-list"]) {
+  importProjectList();
   process.exit(0);
 }
 
@@ -61,18 +68,26 @@ if (args.list) {
   process.exit(0);
 }
 
-const update = updateInput(args);
-validateUpdate(args, update);
+if (args["from-json"]) {
+  args = argsFromCheckin(args);
+}
 
-mkdirSync(buildLogsRoot, { recursive: true });
+writeProjectUpdate(args);
 
-if (existsSync(update.filePath)) {
-  const source = readFileSync(update.filePath, "utf8");
-  writeFileSync(update.filePath, appendUpdate(setUpdated(source, update.today), update.today, update.note, args.next), "utf8");
-  console.log(`project update: appended ${path.relative(root, update.filePath)}`);
-} else {
-  writeFileSync(update.filePath, newBuildLog({ args, note: update.note, slug: update.slug, today: update.today }), "utf8");
-  console.log(`project update: created ${path.relative(root, update.filePath)}`);
+function writeProjectUpdate(values) {
+  const update = updateInput(values);
+  validateUpdate(values, update);
+
+  mkdirSync(buildLogsRoot, { recursive: true });
+
+  if (existsSync(update.filePath)) {
+    const source = readFileSync(update.filePath, "utf8");
+    writeFileSync(update.filePath, appendUpdate(setUpdated(source, update.today), update.today, update.note, values.next), "utf8");
+    console.log(`project update: appended ${path.relative(root, update.filePath)}`);
+  } else {
+    writeFileSync(update.filePath, newBuildLog({ args: values, note: update.note, slug: update.slug, today: update.today }), "utf8");
+    console.log(`project update: created ${path.relative(root, update.filePath)}`);
+  }
 }
 
 function newBuildLog({ args, note, slug, today }) {
@@ -202,8 +217,14 @@ function validateCheckinFile() {
     fail("--validate-checkin needs a file path");
   }
 
+  validateCheckinImport(checkinFile);
+}
+
+function validateCheckinImport(checkinFile) {
   const values = argsFromCheckin({ ...args, "from-json": checkinFile });
   delete values["validate-checkin"];
+  delete values["validate-project-list"];
+  delete values["import-project-list"];
   const update = updateInput(values);
   validateUpdate(values, update);
 
@@ -334,6 +355,35 @@ function writeProjectListTemplate() {
 function installProjectList() {
   for (const projectRoot of projectList("install-project-list")) {
     installCheckinProject(projectRoot, false);
+  }
+}
+
+function validateProjectList() {
+  const files = projectCheckinFiles("validate-project-list");
+
+  if (files.length === 0) {
+    console.log("project update: no archive-checkin.json files found");
+    return;
+  }
+
+  for (const filePath of files) {
+    validateCheckinImport(filePath);
+  }
+}
+
+function importProjectList() {
+  const files = projectCheckinFiles("import-project-list");
+
+  if (files.length === 0) {
+    console.log("project update: no archive-checkin.json files found");
+    return;
+  }
+
+  for (const filePath of files) {
+    const values = argsFromCheckin({ ...args, "from-json": filePath });
+    delete values["validate-project-list"];
+    delete values["import-project-list"];
+    writeProjectUpdate(values);
   }
 }
 
@@ -481,6 +531,22 @@ function projectList(key) {
 
     return projectRoot;
   });
+}
+
+function projectCheckinFiles(key) {
+  return projectList(key)
+    .map((projectRoot) => path.join(projectRoot, "archive-checkin.json"))
+    .filter((filePath) => {
+      if (!existsSync(filePath)) {
+        return false;
+      }
+
+      if (statSync(filePath).isDirectory()) {
+        fail(`${path.relative(root, filePath)} is a directory`);
+      }
+
+      return true;
+    });
 }
 
 function projectListEntries(source) {
@@ -916,6 +982,21 @@ function runSelfCheck() {
     { line: "../one", number: 2 },
     { line: "./two", number: 4 },
   ]);
+  const savedArgs = args;
+  const tempRoot = mkdtempSync(path.join(tmpdir(), "tba-project-update-"));
+  try {
+    const projectRoot = path.join(tempRoot, "project");
+    const emptyRoot = path.join(tempRoot, "empty");
+    mkdirSync(projectRoot);
+    mkdirSync(emptyRoot);
+    writeFileSync(path.join(projectRoot, "archive-checkin.json"), "{}\n", "utf8");
+    writeFileSync(path.join(tempRoot, "archive-projects.txt"), "./project\n./empty\n", "utf8");
+    args = { "self-check-project-list": path.join(tempRoot, "archive-projects.txt") };
+    assert.deepEqual(projectCheckinFiles("self-check-project-list"), [path.join(projectRoot, "archive-checkin.json")]);
+  } finally {
+    args = savedArgs;
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
   assert.equal(ensureCheckinPointer("").includes("AGENTS.project-checkin.md"), true);
   assert.equal(ensureCheckinPointer("Read AGENTS.project-checkin.md\n"), "Read AGENTS.project-checkin.md\n");
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
