@@ -51,6 +51,7 @@ thebolanarchives/
     inbox/            local-only raw notes ignored by loader/audit; commit only .gitkeep
   templates/
     content/          copyable MDX templates for each content type
+    project-checkin/  copyable agent note for projects that feed build-log updates
   src/
     app/              <- Next.js App Router routes
     components/

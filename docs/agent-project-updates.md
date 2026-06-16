@@ -73,6 +73,9 @@ Keep that file local to the source project unless its contents are safe to publi
 this archive repo, import it with `--from-json`; command-line flags can still override
 the file, for example `--visibility public` after review.
 
+To wire another repo, copy `templates/project-checkin/AGENTS.project-checkin.md` into
+that repo or paste its contents into that repo's existing agent instructions.
+
 ## agent loop
 
 1. Take the owner's rough update or project evidence.
