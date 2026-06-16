@@ -31,12 +31,14 @@ Install the handoff note into another project:
 
 ```bash
 npm run project:update -- --install-checkin ../some-project
+npm run project:update -- --install-checkin ../some-project --slug project-slug --tags agents,archive --tools codex
 ```
 
 This writes `AGENTS.project-checkin.md` in the target project, makes sure its
 `.gitignore` includes `archive-checkin.json`, and adds a small `AGENTS.md` pointer so
 future agents can discover the handoff note. Re-running it keeps an existing
-`AGENTS.project-checkin.md` instead of overwriting local edits.
+`AGENTS.project-checkin.md` instead of overwriting local edits. When `--slug` is passed,
+it also seeds an ignored `archive-checkin.json` form unless one already exists.
 
 Import a check-in file from another project:
 

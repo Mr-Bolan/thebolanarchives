@@ -318,6 +318,7 @@ function installCheckinInstructions() {
   const template = readFileSync(path.join(root, "templates", "project-checkin", "AGENTS.project-checkin.md"), "utf8");
   const gitignorePath = path.join(projectRoot, ".gitignore");
   const agentsPath = path.join(projectRoot, "AGENTS.md");
+  const checkinPath = path.join(projectRoot, "archive-checkin.json");
 
   if (existsSync(gitignorePath) && statSync(gitignorePath).isDirectory()) {
     fail(`${path.relative(root, gitignorePath)} is a directory`);
@@ -325,6 +326,10 @@ function installCheckinInstructions() {
 
   if (existsSync(agentsPath) && statSync(agentsPath).isDirectory()) {
     fail(`${path.relative(root, agentsPath)} is a directory`);
+  }
+
+  if (existsSync(checkinPath) && statSync(checkinPath).isDirectory()) {
+    fail(`${path.relative(root, checkinPath)} is a directory`);
   }
 
   const gitignore = existsSync(gitignorePath) ? readFileSync(gitignorePath, "utf8") : "";
@@ -341,6 +346,25 @@ function installCheckinInstructions() {
   writeFileSync(agentsPath, ensureCheckinPointer(agents), "utf8");
   console.log(`project update: ensured ${path.relative(root, gitignorePath)} ignores archive-checkin.json`);
   console.log(`project update: ensured ${path.relative(root, agentsPath)} points to AGENTS.project-checkin.md`);
+
+  if (typeof args.slug === "string" && args.slug.trim()) {
+    seedCheckinFile(checkinPath);
+  }
+}
+
+function seedCheckinFile(filePath) {
+  if (existsSync(filePath)) {
+    console.log(`project update: kept existing ${path.relative(root, filePath)}`);
+    return;
+  }
+
+  const template = checkinTemplate(args);
+
+  assertSlugIfPresent(template.slug, "slug");
+  assertVisibility(template.visibility);
+  assertSafeText(JSON.stringify(template));
+  writeFileSync(filePath, `${JSON.stringify(template, null, 2)}\n`, "utf8");
+  console.log(`project update: seeded ${path.relative(root, filePath)}`);
 }
 
 function ensureIgnored(source, value) {
