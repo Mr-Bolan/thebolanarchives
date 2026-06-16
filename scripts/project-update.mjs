@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
@@ -23,6 +23,11 @@ if (args["from-json"]) {
 
 if (args["write-checkin"]) {
   writeCheckinTemplate();
+  process.exit(0);
+}
+
+if (args["install-checkin"]) {
+  installCheckinInstructions();
   process.exit(0);
 }
 
@@ -289,6 +294,51 @@ function writeCheckinTemplate() {
   mkdirSync(path.dirname(filePath), { recursive: true });
   writeFileSync(filePath, `${JSON.stringify(template, null, 2)}\n`, "utf8");
   console.log(`project update: wrote ${path.relative(root, filePath)}`);
+}
+
+function installCheckinInstructions() {
+  const target = args["install-checkin"];
+
+  if (typeof target !== "string" || !target.trim()) {
+    fail("--install-checkin needs a project directory");
+  }
+
+  const projectRoot = path.resolve(root, target);
+
+  if (!existsSync(projectRoot) || !statSync(projectRoot).isDirectory()) {
+    fail(`${target} is not a directory`);
+  }
+
+  const notePath = path.join(projectRoot, "AGENTS.project-checkin.md");
+
+  if (existsSync(notePath)) {
+    fail(`${path.relative(root, notePath)} already exists; refusing to overwrite`);
+  }
+
+  const template = readFileSync(path.join(root, "templates", "project-checkin", "AGENTS.project-checkin.md"), "utf8");
+  const gitignorePath = path.join(projectRoot, ".gitignore");
+
+  if (existsSync(gitignorePath) && statSync(gitignorePath).isDirectory()) {
+    fail(`${path.relative(root, gitignorePath)} is a directory`);
+  }
+
+  const gitignore = existsSync(gitignorePath) ? readFileSync(gitignorePath, "utf8") : "";
+
+  writeFileSync(notePath, template, "utf8");
+  writeFileSync(gitignorePath, ensureIgnored(gitignore, "archive-checkin.json"), "utf8");
+  console.log(`project update: installed ${path.relative(root, notePath)}`);
+  console.log(`project update: ensured ${path.relative(root, gitignorePath)} ignores archive-checkin.json`);
+}
+
+function ensureIgnored(source, value) {
+  const lines = source.split(/\r?\n/).map((line) => line.trim());
+
+  if (lines.includes(value)) {
+    return source;
+  }
+
+  const separator = source && !source.endsWith("\n") ? "\n" : "";
+  return `${source}${separator}${value}\n`;
 }
 
 function checkinTemplate(values) {
@@ -673,6 +723,8 @@ function runSelfCheck() {
     public_evidence: "",
     next_move: "",
   });
+  assert.equal(ensureIgnored("node_modules/\n", "archive-checkin.json"), "node_modules/\narchive-checkin.json\n");
+  assert.equal(ensureIgnored("archive-checkin.json\n", "archive-checkin.json"), "archive-checkin.json\n");
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
   assert.equal(unsafeTextReason("TODO: fill this later"), "filler or placeholder");
   assert.equal(

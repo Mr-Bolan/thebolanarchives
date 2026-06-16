@@ -27,6 +27,16 @@ npm run project:update -- --write-checkin archive-checkin.json --slug project-sl
 `archive-checkin.json` is local-only and ignored in this repo. If another project uses
 the same handoff, add `archive-checkin.json` to that project's `.gitignore` too.
 
+Install the handoff note into another project:
+
+```bash
+npm run project:update -- --install-checkin ../some-project
+```
+
+This writes `AGENTS.project-checkin.md` in the target project and makes sure its
+`.gitignore` includes `archive-checkin.json`. It refuses to overwrite an existing
+`AGENTS.project-checkin.md`.
+
 Import a check-in file from another project:
 
 ```bash
@@ -91,8 +101,9 @@ Keep that file local to the source project unless its contents are safe to publi
 this archive repo, import it with `--from-json`; command-line flags can still override
 the file, for example `--visibility public` after review.
 
-To wire another repo, copy `templates/project-checkin/AGENTS.project-checkin.md` into
-that repo or paste its contents into that repo's existing agent instructions.
+To wire another repo, run `--install-checkin`, copy
+`templates/project-checkin/AGENTS.project-checkin.md` into that repo, or paste its
+contents into that repo's existing agent instructions.
 
 ## agent loop
 
