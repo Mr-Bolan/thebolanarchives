@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
@@ -9,6 +9,16 @@ const args = parseArgs(process.argv.slice(2));
 
 if (args["self-check"]) {
   runSelfCheck();
+  process.exit(0);
+}
+
+if (args["write-ledger"]) {
+  writeProjectLedger();
+  process.exit(0);
+}
+
+if (args.list) {
+  printProjectLedger();
   process.exit(0);
 }
 
@@ -106,6 +116,189 @@ function readNote() {
   }
 
   return args.note ?? "";
+}
+
+function writeProjectLedger() {
+  const ledgerPath = path.join(root, "public", "project-ledger.json");
+
+  mkdirSync(path.dirname(ledgerPath), { recursive: true });
+  writeFileSync(ledgerPath, `${JSON.stringify(readProjectLedger(), null, 2)}\n`, "utf8");
+  console.log(`project update: wrote ${path.relative(root, ledgerPath)}`);
+}
+
+function printProjectLedger() {
+  const ledger = readProjectLedger();
+
+  if (args.json) {
+    console.log(JSON.stringify(ledger, null, 2));
+    return;
+  }
+
+  if (ledger.length === 0) {
+    console.log("project ledger: no public build logs");
+    return;
+  }
+
+  for (const project of ledger) {
+    console.log(`${project.slug} | ${project.status} | updated ${project.updated}`);
+    console.log(`  ${project.current_state}`);
+    if (project.next_move) console.log(`  next: ${project.next_move}`);
+  }
+}
+
+function readProjectLedger() {
+  if (!existsSync(buildLogsRoot)) {
+    return [];
+  }
+
+  return readdirSync(buildLogsRoot)
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => readProjectFile(path.join(buildLogsRoot, file)))
+    .filter((project) => project.visibility === "public")
+    .map(({ visibility: _visibility, ...project }) => project)
+    .sort((a, b) => b.updated.localeCompare(a.updated) || a.title.localeCompare(b.title));
+}
+
+function readProjectFile(filePath) {
+  const source = readFileSync(filePath, "utf8");
+  return projectFromSource(source, filePath);
+}
+
+function projectFromSource(source, filePath) {
+  const { body, data } = parseFrontmatter(source, filePath);
+  const slug = stringValue(data.slug) || path.basename(filePath, ".mdx");
+  const update = latestUpdate(body);
+
+  return {
+    title: stringValue(data.title),
+    slug,
+    status: stringValue(data.status),
+    confidence: stringValue(data.confidence),
+    summary: stringValue(data.summary),
+    updated: stringValue(data.updated),
+    tags: arrayValue(data.tags),
+    tools: arrayValue(data.tools),
+    route: `/build-logs/${slug}`,
+    current_state: firstPlainParagraph(sectionBlock(body, "current state")) || stringValue(data.summary),
+    latest_update: update.text,
+    next_move: update.nextMove || nextMoveFromBlock(body),
+    visibility: stringValue(data.visibility),
+  };
+}
+
+function parseFrontmatter(source, filePath) {
+  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+
+  if (!match) {
+    fail(`${filePath}: missing frontmatter`);
+  }
+
+  const data = {};
+  let currentKey;
+
+  for (const rawLine of match[1].split(/\r?\n/)) {
+    const line = rawLine.trimEnd();
+
+    if (!line.trim()) {
+      continue;
+    }
+
+    const listItem = line.match(/^\s*-\s+(.*)$/);
+    if (listItem && currentKey) {
+      const value = data[currentKey];
+      data[currentKey] = Array.isArray(value) ? [...value, cleanScalar(listItem[1])] : [cleanScalar(listItem[1])];
+      continue;
+    }
+
+    const field = line.match(/^([A-Za-z_][\w-]*):(?:\s*(.*))?$/);
+    if (!field) {
+      fail(`${filePath}: unsupported frontmatter line "${line}"`);
+    }
+
+    currentKey = field[1];
+    data[currentKey] = cleanValue(field[2] ?? "");
+  }
+
+  return { data, body: source.slice(match[0].length).trim() };
+}
+
+function cleanValue(value) {
+  if (value === "" || value === "[]") {
+    return [];
+  }
+
+  if (/^\d+$/.test(value)) {
+    return Number(value);
+  }
+
+  return cleanScalar(value);
+}
+
+function cleanScalar(value) {
+  return value.trim().replace(/^["']|["']$/g, "");
+}
+
+function stringValue(value) {
+  return typeof value === "string" ? value : "";
+}
+
+function arrayValue(value) {
+  return Array.isArray(value) ? value.filter((item) => typeof item === "string") : [];
+}
+
+function latestUpdate(body) {
+  const updates = Array.from(body.matchAll(/(?:^|\r?\n)## update \/\/ (\d{4}-\d{2}-\d{2})\s*\r?\n([\s\S]*?)(?=\r?\n##\s|$)/gi));
+  const latest = updates.at(-1);
+
+  if (!latest) {
+    return { text: "", nextMove: "" };
+  }
+
+  return {
+    text: firstPlainParagraph(latest[2]),
+    nextMove: nextMoveFromBlock(latest[2]),
+  };
+}
+
+function sectionBlock(body, heading) {
+  const pattern = new RegExp(`(?:^|\\r?\\n)##\\s+${escapeRegExp(heading)}\\s*\\r?\\n([\\s\\S]*?)(?=\\r?\\n##\\s|$)`, "i");
+  return body.match(pattern)?.[1] ?? "";
+}
+
+function firstPlainParagraph(block) {
+  for (const paragraph of block.split(/\r?\n\s*\r?\n/)) {
+    const text = plainText(paragraph);
+
+    if (text) {
+      return text.slice(0, 320);
+    }
+  }
+
+  return "";
+}
+
+function nextMoveFromBlock(block) {
+  return block.match(/\*\*next move:\*\*\s*(.+)/i)?.[1]?.trim() ?? "";
+}
+
+function plainText(block) {
+  return block
+    .split(/\r?\n/)
+    .filter((line) => {
+      const trimmed = line.trim();
+      return trimmed && !trimmed.startsWith("<") && !trimmed.startsWith("</") && !trimmed.startsWith("{`") && !trimmed.startsWith("`}");
+    })
+    .join(" ")
+    .replace(/\*\*next move:\*\*.*$/i, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[`*_~]/g, "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function parseArgs(values) {
@@ -215,5 +408,36 @@ function runSelfCheck() {
   assert.equal(formatArray(["agents", "archive"]), "\n  - agents\n  - archive");
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
   assert.equal(unsafeTextReason("TODO: fill this later"), "filler or placeholder");
+  assert.equal(
+    projectFromSource(
+      `---
+title: "agent loop"
+slug: "agent-loop"
+status: "working_note"
+confidence: "partial"
+summary: "A plain summary of the project state."
+updated: "2026-06-16"
+tags:
+  - agents
+tools: []
+visibility: "public"
+---
+
+# build_log // agent_loop
+
+## current state
+
+The loop writes updates into public-safe build logs.
+
+## update // 2026-06-16
+
+The ledger now reads project state from the same MDX source.
+
+**next move:** use it after each owner check-in.
+`,
+      "self-check.mdx",
+    ).next_move,
+    "use it after each owner check-in.",
+  );
   console.log("project update self-check: ok");
 }

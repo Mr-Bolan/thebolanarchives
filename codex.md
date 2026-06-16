@@ -63,6 +63,7 @@ thebolanarchives/
     styles/           tokens.css, global.css, typography.css, archive.css
     lib/              content.ts, headings.ts, page-metadata.ts
   public/
+    archive-index.json project-ledger.json <- generated public metadata
     images/  diagrams/  textures/   <- static assets (+ future CNAME when real domain is known)
   scripts/
     project-update.mjs <- local agent/owner tool for appending audited build-log updates

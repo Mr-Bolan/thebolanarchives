@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/content-audit.mjs --write-index",
+    "prebuild": "node scripts/content-audit.mjs --write-index && node scripts/project-update.mjs --write-ledger",
     "build": "next build",
     "project:update": "node scripts/project-update.mjs",
+    "project:ledger": "node scripts/project-update.mjs --list",
     "content:audit": "node scripts/content-audit.mjs",
     "annotations:audit": "node scripts/annotations-audit.mjs",
     "privacy:audit": "node scripts/privacy-audit.mjs",

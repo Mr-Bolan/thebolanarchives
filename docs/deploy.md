@@ -77,8 +77,9 @@ npm run deploy:check
 
 `npm run deploy:check` runs `npm run content:audit`, `npm run build`, and
 `npm run pages:verify`. The verifier checks that GitHub Pages will receive
-`out/index.html`, `out/archive-index.json`, the generated `_next` assets when referenced,
-and the exported route files for `/about`, `/index`, and the archive collection pages.
+`out/index.html`, `out/archive-index.json`, `out/project-ledger.json`, the generated
+`_next` assets when referenced, and the exported route files for `/about`, `/index`, and
+the archive collection pages.
 
 To inspect the exported site locally after the build:
 
@@ -93,7 +94,7 @@ Then open `http://localhost:4173/thebolanarchives/` and check the main navigatio
 - Run `npm run content:audit`.
 - Run `npm run build`.
 - Run `npm run pages:verify`.
-- Verify the static export output exists: `out/index.html`, `out/archive-index.json`, and route HTML files under `out/`.
+- Verify the static export output exists: `out/index.html`, `out/archive-index.json`, `out/project-ledger.json`, and route HTML files under `out/`.
 - Confirm only public records appear in public lists and `public/archive-index.json`.
 - Confirm no personal identity leaks in content, metadata, docs, or public assets.
 - Confirm draft records do not generate routes.

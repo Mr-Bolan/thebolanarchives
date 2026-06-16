@@ -64,9 +64,11 @@ function findTargets() {
     }
   }
 
-  const publicIndex = path.join(root, "public", "archive-index.json");
-  if (existsSync(publicIndex)) {
-    files.push(publicIndex);
+  for (const file of ["archive-index.json", "project-ledger.json"]) {
+    const publicFile = path.join(root, "public", file);
+    if (existsSync(publicFile)) {
+      files.push(publicFile);
+    }
   }
 
   return files;
