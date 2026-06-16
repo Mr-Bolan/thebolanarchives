@@ -43,9 +43,17 @@ List the public project ledger:
 npm run project:ledger
 ```
 
+List every local build-log project state, including draft and unlisted records:
+
+```bash
+npm run project:ledger -- --all
+npm run project:ledger -- --all --json
+```
+
 Builds also write `public/project-ledger.json` from public build logs. Do not edit that
 file by hand. The `/build-logs` page reads it during static build and shows a compact
-current-state shelf.
+current-state shelf. `--all` is local command output only; it is not written into the
+public ledger.
 
 ## owner input path
 
@@ -93,7 +101,7 @@ that repo or paste its contents into that repo's existing agent instructions.
 3. Validate cross-project files with `--validate-checkin` before importing them.
 4. Write the smallest honest update with `npm run project:update --` or `--from-json`.
 5. Run `npm run content:audit`.
-6. Run `npm run project:ledger` to inspect the current tracked project state.
+6. Run `npm run project:ledger -- --all` to inspect the current tracked project state.
 7. Run `npm run agent:check` before public promotion or push.
 
 Use `--visibility public` only when the note is already safe to publish and has tags.

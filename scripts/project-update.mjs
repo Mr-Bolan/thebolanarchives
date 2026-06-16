@@ -316,7 +316,7 @@ function writeProjectLedger() {
 }
 
 function printProjectLedger() {
-  const ledger = readProjectLedger();
+  const ledger = args.all ? readProjectFiles() : readProjectLedger();
 
   if (args.json) {
     console.log(JSON.stringify(ledger, null, 2));
@@ -329,13 +329,20 @@ function printProjectLedger() {
   }
 
   for (const project of ledger) {
-    console.log(`${project.slug} | ${project.status} | updated ${project.updated}`);
+    const visibility = args.all ? ` | ${project.visibility}` : "";
+    console.log(`${project.slug}${visibility} | ${project.status} | updated ${project.updated}`);
     console.log(`  ${project.current_state}`);
     if (project.next_move) console.log(`  next: ${project.next_move}`);
   }
 }
 
 function readProjectLedger() {
+  return readProjectFiles()
+    .filter((project) => project.visibility === "public")
+    .map(({ visibility: _visibility, ...project }) => project);
+}
+
+function readProjectFiles() {
   if (!existsSync(buildLogsRoot)) {
     return [];
   }
@@ -343,8 +350,6 @@ function readProjectLedger() {
   return readdirSync(buildLogsRoot)
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => readProjectFile(path.join(buildLogsRoot, file)))
-    .filter((project) => project.visibility === "public")
-    .map(({ visibility: _visibility, ...project }) => project)
     .sort((a, b) => b.updated.localeCompare(a.updated) || a.title.localeCompare(b.title));
 }
 
