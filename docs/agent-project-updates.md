@@ -28,7 +28,8 @@ npm run project:ledger
 ```
 
 Builds also write `public/project-ledger.json` from public build logs. Do not edit that
-file by hand.
+file by hand. The `/build-logs` page reads it during static build and shows a compact
+current-state shelf.
 
 ## agent loop
 

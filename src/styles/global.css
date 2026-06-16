@@ -343,6 +343,10 @@ pre,
   max-width: var(--max-reading);
 }
 
+.collection-page + .archive-section {
+  margin-top: var(--space-12);
+}
+
 .content-page {
   max-width: var(--max-page);
 }

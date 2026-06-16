@@ -131,10 +131,17 @@ for (const route of ["/about", "/index", ...collectionRoutes]) {
   addCheck(`route ${route}`, Boolean(routeFile), routeFile ?? `expected ${routeCandidates(route).join(" or ")}`);
 }
 
+const buildLogsRouteFile = findRouteFile("/build-logs");
+addCheck(
+  "route /build-logs includes project ledger",
+  Boolean(buildLogsRouteFile) && readFileSync(path.join(outDir, buildLogsRouteFile), "utf8").includes("project-ledger-title"),
+  buildLogsRouteFile ?? "expected build logs route file",
+);
+
 const archiveRoutes = readArchiveRoutes();
 const projectLedgerRoutes = readProjectLedgerRoutes();
 
-for (const route of [...archiveRoutes, ...projectLedgerRoutes]) {
+for (const route of Array.from(new Set([...archiveRoutes, ...projectLedgerRoutes]))) {
   const routeFile = findRouteFile(route);
   addCheck(`record route ${route}`, Boolean(routeFile), routeFile ?? `expected ${routeCandidates(route).join(" or ")}`);
 }
