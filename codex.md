@@ -69,6 +69,7 @@ thebolanarchives/
   scripts/
     project-update.mjs <- local agent/owner tool for appending audited build-log updates
                           and importing sanitized cross-project check-ins
+    public-output-audit.mjs <- scans exported HTML/JSON for public filler text
 ```
 
 Every folder has its own `README.md` with details. The conceptual structure mirrors brief
