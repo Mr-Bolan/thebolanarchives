@@ -24,6 +24,9 @@ Write an empty local check-in form:
 npm run project:update -- --write-checkin archive-checkin.json --slug project-slug --tags agents,archive --tools codex
 ```
 
+`archive-checkin.json` is local-only and ignored in this repo. If another project uses
+the same handoff, add `archive-checkin.json` to that project's `.gitignore` too.
+
 Import a check-in file from another project:
 
 ```bash

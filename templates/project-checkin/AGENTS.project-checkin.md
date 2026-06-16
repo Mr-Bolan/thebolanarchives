@@ -4,6 +4,7 @@ Use this note in any project that should report progress into `thebolanarchives`
 
 When the owner asks for an archive update, create a local `archive-checkin.json` in this
 project. Keep it out of commits unless the owner explicitly says it is safe to publish.
+Add `archive-checkin.json` to this project's `.gitignore` before writing it.
 
 The file must be sanitized. Do not include private names, emails, private URLs,
 credentials, client details, unpublished context, or local machine paths.

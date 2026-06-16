@@ -19,3 +19,4 @@ transcripts/
 .env.*
 *.local
 privacy-blocklist.json
+archive-checkin.json
