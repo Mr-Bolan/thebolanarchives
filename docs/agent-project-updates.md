@@ -40,6 +40,12 @@ future agents can discover the handoff note. Re-running it keeps an existing
 `AGENTS.project-checkin.md` instead of overwriting local edits. When `--slug` is passed,
 it also seeds an ignored `archive-checkin.json` form unless one already exists.
 
+Check whether a project is wired for archive updates:
+
+```bash
+npm run project:update -- --check-install ../some-project
+```
+
 Import a check-in file from another project:
 
 ```bash
@@ -112,11 +118,12 @@ contents into that repo's existing agent instructions.
 
 1. Take the owner's rough update or project evidence.
 2. Remove private names, private URLs, credentials, client details, and filler.
-3. Validate cross-project files with `--validate-checkin` before importing them.
-4. Write the smallest honest update with `npm run project:update --` or `--from-json`.
-5. Run `npm run content:audit`.
-6. Run `npm run project:ledger -- --all` to inspect the current tracked project state.
-7. Run `npm run agent:check` before public promotion or push.
+3. Run `--check-install` when a source project should already be wired.
+4. Validate cross-project files with `--validate-checkin` before importing them.
+5. Write the smallest honest update with `npm run project:update --` or `--from-json`.
+6. Run `npm run content:audit`.
+7. Run `npm run project:ledger -- --all` to inspect the current tracked project state.
+8. Run `npm run agent:check` before public promotion or push.
 
 Use `--visibility public` only when the note is already safe to publish and has tags.
 

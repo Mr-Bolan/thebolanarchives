@@ -31,6 +31,11 @@ if (args["install-checkin"]) {
   process.exit(0);
 }
 
+if (args["check-install"]) {
+  checkInstall();
+  process.exit(0);
+}
+
 if (args["write-ledger"]) {
   writeProjectLedger();
   process.exit(0);
@@ -352,6 +357,54 @@ function installCheckinInstructions() {
   }
 }
 
+function checkInstall() {
+  const projectRoot = projectDirectoryArg("check-install");
+  const missing = checkInstallMissing(projectRoot);
+
+  if (missing.length > 0) {
+    fail(`${path.relative(root, projectRoot)} is missing ${missing.join(", ")}`);
+  }
+
+  console.log(`project update: ${path.relative(root, projectRoot)} is wired for archive check-ins`);
+}
+
+function checkInstallMissing(projectRoot) {
+  const notePath = path.join(projectRoot, "AGENTS.project-checkin.md");
+  const agentsPath = path.join(projectRoot, "AGENTS.md");
+  const gitignorePath = path.join(projectRoot, ".gitignore");
+  const missing = [];
+
+  if (!existsSync(notePath) || statSync(notePath).isDirectory()) {
+    missing.push("AGENTS.project-checkin.md");
+  }
+
+  if (!existsSync(agentsPath) || statSync(agentsPath).isDirectory() || !readFileSync(agentsPath, "utf8").includes("AGENTS.project-checkin.md")) {
+    missing.push("AGENTS.md pointer");
+  }
+
+  if (!existsSync(gitignorePath) || statSync(gitignorePath).isDirectory() || !ignoredByText(readFileSync(gitignorePath, "utf8"), "archive-checkin.json")) {
+    missing.push(".gitignore archive-checkin.json");
+  }
+
+  return missing;
+}
+
+function projectDirectoryArg(key) {
+  const target = args[key];
+
+  if (typeof target !== "string" || !target.trim()) {
+    fail(`--${key} needs a project directory`);
+  }
+
+  const projectRoot = path.resolve(root, target);
+
+  if (!existsSync(projectRoot) || !statSync(projectRoot).isDirectory()) {
+    fail(`${target} is not a directory`);
+  }
+
+  return projectRoot;
+}
+
 function seedCheckinFile(filePath) {
   if (existsSync(filePath)) {
     console.log(`project update: kept existing ${path.relative(root, filePath)}`);
@@ -368,14 +421,16 @@ function seedCheckinFile(filePath) {
 }
 
 function ensureIgnored(source, value) {
-  const lines = source.split(/\r?\n/).map((line) => line.trim());
-
-  if (lines.includes(value)) {
+  if (ignoredByText(source, value)) {
     return source;
   }
 
   const separator = source && !source.endsWith("\n") ? "\n" : "";
   return `${source}${separator}${value}\n`;
+}
+
+function ignoredByText(source, value) {
+  return source.split(/\r?\n/).map((line) => line.trim()).includes(value);
 }
 
 function ensureCheckinPointer(source) {
@@ -771,6 +826,7 @@ function runSelfCheck() {
   });
   assert.equal(ensureIgnored("node_modules/\n", "archive-checkin.json"), "node_modules/\narchive-checkin.json\n");
   assert.equal(ensureIgnored("archive-checkin.json\n", "archive-checkin.json"), "archive-checkin.json\n");
+  assert.equal(ignoredByText("node_modules/\narchive-checkin.json\n", "archive-checkin.json"), true);
   assert.equal(ensureCheckinPointer("").includes("AGENTS.project-checkin.md"), true);
   assert.equal(ensureCheckinPointer("Read AGENTS.project-checkin.md\n"), "Read AGENTS.project-checkin.md\n");
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
