@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -82,10 +83,17 @@ function writeProjectUpdate(values) {
 
   if (existsSync(update.filePath)) {
     const source = readFileSync(update.filePath, "utf8");
-    writeFileSync(update.filePath, appendUpdate(setUpdated(source, update.today), update.today, update.note, values.next), "utf8");
+    const marker = importMarker(values);
+
+    if (alreadyImported(source, values)) {
+      console.log(`project update: skipped duplicate ${path.relative(root, update.filePath)}`);
+      return;
+    }
+
+    writeFileSync(update.filePath, appendUpdate(setUpdated(source, update.today), update.today, markNote(update.note, marker), values.next), "utf8");
     console.log(`project update: appended ${path.relative(root, update.filePath)}`);
   } else {
-    writeFileSync(update.filePath, newBuildLog({ args: values, note: update.note, slug: update.slug, today: update.today }), "utf8");
+    writeFileSync(update.filePath, newBuildLog({ args: values, note: markNote(update.note, importMarker(values)), slug: update.slug, today: update.today }), "utf8");
     console.log(`project update: created ${path.relative(root, update.filePath)}`);
   }
 }
@@ -207,7 +215,27 @@ function argsFromCheckin(values) {
   const overrides = { ...values };
   delete overrides["from-json"];
 
-  return { ...loaded, ...overrides };
+  return { ...loaded, _importId: checkinImportId(loaded), ...overrides };
+}
+
+function checkinImportId(values) {
+  return createHash("sha256")
+    .update(JSON.stringify([values.slug, values.note, values.next, values.title, values.summary]))
+    .digest("hex")
+    .slice(0, 16);
+}
+
+function importMarker(values) {
+  return typeof values._importId === "string" && values._importId ? `<!-- project-update:import:${values._importId} -->` : "";
+}
+
+function alreadyImported(source, values) {
+  const marker = importMarker(values);
+  return Boolean(marker && source.includes(marker));
+}
+
+function markNote(note, marker) {
+  return marker ? `${marker}\n\n${note}` : note;
 }
 
 function validateCheckinFile() {
@@ -982,6 +1010,8 @@ function runSelfCheck() {
     { line: "../one", number: 2 },
     { line: "./two", number: 4 },
   ]);
+  assert.equal(alreadyImported("<!-- project-update:import:abc123 -->\n", { _importId: "abc123" }), true);
+  assert.equal(alreadyImported("", { _importId: "abc123" }), false);
   const savedArgs = args;
   const tempRoot = mkdtempSync(path.join(tmpdir(), "tba-project-update-"));
   try {

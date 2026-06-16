@@ -69,7 +69,9 @@ npm run project:update -- --import-project-list archive-projects.txt
 ```
 
 Missing `archive-checkin.json` files are skipped. This lets an agent run the loop across
-all wired projects without requiring every project to have a fresh update.
+all wired projects without requiring every project to have a fresh update. Imported
+check-ins carry a non-secret marker in the target MDX, so rerunning the same import skips
+duplicates instead of appending the same update again.
 
 Import a check-in file from another project:
 
