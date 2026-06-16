@@ -417,7 +417,7 @@ function hasBodyEvidence(body) {
 function scanForPublicFiller({ body, filePath, summary, title }) {
   const text = [title, summary, body].join("\n");
   const checks = [
-    [/\b(TODO|TBD|CHANGEME|REPLACE_ME|FIXME)\b/i, "placeholder marker"],
+    [/\b(TODO|TBD|CHANGE[-_]?ME|REPLACE[-_]?ME|FIXME)\b/i, "placeholder marker"],
     [/\b(lorem|ipsum)\b/i, "lorem ipsum text"],
     [/\b(dummy|placeholder)\b/i, "filler word"],
     [/\breplace this\b/i, "template text"],
@@ -481,8 +481,22 @@ body`;
     throw new Error("self-check.mdx: external_links parser failed");
   }
 
+  scanForPublicFiller({
+    body: "CHANGE-ME.example.com",
+    filePath: "self-check.mdx",
+    summary: "",
+    title: "",
+  });
+
+  if (!errors.some((error) => error.includes("placeholder marker"))) {
+    throw new Error("self-check.mdx: placeholder scan failed");
+  }
+
   if (errors.length > 0) {
-    throw new Error(errors.join("\n"));
+    const unexpected = errors.filter((error) => !error.includes("placeholder marker"));
+    if (unexpected.length > 0) {
+      throw new Error(unexpected.join("\n"));
+    }
   }
 
   console.log("content audit self-check: ok");
