@@ -1,0 +1,57 @@
+title: "[annotation] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to leave a public archive annotation for review.
+
+        Your GitHub account will be visible on the discussion. Do not include private data, credentials, private URLs, or identifying details.
+  - type: input
+    id: target-record-slug
+    attributes:
+      label: target record slug
+      description: The archive record slug the note is about.
+      placeholder: why-this-exists
+    validations:
+      required: true
+  - type: input
+    id: target-anchor-id
+    attributes:
+      label: target anchor ID
+      description: Required if known. Use the paragraph or heading anchor shown by the archive composer.
+      placeholder: p-3
+    validations:
+      required: false
+  - type: textarea
+    id: short-excerpt
+    attributes:
+      label: short excerpt
+      description: Optional short quote or paraphrase that identifies the passage.
+      placeholder: The part of the record this note responds to.
+    validations:
+      required: false
+  - type: textarea
+    id: note-body
+    attributes:
+      label: note body
+      description: Keep it short, specific, and safe to publish after review.
+      placeholder: Leave the field note here.
+    validations:
+      required: true
+  - type: input
+    id: display-name
+    attributes:
+      label: display name / pseudonym
+      description: Optional. Leave blank if the GitHub username is enough.
+      placeholder: anonymous reader
+    validations:
+      required: false
+  - type: checkboxes
+    id: public-safety
+    attributes:
+      label: public submission checks
+      options:
+        - label: I understand this GitHub submission is public.
+          required: true
+        - label: This note contains no private data, credentials, or identifying details.
+          required: true

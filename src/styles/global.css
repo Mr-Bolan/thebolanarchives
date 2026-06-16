@@ -742,6 +742,7 @@ pre,
 .annotation-composer-selected,
 .annotation-composer-warning,
 .annotation-composer-hint,
+.annotation-composer-copy-status,
 .annotation-composer-error {
   font-family: var(--font-meta);
   font-size: 0.75rem;
@@ -749,6 +750,7 @@ pre,
 }
 
 .annotation-composer-selected,
+.annotation-composer-copy-status,
 .annotation-composer-error {
   color: var(--text-primary);
 }
@@ -802,7 +804,15 @@ pre,
   gap: var(--space-2);
 }
 
-.annotation-composer-actions button {
+.annotation-composer-handoff {
+  padding-top: var(--space-1);
+}
+
+.annotation-composer-actions button,
+.annotation-composer-actions a {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
   min-height: 44px;
   border: 1px solid var(--line-primary);
   background: transparent;
@@ -811,14 +821,20 @@ pre,
   font-family: var(--font-meta);
   font-size: 0.75rem;
   padding: 0 var(--space-3);
+  text-decoration: none;
 }
 
+.annotation-composer-handoff button,
+.annotation-composer-handoff a,
 .annotation-composer-actions button[type="submit"] {
   border-color: color-mix(in srgb, var(--warning), transparent 35%);
   background: rgba(214, 168, 79, 0.08);
 }
 
-.annotation-composer-actions button:hover {
+.annotation-composer-actions button:hover,
+.annotation-composer-actions a:hover,
+.annotation-composer-actions button:focus-visible,
+.annotation-composer-actions a:focus-visible {
   border-color: var(--text-tertiary);
 }
 

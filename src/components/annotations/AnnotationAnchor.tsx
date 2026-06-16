@@ -28,8 +28,10 @@ export function AnnotationAnchor({
     addMode,
     cancelComposer,
     composerAnchorId,
+    githubIntakeUrl,
     mockAnnotationsByAnchor,
     nearAnchorId,
+    recordSlug,
     selectComposerAnchor,
     submitMockNote,
     toggleAnchor,
@@ -90,6 +92,8 @@ export function AnnotationAnchor({
           anchorId={anchorId}
           anchorLabel={anchorLabel}
           cancelComposer={cancelComposer}
+          githubIntakeUrl={githubIntakeUrl}
+          recordSlug={recordSlug}
           submitMockNote={submitMockNote}
         />
       ) : null}
@@ -124,15 +128,20 @@ function AnnotationComposer({
   anchorId,
   anchorLabel,
   cancelComposer,
+  githubIntakeUrl,
+  recordSlug,
   submitMockNote,
 }: {
   anchorId: string;
   anchorLabel: string;
   cancelComposer: () => void;
+  githubIntakeUrl: string;
+  recordSlug: string;
   submitMockNote: (input: { anchorId: string; anchorLabel: string; author: string; body: string }) => void;
 }) {
   const [author, setAuthor] = useState("");
   const [body, setBody] = useState("");
+  const [copyStatus, setCopyStatus] = useState("");
   const [error, setError] = useState("");
   const bodyRef = useRef<HTMLTextAreaElement>(null);
   const fieldId = `annotation-composer-${anchorId}`;
@@ -153,6 +162,41 @@ function AnnotationComposer({
     submitMockNote({ anchorId, anchorLabel, author, body });
   }
 
+  async function handleCopyPreparedNote() {
+    const trimmedBody = body.trim();
+
+    if (!trimmedBody) {
+      setError("write a note body before copying this handoff.");
+      bodyRef.current?.focus();
+      return;
+    }
+
+    const preparedNote = [
+      "target record slug:",
+      recordSlug,
+      "",
+      "target anchor ID:",
+      anchorId,
+      "",
+      "short excerpt:",
+      "",
+      "",
+      "note body:",
+      trimmedBody,
+      "",
+      "display name / pseudonym:",
+      author.trim() || "anonymous reader",
+    ].join("\n");
+
+    try {
+      await navigator.clipboard.writeText(preparedNote);
+      setCopyStatus("prepared note copied. paste it into the GitHub intake form.");
+      setError("");
+    } catch {
+      setError("clipboard copy failed. copy the fields manually before opening GitHub.");
+    }
+  }
+
   return (
     <form
       className="annotation-composer"
@@ -163,7 +207,13 @@ function AnnotationComposer({
         selected anchor: <strong>{anchorLabel}</strong>
       </p>
       <p className="annotation-composer-warning">
-        mock adapter: this stays in memory for this page session and is not published.
+        GitHub intake is public. Your GitHub username and discussion will be visible.
+      </p>
+      <p className="annotation-composer-warning">
+        Reviewed notes are not published until manually copied into static annotation JSON.
+      </p>
+      <p className="annotation-composer-hint">
+        This page has no token, no GitHub API call, and no network write. The mock preview stays in memory for this page session.
       </p>
 
       <label htmlFor={`${fieldId}-author`}>
@@ -189,22 +239,37 @@ function AnnotationComposer({
         onChange={(event) => {
           setBody(event.target.value);
           setError("");
+          setCopyStatus("");
         }}
       />
       <p className="annotation-composer-hint" id={`${fieldId}-hint`}>
-        staged notes are mock/pending and disappear when this page session ends.
+        staged previews are mock/pending and disappear when this page session ends.
       </p>
+      {copyStatus ? (
+        <p className="annotation-composer-copy-status" role="status">
+          {copyStatus}
+        </p>
+      ) : null}
       {error ? (
         <p className="annotation-composer-error" id={`${fieldId}-error`} role="alert">
           {error}
         </p>
       ) : null}
 
+      <div className="annotation-composer-actions annotation-composer-handoff">
+        <button type="button" onClick={handleCopyPreparedNote}>
+          copy prepared note
+        </button>
+        <a href={githubIntakeUrl} target="_blank" rel="noreferrer">
+          open GitHub intake
+        </a>
+      </div>
+
       <div className="annotation-composer-actions">
         <button type="button" onClick={cancelComposer}>
           cancel
         </button>
-        <button type="submit">submit mock note</button>
+        <button type="submit">stage mock preview</button>
       </div>
     </form>
   );

@@ -26,8 +26,10 @@ type AnnotationLayerContextValue = {
   composerAnchorId: string | null;
   cancelComposer: () => void;
   clearSubmissionStatus: () => void;
+  githubIntakeUrl: string;
   mockAnnotationsByAnchor: Map<string, MockArchiveAnnotation[]>;
   nearAnchorId: string | null;
+  recordSlug: string;
   selectComposerAnchor: (anchorId: string, anchorLabel: string) => void;
   submissionStatus: string | null;
   submitMockNote: (input: MockNoteInput) => void;
@@ -41,8 +43,10 @@ const AnnotationLayerContext = createContext<AnnotationLayerContextValue>({
   composerAnchorId: null,
   cancelComposer: () => undefined,
   clearSubmissionStatus: () => undefined,
+  githubIntakeUrl: "https://github.com/Mr-Bolan/thebolanarchives/discussions/new?category=archive-annotations",
   mockAnnotationsByAnchor: new Map(),
   nearAnchorId: null,
+  recordSlug: "",
   selectComposerAnchor: () => undefined,
   submissionStatus: null,
   submitMockNote: () => undefined,
@@ -69,6 +73,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
   const shellRef = useRef<HTMLDivElement>(null);
   const totalAnnotations = annotations.length + mockAnnotations.length;
+  const githubIntakeUrl = "https://github.com/Mr-Bolan/thebolanarchives/discussions/new?category=archive-annotations";
 
   useEffect(() => {
     if (!visible) {
@@ -206,7 +211,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
         return;
       }
 
-      // ponytail: mock adapter only; replace after Phase D chooses real storage.
+      // ponytail: session-only preview; GitHub intake stays a manual external handoff.
       const mockNote: MockArchiveAnnotation = {
         id: `mock_note_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`,
         recordSlug,
@@ -223,7 +228,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
       setActiveAnchorId(anchorId);
       setAddMode(false);
       setComposerAnchorId(null);
-      setSubmissionStatus(`${anchorLabel}: mock note staged for this page session; not published.`);
+      setSubmissionStatus(`${anchorLabel}: mock preview staged for this page session; not submitted or published.`);
       setVisible(true);
     },
     [recordSlug],
@@ -250,8 +255,10 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
       cancelComposer,
       clearSubmissionStatus,
       composerAnchorId,
+      githubIntakeUrl,
       mockAnnotationsByAnchor,
       nearAnchorId,
+      recordSlug,
       selectComposerAnchor,
       submissionStatus,
       submitMockNote,
@@ -264,8 +271,10 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
       cancelComposer,
       clearSubmissionStatus,
       composerAnchorId,
+      githubIntakeUrl,
       mockAnnotationsByAnchor,
       nearAnchorId,
+      recordSlug,
       selectComposerAnchor,
       submissionStatus,
       submitMockNote,
