@@ -16,6 +16,11 @@ if (args["self-check"]) {
   process.exit(0);
 }
 
+if (args["write-checkin"]) {
+  writeCheckinTemplate();
+  process.exit(0);
+}
+
 if (args["write-ledger"]) {
   writeProjectLedger();
   process.exit(0);
@@ -225,6 +230,45 @@ function checkinList(value, key, filePath) {
   }
 
   return value.join(",");
+}
+
+function writeCheckinTemplate() {
+  const output = args["write-checkin"] === true ? "archive-checkin.json" : args["write-checkin"];
+
+  if (typeof output !== "string" || !output.trim()) {
+    fail("--write-checkin needs a file path");
+  }
+
+  const filePath = path.resolve(root, output);
+
+  if (existsSync(filePath)) {
+    fail(`${output} already exists; refusing to overwrite`);
+  }
+
+  const template = checkinTemplate(args);
+
+  assertSlugIfPresent(template.slug, "slug");
+  assertVisibility(template.visibility);
+  assertSafeText(JSON.stringify(template));
+  mkdirSync(path.dirname(filePath), { recursive: true });
+  writeFileSync(filePath, `${JSON.stringify(template, null, 2)}\n`, "utf8");
+  console.log(`project update: wrote ${path.relative(root, filePath)}`);
+}
+
+function checkinTemplate(values) {
+  return {
+    slug: typeof values.slug === "string" ? values.slug.trim() : "",
+    title: typeof values.title === "string" ? values.title.trim() : "",
+    summary: typeof values.summary === "string" ? values.summary.trim() : "",
+    visibility: typeof values.visibility === "string" ? values.visibility.trim() : "draft",
+    tags: csv(values.tags),
+    tools: csv(values.tools),
+    current_state: "",
+    changed: "",
+    uncertain: "",
+    public_evidence: "",
+    next_move: "",
+  };
 }
 
 function writeProjectLedger() {
@@ -473,9 +517,21 @@ function assertSlug(value) {
   }
 }
 
+function assertSlugIfPresent(value, label) {
+  if (value && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)) {
+    fail(`--${label} must be lowercase kebab-case`);
+  }
+}
+
 function assertDate(value, label) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
     fail(`--${label} must use YYYY-MM-DD`);
+  }
+}
+
+function assertVisibility(value) {
+  if (!["draft", "unlisted", "public"].includes(value)) {
+    fail("--visibility must be draft, unlisted, or public");
   }
 }
 
@@ -552,6 +608,19 @@ function runSelfCheck() {
   assert.equal(defaultBuildLog.includes('status: "working_note"'), true);
   assert.equal(defaultBuildLog.includes('confidence: "partial"'), true);
   assert.equal(defaultBuildLog.includes('visibility: "draft"'), true);
+  assert.deepEqual(checkinTemplate({ slug: "agent-loop", tags: "agents,archive", tools: "codex" }), {
+    slug: "agent-loop",
+    title: "",
+    summary: "",
+    visibility: "draft",
+    tags: ["agents", "archive"],
+    tools: ["codex"],
+    current_state: "",
+    changed: "",
+    uncertain: "",
+    public_evidence: "",
+    next_move: "",
+  });
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
   assert.equal(unsafeTextReason("TODO: fill this later"), "filler or placeholder");
   assert.equal(

@@ -8,6 +8,12 @@ project. Keep it out of commits unless the owner explicitly says it is safe to p
 The file must be sanitized. Do not include private names, emails, private URLs,
 credentials, client details, unpublished context, or local machine paths.
 
+From `thebolanarchives`, the archive agent can write an empty form for this project:
+
+```bash
+npm run project:update -- --write-checkin ../project/archive-checkin.json --slug project-slug --tags agents,archive --tools codex
+```
+
 ```json
 {
   "slug": "project-slug",

@@ -18,6 +18,12 @@ Pipe longer notes through stdin:
 npm run project:update -- --slug project-slug --stdin
 ```
 
+Write an empty local check-in form:
+
+```bash
+npm run project:update -- --write-checkin archive-checkin.json --slug project-slug --tags agents,archive --tools codex
+```
+
 Import a check-in file from another project:
 
 ```bash
