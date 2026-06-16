@@ -91,6 +91,17 @@ Decision criteria:
 - export/archive path
 - compatibility with GitHub Pages static hosting
 
+Result: choose GitHub Discussions as a lightweight historical intake and storage layer,
+with static JSON remaining the only website render source. This is not an embedded
+anonymous comment backend. Reader submissions are public GitHub discussions, reviewed
+before publication, and copied or exported into `content/annotations/*.json` only after
+moderation.
+
+Decision docs:
+
+- `docs/archive-annotations-backend-decision.md`
+- `docs/archive-annotations-moderation-model.md`
+
 ## Phase E: moderated live annotations
 
 Goal: production-ready live annotations only after the backend and moderation model are
@@ -105,10 +116,15 @@ Includes:
 - public rendering of approved notes
 - export/archive option
 
+Chosen Phase E direction: GitHub Discussions intake plus static publication. Do not add a
+database, CMS, API routes, server actions, anonymous embedded submissions, or runtime
+comment fetching. See `docs/archive-annotations-phase-e-plan.md`.
+
 ## Anti-goals
 
-- no backend yet
-- no public submission storage yet
+- no embedded/custom backend yet
+- no browser-side direct writes to GitHub
+- no public submission storage inside the repository or static site
 - no database
 - no CMS
 - no search
