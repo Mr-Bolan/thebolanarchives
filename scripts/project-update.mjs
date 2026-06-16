@@ -405,19 +405,26 @@ function validateProjectList() {
 }
 
 function importProjectList(key = "import-project-list") {
+  for (const values of projectListImportValues(key)) {
+    writeProjectUpdate(values);
+  }
+}
+
+function projectListImportValues(key) {
   const files = projectCheckinFiles(key);
 
   if (files.length === 0) {
     console.log("project update: no archive-checkin.json files found");
-    return;
+    return [];
   }
 
-  for (const filePath of files) {
+  return files.map((filePath) => {
     const values = argsFromCheckin({ ...args, "from-json": filePath });
     delete values["validate-project-list"];
     delete values["import-project-list"];
-    writeProjectUpdate(values);
-  }
+    validateUpdate(values, updateInput(values));
+    return values;
+  });
 }
 
 function syncProjectList() {
@@ -1033,6 +1040,17 @@ function runSelfCheck() {
     writeFileSync(path.join(tempRoot, "archive-projects.txt"), "./project\n./empty\n", "utf8");
     args = { "self-check-project-list": path.join(tempRoot, "archive-projects.txt") };
     assert.deepEqual(projectCheckinFiles("self-check-project-list"), [path.join(projectRoot, "archive-checkin.json")]);
+    writeFileSync(
+      path.join(projectRoot, "archive-checkin.json"),
+      JSON.stringify({
+        slug: "agent-loop-list",
+        title: "agent loop list",
+        summary: "A plain summary for validating every project-list check-in before writing any archive update.",
+        current_state: "The batch importer can validate ready check-ins as a group before writing.",
+      }),
+      "utf8",
+    );
+    assert.equal(projectListImportValues("self-check-project-list")[0].slug, "agent-loop-list");
   } finally {
     args = savedArgs;
     rmSync(tempRoot, { recursive: true, force: true });
