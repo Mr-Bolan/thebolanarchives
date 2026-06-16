@@ -64,6 +64,8 @@ thebolanarchives/
     lib/              content.ts, headings.ts, page-metadata.ts
   public/
     images/  diagrams/  textures/   <- static assets (+ future CNAME when real domain is known)
+  scripts/
+    project-update.mjs <- local agent/owner tool for appending audited build-log updates
 ```
 
 Every folder has its own `README.md` with details. The conceptual structure mirrors brief

@@ -1,7 +1,8 @@
 # Archive Annotations data
 
-Archive Annotations are read-only static notes. They are not live comments and they do
-not accept reader submissions.
+Archive Annotations render read-only static notes. The on-page composer may prepare a
+GitHub handoff, but the site does not store reader submissions or publish them at
+runtime.
 
 ## where data lives
 
@@ -50,10 +51,10 @@ Allowed statuses:
 3. Use a unique `id`.
 4. Set `recordSlug` to the filename without `.json`.
 5. Set `anchorId` to a paragraph or heading anchor.
-6. Keep the body fake, sanitized, and read-only.
+6. Keep the body reviewed, sanitized, and read-only.
 7. Run `npm run annotations:audit`.
 
-Do not commit real reader comments, private notes, private URLs, emails, credentials,
+Do not commit raw reader comments, private notes, private URLs, emails, credentials,
 moderation queues, or unpublished personal context.
 
 ## anchor IDs
@@ -72,6 +73,6 @@ whole section.
 
 ## what this is not
 
-This is not a comment system. There is no composer, backend, database, auth, moderation
-UI, replies, likes, profiles, search, or live storage. The files are public source data,
-so every annotation must be safe to publish as-is.
+This is not a comment system. There is no backend, database, auth, moderation UI,
+replies, likes, profiles, search, or live storage. The files are public source data, so
+every annotation must be safe to publish as-is.

@@ -236,6 +236,10 @@ function validateRecord({ body, collection, data, filePath, folder, slugFromFile
     errors.push(`${filePath}: field_confirmed content needs evidence metadata or body evidence`);
   }
 
+  if (visibility === "public" || visibility === "unlisted") {
+    scanForPublicFiller({ body, filePath, summary: stringValue(data.summary), title: stringValue(data.title) });
+  }
+
   return {
     title: stringValue(data.title),
     slug,
@@ -408,6 +412,23 @@ function isKebabCase(value) {
 
 function hasBodyEvidence(body) {
   return /\b(evidence|verified|observed|measured|field confirmed|source)\b/i.test(body);
+}
+
+function scanForPublicFiller({ body, filePath, summary, title }) {
+  const text = [title, summary, body].join("\n");
+  const checks = [
+    [/\b(TODO|TBD|CHANGEME|REPLACE_ME|FIXME)\b/i, "placeholder marker"],
+    [/\b(lorem|ipsum)\b/i, "lorem ipsum text"],
+    [/\b(dummy|placeholder)\b/i, "filler word"],
+    [/\breplace this\b/i, "template text"],
+    [/\bcoming soon\b/i, "coming-soon text"],
+  ];
+
+  for (const [pattern, label] of checks) {
+    if (pattern.test(text)) {
+      errors.push(`${filePath}: public content contains ${label}`);
+    }
+  }
 }
 
 function isObject(value) {

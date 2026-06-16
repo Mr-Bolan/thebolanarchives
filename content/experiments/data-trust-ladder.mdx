@@ -4,9 +4,9 @@ slug: "data-trust-ladder"
 type: "experiment"
 status: "sketch"
 confidence: "low"
-summary: "A static experiment sketch for separating raw data, clean data, trusted data, explanation, and action."
+summary: "A static experiment for separating raw data, clean data, trusted data, explanation, and action."
 created: "2026-06-14"
-updated: "2026-06-14"
+updated: "2026-06-16"
 tags:
   - dashboards
   - data-quality
@@ -29,10 +29,10 @@ What changes when a dashboard moves from showing that data exists to showing tha
 
 <ExperimentFrame
   title="data trust ladder"
-  explanation="A static frame for the later interactive version."
+  explanation="A five-state model for checking whether data can support action."
   fallback="Data can exist, be clean, be trusted, explain a problem, or support action. Those are different states."
 >
-  <DiagramBlock caption="The five states this experiment will eventually let readers adjust." alt="A five-step ladder from raw data to action">
+  <DiagramBlock caption="The five states this experiment tracks." alt="A five-step ladder from raw data to action">
     <ol className="diagram-steps">
       <li>raw data</li>
       <li>clean data</li>
@@ -50,6 +50,6 @@ The ladder is deliberately simple. Each step can fail independently, and a dashb
 ## open questions
 
 <OpenQuestions questions={[
-  "Which step should the first interactive control change?",
+  "Which step fails first in the current system?",
   "What example failure makes the difference obvious without exposing real data?"
 ]} />

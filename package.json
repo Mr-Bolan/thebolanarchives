@@ -7,12 +7,13 @@
     "dev": "next dev",
     "prebuild": "node scripts/content-audit.mjs --write-index",
     "build": "next build",
+    "project:update": "node scripts/project-update.mjs",
     "content:audit": "node scripts/content-audit.mjs",
     "annotations:audit": "node scripts/annotations-audit.mjs",
     "privacy:audit": "node scripts/privacy-audit.mjs",
     "pages:verify": "node scripts/verify-pages-export.mjs",
     "deploy:check": "npm run content:audit && npm run build && npm run pages:verify",
-    "agent:check": "npm run content:audit && npm run annotations:audit && npm run privacy:audit && npm run build && npm run pages:verify"
+    "agent:check": "npm run project:update -- --self-check && npm run content:audit && npm run annotations:audit && npm run privacy:audit && npm run build && npm run pages:verify"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
