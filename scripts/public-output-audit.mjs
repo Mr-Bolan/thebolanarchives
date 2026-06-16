@@ -6,6 +6,7 @@ import path from "node:path";
 const outDir = path.resolve("out");
 const auditedOutputNames = new Set(["cname"]);
 const auditedOutputExtensions = new Set([".html", ".json", ".txt", ".xml"]);
+const auditedBundleExtensions = new Set([".js", ".css"]);
 const checks = [
   [/\b(TODO|TBD|CHANGE[-_]?ME|REPLACE[-_]?ME|FIXME)\b/i, "placeholder marker"],
   [/\b(lorem|ipsum)\b/i, "lorem ipsum text"],
@@ -17,6 +18,7 @@ const checks = [
   [/\beventually let\b/i, "eventual-feature filler"],
   [/\bPending:\b/i, "pending marker"],
 ];
+const bundleChecks = checks.filter(([, label]) => ["placeholder marker", "lorem ipsum text", "template text"].includes(label));
 
 if (process.argv.includes("--self-check")) {
   runSelfCheck();
@@ -49,17 +51,22 @@ function outputFiles(directory = outDir) {
 }
 
 function isAuditedOutputFile(fileName) {
-  return auditedOutputNames.has(fileName.toLowerCase()) || auditedOutputExtensions.has(path.extname(fileName).toLowerCase());
+  const extension = path.extname(fileName).toLowerCase();
+  return auditedOutputNames.has(fileName.toLowerCase()) || auditedOutputExtensions.has(extension) || auditedBundleExtensions.has(extension);
 }
 
 function scanFile(file) {
   const source = readFileSync(file, "utf8");
   const relative = path.relative(outDir, file);
 
-  return checks.flatMap(([pattern, label]) => {
+  return checksForFile(relative).flatMap(([pattern, label]) => {
     const match = source.match(pattern);
     return match ? [{ file: relative, label, match: snippet(source, match.index ?? 0) }] : [];
   });
+}
+
+function checksForFile(fileName) {
+  return auditedBundleExtensions.has(path.extname(fileName).toLowerCase()) ? bundleChecks : checks;
 }
 
 function snippet(source, index) {
@@ -78,15 +85,17 @@ function runSelfCheck() {
   assert.deepEqual(scanText("ok", "clean text"), []);
   assert.equal(scanText("bad.html", "TODO: replace this later")[0].label, "placeholder marker");
   assert.equal(scanText("CNAME", "CHANGE-ME.example.com")[0].label, "placeholder marker");
+  assert.equal(scanText("bundle.js", "const host = 'CHANGE-ME.example.com';")[0].label, "placeholder marker");
+  assert.deepEqual(scanText("bundle.js", "input.placeholder = 'anonymous reader';"), []);
   assert.equal(isAuditedOutputFile("feed.xml"), true);
   assert.equal(isAuditedOutputFile("CNAME"), true);
-  assert.equal(isAuditedOutputFile("bundle.js"), false);
+  assert.equal(isAuditedOutputFile("bundle.js"), true);
   assert.equal(snippet("abc TODO def", 4), "abc TODO def");
   console.log("public output audit self-check: ok");
 }
 
 function scanText(file, source) {
-  return checks.flatMap(([pattern, label]) => {
+  return checksForFile(file).flatMap(([pattern, label]) => {
     const match = source.match(pattern);
     return match ? [{ file, label, match: snippet(source, match.index ?? 0) }] : [];
   });
