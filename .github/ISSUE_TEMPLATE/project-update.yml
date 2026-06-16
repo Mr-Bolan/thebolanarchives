@@ -1,0 +1,88 @@
+name: Project update
+description: Give the agent a public-safe project check-in for a build log.
+title: "project update: "
+labels:
+  - content
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for occasional owner-to-agent project updates.
+
+        This issue is public. Do not include private names, emails, private URLs, credentials, client details, or unpublished personal context.
+  - type: input
+    id: build-log-slug
+    attributes:
+      label: Build-log slug
+      description: Existing build-log slug, or the proposed lowercase kebab-case slug for a new one.
+      placeholder: static-archive-scaffold
+    validations:
+      required: true
+  - type: input
+    id: new-title
+    attributes:
+      label: Title if this is new
+      description: Leave blank when updating an existing build log.
+      placeholder: static archive scaffold
+  - type: dropdown
+    id: target-visibility
+    attributes:
+      label: Target visibility
+      options:
+        - draft
+        - unlisted
+        - public
+    validations:
+      required: true
+  - type: textarea
+    id: current-state
+    attributes:
+      label: Current state
+      description: What is true now? Keep only facts that can be sanitized into an archive update.
+    validations:
+      required: true
+  - type: textarea
+    id: changed
+    attributes:
+      label: What changed
+      description: What moved since the last check-in?
+    validations:
+      required: true
+  - type: textarea
+    id: broken-or-uncertain
+    attributes:
+      label: What broke or is uncertain
+      description: Name failures, missing evidence, stale assumptions, or open questions.
+  - type: textarea
+    id: next-move
+    attributes:
+      label: Next move
+      description: The smallest concrete step the agent should preserve or take next.
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated tags for the build log.
+      placeholder: agents,archive
+  - type: input
+    id: tools
+    attributes:
+      label: Tools
+      description: Comma-separated tools or systems involved.
+      placeholder: codex,nextjs
+  - type: textarea
+    id: public-evidence
+    attributes:
+      label: Public-safe evidence
+      description: Optional public links, commands, artifacts, or observations the agent may cite. Leave private evidence out.
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Guardrails
+      options:
+        - label: I understand this issue is public source material for a public repository.
+          required: true
+        - label: No private names, emails, private URLs, credentials, client details, or unpublished personal context are included.
+          required: true
+        - label: The agent should keep the resulting build log as draft unless publication is explicitly safe.
+          required: true

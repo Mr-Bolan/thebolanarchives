@@ -31,6 +31,17 @@ Builds also write `public/project-ledger.json` from public build logs. Do not ed
 file by hand. The `/build-logs` page reads it during static build and shows a compact
 current-state shelf.
 
+## owner input path
+
+Use the GitHub `Project update` issue template when the owner wants to hand the agent an
+occasional check-in without touching local files. The issue is public, so it must contain
+only sanitized project state, public-safe evidence, and non-identifying context.
+
+The agent should turn the issue into the smallest honest `npm run project:update --`
+command, keep uncertain work as `draft`, run the checks below, and link the resulting
+commit or PR back to the issue. Do not copy private evidence into the repository just
+because it appeared in a public issue.
+
 ## agent loop
 
 1. Take the owner's rough update or project evidence.
