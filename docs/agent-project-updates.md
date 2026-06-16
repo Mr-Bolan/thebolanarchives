@@ -33,9 +33,10 @@ Install the handoff note into another project:
 npm run project:update -- --install-checkin ../some-project
 ```
 
-This writes `AGENTS.project-checkin.md` in the target project and makes sure its
-`.gitignore` includes `archive-checkin.json`. It refuses to overwrite an existing
-`AGENTS.project-checkin.md`.
+This writes `AGENTS.project-checkin.md` in the target project, makes sure its
+`.gitignore` includes `archive-checkin.json`, and adds a small `AGENTS.md` pointer so
+future agents can discover the handoff note. Re-running it keeps an existing
+`AGENTS.project-checkin.md` instead of overwriting local edits.
 
 Import a check-in file from another project:
 

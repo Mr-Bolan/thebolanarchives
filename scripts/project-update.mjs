@@ -311,23 +311,36 @@ function installCheckinInstructions() {
 
   const notePath = path.join(projectRoot, "AGENTS.project-checkin.md");
 
-  if (existsSync(notePath)) {
-    fail(`${path.relative(root, notePath)} already exists; refusing to overwrite`);
+  if (existsSync(notePath) && statSync(notePath).isDirectory()) {
+    fail(`${path.relative(root, notePath)} is a directory`);
   }
 
   const template = readFileSync(path.join(root, "templates", "project-checkin", "AGENTS.project-checkin.md"), "utf8");
   const gitignorePath = path.join(projectRoot, ".gitignore");
+  const agentsPath = path.join(projectRoot, "AGENTS.md");
 
   if (existsSync(gitignorePath) && statSync(gitignorePath).isDirectory()) {
     fail(`${path.relative(root, gitignorePath)} is a directory`);
   }
 
-  const gitignore = existsSync(gitignorePath) ? readFileSync(gitignorePath, "utf8") : "";
+  if (existsSync(agentsPath) && statSync(agentsPath).isDirectory()) {
+    fail(`${path.relative(root, agentsPath)} is a directory`);
+  }
 
-  writeFileSync(notePath, template, "utf8");
+  const gitignore = existsSync(gitignorePath) ? readFileSync(gitignorePath, "utf8") : "";
+  const agents = existsSync(agentsPath) ? readFileSync(agentsPath, "utf8") : "";
+
+  if (!existsSync(notePath)) {
+    writeFileSync(notePath, template, "utf8");
+    console.log(`project update: installed ${path.relative(root, notePath)}`);
+  } else {
+    console.log(`project update: kept existing ${path.relative(root, notePath)}`);
+  }
+
   writeFileSync(gitignorePath, ensureIgnored(gitignore, "archive-checkin.json"), "utf8");
-  console.log(`project update: installed ${path.relative(root, notePath)}`);
+  writeFileSync(agentsPath, ensureCheckinPointer(agents), "utf8");
   console.log(`project update: ensured ${path.relative(root, gitignorePath)} ignores archive-checkin.json`);
+  console.log(`project update: ensured ${path.relative(root, agentsPath)} points to AGENTS.project-checkin.md`);
 }
 
 function ensureIgnored(source, value) {
@@ -339,6 +352,15 @@ function ensureIgnored(source, value) {
 
   const separator = source && !source.endsWith("\n") ? "\n" : "";
   return `${source}${separator}${value}\n`;
+}
+
+function ensureCheckinPointer(source) {
+  if (source.includes("AGENTS.project-checkin.md")) {
+    return source;
+  }
+
+  const prefix = source ? `${source}${source.endsWith("\n") ? "" : "\n"}\n` : "# AGENTS.md\n\n";
+  return `${prefix}## Archive Check-In\n\nFor thebolanarchives project updates, read \`AGENTS.project-checkin.md\`.\n`;
 }
 
 function checkinTemplate(values) {
@@ -725,6 +747,8 @@ function runSelfCheck() {
   });
   assert.equal(ensureIgnored("node_modules/\n", "archive-checkin.json"), "node_modules/\narchive-checkin.json\n");
   assert.equal(ensureIgnored("archive-checkin.json\n", "archive-checkin.json"), "archive-checkin.json\n");
+  assert.equal(ensureCheckinPointer("").includes("AGENTS.project-checkin.md"), true);
+  assert.equal(ensureCheckinPointer("Read AGENTS.project-checkin.md\n"), "Read AGENTS.project-checkin.md\n");
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
   assert.equal(unsafeTextReason("TODO: fill this later"), "filler or placeholder");
   assert.equal(
