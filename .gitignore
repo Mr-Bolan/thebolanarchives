@@ -20,3 +20,4 @@ transcripts/
 *.local
 privacy-blocklist.json
 archive-checkin.json
+archive-projects.txt

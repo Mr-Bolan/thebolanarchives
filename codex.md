@@ -72,6 +72,7 @@ thebolanarchives/
                           or writing/validating/installing discoverable local check-in forms
                           with optional per-project form seeding
                           and installed-project verification
+                          plus ignored local project-list batch wiring
                           (`project:ledger -- --all` lists local draft/unlisted state)
     public-output-audit.mjs <- scans exported HTML/JSON for public filler text
 ```

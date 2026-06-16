@@ -31,8 +31,23 @@ if (args["install-checkin"]) {
   process.exit(0);
 }
 
+if (args["write-project-list"]) {
+  writeProjectListTemplate();
+  process.exit(0);
+}
+
+if (args["install-project-list"]) {
+  installProjectList();
+  process.exit(0);
+}
+
 if (args["check-install"]) {
   checkInstall();
+  process.exit(0);
+}
+
+if (args["check-project-list"]) {
+  checkProjectList();
   process.exit(0);
 }
 
@@ -302,17 +317,27 @@ function writeCheckinTemplate() {
 }
 
 function installCheckinInstructions() {
-  const target = args["install-checkin"];
+  installCheckinProject(projectDirectoryArg("install-checkin"), true);
+}
 
-  if (typeof target !== "string" || !target.trim()) {
-    fail("--install-checkin needs a project directory");
+function writeProjectListTemplate() {
+  const filePath = projectListPath("write-project-list");
+
+  if (existsSync(filePath)) {
+    fail(`${path.relative(root, filePath)} already exists; refusing to overwrite`);
   }
 
-  const projectRoot = path.resolve(root, target);
+  writeFileSync(filePath, "# one project directory per line\n# ../some-project\n", "utf8");
+  console.log(`project update: wrote ${path.relative(root, filePath)}`);
+}
 
-  if (!existsSync(projectRoot) || !statSync(projectRoot).isDirectory()) {
-    fail(`${target} is not a directory`);
+function installProjectList() {
+  for (const projectRoot of projectList("install-project-list")) {
+    installCheckinProject(projectRoot, false);
   }
+}
+
+function installCheckinProject(projectRoot, canSeedCheckin) {
 
   const notePath = path.join(projectRoot, "AGENTS.project-checkin.md");
 
@@ -352,7 +377,7 @@ function installCheckinInstructions() {
   console.log(`project update: ensured ${path.relative(root, gitignorePath)} ignores archive-checkin.json`);
   console.log(`project update: ensured ${path.relative(root, agentsPath)} points to AGENTS.project-checkin.md`);
 
-  if (typeof args.slug === "string" && args.slug.trim()) {
+  if (canSeedCheckin && typeof args.slug === "string" && args.slug.trim()) {
     seedCheckinFile(checkinPath);
   }
 }
@@ -366,6 +391,25 @@ function checkInstall() {
   }
 
   console.log(`project update: ${path.relative(root, projectRoot)} is wired for archive check-ins`);
+}
+
+function checkProjectList() {
+  let failures = 0;
+
+  for (const projectRoot of projectList("check-project-list")) {
+    const missing = checkInstallMissing(projectRoot);
+
+    if (missing.length > 0) {
+      failures += 1;
+      console.error(`project update: ${path.relative(root, projectRoot)} is missing ${missing.join(", ")}`);
+    } else {
+      console.log(`project update: ${path.relative(root, projectRoot)} is wired for archive check-ins`);
+    }
+  }
+
+  if (failures > 0) {
+    fail(`${failures} project install check(s) failed`);
+  }
 }
 
 function checkInstallMissing(projectRoot) {
@@ -403,6 +447,47 @@ function projectDirectoryArg(key) {
   }
 
   return projectRoot;
+}
+
+function projectListPath(key) {
+  const target = args[key] === true ? "archive-projects.txt" : args[key];
+
+  if (typeof target !== "string" || !target.trim()) {
+    fail(`--${key} needs a project list path`);
+  }
+
+  return path.resolve(root, target);
+}
+
+function projectList(key) {
+  const filePath = projectListPath(key);
+
+  if (!existsSync(filePath) || statSync(filePath).isDirectory()) {
+    fail(`${path.relative(root, filePath)} is not a project list file`);
+  }
+
+  const entries = projectListEntries(readFileSync(filePath, "utf8"));
+
+  if (entries.length === 0) {
+    fail(`${path.relative(root, filePath)} has no project directories`);
+  }
+
+  return entries.map(({ line, number }) => {
+    const projectRoot = path.resolve(path.dirname(filePath), line);
+
+    if (!existsSync(projectRoot) || !statSync(projectRoot).isDirectory()) {
+      fail(`${path.relative(root, filePath)}:${number} ${line} is not a directory`);
+    }
+
+    return projectRoot;
+  });
+}
+
+function projectListEntries(source) {
+  return source
+    .split(/\r?\n/)
+    .map((line, index) => ({ line: line.trim(), number: index + 1 }))
+    .filter(({ line }) => line && !line.startsWith("#"));
 }
 
 function seedCheckinFile(filePath) {
@@ -827,6 +912,10 @@ function runSelfCheck() {
   assert.equal(ensureIgnored("node_modules/\n", "archive-checkin.json"), "node_modules/\narchive-checkin.json\n");
   assert.equal(ensureIgnored("archive-checkin.json\n", "archive-checkin.json"), "archive-checkin.json\n");
   assert.equal(ignoredByText("node_modules/\narchive-checkin.json\n", "archive-checkin.json"), true);
+  assert.deepEqual(projectListEntries("# local only\n../one\n\n ./two \n"), [
+    { line: "../one", number: 2 },
+    { line: "./two", number: 4 },
+  ]);
   assert.equal(ensureCheckinPointer("").includes("AGENTS.project-checkin.md"), true);
   assert.equal(ensureCheckinPointer("Read AGENTS.project-checkin.md\n"), "Read AGENTS.project-checkin.md\n");
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);

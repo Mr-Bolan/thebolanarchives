@@ -23,6 +23,7 @@ Keep these local-only unless explicitly sanitized and moved into the public cont
 - `transcripts/`
 - `privacy-blocklist.json`
 - `archive-checkin.json`
+- `archive-projects.txt`
 - credentials and `.env*` files
 - local agent/tool state folders
 

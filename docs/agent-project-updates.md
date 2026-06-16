@@ -46,6 +46,20 @@ Check whether a project is wired for archive updates:
 npm run project:update -- --check-install ../some-project
 ```
 
+Write a local list for projects that should feed the archive:
+
+```bash
+npm run project:update -- --write-project-list archive-projects.txt
+```
+
+`archive-projects.txt` is ignored. Put one project directory per line, with `#` comments
+allowed. Then wire or verify every listed project:
+
+```bash
+npm run project:update -- --install-project-list archive-projects.txt
+npm run project:update -- --check-project-list archive-projects.txt
+```
+
 Import a check-in file from another project:
 
 ```bash
@@ -118,7 +132,8 @@ contents into that repo's existing agent instructions.
 
 1. Take the owner's rough update or project evidence.
 2. Remove private names, private URLs, credentials, client details, and filler.
-3. Run `--check-install` when a source project should already be wired.
+3. Run `--check-project-list` for the local source list, or `--check-install` for one
+   source project.
 4. Validate cross-project files with `--validate-checkin` before importing them.
 5. Write the smallest honest update with `npm run project:update --` or `--from-json`.
 6. Run `npm run content:audit`.
