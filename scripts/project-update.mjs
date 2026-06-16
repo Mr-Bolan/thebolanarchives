@@ -950,7 +950,7 @@ function unsafeTextReason(text) {
     [/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i, "email address"],
     [/\b(localhost|127\.0\.0\.1|10\.\d{1,3}\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/i, "private host"],
     [/\b(password|passwd|api[_-]?key|secret|token|bearer)\b/i, "credential term"],
-    [/\b(TODO|TBD|CHANGEME|REPLACE_ME|FIXME|lorem|ipsum|dummy|placeholder|replace this)\b/i, "filler or placeholder"],
+    [/\b(TODO|TBD|CHANGE[-_]?ME|REPLACE[-_]?ME|FIXME|lorem|ipsum|dummy|placeholder|replace this)\b/i, "filler or placeholder"],
     [/-----BEGIN [A-Z ]*PRIVATE KEY-----/, "private key"],
     [/\b(AKIA|ASIA)[A-Z0-9]{16}\b/, "AWS access key"],
     [/\bsk-[A-Za-z0-9_-]{20,}\b/, "API key"],
@@ -1077,6 +1077,7 @@ function runSelfCheck() {
   assert.equal(ensureCheckinPointer("Read AGENTS.project-checkin.md\n"), "Read AGENTS.project-checkin.md\n");
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
   assert.equal(unsafeTextReason("TODO: fill this later"), "filler or placeholder");
+  assert.equal(unsafeTextReason("CHANGE-ME.example.com"), "filler or placeholder");
   assert.equal(invalidEnumReason("almost_done", "status", statuses).startsWith("--status must be one of"), true);
   assert.equal(unsafeTextReason("tags: token"), "credential term");
   assert.equal(
