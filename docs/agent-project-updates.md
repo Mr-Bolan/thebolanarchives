@@ -103,8 +103,8 @@ npm run project:ledger -- --all --json
 
 Builds also write `public/project-ledger.json` from public build logs. Do not edit that
 file by hand. The `/build-logs` page reads it during static build and shows a compact
-current-state shelf. `--all` is local command output only; it is not written into the
-public ledger.
+current-state shelf with the latest update and next move when present. `--all` is local
+command output only; it is not written into the public ledger.
 
 ## owner input path
 

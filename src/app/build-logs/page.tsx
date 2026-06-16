@@ -23,6 +23,7 @@ type ProjectLedgerItem = {
   updated: string;
   route: string;
   current_state: string;
+  latest_update?: string;
   next_move?: string;
 };
 
@@ -46,6 +47,7 @@ function ProjectLedger({ projects }: { projects: ProjectLedgerItem[] }) {
                 <Link href={project.route}>{project.title}</Link>
               </h3>
               <p>{project.current_state}</p>
+              {project.latest_update ? <p>latest: {project.latest_update}</p> : null}
               {project.next_move ? <p>next: {project.next_move}</p> : null}
             </article>
           </li>
@@ -73,5 +75,9 @@ function isProjectLedgerItem(value: unknown): value is ProjectLedgerItem {
   }
 
   const item = value as Record<string, unknown>;
-  return ["title", "slug", "status", "updated", "route", "current_state"].every((key) => typeof item[key] === "string");
+  return (
+    ["title", "slug", "status", "updated", "route", "current_state"].every((key) => typeof item[key] === "string") &&
+    (item.latest_update === undefined || typeof item.latest_update === "string") &&
+    (item.next_move === undefined || typeof item.next_move === "string")
+  );
 }
