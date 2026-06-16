@@ -381,7 +381,7 @@ function writeProjectListTemplate() {
     fail(`${path.relative(root, filePath)} already exists; refusing to overwrite`);
   }
 
-  writeFileSync(filePath, "# one project directory per line\n# ../some-project\n", "utf8");
+  writeFileSync(filePath, "# one project directory per line\n# ../some-project\n# sync with: npm run project:update -- --sync-project-list archive-projects.txt\n", "utf8");
   console.log(`project update: wrote ${path.relative(root, filePath)}`);
 }
 
