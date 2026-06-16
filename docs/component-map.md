@@ -247,12 +247,13 @@ heading notes. Read `docs/archive-annotations-design-plan.md`,
 `docs/archive-annotations-technical-plan.md`, and `docs/archive-annotations-roadmap.md`
 before implementing them.
 
-Phase A status: static/read-only prototype implemented with sanitized sample data in
-`src/lib/annotations.ts`. The prototype intentionally does not include live comments,
-submission UI, backend storage, moderation tools, exact text selection, replies, likes,
-profiles, scores, search, or route changes. The current visual polish includes an
-inspection-layer discovery control, quiet paper markers, and a pointer-only proximity
-glow/glint that remains nonessential.
+Phase B status: static/read-only prototype implemented with sanitized per-record data in
+`content/annotations/*.json`, loaded through `src/lib/annotations.ts`, and audited by
+`scripts/annotations-audit.mjs`. The prototype intentionally does not include live
+comments, submission UI, backend storage, moderation tools, exact text selection,
+replies, likes, profiles, scores, search, or route changes. The current visual polish
+includes an inspection-layer discovery control, quiet paper markers, and a pointer-only
+proximity glow/glint that remains nonessential.
 
 ### `ArchiveAnnotations`
 

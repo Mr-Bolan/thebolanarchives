@@ -36,7 +36,8 @@ Includes:
 - per-record static annotation data
 - deterministic paragraph and heading IDs
 - read-only annotations
-- data shape checks if the static data grows
+- static sidecar files under `content/annotations/<record-slug>.json`
+- annotation data audit checks
 
 Excludes:
 

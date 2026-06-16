@@ -1,0 +1,23 @@
+[
+  {
+    "id": "annotation_003",
+    "recordSlug": "the-operator-knows-before-the-database-does",
+    "anchorId": "what-i-noticed",
+    "label": "annotation",
+    "body": "This is the useful edge of the record: informal observation can become evidence when it is handled honestly.",
+    "author": "anonymous reader",
+    "created": "2026-06-15",
+    "status": "approved"
+  },
+  {
+    "id": "reader_note_004",
+    "recordSlug": "the-operator-knows-before-the-database-does",
+    "anchorId": "p-2",
+    "label": "reader note",
+    "body": "A future live system would need moderation here. Phase A keeps this as sanitized source data only.",
+    "author": "archive maintainer",
+    "created": "2026-06-15",
+    "status": "archived",
+    "excerpt": "The operator usually knows something is wrong before the database does."
+  }
+]

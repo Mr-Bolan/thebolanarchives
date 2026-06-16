@@ -67,7 +67,13 @@ matching, and edit migration can wait.
 
 ## Static sample data shape
 
-Use static, sanitized sample data only:
+Use static, sanitized sample data only. Phase B stores it in per-record JSON sidecars:
+
+```text
+content/annotations/<record-slug>.json
+```
+
+Each file is a JSON array and must contain annotations for that record only:
 
 ```ts
 export type ArchiveAnnotation = {
@@ -83,24 +89,28 @@ export type ArchiveAnnotation = {
 };
 ```
 
-Example:
+Example JSON object:
 
-```ts
+```json
 {
-  id: "reader_note_001",
-  recordSlug: "why-this-exists",
-  anchorId: "p-2",
-  label: "reader note",
-  body: "This is a static prototype note, not a stored public submission.",
-  author: "anonymous reader",
-  created: "2026-06-15",
-  status: "approved",
-  excerpt: "Because useful work keeps disappearing into memory..."
+  "id": "reader_note_001",
+  "recordSlug": "why-this-exists",
+  "anchorId": "p-2",
+  "label": "reader note",
+  "body": "This is a static prototype note, not a stored public submission.",
+  "author": "anonymous reader",
+  "created": "2026-06-15",
+  "status": "approved",
+  "excerpt": "Because useful work keeps disappearing into memory..."
 }
 ```
 
 Do not commit real user notes, private notes, personal data, private URLs, moderation
 queues, credentials, or production submissions.
+
+`scripts/annotations-audit.mjs` validates JSON shape, unique IDs, target records, labels,
+statuses, dates, non-empty bodies, obvious private placeholders/URLs/credentials, and
+best-effort paragraph and heading anchor resolution.
 
 ## Desktop layout
 
@@ -157,7 +167,8 @@ To avoid breaking GitHub Pages:
 - Do not add API routes, server actions, dynamic runtime fetching, or runtime storage.
 - Do not introduce root-relative asset links outside Next's `basePath` handling.
 - Do not change routes or the deployment model.
-- Keep sample annotation data imported at build time from `src/lib/annotations.ts`.
+- Keep sample annotation data imported statically at build time through
+  `src/lib/annotations.ts`.
 - Keep all interaction client-side over static HTML and bundled data.
 - Run `npm run pages:verify` after any implementation.
 
