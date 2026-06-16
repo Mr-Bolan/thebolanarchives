@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 
 const root = process.cwd();
@@ -88,7 +89,18 @@ function findTargets() {
     }
   }
 
+  files.push(...annotationTargets(path.join(contentRoot, "annotations")));
+
   return files;
+}
+
+function annotationTargets(directory) {
+  if (!existsSync(directory)) return [];
+
+  return readdirSync(directory)
+    .filter((name) => name.endsWith(".json"))
+    .sort()
+    .map((file) => path.join(directory, file));
 }
 
 function frontmatterValue(source, key) {
@@ -104,5 +116,18 @@ function runSelfCheck() {
   assert.equal(scanText("email.mdx", "contact me at user@example.com", [])[0], "email.mdx contains email address");
   assert.equal(scanText("host.mdx", "see http://192.168.1.10/admin", [])[0], "host.mdx contains private host");
   assert.equal(scanText("custom.mdx", "owner-real-name", ["owner-real-name"])[0], 'custom.mdx contains blocked term "owner-real-name"');
+  assert.deepEqual(annotationTargets(path.join(root, ".missing-annotations")), []);
+
+  const temp = mkdtempSync(path.join(tmpdir(), "privacy-audit-"));
+  try {
+    const annotations = path.join(temp, "content", "annotations");
+    mkdirSync(annotations, { recursive: true });
+    writeFileSync(path.join(annotations, "sample.json"), "[]");
+    writeFileSync(path.join(annotations, "README.md"), "not public annotation data");
+    assert.deepEqual(annotationTargets(annotations).map((file) => path.basename(file)), ["sample.json"]);
+  } finally {
+    rmSync(temp, { recursive: true, force: true });
+  }
+
   console.log("privacy audit self-check: ok");
 }
