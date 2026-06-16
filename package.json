@@ -15,7 +15,7 @@
     "public-output:audit": "node scripts/public-output-audit.mjs",
     "pages:verify": "node scripts/verify-pages-export.mjs",
     "deploy:check": "npm run content:audit && npm run build && npm run pages:verify && npm run public-output:audit",
-    "agent:check": "npm run project:update -- --self-check && npm run public-output:audit -- --self-check && npm run content:audit && npm run annotations:audit && npm run privacy:audit && npm run build && npm run pages:verify && npm run public-output:audit"
+    "agent:check": "npm run project:update -- --self-check && npm run content:audit -- --self-check && npm run privacy:audit -- --self-check && npm run public-output:audit -- --self-check && npm run content:audit && npm run annotations:audit && npm run privacy:audit && npm run build && npm run pages:verify && npm run public-output:audit"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
