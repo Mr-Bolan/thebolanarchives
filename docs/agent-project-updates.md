@@ -85,6 +85,16 @@ npm run project:update -- --validate-checkin ../some-project/archive-checkin.jso
 npm run project:update -- --from-json ../some-project/archive-checkin.json
 ```
 
+Import a public GitHub issue-form update:
+
+```bash
+gh issue view 123 --json body -q .body > archive-issue.md
+npm run project:update -- --validate-issue archive-issue.md
+npm run project:update -- --from-issue archive-issue.md
+```
+
+`archive-issue.md` is ignored. Delete or overwrite it after importing.
+
 New records default to `visibility: "draft"`. Existing records keep their current
 visibility and get a dated update appended.
 
@@ -112,10 +122,10 @@ Use the GitHub `Project update` issue template when the owner wants to hand the 
 occasional check-in without touching local files. The issue is public, so it must contain
 only sanitized project state, public-safe evidence, and non-identifying context.
 
-The agent should turn the issue into the smallest honest `npm run project:update --`
-command, keep uncertain work as `draft`, run the checks below, and link the resulting
-commit or PR back to the issue. Do not copy private evidence into the repository just
-because it appeared in a public issue.
+The agent should export the issue body to ignored `archive-issue.md`, validate it with
+`--validate-issue`, import it with `--from-issue`, keep uncertain work as `draft`, run the
+checks below, and link the resulting commit or PR back to the issue. Do not copy private
+evidence into the repository just because it appeared in a public issue.
 
 ## cross-project handoff
 
@@ -154,8 +164,8 @@ contents into that repo's existing agent instructions.
    source project.
 4. Validate cross-project files with `--validate-project-list` or `--validate-checkin`
    before importing them.
-5. Write the smallest honest update with `--import-project-list`, `--from-json`, or a
-   direct `npm run project:update --` command.
+5. Write the smallest honest update with `--import-project-list`, `--from-json`,
+   `--from-issue`, or a direct `npm run project:update --` command.
 6. Run `npm run content:audit`.
 7. Run `npm run project:ledger -- --all` to inspect the current tracked project state.
 8. Run `npm run agent:check` before public promotion or push.

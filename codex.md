@@ -74,6 +74,7 @@ thebolanarchives/
                           with optional per-project form seeding
                           and installed-project verification
                           plus ignored local project-list batch wiring/import/sync
+                          and ignored GitHub issue-form imports
                           (`project:ledger -- --all` lists local draft/unlisted state)
     public-output-audit.mjs <- scans exported text files for public filler text
 ```

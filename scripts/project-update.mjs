@@ -21,6 +21,11 @@ if (args["validate-checkin"]) {
   process.exit(0);
 }
 
+if (args["validate-issue"]) {
+  validateIssueFile();
+  process.exit(0);
+}
+
 if (args["validate-project-list"]) {
   validateProjectList();
   process.exit(0);
@@ -78,6 +83,10 @@ if (args.list) {
 
 if (args["from-json"]) {
   args = argsFromCheckin(args);
+}
+
+if (args["from-issue"]) {
+  args = argsFromIssue(args);
 }
 
 writeProjectUpdate(args);
@@ -232,6 +241,21 @@ function argsFromCheckin(values) {
   return { ...loaded, _importId: checkinImportId(loaded), ...overrides };
 }
 
+function argsFromIssue(values) {
+  const issueFile = values["from-issue"];
+
+  if (typeof issueFile !== "string" || !issueFile.trim()) {
+    fail("--from-issue needs a file path");
+  }
+
+  const filePath = path.resolve(root, issueFile);
+  const loaded = normalizeIssue(issueFormFields(readFileSync(filePath, "utf8").replace(/^\uFEFF/, "")), issueFile);
+  const overrides = { ...values };
+  delete overrides["from-issue"];
+
+  return { ...loaded, _importId: checkinImportId(loaded), ...overrides };
+}
+
 function checkinImportId(values) {
   return createHash("sha256")
     .update(JSON.stringify([values.slug, values.note, values.next, values.title, values.summary]))
@@ -262,6 +286,16 @@ function validateCheckinFile() {
   validateCheckinImport(checkinFile);
 }
 
+function validateIssueFile() {
+  const issueFile = args["validate-issue"];
+
+  if (typeof issueFile !== "string" || !issueFile.trim()) {
+    fail("--validate-issue needs a file path");
+  }
+
+  validateIssueImport(issueFile);
+}
+
 function validateCheckinImport(checkinFile) {
   const values = argsFromCheckin({ ...args, "from-json": checkinFile });
   delete values["validate-checkin"];
@@ -272,6 +306,16 @@ function validateCheckinImport(checkinFile) {
 
   const target = existsSync(update.filePath) ? "existing" : "new";
   console.log(`project update: ${path.relative(root, path.resolve(root, checkinFile))} is importable for ${target} build log ${update.slug}`);
+}
+
+function validateIssueImport(issueFile) {
+  const values = argsFromIssue({ ...args, "from-issue": issueFile });
+  delete values["validate-issue"];
+  const update = updateInput(values);
+  validateUpdate(values, update);
+
+  const target = existsSync(update.filePath) ? "existing" : "new";
+  console.log(`project update: ${path.relative(root, path.resolve(root, issueFile))} is importable for ${target} build log ${update.slug}`);
 }
 
 function normalizeCheckin(data, filePath) {
@@ -294,6 +338,63 @@ function normalizeCheckin(data, filePath) {
     next: optionalCheckinString(data.next_move ?? data.next, "next_move", filePath),
     date: optionalCheckinString(data.date, "date", filePath),
   };
+}
+
+function normalizeIssue(fields, filePath) {
+  assertIssueGuardrails(fields, filePath);
+
+  return normalizeCheckin(
+    {
+      slug: issueField(fields, "Build-log slug"),
+      title: issueField(fields, "Title if this is new"),
+      summary: issueField(fields, "Summary if this is new"),
+      visibility: issueField(fields, "Target visibility"),
+      tags: issueField(fields, "Tags"),
+      tools: issueField(fields, "Tools"),
+      current_state: issueField(fields, "Current state"),
+      changed: issueField(fields, "What changed"),
+      uncertain: issueField(fields, "What broke or is uncertain"),
+      public_evidence: issueField(fields, "Public-safe evidence"),
+      next_move: issueField(fields, "Next move"),
+      origin: "project update issue",
+    },
+    filePath,
+  );
+}
+
+function issueFormFields(source) {
+  const fields = new Map();
+  const headings = Array.from(source.matchAll(/^###\s+(.+?)\s*$/gm));
+
+  for (let index = 0; index < headings.length; index += 1) {
+    const heading = headings[index];
+    const start = heading.index + heading[0].length;
+    const end = headings[index + 1]?.index ?? source.length;
+    fields.set(normalizeIssueLabel(heading[1]), cleanIssueValue(source.slice(start, end)));
+  }
+
+  return fields;
+}
+
+function issueField(fields, label) {
+  return fields.get(normalizeIssueLabel(label)) || "";
+}
+
+function normalizeIssueLabel(label) {
+  return label.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function cleanIssueValue(value) {
+  const text = value.trim();
+  return /^_?no response_?$/i.test(text) ? "" : text;
+}
+
+function assertIssueGuardrails(fields, filePath) {
+  const checked = Array.from(issueField(fields, "Guardrails").matchAll(/- \[[xX]\]/g)).length;
+
+  if (checked < 3) {
+    fail(`${filePath}: guardrails must be checked`);
+  }
 }
 
 function checkinNote(data, filePath) {
@@ -990,6 +1091,62 @@ function runSelfCheck() {
         next_move: "copy the JSON shape into active projects.",
       },
       "self-check.json",
+    ).note.includes("**what changed:**"),
+    true,
+  );
+  assert.equal(
+    normalizeIssue(
+      issueFormFields(`### Build-log slug
+
+agent-loop
+
+### Title if this is new
+
+agent loop
+
+### Summary if this is new
+
+A plain summary for a new build log imported from a project update issue.
+
+### Target visibility
+
+draft
+
+### Current state
+
+The owner can hand the archive a public issue update.
+
+### What changed
+
+The importer can parse the issue form body.
+
+### What broke or is uncertain
+
+The agent still reviews it before publication.
+
+### Next move
+
+run the archive checks.
+
+### Tags
+
+agents,archive
+
+### Tools
+
+codex
+
+### Public-safe evidence
+
+Only public-safe issue text.
+
+### Guardrails
+
+- [X] I understand this issue is public source material for a public repository.
+- [X] No private names, emails, private URLs, credentials, client details, or unpublished personal context are included.
+- [X] The agent should keep the resulting build log as draft unless publication is explicitly safe.
+`),
+      "issue.md",
     ).note.includes("**what changed:**"),
     true,
   );

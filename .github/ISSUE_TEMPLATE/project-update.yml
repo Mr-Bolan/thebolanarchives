@@ -24,6 +24,12 @@ body:
       label: Title if this is new
       description: Leave blank when updating an existing build log.
       placeholder: static archive scaffold
+  - type: input
+    id: new-summary
+    attributes:
+      label: Summary if this is new
+      description: Leave blank when updating an existing build log.
+      placeholder: A plain 80-220 character summary for the build log.
   - type: dropdown
     id: target-visibility
     attributes:

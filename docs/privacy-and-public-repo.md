@@ -24,6 +24,7 @@ Keep these local-only unless explicitly sanitized and moved into the public cont
 - `privacy-blocklist.json`
 - `archive-checkin.json`
 - `archive-projects.txt`
+- `archive-issue.md`
 - credentials and `.env*` files
 - local agent/tool state folders
 
@@ -42,7 +43,7 @@ Before committing:
 ```bash
 git status
 git ls-files content/inbox
-git check-ignore archive-checkin.json archive-projects.txt
+git check-ignore archive-checkin.json archive-projects.txt archive-issue.md
 npm run agent:check
 ```
 

@@ -40,7 +40,7 @@ For `site-feature` work involving Archive Annotations, read
 | `visual-polish` | CSS/components/theme docs | content meaning, routes, deploy model |
 | `deploy-maintenance` | `.github/**`, `next.config.mjs`, deploy docs/scripts | content rewrites, theme redesign |
 
-Never commit `out/`, `.next/`, `node_modules/`, `.env*`, `privacy-blocklist.json`, private names, private emails, private URLs, credentials, or unpublished personal context.
+Never commit `out/`, `.next/`, `node_modules/`, `.env*`, `privacy-blocklist.json`, `archive-issue.md`, private names, private emails, private URLs, credentials, or unpublished personal context.
 
 Do not commit `content/inbox/` except `content/inbox/.gitkeep`. Do not commit `content/private/`, `docs/private/`, `notes/private/`, `scratch/`, `transcripts/`, local agent/tool state, or private blocklist values.
 
