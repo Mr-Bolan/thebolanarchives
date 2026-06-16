@@ -35,6 +35,7 @@ process.exit(errors.length === 0 ? 0 : 1);
 
 function auditFile(filePath, slugFromFile) {
   let data;
+  const fileIds = new Map();
 
   try {
     data = JSON.parse(readFileSync(filePath, "utf8"));
@@ -76,10 +77,16 @@ function auditFile(filePath, slugFromFile) {
     checkOptionalString(annotation.excerpt, "excerpt", label);
 
     if (id) {
-      if (ids.has(id)) {
-        errors.push(`${label}: duplicate id "${id}" also used in ${ids.get(id)}`);
+      if (fileIds.has(id)) {
+        errors.push(`${label}: duplicate id "${id}" also used in ${fileIds.get(id)} in this file`);
       } else {
-        ids.set(id, label);
+        fileIds.set(id, label);
+      }
+
+      if (ids.has(id) && ids.get(id).file !== relative(filePath)) {
+        errors.push(`${label}: duplicate id "${id}" also used in ${ids.get(id).label}`);
+      } else {
+        ids.set(id, { file: relative(filePath), label });
       }
     }
 
@@ -111,6 +118,12 @@ function auditFile(filePath, slugFromFile) {
       continue;
     }
 
+    if (record.visibility === "draft") {
+      errors.push(`${label}: target record "${recordSlug}" is draft and will not generate a route`);
+    } else if (record.visibility === "unlisted") {
+      warnings.push(`${label}: target record "${recordSlug}" is unlisted; annotation sidecar is still public repo data`);
+    }
+
     if (anchorId) {
       checkAnchor(anchorId, record, label);
     }
@@ -128,12 +141,14 @@ function readRecords() {
       const filePath = path.join(directory, file);
       const source = readFileSync(filePath, "utf8");
       const slug = frontmatterValue(source, "slug") || file.replace(/\.mdx$/, "");
+      const visibility = frontmatterValue(source, "visibility") || "draft";
       const body = stripLeadingHeading(stripFrontmatter(source));
 
       result.set(slug, {
         filePath,
         headingIds: headingIds(body),
         paragraphCount: paragraphCount(body),
+        visibility,
       });
     }
   }
