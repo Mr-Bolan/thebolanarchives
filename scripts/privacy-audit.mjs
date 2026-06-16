@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import assert from "node:assert/strict";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 
@@ -6,32 +7,29 @@ const root = process.cwd();
 const blocklistPath = path.join(root, "privacy-blocklist.json");
 const contentRoot = path.join(root, "content");
 const collections = ["entries", "field-notes", "build-logs", "fragments", "patterns", "experiments", "graveyard"];
+const builtInChecks = [
+  [/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i, "email address"],
+  [/\b(localhost|127\.0\.0\.1|10\.\d{1,3}\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/i, "private host"],
+  [/-----BEGIN [A-Z ]*PRIVATE KEY-----/, "private key"],
+  [/\b(AKIA|ASIA)[A-Z0-9]{16}\b/, "AWS access key"],
+  [/\bsk-[A-Za-z0-9_-]{20,}\b/, "API key"],
+];
 
-if (!existsSync(blocklistPath)) {
-  console.log("privacy audit: skipped; privacy-blocklist.json is not configured");
+if (process.argv.includes("--self-check")) {
+  runSelfCheck();
   process.exit(0);
 }
 
-const terms = readTerms(blocklistPath);
+const terms = existsSync(blocklistPath) ? readTerms(blocklistPath) : [];
 const targets = findTargets();
-const hits = [];
-
-for (const target of targets) {
-  const text = readFileSync(target, "utf8").toLowerCase();
-
-  for (const term of terms) {
-    if (text.includes(term.toLowerCase())) {
-      hits.push(`${path.relative(root, target)} contains blocked term "${term}"`);
-    }
-  }
-}
+const hits = targets.flatMap((target) => scanText(path.relative(root, target), readFileSync(target, "utf8"), terms));
 
 for (const hit of hits) {
   console.error(`error: ${hit}`);
 }
 
 console.log(`privacy audit: scanned ${targets.length} public-facing file${targets.length === 1 ? "" : "s"}`);
-console.log(`privacy audit: ${hits.length} blocked term hit${hits.length === 1 ? "" : "s"}`);
+console.log(`privacy audit: ${hits.length} privacy hit${hits.length === 1 ? "" : "s"}`);
 
 process.exit(hits.length === 0 ? 0 : 1);
 
@@ -44,6 +42,25 @@ function readTerms(filePath) {
   }
 
   return terms.map((term) => term.trim());
+}
+
+function scanText(file, text, terms) {
+  const hits = [];
+
+  for (const [pattern, label] of builtInChecks) {
+    if (pattern.test(text)) {
+      hits.push(`${file} contains ${label}`);
+    }
+  }
+
+  const lower = text.toLowerCase();
+  for (const term of terms) {
+    if (lower.includes(term.toLowerCase())) {
+      hits.push(`${file} contains blocked term "${term}"`);
+    }
+  }
+
+  return hits;
 }
 
 function findTargets() {
@@ -80,4 +97,12 @@ function frontmatterValue(source, key) {
 
   const field = match[1].match(new RegExp(`^${key}:\\s*["']?([^"'\r\n]+)["']?\\s*$`, "m"));
   return field ? field[1].trim() : "";
+}
+
+function runSelfCheck() {
+  assert.deepEqual(scanText("clean.mdx", "credentials are a topic, not a secret", []), []);
+  assert.equal(scanText("email.mdx", "contact me at user@example.com", [])[0], "email.mdx contains email address");
+  assert.equal(scanText("host.mdx", "see http://192.168.1.10/admin", [])[0], "host.mdx contains private host");
+  assert.equal(scanText("custom.mdx", "owner-real-name", ["owner-real-name"])[0], 'custom.mdx contains blocked term "owner-real-name"');
+  console.log("privacy audit self-check: ok");
 }

@@ -28,7 +28,7 @@ Keep these local-only unless explicitly sanitized and moved into the public cont
 - credentials and `.env*` files
 - local agent/tool state folders
 
-Use `privacy-blocklist.example.json` for safe examples. Put real blocked terms only in local `privacy-blocklist.json`.
+Use `privacy-blocklist.example.json` for safe examples. Put real blocked terms only in local `privacy-blocklist.json`. The privacy audit always runs narrow built-in checks for obvious public leaks; the local blocklist adds owner-specific terms.
 
 ## Drafts
 
