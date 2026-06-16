@@ -416,6 +416,418 @@ pre,
   color: var(--link);
 }
 
+.archive-annotations {
+  min-width: 0;
+  --annotation-paper: #d8bd79;
+  --annotation-paper-quiet: #b89a5c;
+  --annotation-paper-shadow: #9e7740;
+  --annotation-ink: #241b10;
+  --annotation-ink-muted: #5b4a2e;
+  --annotation-ink-faint: #5b4a2e;
+  --annotation-paper-line: rgba(79, 54, 22, 0.38);
+  --annotation-tape: rgba(223, 207, 166, 0.54);
+}
+
+.annotation-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-block: 1px solid var(--line-primary);
+  padding-block: var(--space-3);
+  margin-block: var(--space-6);
+}
+
+.annotation-toolbar p {
+  margin-bottom: 0;
+}
+
+.annotation-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--line-primary), transparent 18%);
+  border-radius: 3px;
+  background:
+    linear-gradient(90deg, rgba(214, 168, 79, 0.07), transparent 42%),
+    rgba(16, 18, 17, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.24) inset,
+    0 0.5rem 1.3rem rgba(0, 0, 0, 0.12);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  font-family: var(--font-meta);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  padding: 0 var(--space-3);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.annotation-toggle::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: var(--bg);
+  opacity: 0.7;
+}
+
+.annotation-toggle:hover,
+.annotation-toggle:focus-visible {
+  border-color: color-mix(in srgb, var(--warning), transparent 45%);
+  color: var(--text-secondary);
+}
+
+.annotation-toggle[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--warning), transparent 38%);
+  color: var(--text-primary);
+}
+
+.annotation-toggle[aria-pressed="true"]::before {
+  background: var(--warning);
+  box-shadow: 0 0 0.7rem color-mix(in srgb, var(--warning), transparent 35%);
+  opacity: 1;
+}
+
+.annotation-marker:hover,
+.annotation-marker:focus-visible,
+.annotation-marker[data-open="true"],
+.annotation-anchor[data-near="true"] .annotation-marker {
+  border-color: color-mix(in srgb, var(--warning), transparent 25%);
+}
+
+.archive-annotations-shell[data-annotations-visible="false"] .annotation-note-stack,
+.archive-annotations-shell[data-annotations-visible="false"] .annotation-nojs-fallback {
+  display: none;
+}
+
+.archive-annotations-shell {
+  position: relative;
+  isolation: isolate;
+  --lamp-x: 50%;
+  --lamp-y: 50%;
+}
+
+.archive-annotations-shell::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: calc(var(--space-4) * -1);
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle 11rem at var(--lamp-x) var(--lamp-y),
+      rgba(214, 168, 79, 0.11),
+      rgba(123, 167, 166, 0.045) 38%,
+      transparent 72%
+    );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.archive-annotations-shell > .mdx-body {
+  position: relative;
+  z-index: 1;
+}
+
+.annotation-anchor {
+  position: relative;
+  min-width: 0;
+  border-left: 1px solid transparent;
+  padding-left: var(--space-3);
+  margin-left: calc(var(--space-3) * -1);
+}
+
+.annotation-anchor[data-open="true"],
+.annotation-anchor[data-near="true"] {
+  border-left-color: color-mix(in srgb, var(--warning), transparent 35%);
+}
+
+.annotation-anchor[data-anchor-kind="heading"] {
+  margin-top: var(--space-8);
+}
+
+.annotation-anchor > p,
+.annotation-anchor > .mdx-heading {
+  margin-bottom: 0;
+}
+
+.annotation-anchor > .mdx-heading {
+  margin-top: 0;
+}
+
+.annotation-marker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 5.75rem;
+  border: 1px solid var(--annotation-paper-line);
+  border-radius: 2px 7px 5px 2px;
+  background:
+    linear-gradient(115deg, rgba(255, 247, 207, 0.14), transparent 42%),
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.12) 0 1px, transparent 1.5px),
+    linear-gradient(0deg, rgba(92, 62, 23, 0.08) 1px, transparent 1px),
+    var(--annotation-paper-quiet);
+  background-size: auto, 9px 9px, 100% 0.55rem, auto;
+  box-shadow: 0 0.35rem 0.65rem rgba(0, 0, 0, 0.16);
+  color: var(--annotation-ink);
+  cursor: pointer;
+  font-family: var(--font-meta);
+  font-size: 0.7rem;
+  line-height: 1.2;
+  margin-top: var(--space-2);
+  opacity: 0.72;
+  padding: 0 var(--space-3);
+  transform: rotate(-0.55deg);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.annotation-marker::before,
+.annotation-marker::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.annotation-marker::before {
+  inset: 0;
+  background: linear-gradient(105deg, transparent 15%, rgba(255, 252, 221, 0.55) 48%, transparent 68%);
+  opacity: 0;
+  transform: translateX(-55%);
+}
+
+.annotation-marker::after {
+  top: -1px;
+  right: -1px;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-bottom: 1px solid rgba(79, 54, 22, 0.28);
+  border-left: 1px solid rgba(79, 54, 22, 0.22);
+  background: linear-gradient(135deg, rgba(255, 247, 207, 0.78), rgba(151, 106, 44, 0.2));
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.archive-annotations-shell[data-annotations-visible="true"] .annotation-marker,
+.annotation-marker:hover,
+.annotation-marker:focus-visible,
+.annotation-marker[data-open="true"],
+.annotation-anchor[data-near="true"] .annotation-marker {
+  background:
+    linear-gradient(115deg, rgba(255, 247, 207, 0.22), transparent 42%),
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.18) 0 1px, transparent 1.5px),
+    linear-gradient(0deg, rgba(92, 62, 23, 0.08) 1px, transparent 1px),
+    var(--annotation-paper);
+  box-shadow: 0 0.55rem 0.95rem rgba(0, 0, 0, 0.24);
+  filter: saturate(1.08);
+  opacity: 0.92;
+}
+
+.annotation-marker[data-open="true"] {
+  box-shadow: 0 0.7rem 1.1rem rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  transform: translateY(-0.08rem) rotate(0.4deg);
+}
+
+@keyframes annotation-glint {
+  0%,
+  68%,
+  100% {
+    opacity: 0;
+    transform: translateX(-55%);
+  }
+
+  38% {
+    opacity: 0.24;
+    transform: translateX(52%);
+  }
+}
+
+@keyframes annotation-flicker {
+  0%,
+  100% {
+    box-shadow: 0 0.55rem 0.95rem rgba(0, 0, 0, 0.24);
+  }
+
+  48% {
+    box-shadow:
+      0 0.55rem 0.95rem rgba(0, 0, 0, 0.24),
+      0 0 0.75rem rgba(214, 168, 79, 0.16);
+  }
+}
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  .archive-annotations-shell[data-lamp-enabled="true"][data-lamp-active="true"]::before {
+    opacity: 1;
+  }
+
+  .annotation-anchor[data-near="true"] .annotation-marker {
+    animation: annotation-flicker 2400ms ease-in-out infinite;
+  }
+
+  .annotation-anchor[data-near="true"] .annotation-marker::before,
+  .annotation-marker:hover::before,
+  .annotation-marker:focus-visible::before {
+    animation: annotation-glint 2200ms ease-in-out infinite;
+  }
+}
+
+.annotation-note-stack,
+.annotation-nojs-fallback ol {
+  display: grid;
+  gap: var(--space-3);
+  padding: 0;
+  margin: var(--space-3) 0 0;
+  list-style: none;
+}
+
+.annotation-note-stack > li,
+.annotation-nojs-fallback ol > li {
+  --note-offset: 0rem;
+  --note-tilt: -0.45deg;
+}
+
+.annotation-note-stack > li:nth-child(2n),
+.annotation-nojs-fallback ol > li:nth-child(2n) {
+  --note-offset: 0.2rem;
+  --note-tilt: 0.55deg;
+}
+
+.annotation-note-stack > li:nth-child(3n),
+.annotation-nojs-fallback ol > li:nth-child(3n) {
+  --note-offset: -0.12rem;
+  --note-tilt: -0.2deg;
+}
+
+.annotation-note-stack[hidden] {
+  display: none;
+}
+
+.annotation-note {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid var(--annotation-paper-line);
+  border-radius: 3px 5px 4px 2px;
+  background:
+    linear-gradient(100deg, rgba(255, 247, 207, 0.24), transparent 34%),
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.2) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 82% 72%, rgba(91, 67, 32, 0.12) 0 1px, transparent 1.5px),
+    linear-gradient(0deg, rgba(92, 62, 23, 0.08) 1px, transparent 1px),
+    var(--annotation-paper);
+  background-size: auto, 10px 10px, 13px 13px, 100% 0.7rem, auto;
+  box-shadow:
+    0 0.85rem 1.6rem rgba(0, 0, 0, 0.26),
+    0 0 0 1px rgba(255, 244, 199, 0.13) inset;
+  color: var(--annotation-ink);
+  font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", var(--font-interface);
+  padding: var(--space-4);
+  transform: translateX(var(--note-offset, 0rem)) rotate(var(--note-tilt, 0deg));
+  transition:
+    border-color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.annotation-note::before {
+  content: "";
+  position: absolute;
+  top: -0.48rem;
+  left: 50%;
+  width: 5.5rem;
+  height: 0.72rem;
+  border: 1px solid rgba(79, 54, 22, 0.14);
+  background: var(--annotation-tape);
+  box-shadow: 0 0.25rem 0.45rem rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  transform: translateX(-50%) rotate(-1.1deg);
+}
+
+.annotation-note::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-bottom: 1px solid rgba(79, 54, 22, 0.26);
+  border-left: 1px solid rgba(79, 54, 22, 0.2);
+  background: linear-gradient(135deg, rgba(255, 247, 207, 0.82), rgba(151, 106, 44, 0.22));
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  pointer-events: none;
+}
+
+.annotation-anchor[data-open="true"] .annotation-note {
+  transform: translateX(var(--note-offset, 0rem)) translateY(-0.125rem) rotate(var(--note-tilt, 0deg));
+}
+
+.annotation-note-meta,
+.annotation-note footer,
+.annotation-nojs-fallback summary {
+  color: var(--annotation-ink-faint);
+  font-family: var(--font-meta);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.annotation-note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.annotation-note-meta p,
+.annotation-note > p,
+.annotation-note footer {
+  margin-bottom: 0;
+}
+
+.annotation-note blockquote {
+  border-left: 2px solid var(--annotation-paper-shadow);
+  margin: 0 0 var(--space-3);
+  padding-left: var(--space-3);
+  color: var(--annotation-ink-muted);
+  font-style: italic;
+}
+
+.annotation-note > p {
+  color: var(--annotation-ink);
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+.annotation-note footer {
+  margin-top: var(--space-3);
+}
+
+.annotation-nojs-fallback {
+  display: none;
+  border-left: 1px solid var(--line-primary);
+  padding-left: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.annotation-nojs-fallback summary {
+  min-height: 44px;
+  cursor: pointer;
+}
+
 .table-of-contents {
   border-block: 1px solid var(--line-primary);
   padding-block: var(--space-4);
@@ -735,10 +1147,71 @@ pre,
   }
 }
 
+@media (min-width: 1180px) {
+  .annotation-anchor {
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  .annotation-anchor[data-open="true"] {
+    border-left-color: transparent;
+  }
+
+  .annotation-marker {
+    position: absolute;
+    top: 0;
+    left: calc(100% + var(--space-3));
+    margin-top: 0;
+    white-space: nowrap;
+  }
+
+  .annotation-note-stack {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: calc(100% + 7rem);
+    width: 18rem;
+    margin-top: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     scroll-behavior: auto !important;
+  }
+
+  .annotation-note,
+  .annotation-marker,
+  .annotation-toggle,
+  .archive-annotations-shell::before {
+    transition: none;
+  }
+
+  .archive-annotations-shell::before {
+    display: none;
+  }
+
+  .annotation-anchor[data-near="true"] .annotation-marker,
+  .annotation-anchor[data-near="true"] .annotation-marker::before,
+  .annotation-marker:hover::before,
+  .annotation-marker:focus-visible::before {
+    animation: none;
+  }
+
+  .annotation-note-stack > li,
+  .annotation-nojs-fallback ol > li {
+    --note-offset: 0rem;
+    --note-tilt: 0deg;
+  }
+
+  .annotation-marker,
+  .annotation-marker[data-open="true"] {
+    transform: none;
+  }
+
+  .annotation-anchor[data-open="true"] .annotation-note {
+    transform: none;
   }
 }
