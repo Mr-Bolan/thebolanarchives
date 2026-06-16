@@ -44,8 +44,10 @@ a:hover {
 
 a:focus-visible,
 button:focus-visible,
+input:focus-visible,
 select:focus-visible,
-pre:focus-visible {
+pre:focus-visible,
+textarea:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 4px;
 }
@@ -443,6 +445,12 @@ pre,
   margin-bottom: 0;
 }
 
+.annotation-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
 .annotation-toggle {
   position: relative;
   display: inline-flex;
@@ -495,6 +503,45 @@ pre,
   background: var(--warning);
   box-shadow: 0 0 0.7rem color-mix(in srgb, var(--warning), transparent 35%);
   opacity: 1;
+}
+
+.annotation-add-toggle[aria-pressed="true"]::before {
+  background: var(--link);
+  box-shadow: 0 0 0.7rem color-mix(in srgb, var(--link), transparent 35%);
+}
+
+.annotation-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--warning), transparent 55%);
+  background: color-mix(in srgb, var(--surface-record), transparent 20%);
+  color: var(--text-secondary);
+  font-family: var(--font-meta);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  margin-bottom: var(--space-4);
+  padding: var(--space-3);
+}
+
+.annotation-status p {
+  margin-bottom: 0;
+}
+
+.annotation-status button {
+  min-height: 44px;
+  border: 1px solid var(--line-primary);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  font: inherit;
+  padding: 0 var(--space-3);
+}
+
+.annotation-status button:hover {
+  border-color: var(--text-tertiary);
 }
 
 .annotation-marker:hover,
@@ -642,6 +689,137 @@ pre,
   box-shadow: 0 0.7rem 1.1rem rgba(0, 0, 0, 0.3);
   opacity: 1;
   transform: translateY(-0.08rem) rotate(0.4deg);
+}
+
+.annotation-select-anchor {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  border: 1px dashed color-mix(in srgb, var(--link), transparent 38%);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--surface-record), transparent 24%);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font-meta);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  margin-top: var(--space-2);
+  padding: 0 var(--space-3);
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.annotation-select-anchor span {
+  color: var(--text-tertiary);
+}
+
+.annotation-select-anchor:hover,
+.annotation-select-anchor:focus-visible {
+  border-color: var(--link);
+  color: var(--text-primary);
+}
+
+.annotation-composer {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 100%;
+  border: 1px solid color-mix(in srgb, var(--warning), transparent 48%);
+  background:
+    linear-gradient(90deg, rgba(214, 168, 79, 0.06), transparent 40%),
+    color-mix(in srgb, var(--surface-record), transparent 8%);
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+}
+
+.annotation-composer p {
+  margin-bottom: 0;
+}
+
+.annotation-composer-selected,
+.annotation-composer-warning,
+.annotation-composer-hint,
+.annotation-composer-error {
+  font-family: var(--font-meta);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.annotation-composer-selected,
+.annotation-composer-error {
+  color: var(--text-primary);
+}
+
+.annotation-composer-warning,
+.annotation-composer-hint {
+  color: var(--text-tertiary);
+}
+
+.annotation-composer-error {
+  border-left: 2px solid var(--danger);
+  padding-left: var(--space-2);
+}
+
+.annotation-composer label {
+  display: grid;
+  gap: var(--space-1);
+  color: var(--text-secondary);
+  font-family: var(--font-meta);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.annotation-composer label span {
+  color: var(--text-tertiary);
+}
+
+.annotation-composer input,
+.annotation-composer textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line-primary);
+  border-radius: 0;
+  background: var(--surface-page);
+  color: var(--text-primary);
+  font: 1rem/1.5 var(--font-interface);
+  padding: var(--space-3);
+}
+
+.annotation-composer input {
+  min-height: 44px;
+}
+
+.annotation-composer textarea {
+  resize: vertical;
+}
+
+.annotation-composer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.annotation-composer-actions button {
+  min-height: 44px;
+  border: 1px solid var(--line-primary);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: var(--font-meta);
+  font-size: 0.75rem;
+  padding: 0 var(--space-3);
+}
+
+.annotation-composer-actions button[type="submit"] {
+  border-color: color-mix(in srgb, var(--warning), transparent 35%);
+  background: rgba(214, 168, 79, 0.08);
+}
+
+.annotation-composer-actions button:hover {
+  border-color: var(--text-tertiary);
 }
 
 @keyframes annotation-glint {
@@ -814,6 +992,16 @@ pre,
 
 .annotation-note footer {
   margin-top: var(--space-3);
+}
+
+.annotation-note-session {
+  margin-top: var(--space-3);
+  border-top: 1px solid var(--annotation-paper-line);
+  padding-top: var(--space-2);
+  color: var(--annotation-ink-muted);
+  font-family: var(--font-meta);
+  font-size: 0.7rem;
+  line-height: 1.35;
 }
 
 .annotation-nojs-fallback {
@@ -1184,6 +1372,8 @@ pre,
 
   .annotation-note,
   .annotation-marker,
+  .annotation-select-anchor,
+  .annotation-composer,
   .annotation-toggle,
   .archive-annotations-shell::before {
     transition: none;

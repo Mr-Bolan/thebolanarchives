@@ -40,22 +40,16 @@ export async function ContentDetailPage({ folder, slug }: ContentDetailPageProps
         <ArchiveMetaCard item={item} />
         <TableOfContents headings={headings} />
 
-        {annotations.length > 0 ? (
-          <ArchiveAnnotations annotations={annotations} recordTitle={item.title}>
-            <div className="mdx-body">
-              <MdxRenderer
-                annotations={annotations}
-                item={item}
-                relatedItems={relatedItems}
-                source={body}
-              />
-            </div>
-          </ArchiveAnnotations>
-        ) : (
+        <ArchiveAnnotations annotations={annotations} recordSlug={item.slug} recordTitle={item.title}>
           <div className="mdx-body">
-            <MdxRenderer item={item} relatedItems={relatedItems} source={body} />
+            <MdxRenderer
+              annotations={annotations}
+              item={item}
+              relatedItems={relatedItems}
+              source={body}
+            />
           </div>
-        )}
+        </ArchiveAnnotations>
 
         <ExternalLinks links={item.external_links} />
         <RelatedArtifacts items={relatedItems} />

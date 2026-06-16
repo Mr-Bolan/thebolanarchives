@@ -64,10 +64,6 @@ export async function MdxRenderer({ annotations = [], item, relatedItems, source
       const anchorId = `p-${paragraphCount}`;
       const anchorAnnotations = annotationsByAnchor.get(anchorId) ?? [];
 
-      if (anchorAnnotations.length === 0) {
-        return <p id={anchorId}>{children}</p>;
-      }
-
       return (
         <AnnotationAnchor
           anchorId={anchorId}
@@ -108,27 +104,15 @@ function AnchoredHeading({
     </>
   );
 
-  if (annotations.length > 0) {
-    return (
-      <AnnotationAnchor
-        anchorId={id}
-        anchorLabel={`section ${text}`}
-        annotations={annotations}
-        as={`h${level}` as "h2" | "h3" | "h4"}
-        className="mdx-heading"
-      >
-        {content}
-      </AnnotationAnchor>
-    );
-  }
-
-  if (level === 2) {
-    return <h2 className="mdx-heading" id={id}>{content}</h2>;
-  }
-
-  if (level === 3) {
-    return <h3 className="mdx-heading" id={id}>{content}</h3>;
-  }
-
-  return <h4 className="mdx-heading" id={id}>{content}</h4>;
+  return (
+    <AnnotationAnchor
+      anchorId={id}
+      anchorLabel={`section ${text}`}
+      annotations={annotations}
+      as={`h${level}` as "h2" | "h3" | "h4"}
+      className="mdx-heading"
+    >
+      {content}
+    </AnnotationAnchor>
+  );
 }
