@@ -121,6 +121,8 @@ function newBuildLog({ args, note, slug, today }) {
   const tags = csv(args.tags);
   const tools = csv(args.tools);
 
+  assertSummary(summary);
+
   if (!["draft", "unlisted", "public"].includes(visibility)) {
     fail("--visibility must be draft, unlisted, or public");
   }
@@ -1023,6 +1025,15 @@ function assertDate(value, label) {
   }
 }
 
+function assertSummary(value) {
+  const reason = summaryLengthReason(value);
+  if (reason) fail(reason);
+}
+
+function summaryLengthReason(value) {
+  return value.length < 80 || value.length > 220 ? "--summary must be 80-220 characters" : "";
+}
+
 function assertVisibility(value) {
   if (!["draft", "unlisted", "public"].includes(value)) {
     fail("--visibility must be draft, unlisted, or public");
@@ -1083,7 +1094,7 @@ function runSelfCheck() {
       {
         slug: "agent-loop",
         title: "agent loop",
-        summary: "A plain summary for a new build log imported from a project check-in.",
+        summary: "A plain public-safe summary for a new build log imported from a project check-in loop.",
         current_state: "The other project can hand the archive a small JSON check-in.",
         changed: "The archive importer turns that check-in into a build-log update.",
         tags: ["agents", "archive"],
@@ -1106,7 +1117,7 @@ agent loop
 
 ### Summary if this is new
 
-A plain summary for a new build log imported from a project update issue.
+A plain public-safe summary for a new build log imported from a project update issue.
 
 ### Target visibility
 
@@ -1155,7 +1166,7 @@ Only public-safe issue text.
       {
         slug: "agent-loop",
         title: "agent loop",
-        summary: "A plain summary for a new build log imported from a project check-in.",
+        summary: "A plain public-safe summary for a new build log imported from a project check-in loop.",
         current_state: "The other project can omit optional fields and keep safe defaults.",
       },
       "self-check.json",
@@ -1171,7 +1182,7 @@ Only public-safe issue text.
     {
       slug: "agent-loop-validation",
       title: "agent loop validation",
-      summary: "A plain summary for checking a project update before it writes archive content.",
+      summary: "A plain public-safe summary for checking a project update before it writes archive content.",
       tags: "agents,archive",
       note: "The dry run can validate a sanitized check-in before writing MDX.",
     },
@@ -1220,7 +1231,7 @@ Only public-safe issue text.
       JSON.stringify({
         slug: "agent-loop-list",
         title: "agent loop list",
-        summary: "A plain summary for validating every project-list check-in before writing any archive update.",
+        summary: "A plain public-safe summary for validating every project-list check-in before writing any archive update.",
         current_state: "The batch importer can validate ready check-ins as a group before writing.",
       }),
       "utf8",
@@ -1233,6 +1244,7 @@ Only public-safe issue text.
   assert.equal(ensureCheckinPointer("").includes("AGENTS.project-checkin.md"), true);
   assert.equal(ensureCheckinPointer("Read AGENTS.project-checkin.md\n"), "Read AGENTS.project-checkin.md\n");
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
+  assert.equal(summaryLengthReason("too short"), "--summary must be 80-220 characters");
   assert.equal(unsafeTextReason("TODO: fill this later"), "filler or placeholder");
   assert.equal(unsafeTextReason("CHANGE-ME.example.com"), "filler or placeholder");
   assert.equal(invalidEnumReason("almost_done", "status", statuses).startsWith("--status must be one of"), true);

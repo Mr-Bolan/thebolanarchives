@@ -174,8 +174,8 @@ Use `--visibility public` only when the note is already safe to publish and has 
 
 ## checks
 
-The script rejects invalid status/confidence/visibility values, obvious private data,
-credential terms, and scaffold text before writing MDX. The ledger only includes public
-build logs, so draft and unlisted work stays out of public project tracking. It does not
-replace human review. If the source is uncertain, leave the record as `draft` and say
-what needs verification.
+The script rejects invalid status/confidence/visibility values, new build-log summaries
+outside 80-220 characters, obvious private data, credential terms, and scaffold text
+before writing MDX. The ledger only includes public build logs, so draft and unlisted work
+stays out of public project tracking. It does not replace human review. If the source is
+uncertain, leave the record as `draft` and say what needs verification.
