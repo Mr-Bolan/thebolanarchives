@@ -35,6 +35,15 @@ Use the manual moderation path:
 submitted -> triage -> accepted -> published_static / archived / rejected
 ```
 
+Future Phase F screening may insert an advisory step:
+
+```text
+submitted -> auto-screened -> triage -> accepted/rejected -> published_static
+```
+
+Auto-screening is not approval. It creates a review result only; accepted notes still need
+human review before static publication.
+
 For accepted notes:
 
 1. Confirm the target record slug exists.

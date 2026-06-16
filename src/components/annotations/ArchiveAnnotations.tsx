@@ -228,7 +228,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
       setActiveAnchorId(anchorId);
       setAddMode(false);
       setComposerAnchorId(null);
-      setSubmissionStatus(`${anchorLabel}: mock preview staged for this page session; not submitted or published.`);
+      setSubmissionStatus(`${anchorLabel}: local draft preview staged for this page session; not submitted or published.`);
       setVisible(true);
     },
     [recordSlug],

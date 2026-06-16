@@ -12,6 +12,8 @@ as public historical records, while the website renders only curated static anno
 - The archive does not promise reader anonymity when GitHub is the intake layer.
 - No note is published on the site until it is reviewed and copied or exported into
   `content/annotations/*.json`.
+- Future auto-screening is advisory only. It can flag submitted discussions, but it does
+  not approve, reject, publish, or write static JSON by itself.
 - No private names, private emails, private URLs, credentials, or unpublished personal
   context are accepted.
 
@@ -35,6 +37,7 @@ private contact information.
 | state | meaning | site behavior |
 | --- | --- | --- |
 | `submitted` | note exists in GitHub and has not been reviewed | not rendered |
+| `auto-screened` | a future screener has produced a review result for triage | not rendered |
 | `triage` | maintainer is checking anchor, privacy, and usefulness | not rendered |
 | `needs edit` | useful but contains unclear or risky details | not rendered |
 | `accepted` | safe enough to convert into static annotation JSON | pending commit |
@@ -44,6 +47,15 @@ private contact information.
 
 GitHub labels can mirror these states. The static JSON status remains constrained by the
 current annotation data model unless a later phase explicitly expands it.
+
+Future Phase F flow:
+
+```text
+submitted -> auto-screened -> triage -> accepted/rejected -> published_static
+```
+
+Rejected notes never proceed to `published_static`; accepted notes still require human
+copy/export into static JSON before publication.
 
 ## review checklist
 
@@ -96,6 +108,9 @@ copy is the sanitized JSON annotation committed to the repository.
 For low volume, manual copy is acceptable and preferred. Automation can be considered only
 after the manual process is boring and stable. Any automation must run in GitHub Actions or
 another server context; it must not expose a GitHub token in browser code.
+
+See `docs/archive-annotations-auto-moderation.md` for the Phase F Archive Intake Screener
+plan.
 
 ## phase gates
 

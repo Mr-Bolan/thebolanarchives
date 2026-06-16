@@ -200,24 +200,24 @@ function AnnotationComposer({
   return (
     <form
       className="annotation-composer"
-      aria-label={`mock note composer for ${anchorLabel}`}
+      aria-label={`draft intake note composer for ${anchorLabel}`}
       onSubmit={handleSubmit}
     >
       <p className="annotation-composer-selected">
         selected anchor: <strong>{anchorLabel}</strong>
       </p>
       <p className="annotation-composer-warning">
-        GitHub intake is public. Your GitHub username and discussion will be visible.
+        This prepares a public GitHub intake note. If you submit it on GitHub, the discussion and your GitHub username will be visible.
       </p>
       <p className="annotation-composer-warning">
-        Reviewed notes are not published until manually copied into static annotation JSON.
+        After posting, the note may be auto-screened and triaged. It appears on the archive only after review.
       </p>
       <p className="annotation-composer-hint">
-        This page has no token, no GitHub API call, and no network write. The mock preview stays in memory for this page session.
+        Local preview is only a draft preview, not publication. This page has no token, GitHub API write, or network write.
       </p>
 
       <label htmlFor={`${fieldId}-author`}>
-        pseudonym <span>optional; blank stays anonymous</span>
+        display name <span>optional for archive review; GitHub username stays public on GitHub</span>
       </label>
       <input
         id={`${fieldId}-author`}
@@ -243,7 +243,7 @@ function AnnotationComposer({
         }}
       />
       <p className="annotation-composer-hint" id={`${fieldId}-hint`}>
-        staged previews are mock/pending and disappear when this page session ends.
+        local previews are draft/pending and disappear when this page session ends.
       </p>
       {copyStatus ? (
         <p className="annotation-composer-copy-status" role="status">

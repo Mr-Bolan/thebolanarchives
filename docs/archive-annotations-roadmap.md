@@ -102,23 +102,56 @@ Decision docs:
 - `docs/archive-annotations-backend-decision.md`
 - `docs/archive-annotations-moderation-model.md`
 
-## Phase E: moderated live annotations
+## Phase E: GitHub intake + static publication
 
-Goal: production-ready live annotations only after the backend and moderation model are
-chosen.
+Goal: production-ready public intake through GitHub Discussions while keeping the archive
+site static.
 
 Includes:
 
-- moderation queue
-- approved/hidden/archived states
-- spam controls
-- hide/delete controls
-- public rendering of approved notes
-- export/archive option
+- GitHub Discussions category/form intake
+- public submission warnings before handoff
+- manual triage in GitHub
+- accepted notes copied or exported into `content/annotations/*.json`
+- `npm run annotations:audit` before publication
+- static rendering of reviewed notes only
 
-Chosen Phase E direction: GitHub Discussions intake plus static publication. Do not add a
-database, CMS, API routes, server actions, anonymous embedded submissions, or runtime
-comment fetching. See `docs/archive-annotations-phase-e-plan.md`.
+Excludes:
+
+- auto-moderation
+- auto-publish
+- browser-side GitHub API calls
+- live comment fetching
+- database, CMS, API routes, or server actions
+
+Chosen Phase E direction: GitHub Discussions intake plus static publication. See
+`docs/archive-annotations-phase-e-plan.md`.
+
+## Phase F: automated intake screening
+
+Goal: screen public GitHub intake after posting without changing the static publication
+model.
+
+Includes:
+
+- future Archive Intake Screener
+- GitHub Actions review result for new `discussion` / `discussion_comment` events
+- rules for abuse, spam, private data, invalid targets, off-topic notes, unsupported
+  claims, and excessive length
+- human triage before acceptance
+- pause path for intake or screening
+
+Excludes:
+
+- browser-side moderation
+- client-side secrets
+- automatic writes to `content/annotations/*.json`
+- direct writes to `main`
+- automatic publication on the static site
+
+Recommendation: start with GitHub Actions plus rules-based screening, keep local script
+mode as the dry run, and defer optional OpenAI moderation until there is evidence that
+rules are not enough. See `docs/archive-annotations-auto-moderation.md`.
 
 ## Anti-goals
 

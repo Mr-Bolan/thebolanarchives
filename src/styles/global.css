@@ -727,9 +727,9 @@ pre,
   display: grid;
   gap: var(--space-3);
   max-width: 100%;
-  border: 1px solid color-mix(in srgb, var(--warning), transparent 48%);
+  border: 1px solid var(--annotation-paper-line);
   background:
-    linear-gradient(90deg, rgba(214, 168, 79, 0.06), transparent 40%),
+    linear-gradient(90deg, rgba(214, 168, 79, 0.035), transparent 38%),
     color-mix(in srgb, var(--surface-record), transparent 8%);
   margin-top: var(--space-3);
   padding: var(--space-4);
@@ -758,6 +758,18 @@ pre,
 .annotation-composer-warning,
 .annotation-composer-hint {
   color: var(--text-tertiary);
+}
+
+.annotation-composer-warning {
+  max-width: 66ch;
+  border-left: 1px solid color-mix(in srgb, var(--warning), transparent 52%);
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  padding-left: var(--space-2);
+}
+
+.annotation-composer-hint {
+  font-size: 0.7rem;
 }
 
 .annotation-composer-error {
