@@ -49,6 +49,10 @@ Excludes:
 
 Goal: test the add-note flow without storing public submissions.
 
+Implementation note: Phase C is mock-only. Submitted notes live in client memory for the
+current page session, are marked `mock pending`, and are not published, persisted, or
+written back to static annotation JSON.
+
 Includes:
 
 - note composer UI

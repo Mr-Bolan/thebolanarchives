@@ -11,18 +11,41 @@ import {
   type PointerEvent,
   type ReactNode,
 } from "react";
-import type { ArchiveAnnotation } from "@/lib/annotations";
+import type { ArchiveAnnotation, MockArchiveAnnotation } from "@/lib/annotations";
+
+type MockNoteInput = {
+  anchorId: string;
+  anchorLabel: string;
+  author: string;
+  body: string;
+};
 
 type AnnotationLayerContextValue = {
   activeAnchorId: string | null;
+  addMode: boolean;
+  composerAnchorId: string | null;
+  cancelComposer: () => void;
+  clearSubmissionStatus: () => void;
+  mockAnnotationsByAnchor: Map<string, MockArchiveAnnotation[]>;
   nearAnchorId: string | null;
+  selectComposerAnchor: (anchorId: string, anchorLabel: string) => void;
+  submissionStatus: string | null;
+  submitMockNote: (input: MockNoteInput) => void;
   toggleAnchor: (anchorId: string) => void;
   visible: boolean;
 };
 
 const AnnotationLayerContext = createContext<AnnotationLayerContextValue>({
   activeAnchorId: null,
+  addMode: false,
+  composerAnchorId: null,
+  cancelComposer: () => undefined,
+  clearSubmissionStatus: () => undefined,
+  mockAnnotationsByAnchor: new Map(),
   nearAnchorId: null,
+  selectComposerAnchor: () => undefined,
+  submissionStatus: null,
+  submitMockNote: () => undefined,
   toggleAnchor: () => undefined,
   visible: false,
 });
@@ -31,15 +54,21 @@ type ArchiveAnnotationsProps = {
   annotations: ArchiveAnnotation[];
   children: ReactNode;
   recordTitle: string;
+  recordSlug: string;
 };
 
-export function ArchiveAnnotations({ annotations, children, recordTitle }: ArchiveAnnotationsProps) {
+export function ArchiveAnnotations({ annotations, children, recordTitle, recordSlug }: ArchiveAnnotationsProps) {
   const [activeAnchorId, setActiveAnchorId] = useState<string | null>(null);
+  const [addMode, setAddMode] = useState(false);
+  const [composerAnchorId, setComposerAnchorId] = useState<string | null>(null);
   const [visible, setVisible] = useState(false);
   const [lampEnabled, setLampEnabled] = useState(false);
   const [lampActive, setLampActive] = useState(false);
+  const [mockAnnotations, setMockAnnotations] = useState<MockArchiveAnnotation[]>([]);
   const [nearAnchorId, setNearAnchorId] = useState<string | null>(null);
+  const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
   const shellRef = useRef<HTMLDivElement>(null);
+  const totalAnnotations = annotations.length + mockAnnotations.length;
 
   useEffect(() => {
     if (!visible) {
@@ -72,13 +101,35 @@ export function ArchiveAnnotations({ annotations, children, recordTitle }: Archi
   useEffect(() => {
     function closeOnEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
+        if (composerAnchorId) {
+          setComposerAnchorId(null);
+          return;
+        }
+
+        if (addMode) {
+          setAddMode(false);
+          return;
+        }
+
         setActiveAnchorId(null);
       }
     }
 
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
-  }, []);
+  }, [addMode, composerAnchorId]);
+
+  useEffect(() => {
+    if (!addMode) {
+      return;
+    }
+
+    const focusTimer = window.setTimeout(() => {
+      shellRef.current?.querySelector<HTMLButtonElement>("[data-annotation-select-anchor]")?.focus();
+    }, 0);
+
+    return () => window.clearTimeout(focusTimer);
+  }, [addMode]);
 
   const handlePointerMove = useCallback(
     (event: PointerEvent<HTMLDivElement>) => {
@@ -121,17 +172,106 @@ export function ArchiveAnnotations({ annotations, children, recordTitle }: Archi
     setNearAnchorId(null);
   }, []);
 
+  const mockAnnotationsByAnchor = useMemo(() => {
+    const byAnchor = new Map<string, MockArchiveAnnotation[]>();
+
+    for (const annotation of mockAnnotations) {
+      const existing = byAnchor.get(annotation.anchorId) ?? [];
+      byAnchor.set(annotation.anchorId, [...existing, annotation]);
+    }
+
+    return byAnchor;
+  }, [mockAnnotations]);
+
+  const cancelComposer = useCallback(() => {
+    setComposerAnchorId(null);
+  }, []);
+
+  const clearSubmissionStatus = useCallback(() => {
+    setSubmissionStatus(null);
+  }, []);
+
+  const selectComposerAnchor = useCallback((anchorId: string) => {
+    setActiveAnchorId(anchorId);
+    setComposerAnchorId(anchorId);
+    setSubmissionStatus(null);
+    setVisible(true);
+  }, []);
+
+  const submitMockNote = useCallback(
+    ({ anchorId, anchorLabel, author, body }: MockNoteInput) => {
+      const trimmedBody = body.trim();
+
+      if (!trimmedBody) {
+        return;
+      }
+
+      // ponytail: mock adapter only; replace after Phase D chooses real storage.
+      const mockNote: MockArchiveAnnotation = {
+        id: `mock_note_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`,
+        recordSlug,
+        anchorId,
+        label: "field comment",
+        body: trimmedBody,
+        author: author.trim() || "anonymous reader",
+        created: new Date().toISOString().slice(0, 10),
+        status: "mock pending",
+        mock: true,
+      };
+
+      setMockAnnotations((current) => [...current, mockNote]);
+      setActiveAnchorId(anchorId);
+      setAddMode(false);
+      setComposerAnchorId(null);
+      setSubmissionStatus(`${anchorLabel}: mock note staged for this page session; not published.`);
+      setVisible(true);
+    },
+    [recordSlug],
+  );
+
+  const toggleAnchor = useCallback((anchorId: string) => {
+    setVisible(true);
+    setComposerAnchorId(null);
+    setActiveAnchorId((current) => (current === anchorId ? null : anchorId));
+  }, []);
+
+  const toggleAddMode = useCallback(() => {
+    setAddMode((current) => !current);
+    setActiveAnchorId(null);
+    setComposerAnchorId(null);
+    setSubmissionStatus(null);
+    setVisible(true);
+  }, []);
+
   const value = useMemo(
     () => ({
       activeAnchorId,
+      addMode,
+      cancelComposer,
+      clearSubmissionStatus,
+      composerAnchorId,
+      mockAnnotationsByAnchor,
       nearAnchorId,
-      toggleAnchor: (anchorId: string) => {
-        setVisible(true);
-        setActiveAnchorId((current) => (visible && current === anchorId ? null : anchorId));
-      },
+      selectComposerAnchor,
+      submissionStatus,
+      submitMockNote,
+      toggleAnchor,
       visible,
     }),
-    [activeAnchorId, nearAnchorId, visible],
+    [
+      activeAnchorId,
+      addMode,
+      cancelComposer,
+      clearSubmissionStatus,
+      composerAnchorId,
+      mockAnnotationsByAnchor,
+      nearAnchorId,
+      selectComposerAnchor,
+      submissionStatus,
+      submitMockNote,
+      toggleAnchor,
+      visible,
+    ],
   );
 
   return (
@@ -139,22 +279,45 @@ export function ArchiveAnnotations({ annotations, children, recordTitle }: Archi
       <section className="archive-annotations" aria-label={`annotations for ${recordTitle}`}>
         <div className="annotation-toolbar">
           <p className="section-label">archive annotations</p>
-          <button
-            type="button"
-            className="annotation-toggle"
-            aria-label={`inspection layer ${visible ? "open" : "sealed"}; toggle archive annotation layer`}
-            aria-pressed={visible}
-            onClick={() => setVisible((current) => !current)}
-          >
-            {visible ? "inspection layer: open" : `inspection layer: sealed (${annotations.length})`}
-          </button>
+          <div className="annotation-toolbar-actions">
+            <button
+              type="button"
+              className="annotation-toggle"
+              aria-label={`inspection layer ${visible ? "open" : "sealed"}; toggle archive annotation layer`}
+              aria-pressed={visible}
+              onClick={() => setVisible((current) => !current)}
+            >
+              {visible ? "inspection layer: open" : `inspection layer: sealed (${totalAnnotations})`}
+            </button>
+            <button
+              type="button"
+              className="annotation-toggle annotation-add-toggle"
+              aria-label={addMode ? "cancel add-note mode" : "enter add-note mode"}
+              aria-pressed={addMode}
+              onClick={toggleAddMode}
+            >
+              {addMode ? "add note mode: choose anchor" : "leave a trace"}
+            </button>
+          </div>
         </div>
+
+        {submissionStatus ? (
+          <div className="annotation-status" role="status">
+            <p>{submissionStatus}</p>
+            <button type="button" onClick={clearSubmissionStatus}>
+              clear status
+            </button>
+          </div>
+        ) : null}
 
         <noscript>
           <style>{`
             .annotation-marker,
             .annotation-toggle,
-            .annotation-enhanced-stack {
+            .annotation-enhanced-stack,
+            .annotation-select-anchor,
+            .annotation-composer,
+            .annotation-status {
               display: none !important;
             }
 

@@ -1,12 +1,14 @@
-import type { ArchiveAnnotation } from "@/lib/annotations";
+import type { RenderedArchiveAnnotation } from "@/lib/annotations";
 
 type AnnotationNoteProps = {
-  annotation: ArchiveAnnotation;
+  annotation: RenderedArchiveAnnotation;
 };
 
 export function AnnotationNote({ annotation }: AnnotationNoteProps) {
+  const isMock = "mock" in annotation;
+
   return (
-    <article className="annotation-note" data-status={annotation.status}>
+    <article className="annotation-note" data-mock={isMock ? "true" : "false"} data-status={annotation.status}>
       <div className="annotation-note-meta">
         <p>{annotation.label}</p>
         <p>status: {annotation.status}</p>
@@ -15,6 +17,8 @@ export function AnnotationNote({ annotation }: AnnotationNoteProps) {
       {annotation.excerpt ? <blockquote>{annotation.excerpt}</blockquote> : null}
 
       <p>{annotation.body}</p>
+
+      {isMock ? <p className="annotation-note-session">mock adapter / session only / not published</p> : null}
 
       <footer>
         {annotation.author} / <time dateTime={annotation.created}>{annotation.created}</time>

@@ -13,6 +13,14 @@ export type ArchiveAnnotation = {
   excerpt?: string;
 };
 
+export type MockArchiveAnnotation = Omit<ArchiveAnnotation, "label" | "status"> & {
+  label: "field comment";
+  mock: true;
+  status: "mock pending";
+};
+
+export type RenderedArchiveAnnotation = ArchiveAnnotation | MockArchiveAnnotation;
+
 export const archiveAnnotations: ArchiveAnnotation[] = [
   ...whyThisExistsAnnotations,
   ...operatorAnnotations,
