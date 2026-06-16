@@ -75,7 +75,7 @@ thebolanarchives/
                           and installed-project verification
                           plus ignored local project-list batch wiring/import/sync
                           (`project:ledger -- --all` lists local draft/unlisted state)
-    public-output-audit.mjs <- scans exported HTML/JSON for public filler text
+    public-output-audit.mjs <- scans exported text files for public filler text
 ```
 
 Every folder has its own `README.md` with details. The conceptual structure mirrors brief
