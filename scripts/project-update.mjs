@@ -51,9 +51,9 @@ if (existsSync(filePath)) {
 }
 
 function newBuildLog({ args, note, slug, today }) {
-  const title = required("title");
-  const summary = required("summary");
-  const visibility = args.visibility ?? "draft";
+  const title = requiredArg(args, "title");
+  const summary = requiredArg(args, "summary");
+  const visibility = args.visibility || "draft";
   const tags = csv(args.tags);
   const tools = csv(args.tools);
 
@@ -69,14 +69,14 @@ function newBuildLog({ args, note, slug, today }) {
 title: "${escapeYaml(title)}"
 slug: "${slug}"
 type: "build_log"
-status: "${args.status ?? "working_note"}"
-confidence: "${args.confidence ?? "partial"}"
+status: "${args.status || "working_note"}"
+confidence: "${args.confidence || "partial"}"
 summary: "${escapeYaml(summary)}"
 created: "${today}"
 updated: "${today}"
 tags:${formatArray(tags)}
 tools:${formatArray(tools)}
-narrative_origin: "${escapeYaml(args.origin ?? "agent update")}"
+narrative_origin: "${escapeYaml(args.origin || "agent update")}"
 visibility: "${visibility}"
 related:${formatArray(csv(args.related))}
 ---
@@ -435,7 +435,11 @@ function parseArgs(values) {
 }
 
 function required(key) {
-  const value = args[key];
+  return requiredArg(args, key);
+}
+
+function requiredArg(values, key) {
+  const value = values[key];
 
   if (typeof value !== "string" || !value.trim()) {
     fail(`missing --${key}`);
@@ -519,6 +523,8 @@ function runSelfCheck() {
     normalizeCheckin(
       {
         slug: "agent-loop",
+        title: "agent loop",
+        summary: "A plain summary for a new build log imported from a project check-in.",
         current_state: "The other project can hand the archive a small JSON check-in.",
         changed: "The archive importer turns that check-in into a build-log update.",
         tags: ["agents", "archive"],
@@ -529,6 +535,23 @@ function runSelfCheck() {
     ).note.includes("**what changed:**"),
     true,
   );
+  const defaultBuildLog = newBuildLog({
+    args: normalizeCheckin(
+      {
+        slug: "agent-loop",
+        title: "agent loop",
+        summary: "A plain summary for a new build log imported from a project check-in.",
+        current_state: "The other project can omit optional fields and keep safe defaults.",
+      },
+      "self-check.json",
+    ),
+    note: "The other project can omit optional fields and keep safe defaults.",
+    slug: "agent-loop",
+    today: "2026-06-16",
+  });
+  assert.equal(defaultBuildLog.includes('status: "working_note"'), true);
+  assert.equal(defaultBuildLog.includes('confidence: "partial"'), true);
+  assert.equal(defaultBuildLog.includes('visibility: "draft"'), true);
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
   assert.equal(unsafeTextReason("TODO: fill this later"), "filler or placeholder");
   assert.equal(
