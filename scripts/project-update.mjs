@@ -7,6 +7,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const buildLogsRoot = path.join(root, "content", "build-logs");
+const statuses = ["fragment", "sketch", "working_note", "field_tested", "stable_artefact", "retired"];
+const confidences = ["low", "partial", "medium", "high", "field_confirmed"];
 let args = parseArgs(process.argv.slice(2));
 
 if (args["self-check"]) {
@@ -187,7 +189,14 @@ function updateInput(values) {
 function validateUpdate(values, update) {
   assertSlug(update.slug);
   assertDate(update.today, "date");
-  assertSafeText([values.title, values.summary, update.note, values.next].filter(Boolean).join("\n"));
+  assertOptionalEnum(values.status, "status", statuses);
+  assertOptionalEnum(values.confidence, "confidence", confidences);
+  assertOptionalEnum(values.visibility, "visibility", ["draft", "unlisted", "public"]);
+  assertSafeText(
+    [values.title, values.summary, update.note, values.next, values.origin, values.visibility, values.tags, values.tools, values.related]
+      .filter(Boolean)
+      .join("\n"),
+  );
 
   if (!update.note.trim()) {
     fail("missing update note; pass --note or --stdin");
@@ -919,6 +928,15 @@ function assertVisibility(value) {
   }
 }
 
+function assertOptionalEnum(value, label, allowed) {
+  const reason = invalidEnumReason(value, label, allowed);
+  if (reason) fail(reason);
+}
+
+function invalidEnumReason(value, label, allowed) {
+  return typeof value === "string" && value.trim() && !allowed.includes(value.trim()) ? `--${label} must be one of ${allowed.join(", ")}` : "";
+}
+
 function assertSafeText(text) {
   const unsafeReason = unsafeTextReason(text);
 
@@ -1059,6 +1077,8 @@ function runSelfCheck() {
   assert.equal(ensureCheckinPointer("Read AGENTS.project-checkin.md\n"), "Read AGENTS.project-checkin.md\n");
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
   assert.equal(unsafeTextReason("TODO: fill this later"), "filler or placeholder");
+  assert.equal(invalidEnumReason("almost_done", "status", statuses).startsWith("--status must be one of"), true);
+  assert.equal(unsafeTextReason("tags: token"), "credential term");
   assert.equal(
     projectFromSource(
       `---
