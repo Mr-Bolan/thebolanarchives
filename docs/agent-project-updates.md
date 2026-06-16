@@ -64,6 +64,7 @@ When listed projects have local `archive-checkin.json` files ready, validate or 
 present check-ins:
 
 ```bash
+npm run project:update -- --sync-project-list archive-projects.txt
 npm run project:update -- --validate-project-list archive-projects.txt
 npm run project:update -- --import-project-list archive-projects.txt
 ```
@@ -145,7 +146,7 @@ contents into that repo's existing agent instructions.
 
 1. Take the owner's rough update or project evidence.
 2. Remove private names, private URLs, credentials, client details, and filler.
-3. Run `--check-project-list` for the local source list, or `--check-install` for one
+3. Run `--sync-project-list` for the local source list, or `--check-install` for one
    source project.
 4. Validate cross-project files with `--validate-project-list` or `--validate-checkin`
    before importing them.

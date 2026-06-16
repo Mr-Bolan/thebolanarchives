@@ -49,6 +49,11 @@ if (args["import-project-list"]) {
   process.exit(0);
 }
 
+if (args["sync-project-list"]) {
+  syncProjectList();
+  process.exit(0);
+}
+
 if (args["check-install"]) {
   checkInstall();
   process.exit(0);
@@ -399,8 +404,8 @@ function validateProjectList() {
   }
 }
 
-function importProjectList() {
-  const files = projectCheckinFiles("import-project-list");
+function importProjectList(key = "import-project-list") {
+  const files = projectCheckinFiles(key);
 
   if (files.length === 0) {
     console.log("project update: no archive-checkin.json files found");
@@ -413,6 +418,11 @@ function importProjectList() {
     delete values["import-project-list"];
     writeProjectUpdate(values);
   }
+}
+
+function syncProjectList() {
+  checkProjectList("sync-project-list");
+  importProjectList("sync-project-list");
 }
 
 function installCheckinProject(projectRoot, canSeedCheckin) {
@@ -471,10 +481,10 @@ function checkInstall() {
   console.log(`project update: ${path.relative(root, projectRoot)} is wired for archive check-ins`);
 }
 
-function checkProjectList() {
+function checkProjectList(key = "check-project-list") {
   let failures = 0;
 
-  for (const projectRoot of projectList("check-project-list")) {
+  for (const projectRoot of projectList(key)) {
     const missing = checkInstallMissing(projectRoot);
 
     if (missing.length > 0) {
