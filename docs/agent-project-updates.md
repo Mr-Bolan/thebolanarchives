@@ -18,6 +18,12 @@ Pipe longer notes through stdin:
 npm run project:update -- --slug project-slug --stdin
 ```
 
+Import a check-in file from another project:
+
+```bash
+npm run project:update -- --from-json ../some-project/archive-checkin.json
+```
+
 New records default to `visibility: "draft"`. Existing records keep their current
 visibility and get a dated update appended.
 
@@ -42,11 +48,36 @@ command, keep uncertain work as `draft`, run the checks below, and link the resu
 commit or PR back to the issue. Do not copy private evidence into the repository just
 because it appeared in a public issue.
 
+## cross-project handoff
+
+For projects that should feed this archive, add a local `archive-checkin.json` only when
+there is a sanitized update to send:
+
+```json
+{
+  "slug": "project-slug",
+  "title": "project name",
+  "summary": "A plain 80-220 character summary for a new build log.",
+  "visibility": "draft",
+  "tags": ["agents", "archive"],
+  "tools": ["codex"],
+  "current_state": "What is true now.",
+  "changed": "What moved since the last check-in.",
+  "uncertain": "What broke, is missing, or needs verification.",
+  "public_evidence": "Only public-safe links, commands, or observations.",
+  "next_move": "The smallest concrete next step."
+}
+```
+
+Keep that file local to the source project unless its contents are safe to publish. From
+this archive repo, import it with `--from-json`; command-line flags can still override
+the file, for example `--visibility public` after review.
+
 ## agent loop
 
 1. Take the owner's rough update or project evidence.
 2. Remove private names, private URLs, credentials, client details, and filler.
-3. Write the smallest honest update with `npm run project:update --`.
+3. Write the smallest honest update with `npm run project:update --` or `--from-json`.
 4. Run `npm run content:audit`.
 5. Run `npm run project:ledger` to inspect the current tracked project state.
 6. Run `npm run agent:check` before public promotion or push.

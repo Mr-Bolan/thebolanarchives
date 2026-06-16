@@ -67,6 +67,7 @@ thebolanarchives/
     images/  diagrams/  textures/   <- static assets (+ future CNAME when real domain is known)
   scripts/
     project-update.mjs <- local agent/owner tool for appending audited build-log updates
+                          and importing sanitized cross-project check-ins
 ```
 
 Every folder has its own `README.md` with details. The conceptual structure mirrors brief

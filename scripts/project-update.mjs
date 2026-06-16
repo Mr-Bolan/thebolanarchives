@@ -5,7 +5,11 @@ import path from "node:path";
 
 const root = process.cwd();
 const buildLogsRoot = path.join(root, "content", "build-logs");
-const args = parseArgs(process.argv.slice(2));
+let args = parseArgs(process.argv.slice(2));
+
+if (args["from-json"]) {
+  args = argsFromCheckin(args);
+}
 
 if (args["self-check"]) {
   runSelfCheck();
@@ -24,7 +28,7 @@ if (args.list) {
 
 const slug = required("slug");
 const note = readNote();
-const today = args.date ?? new Date().toISOString().slice(0, 10);
+const today = args.date || new Date().toISOString().slice(0, 10);
 const filePath = path.join(buildLogsRoot, `${slug}.mdx`);
 
 assertSlug(slug);
@@ -116,6 +120,111 @@ function readNote() {
   }
 
   return args.note ?? "";
+}
+
+function argsFromCheckin(values) {
+  const checkinFile = values["from-json"];
+
+  if (typeof checkinFile !== "string" || !checkinFile.trim()) {
+    fail("--from-json needs a file path");
+  }
+
+  const filePath = path.resolve(root, checkinFile);
+  let data;
+
+  try {
+    data = JSON.parse(readFileSync(filePath, "utf8").replace(/^\uFEFF/, ""));
+  } catch (error) {
+    fail(`${checkinFile}: ${error.message}`);
+  }
+
+  const loaded = normalizeCheckin(data, checkinFile);
+  const overrides = { ...values };
+  delete overrides["from-json"];
+
+  return { ...loaded, ...overrides };
+}
+
+function normalizeCheckin(data, filePath) {
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
+    fail(`${filePath}: expected a JSON object`);
+  }
+
+  return {
+    slug: requiredCheckinString(data.slug, "slug", filePath),
+    title: optionalCheckinString(data.title, "title", filePath),
+    summary: optionalCheckinString(data.summary, "summary", filePath),
+    status: optionalCheckinString(data.status, "status", filePath),
+    confidence: optionalCheckinString(data.confidence, "confidence", filePath),
+    visibility: optionalCheckinString(data.visibility, "visibility", filePath),
+    tags: checkinList(data.tags, "tags", filePath),
+    tools: checkinList(data.tools, "tools", filePath),
+    related: checkinList(data.related, "related", filePath),
+    origin: optionalCheckinString(data.origin, "origin", filePath) || "project check-in",
+    note: checkinNote(data, filePath),
+    next: optionalCheckinString(data.next_move ?? data.next, "next_move", filePath),
+    date: optionalCheckinString(data.date, "date", filePath),
+  };
+}
+
+function checkinNote(data, filePath) {
+  const directNote = optionalCheckinString(data.note, "note", filePath);
+
+  if (directNote) {
+    return directNote;
+  }
+
+  return [
+    checkinSection("current state", data.current_state, filePath),
+    checkinSection("what changed", data.changed, filePath),
+    checkinSection("what broke or is uncertain", data.uncertain, filePath),
+    checkinSection("public-safe evidence", data.public_evidence, filePath),
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+}
+
+function checkinSection(label, value, filePath) {
+  const text = optionalCheckinString(value, label, filePath);
+  return text ? `**${label}:**\n${text}` : "";
+}
+
+function requiredCheckinString(value, key, filePath) {
+  const text = optionalCheckinString(value, key, filePath);
+
+  if (!text) {
+    fail(`${filePath}: missing ${key}`);
+  }
+
+  return text;
+}
+
+function optionalCheckinString(value, key, filePath) {
+  if (value === undefined || value === null || value === "") {
+    return "";
+  }
+
+  if (typeof value !== "string") {
+    fail(`${filePath}: ${key} must be a string`);
+  }
+
+  return value.trim();
+}
+
+function checkinList(value, key, filePath) {
+  if (value === undefined || value === null || value === "") {
+    return "";
+  }
+
+  if (typeof value === "string") {
+    return value;
+  }
+
+  if (!Array.isArray(value) || value.some((item) => typeof item !== "string")) {
+    fail(`${filePath}: ${key} must be a string array`);
+  }
+
+  return value.join(",");
 }
 
 function writeProjectLedger() {
@@ -406,6 +515,20 @@ function runSelfCheck() {
     tags: "agents,archive",
   });
   assert.equal(formatArray(["agents", "archive"]), "\n  - agents\n  - archive");
+  assert.equal(
+    normalizeCheckin(
+      {
+        slug: "agent-loop",
+        current_state: "The other project can hand the archive a small JSON check-in.",
+        changed: "The archive importer turns that check-in into a build-log update.",
+        tags: ["agents", "archive"],
+        tools: ["codex"],
+        next_move: "copy the JSON shape into active projects.",
+      },
+      "self-check.json",
+    ).note.includes("**what changed:**"),
+    true,
+  );
   assert.equal(setUpdated('---\nupdated: "2026-06-15"\n---\nbody\n', "2026-06-16").includes('updated: "2026-06-16"'), true);
   assert.equal(unsafeTextReason("TODO: fill this later"), "filler or placeholder");
   assert.equal(
