@@ -52,6 +52,7 @@ thebolanarchives/
   templates/
     content/          copyable MDX templates for each content type
     project-checkin/  copyable agent note for projects that feed build-log updates
+    prompts/          copyable task prompts, including project check-in capture
   src/
     app/              <- Next.js App Router routes
     components/

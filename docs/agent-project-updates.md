@@ -26,6 +26,8 @@ npm run project:update -- --write-checkin archive-checkin.json --slug project-sl
 
 `archive-checkin.json` is local-only and ignored in this repo. If another project uses
 the same handoff, add `archive-checkin.json` to that project's `.gitignore` too.
+Use `templates/prompts/project-checkin.md` when an agent needs to turn rough owner notes
+into the sanitized JSON file.
 
 Install the handoff note into another project:
 
