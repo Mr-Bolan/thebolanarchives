@@ -3,6 +3,7 @@ node_modules/
 out/
 logs/
 *.log
+.vs/
 
 content/inbox/*
 !content/inbox/.gitkeep
