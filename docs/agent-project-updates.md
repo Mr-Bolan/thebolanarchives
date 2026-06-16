@@ -160,12 +160,13 @@ contents into that repo's existing agent instructions.
 
 1. Take the owner's rough update or project evidence.
 2. Remove private names, private URLs, credentials, client details, and filler.
-3. Run `--sync-project-list` for the local source list, or `--check-install` for one
+3. Run `--check-project-list` for the local source list, or `--check-install` for one
    source project.
 4. Validate cross-project files with `--validate-project-list` or `--validate-checkin`
    before importing them.
 5. Write the smallest honest update with `--import-project-list`, `--from-json`,
-   `--from-issue`, or a direct `npm run project:update --` command.
+   `--from-issue`, `--sync-project-list`, or a direct `npm run project:update --`
+   command. `--sync-project-list` is the combined check-and-import path.
 6. Run `npm run content:audit`.
 7. Run `npm run project:ledger -- --all` to inspect the current tracked project state.
 8. Run `npm run agent:check` before public promotion or push.
