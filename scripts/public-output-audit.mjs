@@ -4,9 +4,10 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 const outDir = path.resolve("out");
+const auditedOutputNames = new Set(["cname"]);
 const auditedOutputExtensions = new Set([".html", ".json", ".txt", ".xml"]);
 const checks = [
-  [/\b(TODO|TBD|CHANGEME|REPLACE_ME|FIXME)\b/i, "placeholder marker"],
+  [/\b(TODO|TBD|CHANGE[-_]?ME|REPLACE[-_]?ME|FIXME)\b/i, "placeholder marker"],
   [/\b(lorem|ipsum)\b/i, "lorem ipsum text"],
   [/\b(dummy|placeholder)\b/i, "filler word"],
   [/\breplace this\b/i, "template text"],
@@ -48,7 +49,7 @@ function outputFiles(directory = outDir) {
 }
 
 function isAuditedOutputFile(fileName) {
-  return auditedOutputExtensions.has(path.extname(fileName).toLowerCase());
+  return auditedOutputNames.has(fileName.toLowerCase()) || auditedOutputExtensions.has(path.extname(fileName).toLowerCase());
 }
 
 function scanFile(file) {
@@ -76,7 +77,9 @@ function fail(message) {
 function runSelfCheck() {
   assert.deepEqual(scanText("ok", "clean text"), []);
   assert.equal(scanText("bad.html", "TODO: replace this later")[0].label, "placeholder marker");
+  assert.equal(scanText("CNAME", "CHANGE-ME.example.com")[0].label, "placeholder marker");
   assert.equal(isAuditedOutputFile("feed.xml"), true);
+  assert.equal(isAuditedOutputFile("CNAME"), true);
   assert.equal(isAuditedOutputFile("bundle.js"), false);
   assert.equal(snippet("abc TODO def", 4), "abc TODO def");
   console.log("public output audit self-check: ok");

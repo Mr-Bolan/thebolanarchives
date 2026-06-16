@@ -77,7 +77,7 @@ npm run deploy:check
 ```
 
 `npm run deploy:check` runs `npm run content:audit`, `npm run build`, and
-`npm run pages:verify`, then scans exported HTML, JSON, TXT, and XML with `npm run public-output:audit`.
+`npm run pages:verify`, then scans exported HTML, JSON, TXT, XML, and CNAME text with `npm run public-output:audit`.
 The verifier checks that GitHub Pages will receive `out/index.html`,
 `out/archive-index.json`, `out/project-ledger.json`, the generated `_next` assets when
 referenced, and the exported route files for `/about`, `/index`, and the archive
