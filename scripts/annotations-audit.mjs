@@ -75,6 +75,7 @@ function auditFile(filePath, slugFromFile) {
     checkString(annotation.author, "author", label);
     checkString(annotation.created, "created", label);
     checkOptionalString(annotation.excerpt, "excerpt", label);
+    checkOptionalString(annotation.sourceUrl, "sourceUrl", label);
 
     if (id) {
       if (fileIds.has(id)) {
@@ -104,6 +105,13 @@ function auditFile(filePath, slugFromFile) {
 
     if (annotation.created !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(stringValue(annotation.created))) {
       errors.push(`${label}: created must use YYYY-MM-DD`);
+    }
+
+    if (
+      annotation.sourceUrl !== undefined &&
+      !/^https:\/\/github\.com\/Mr-Bolan\/thebolanarchives\/discussions\/\d+(?:#discussioncomment-\d+)?$/.test(stringValue(annotation.sourceUrl))
+    ) {
+      errors.push(`${label}: sourceUrl must be a GitHub discussion URL for this repository`);
     }
 
     if (body.trim().length === 0) {
@@ -216,7 +224,9 @@ function paragraphCount(source) {
 }
 
 function scanForPrivateText(annotation, label) {
-  const text = Object.values(annotation)
+  const text = Object.entries(annotation)
+    .filter(([key]) => key !== "sourceUrl")
+    .map(([, value]) => value)
     .filter((value) => typeof value === "string")
     .join("\n");
   const checks = [

@@ -11,6 +11,7 @@ export type ArchiveAnnotation = {
   created: string;
   status: "approved" | "archived";
   excerpt?: string;
+  sourceUrl?: string;
 };
 
 export type MockArchiveAnnotation = Omit<ArchiveAnnotation, "label" | "status"> & {

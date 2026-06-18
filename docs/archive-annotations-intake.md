@@ -15,12 +15,15 @@ GitHub accounts to submit notes, and their GitHub identity is public on the disc
 
 ## reader handoff
 
-The on-site composer prepares a note for the reader to copy, then opens the GitHub intake
-page:
+The on-site composer prepares a note for the reader to copy, then opens a prefilled
+GitHub intake page for the selected record and anchor:
 
 ```text
-https://github.com/Mr-Bolan/thebolanarchives/discussions/new?category=archive-annotations
+https://github.com/Mr-Bolan/thebolanarchives/discussions/new?category=archive-annotations&title=...&target-record-slug=...&target-anchor-id=...
 ```
+
+If the `archive-annotations` category does not exist in GitHub Discussions yet, GitHub may
+show a 404 or a generic discussion form instead of the archive annotation form.
 
 The browser does not receive a token. The site does not call the GitHub API, write to a
 database, or store the submitted note. Opening the intake page is an external handoff.

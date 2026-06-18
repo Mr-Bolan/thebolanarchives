@@ -18,6 +18,7 @@ type MockNoteInput = {
   anchorLabel: string;
   author: string;
   body: string;
+  sourceUrl: string;
 };
 
 type AnnotationLayerContextValue = {
@@ -204,7 +205,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
   }, []);
 
   const submitMockNote = useCallback(
-    ({ anchorId, anchorLabel, author, body }: MockNoteInput) => {
+    ({ anchorId, anchorLabel, author, body, sourceUrl }: MockNoteInput) => {
       const trimmedBody = body.trim();
 
       if (!trimmedBody) {
@@ -220,6 +221,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
         body: trimmedBody,
         author: author.trim() || "anonymous reader",
         created: new Date().toISOString().slice(0, 10),
+        sourceUrl,
         status: "mock pending",
         mock: true,
       };

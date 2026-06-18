@@ -28,7 +28,8 @@ Example:
     "author": "anonymous reader",
     "created": "2026-06-15",
     "status": "approved",
-    "excerpt": "This archive is not a portfolio."
+    "excerpt": "This archive is not a portfolio.",
+    "sourceUrl": "https://github.com/Mr-Bolan/thebolanarchives/discussions/123"
   }
 ]
 ```
@@ -52,7 +53,8 @@ Allowed statuses:
 4. Set `recordSlug` to the filename without `.json`.
 5. Set `anchorId` to a paragraph or heading anchor.
 6. Keep the body reviewed, sanitized, and read-only.
-7. Run `npm run annotations:audit`.
+7. Add `sourceUrl` only when it points to the reviewed GitHub discussion for this note.
+8. Run `npm run annotations:audit`.
 
 Do not commit raw reader comments, private notes, private URLs, emails, credentials,
 moderation queues, or unpublished personal context.

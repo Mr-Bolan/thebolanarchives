@@ -137,7 +137,7 @@ function AnnotationComposer({
   cancelComposer: () => void;
   githubIntakeUrl: string;
   recordSlug: string;
-  submitMockNote: (input: { anchorId: string; anchorLabel: string; author: string; body: string }) => void;
+  submitMockNote: (input: { anchorId: string; anchorLabel: string; author: string; body: string; sourceUrl: string }) => void;
 }) {
   const [author, setAuthor] = useState("");
   const [body, setBody] = useState("");
@@ -145,6 +145,7 @@ function AnnotationComposer({
   const [error, setError] = useState("");
   const bodyRef = useRef<HTMLTextAreaElement>(null);
   const fieldId = `annotation-composer-${anchorId}`;
+  const handoffUrl = discussionHandoffUrl({ anchorId, anchorLabel, author, body, githubIntakeUrl, recordSlug });
 
   useEffect(() => {
     bodyRef.current?.focus();
@@ -159,7 +160,7 @@ function AnnotationComposer({
       return;
     }
 
-    submitMockNote({ anchorId, anchorLabel, author, body });
+    submitMockNote({ anchorId, anchorLabel, author, body, sourceUrl: handoffUrl });
   }
 
   async function handleCopyPreparedNote() {
@@ -186,6 +187,9 @@ function AnnotationComposer({
       "",
       "display name / pseudonym:",
       author.trim() || "anonymous reader",
+      "",
+      "GitHub intake draft:",
+      handoffUrl,
     ].join("\n");
 
     try {
@@ -260,8 +264,8 @@ function AnnotationComposer({
         <button type="button" onClick={handleCopyPreparedNote}>
           copy prepared note
         </button>
-        <a href={githubIntakeUrl} target="_blank" rel="noreferrer">
-          open GitHub intake
+        <a href={handoffUrl} target="_blank" rel="noreferrer">
+          open prefilled GitHub intake
         </a>
       </div>
 
@@ -273,4 +277,37 @@ function AnnotationComposer({
       </div>
     </form>
   );
+}
+
+function discussionHandoffUrl({
+  anchorId,
+  anchorLabel,
+  author,
+  body,
+  githubIntakeUrl,
+  recordSlug,
+}: {
+  anchorId: string;
+  anchorLabel: string;
+  author: string;
+  body: string;
+  githubIntakeUrl: string;
+  recordSlug: string;
+}) {
+  const url = new URL(githubIntakeUrl);
+
+  url.searchParams.set("title", `[annotation] ${recordSlug} / ${anchorId}`);
+  url.searchParams.set("target-record-slug", recordSlug);
+  url.searchParams.set("target-anchor-id", anchorId);
+  url.searchParams.set("short-excerpt", anchorLabel);
+
+  if (body.trim()) {
+    url.searchParams.set("note-body", body.trim());
+  }
+
+  if (author.trim()) {
+    url.searchParams.set("display-name", author.trim());
+  }
+
+  return url.toString();
 }
