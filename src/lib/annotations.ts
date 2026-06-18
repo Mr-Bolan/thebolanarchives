@@ -1,5 +1,5 @@
-import operatorAnnotations from "../../content/annotations/the-operator-knows-before-the-database-does.json";
-import whyThisExistsAnnotations from "../../content/annotations/why-this-exists.json";
+import fs from "node:fs";
+import path from "node:path";
 
 export type ArchiveAnnotation = {
   id: string;
@@ -22,10 +22,9 @@ export type MockArchiveAnnotation = Omit<ArchiveAnnotation, "label" | "status"> 
 
 export type RenderedArchiveAnnotation = ArchiveAnnotation | MockArchiveAnnotation;
 
-export const archiveAnnotations: ArchiveAnnotation[] = [
-  ...whyThisExistsAnnotations,
-  ...operatorAnnotations,
-] as ArchiveAnnotation[];
+const annotationsRoot = path.join(process.cwd(), "content", "annotations");
+
+export const archiveAnnotations: ArchiveAnnotation[] = readArchiveAnnotations();
 
 export function getAnnotationsForRecord(recordSlug: string): ArchiveAnnotation[] {
   return archiveAnnotations.filter((annotation) => annotation.recordSlug === recordSlug);
@@ -40,4 +39,25 @@ export function getAnnotationsByAnchor(annotations: ArchiveAnnotation[]): Map<st
   }
 
   return byAnchor;
+}
+
+function readArchiveAnnotations(): ArchiveAnnotation[] {
+  if (!fs.existsSync(annotationsRoot)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(annotationsRoot)
+    .filter((file) => file.endsWith(".json"))
+    .sort((a, b) => a.localeCompare(b))
+    .flatMap((file) => {
+      const filePath = path.join(annotationsRoot, file);
+      const data: unknown = JSON.parse(fs.readFileSync(filePath, "utf8"));
+
+      if (!Array.isArray(data)) {
+        throw new Error(`${filePath}: annotation file must be a JSON array`);
+      }
+
+      return data as ArchiveAnnotation[];
+    });
 }

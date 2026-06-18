@@ -134,24 +134,26 @@ model.
 
 Includes:
 
-- future Archive Intake Screener
-- GitHub Actions review result for new `discussion` / `discussion_comment` events
+- implemented Archive Intake Screener
+- per-record GitHub Discussion sync
+- static discussion registry at `content/annotation-discussions.json`
+- GitHub Actions export for clear `discussion_comment` events
 - rules for abuse, spam, private data, invalid targets, off-topic notes, unsupported
   claims, and excessive length
-- human triage before acceptance
+- pull request review before publication
 - pause path for intake or screening
 
 Excludes:
 
 - browser-side moderation
 - client-side secrets
-- automatic writes to `content/annotations/*.json`
 - direct writes to `main`
-- automatic publication on the static site
+- database, CMS, API routes, or server actions
 
-Recommendation: start with GitHub Actions plus rules-based screening, keep local script
-mode as the dry run, and defer optional OpenAI moderation until there is evidence that
-rules are not enough. See `docs/archive-annotations-auto-moderation.md`.
+Implementation: `scripts/archive-discussions.mjs`,
+`.github/workflows/archive-discussions-sync.yml`, and
+`.github/workflows/archive-intake-screener.yml`. See
+`docs/archive-annotations-auto-moderation.md`.
 
 ## Anti-goals
 

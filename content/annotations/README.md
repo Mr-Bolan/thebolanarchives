@@ -11,9 +11,10 @@ content/annotations/<record-slug>.json
 Each file must be a JSON array. Every annotation inside it must use the same `recordSlug`
 as the filename without `.json`.
 
-Only fake, sanitized, read-only annotations belong here. Do not commit real reader
-submissions, private notes, private URLs, emails, credentials, moderation queues, or
-unpublished personal context.
+Only sanitized, read-only annotations belong here. Generated reader notes may be exported
+from GitHub Discussions by `npm run discussions:export` after they pass the Archive Intake
+Screener. Do not commit raw reader submissions, private notes, private URLs, emails,
+credentials, moderation queues, or unpublished personal context.
 
 Anchor IDs:
 
@@ -25,4 +26,10 @@ Run this after edits:
 
 ```bash
 npm run annotations:audit
+```
+
+Run this before expecting a new record to have a GitHub intake space:
+
+```bash
+npm run discussions:sync
 ```

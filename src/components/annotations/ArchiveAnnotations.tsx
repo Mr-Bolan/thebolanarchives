@@ -27,7 +27,8 @@ type AnnotationLayerContextValue = {
   composerAnchorId: string | null;
   cancelComposer: () => void;
   clearSubmissionStatus: () => void;
-  githubIntakeUrl: string;
+  githubDiscussionUrl: string | null;
+  githubNewDiscussionUrl: string;
   mockAnnotationsByAnchor: Map<string, MockArchiveAnnotation[]>;
   nearAnchorId: string | null;
   recordSlug: string;
@@ -44,7 +45,8 @@ const AnnotationLayerContext = createContext<AnnotationLayerContextValue>({
   composerAnchorId: null,
   cancelComposer: () => undefined,
   clearSubmissionStatus: () => undefined,
-  githubIntakeUrl: "https://github.com/Mr-Bolan/thebolanarchives/discussions/new?category=archive-annotations",
+  githubDiscussionUrl: null,
+  githubNewDiscussionUrl: "https://github.com/Mr-Bolan/thebolanarchives/discussions/new?category=archive-annotations",
   mockAnnotationsByAnchor: new Map(),
   nearAnchorId: null,
   recordSlug: "",
@@ -58,11 +60,20 @@ const AnnotationLayerContext = createContext<AnnotationLayerContextValue>({
 type ArchiveAnnotationsProps = {
   annotations: ArchiveAnnotation[];
   children: ReactNode;
+  discussionUrl?: string;
+  newDiscussionUrl: string;
   recordTitle: string;
   recordSlug: string;
 };
 
-export function ArchiveAnnotations({ annotations, children, recordTitle, recordSlug }: ArchiveAnnotationsProps) {
+export function ArchiveAnnotations({
+  annotations,
+  children,
+  discussionUrl,
+  newDiscussionUrl,
+  recordTitle,
+  recordSlug,
+}: ArchiveAnnotationsProps) {
   const [activeAnchorId, setActiveAnchorId] = useState<string | null>(null);
   const [addMode, setAddMode] = useState(false);
   const [composerAnchorId, setComposerAnchorId] = useState<string | null>(null);
@@ -74,7 +85,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
   const shellRef = useRef<HTMLDivElement>(null);
   const totalAnnotations = annotations.length + mockAnnotations.length;
-  const githubIntakeUrl = "https://github.com/Mr-Bolan/thebolanarchives/discussions/new?category=archive-annotations";
+  const githubDiscussionUrl = discussionUrl ?? null;
 
   useEffect(() => {
     if (!visible) {
@@ -212,7 +223,6 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
         return;
       }
 
-      // ponytail: session-only preview; GitHub intake stays a manual external handoff.
       const mockNote: MockArchiveAnnotation = {
         id: `mock_note_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`,
         recordSlug,
@@ -257,7 +267,8 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
       cancelComposer,
       clearSubmissionStatus,
       composerAnchorId,
-      githubIntakeUrl,
+      githubDiscussionUrl,
+      githubNewDiscussionUrl: newDiscussionUrl,
       mockAnnotationsByAnchor,
       nearAnchorId,
       recordSlug,
@@ -273,7 +284,8 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
       cancelComposer,
       clearSubmissionStatus,
       composerAnchorId,
-      githubIntakeUrl,
+      githubDiscussionUrl,
+      newDiscussionUrl,
       mockAnnotationsByAnchor,
       nearAnchorId,
       recordSlug,

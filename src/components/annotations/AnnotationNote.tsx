@@ -22,7 +22,7 @@ export function AnnotationNote({ annotation }: AnnotationNoteProps) {
       {annotation.sourceUrl ? (
         <p className="annotation-note-session">
           <a href={annotation.sourceUrl} target="_blank" rel="noreferrer">
-            {isMock ? "open prepared GitHub intake" : "source discussion"}
+            {isMock ? "open GitHub handoff" : "source discussion"}
           </a>
         </p>
       ) : null}

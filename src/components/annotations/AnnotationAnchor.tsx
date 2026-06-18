@@ -28,7 +28,8 @@ export function AnnotationAnchor({
     addMode,
     cancelComposer,
     composerAnchorId,
-    githubIntakeUrl,
+    githubDiscussionUrl,
+    githubNewDiscussionUrl,
     mockAnnotationsByAnchor,
     nearAnchorId,
     recordSlug,
@@ -92,7 +93,8 @@ export function AnnotationAnchor({
           anchorId={anchorId}
           anchorLabel={anchorLabel}
           cancelComposer={cancelComposer}
-          githubIntakeUrl={githubIntakeUrl}
+          githubDiscussionUrl={githubDiscussionUrl}
+          githubNewDiscussionUrl={githubNewDiscussionUrl}
           recordSlug={recordSlug}
           submitMockNote={submitMockNote}
         />
@@ -128,14 +130,16 @@ function AnnotationComposer({
   anchorId,
   anchorLabel,
   cancelComposer,
-  githubIntakeUrl,
+  githubDiscussionUrl,
+  githubNewDiscussionUrl,
   recordSlug,
   submitMockNote,
 }: {
   anchorId: string;
   anchorLabel: string;
   cancelComposer: () => void;
-  githubIntakeUrl: string;
+  githubDiscussionUrl: string | null;
+  githubNewDiscussionUrl: string;
   recordSlug: string;
   submitMockNote: (input: { anchorId: string; anchorLabel: string; author: string; body: string; sourceUrl: string }) => void;
 }) {
@@ -145,7 +149,16 @@ function AnnotationComposer({
   const [error, setError] = useState("");
   const bodyRef = useRef<HTMLTextAreaElement>(null);
   const fieldId = `annotation-composer-${anchorId}`;
-  const handoffUrl = discussionHandoffUrl({ anchorId, anchorLabel, author, body, githubIntakeUrl, recordSlug });
+  const newDiscussionDraftUrl = newDiscussionHandoffUrl({
+    anchorId,
+    anchorLabel,
+    author,
+    body,
+    githubNewDiscussionUrl,
+    recordSlug,
+  });
+  const handoffUrl = githubDiscussionUrl ?? newDiscussionDraftUrl;
+  const handoffLabel = githubDiscussionUrl ? "open record discussion" : "open new discussion draft";
 
   useEffect(() => {
     bodyRef.current?.focus();
@@ -188,13 +201,17 @@ function AnnotationComposer({
       "display name / pseudonym:",
       author.trim() || "anonymous reader",
       "",
-      "GitHub intake draft:",
+      githubDiscussionUrl ? "GitHub record discussion:" : "GitHub intake draft:",
       handoffUrl,
     ].join("\n");
 
     try {
       await navigator.clipboard.writeText(preparedNote);
-      setCopyStatus("prepared note copied. paste it into the GitHub intake form.");
+      setCopyStatus(
+        githubDiscussionUrl
+          ? "prepared note copied. paste it as a reply in the record discussion."
+          : "prepared note copied. paste it into the new GitHub discussion draft.",
+      );
       setError("");
     } catch {
       setError("clipboard copy failed. copy the fields manually before opening GitHub.");
@@ -214,7 +231,7 @@ function AnnotationComposer({
         This prepares a public GitHub intake note. If you submit it on GitHub, the discussion and your GitHub username will be visible.
       </p>
       <p className="annotation-composer-warning">
-        After posting, the note may be auto-screened and triaged. It appears on the archive only after review.
+        After posting, the note is screened from GitHub and appears here only when it passes the archive checks.
       </p>
       <p className="annotation-composer-hint">
         Local preview is only a draft preview, not publication. This page has no token, GitHub API write, or network write.
@@ -265,7 +282,7 @@ function AnnotationComposer({
           copy prepared note
         </button>
         <a href={handoffUrl} target="_blank" rel="noreferrer">
-          open prefilled GitHub intake
+          {handoffLabel}
         </a>
       </div>
 
@@ -279,22 +296,22 @@ function AnnotationComposer({
   );
 }
 
-function discussionHandoffUrl({
+function newDiscussionHandoffUrl({
   anchorId,
   anchorLabel,
   author,
   body,
-  githubIntakeUrl,
+  githubNewDiscussionUrl,
   recordSlug,
 }: {
   anchorId: string;
   anchorLabel: string;
   author: string;
   body: string;
-  githubIntakeUrl: string;
+  githubNewDiscussionUrl: string;
   recordSlug: string;
 }) {
-  const url = new URL(githubIntakeUrl);
+  const url = new URL(githubNewDiscussionUrl);
 
   url.searchParams.set("title", `[annotation] ${recordSlug} / ${anchorId}`);
   url.searchParams.set("target-record-slug", recordSlug);

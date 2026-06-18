@@ -1,7 +1,7 @@
 # Archive Annotations intake
 
-Phase E uses GitHub Discussions as public intake and keeps the site static. The website
-does not write notes to GitHub, fetch live discussions, or publish submissions at runtime.
+Archive Annotations use GitHub Discussions as public intake and keep the website static.
+The browser does not call the GitHub API or receive a token.
 
 ## GitHub setup
 
@@ -10,73 +10,86 @@ does not write notes to GitHub, fetch live discussions, or publish submissions a
 3. Keep the category slug as `archive-annotations`.
 4. Keep the category form at `.github/DISCUSSION_TEMPLATE/archive-annotations.yml`.
 
-GitHub requires the form filename to match the discussion category slug. Readers need
-GitHub accounts to submit notes, and their GitHub identity is public on the discussion.
+GitHub requires the form filename to match the discussion category slug. The category is a
+one-time GitHub setup step; the repository automation can create discussions inside the
+category, but it does not create the category itself.
+
+Readers need GitHub accounts to submit notes, and their GitHub identity is public on the
+discussion.
+
+## per-record discussion space
+
+Each public or unlisted archive record should have one GitHub Discussion in the
+`archive-annotations` category.
+
+Run:
+
+```bash
+npm run discussions:sync
+```
+
+The command:
+
+- reads published and unlisted MDX records
+- checks whether a matching Discussion exists
+- creates missing Discussions with an archive marker in the body
+- writes `content/annotation-discussions.json`
+
+The website reads this registry. If a record has a mapped discussion, the composer opens
+that discussion so the reader can paste the prepared note as a reply. If the registry does
+not yet have the record, the composer falls back to a new discussion draft URL.
+
+If the `archive-annotations` category is missing, GitHub may return a 404 for intake URLs
+and the sync command will fail with a setup message.
 
 ## reader handoff
 
-The on-site composer prepares a note for the reader to copy, then opens a prefilled
-GitHub intake page for the selected record and anchor:
+The on-site composer prepares a note for the reader to copy:
 
 ```text
-https://github.com/Mr-Bolan/thebolanarchives/discussions/new?category=archive-annotations&title=...&target-record-slug=...&target-anchor-id=...
+target record slug:
+why-this-exists
+
+target anchor ID:
+p-1
+
+short excerpt:
+optional passage clue
+
+note body:
+the note
+
+display name / pseudonym:
+anonymous reader
 ```
 
-If the `archive-annotations` category does not exist in GitHub Discussions yet, GitHub may
-show a 404 or a generic discussion form instead of the archive annotation form.
+For records with a discussion registry entry, the composer opens the record discussion.
+For records without one, it opens a prefilled new discussion draft:
 
-The browser does not receive a token. The site does not call the GitHub API, write to a
-database, or store the submitted note. Opening the intake page is an external handoff.
+```text
+https://github.com/Mr-Bolan/thebolanarchives/discussions/new?category=archive-annotations&title=...
+```
 
 ## publication workflow
 
-Submitted discussions are not published on the site automatically.
-
-Use the manual moderation path:
+The automated path is:
 
 ```text
-submitted -> triage -> accepted -> published_static / archived / rejected
+submitted GitHub comment -> rules screen -> exported static JSON PR -> review -> publish
 ```
 
-Future Phase F screening may insert an advisory step:
+Clear notes are exported by `npm run discussions:export` into
+`content/annotations/<record-slug>.json` with a `sourceUrl` pointing to the GitHub
+comment. Notes that are blocked, invalid, or need review stay in GitHub and do not render
+on the archive.
 
-```text
-submitted -> auto-screened -> triage -> accepted/rejected -> published_static
+Before publishing:
+
+```bash
+npm run annotations:audit
+npm run agent:check
+npm run deploy:check
 ```
-
-Auto-screening is not approval. It creates a review result only; accepted notes still need
-human review before static publication.
-
-For accepted notes:
-
-1. Confirm the target record slug exists.
-2. Confirm the target anchor still resolves.
-3. Remove or reject private data, credentials, private URLs, identifying details, and
-   unsupported claims.
-4. Copy only sanitized text into `content/annotations/<record-slug>.json`.
-5. Run `npm run annotations:audit`.
-6. Run `npm run agent:check` and `npm run deploy:check` before publishing.
-
-## manual JSON draft template
-
-Use this shape when converting an accepted discussion into static annotation JSON:
-
-```json
-{
-  "id": "reader_note_000",
-  "recordSlug": "target-record-slug",
-  "anchorId": "p-1",
-  "label": "reader note",
-  "body": "Sanitized note text.",
-  "author": "anonymous reader",
-  "created": "2026-06-16",
-  "status": "approved",
-  "excerpt": "Optional short excerpt."
-}
-```
-
-Allowed labels are `reader note`, `field comment`, and `annotation`. Allowed static
-statuses are `approved` and `archived`.
 
 Do not commit raw GitHub discussion exports, private moderation notes, credentials,
 private URLs, or unpublished personal context.

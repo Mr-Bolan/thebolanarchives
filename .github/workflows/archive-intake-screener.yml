@@ -1,0 +1,75 @@
+name: Screen archive annotation intake
+
+on:
+  workflow_dispatch:
+  discussion:
+    types: [created, edited]
+  discussion_comment:
+    types: [created, edited]
+
+permissions:
+  contents: write
+  discussions: write
+  pull-requests: write
+
+jobs:
+  screen:
+    name: Screen and export clear notes
+    if: github.event_name == 'workflow_dispatch' || github.event.discussion.category.slug == 'archive-annotations'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Self-check discussion tooling
+        run: npm run discussions:self-check
+
+      - name: Ensure discussion registry
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npm run discussions:sync
+
+      - name: Export clear notes
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npm run discussions:export
+
+      - name: Audit exported annotations
+        run: npm run annotations:audit
+
+      - name: Detect generated changes
+        id: diff
+        run: |
+          if git diff --quiet -- content/annotation-discussions.json content/annotations; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open screened annotation pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch="archive-intake-screen-${GITHUB_RUN_ID}"
+          git checkout -B "$branch"
+          git add content/annotation-discussions.json content/annotations
+          git commit -m "add site feature: export screened annotations"
+          git push --force-with-lease origin "$branch"
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "export screened archive annotations" \
+            --body "Exports GitHub Discussion comments that passed the rules-based archive intake screener into static annotation JSON. Comments that need review or are blocked remain in GitHub and are not rendered on the archive."

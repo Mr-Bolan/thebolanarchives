@@ -1,110 +1,95 @@
 # Archive Annotations auto-moderation
 
-Status: Phase F plan only. No auto-moderation is implemented.
+Status: implemented as a rules-based GitHub Actions screener.
 
 ## name
 
-Future tooling name: **Archive Intake Screener**.
+Tooling name: **Archive Intake Screener**.
 
 ## goal
 
-Screen public GitHub Discussions intake after a note is posted, then leave a review result
-for a human maintainer. The screener does not publish notes to the archive and does not
-write to `content/annotations/*.json`.
+Screen GitHub Discussion comments for archive annotations and export only clear notes into
+static annotation JSON. The archive remains a static site: GitHub Discussions hold the
+public conversation, while `content/annotations/*.json` remains the only render source.
+
+## commands
+
+```bash
+npm run discussions:self-check
+npm run discussions:sync
+npm run discussions:export
+```
+
+- `discussions:self-check` validates parser and screening behavior without a GitHub token.
+- `discussions:sync` ensures each public or unlisted archive record has a GitHub
+  Discussion in the `archive-annotations` category, then updates
+  `content/annotation-discussions.json`.
+- `discussions:export` reads comments from mapped discussions, screens them, and writes
+  only `screen_clear` notes into `content/annotations/<record-slug>.json`.
+
+GitHub API commands require `GITHUB_TOKEN` or `GH_TOKEN`.
+
+## workflows
+
+- `.github/workflows/archive-discussions-sync.yml` runs on `main` content changes or
+  manually. It creates missing per-record discussions and opens a PR when the discussion
+  registry changes.
+- `.github/workflows/archive-intake-screener.yml` runs on annotation Discussion/comment
+  events or manually. It syncs the registry, exports clear notes, audits annotations, and
+  opens a PR with static JSON changes.
+
+The workflows do not write directly to `main`.
+
+## screening states
+
+```text
+screen_clear
+screen_needs_review
+screen_blocked
+screen_invalid_target
+```
+
+`screen_clear` means the note passed the rules-based checks and can be exported into a PR
+without manual copy work. It is still reviewed at PR time before publication.
+
+`screen_needs_review`, `screen_blocked`, and `screen_invalid_target` stay in GitHub and do
+not render on the archive.
 
 ## screening scope
 
-The screener should flag:
+The screener checks for:
 
-- abusive, hateful, sexual, violent, or self-harm content
-- spam, link farming, repeated boilerplate, or low-effort promotion
-- credentials, private data, private URLs, private emails, or identifying details
-- irrelevant dribble, off-topic comments, or notes with no archive value
-- missing or invalid `recordSlug` or `anchorId`
-- unsupported claims or comments unrelated to the selected passage
-- excessive length for archive marginalia
+- missing or mismatched record slug
+- missing or invalid anchor ID
+- draft or unknown target records
+- note bodies that are too short or too long for archive marginalia
+- overly long excerpts or display names
+- URLs, emails, private hosts, credentials, private keys, API-key shapes, and placeholders
+- common spam or promotional phrases
+- safety-sensitive, abuse-sensitive, or identifying claims that need human review
 
-## architecture options
-
-### A. rules-based local script only
-
-Safest technically: no secrets, no Actions permissions, and easy local dry runs. It does
-not screen automatically after public posting, so it should be a development harness, not
-the Phase F production shape.
-
-### B. GitHub Actions on discussion events
-
-Best first automation. Run a rules-based screener in GitHub Actions for
-`discussion` and `discussion_comment` events in the `archive-annotations` category. Use
-the built-in repository token only for review output, and keep permissions as narrow as
-GitHub allows.
-
-The Action may create a workflow summary, artifact, label, or triage comment. It must not
-commit JSON, publish to the static site, or write directly to `main`.
-
-### C. GitHub Actions plus optional OpenAI moderation
-
-Useful only if rule-based screening misses too much abuse. This adds a secret and sends
-submitted text to another service, so it needs a separate decision before use. It remains
-server-side in Actions only; never browser-side.
-
-### D. no automation; manual review only
-
-Lowest operational risk, and still the fallback during quiet periods or uncertainty. It
-does not meet the Phase F goal of automatic post-submission screening.
-
-## recommendation
-
-Choose **B: GitHub Actions with a rules-based Archive Intake Screener** for Phase F.
-Keep **A** as the local dry-run path, defer **C** until there is evidence that rules are
-not enough, and keep **D** as the pause/fallback state.
-
-This preserves the static site model and archive anonymity: reader submissions stay in
-GitHub, screening happens after the public post, and only reviewed notes manually become
-static JSON.
+The rule set is intentionally conservative. It is not a full trust engine, legal review,
+or abuse classifier.
 
 ## hard boundaries
 
-Any Phase F automation must:
+The automation must:
 
-- run only in GitHub Actions, never in the browser
+- run in GitHub Actions or local maintainer tooling, never in the browser
 - use no client-side secrets
-- publish no static JSON automatically
-- avoid direct writes to `main`
-- create a review result only
-- keep human approval before publication
-- allow intake to be paused by removing the site handoff, locking or closing the category,
-  or disabling the screening workflow before it acts
+- keep the site static
+- write generated archive notes only through a PR
+- preserve the source GitHub comment URL on exported annotations
+- leave blocked, invalid, or uncertain comments out of static JSON
+- allow intake to be paused by disabling the workflows, removing the site handoff, or
+  locking the category
 
-## review result
-
-The first review result should be plain and small:
+## publication flow
 
 ```text
-screen_clear | screen_needs_review | screen_blocked | screen_invalid_target
+record published -> sync creates record discussion -> reader replies with prepared note
+-> screener exports clear comments -> PR review -> static archive render
 ```
 
-`screen_clear` is not approval. It only means the screener found no obvious blocker.
-Maintainers still triage before a note can become `published_static`.
-
-## future flow
-
-```text
-submitted -> auto-screened -> triage -> accepted/rejected -> published_static
-```
-
-Rejected notes never proceed to `published_static`. Accepted notes still require a human
-copy/export into `content/annotations/*.json`, followed by `npm run annotations:audit`,
-`npm run agent:check`, and `npm run deploy:check`.
-
-## implementation sketch
-
-When Phase F is approved, the smallest useful implementation is:
-
-- `scripts/archive-intake-screener.mjs`
-- `.github/workflows/archive-intake-screener.yml`
-- a no-secret rule set for length, URLs, obvious private data, required fields, and target
-  anchor validation
-
-Do not add a database, CMS, API route, server action, browser GitHub API call, live comment
-fetching, or auto-publish path.
+Rejected or uncertain comments never proceed to static JSON unless a maintainer edits or
+manually curates them into a safe annotation.
