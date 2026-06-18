@@ -10,9 +10,12 @@ The browser does not call the GitHub API or receive a token.
 3. Keep the category slug as `archive-annotations`.
 4. Keep the category form at `.github/DISCUSSION_TEMPLATE/archive-annotations.yml`.
 
-GitHub requires the form filename to match the discussion category slug. The category is a
-one-time GitHub setup step; the repository automation can create discussions inside the
-category, but it does not create the category itself.
+GitHub requires the form filename to match the discussion category slug. The custom
+category is a one-time GitHub setup step; the repository automation can create discussions
+inside an existing category, but it does not create categories.
+
+If `archive-annotations` is missing, `npm run discussions:sync` falls back to the existing
+`general` category so per-record discussion threads can still be created and routed.
 
 Readers need GitHub accounts to submit notes, and their GitHub identity is public on the
 discussion.
@@ -39,8 +42,8 @@ The website reads this registry. If a record has a mapped discussion, the compos
 that discussion so the reader can paste the prepared note as a reply. If the registry does
 not yet have the record, the composer falls back to a new discussion draft URL.
 
-If the `archive-annotations` category is missing, GitHub may return a 404 for intake URLs
-and the sync command will fail with a setup message.
+If the `archive-annotations` category is missing and `general` is also unavailable, GitHub
+may return a 404 for intake URLs and the sync command will fail with a setup message.
 
 ## reader handoff
 

@@ -15,7 +15,7 @@ permissions:
 jobs:
   screen:
     name: Screen and export clear notes
-    if: github.event_name == 'workflow_dispatch' || github.event.discussion.category.slug == 'archive-annotations'
+    if: github.event_name == 'workflow_dispatch' || github.event.discussion.category.slug == 'archive-annotations' || github.event.discussion.category.slug == 'general'
     runs-on: ubuntu-latest
 
     steps:

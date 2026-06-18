@@ -29,7 +29,8 @@ static archive site. The site should publish only reviewed annotations from stat
 ## automation
 
 - `npm run discussions:sync` creates or finds per-record Discussions and writes
-  `content/annotation-discussions.json`.
+  `content/annotation-discussions.json`. It prefers the `archive-annotations` category
+  and falls back to `general` when that category is not yet present.
 - `npm run discussions:export` screens Discussion comments and exports clear notes into
   `content/annotations/*.json`.
 - GitHub Actions open pull requests for generated registry or annotation changes.

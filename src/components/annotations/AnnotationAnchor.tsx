@@ -312,8 +312,25 @@ function newDiscussionHandoffUrl({
   recordSlug: string;
 }) {
   const url = new URL(githubNewDiscussionUrl);
+  const preparedBody = [
+    "target record slug:",
+    recordSlug,
+    "",
+    "target anchor ID:",
+    anchorId,
+    "",
+    "short excerpt:",
+    anchorLabel,
+    "",
+    "note body:",
+    body.trim(),
+    "",
+    "display name / pseudonym:",
+    author.trim() || "anonymous reader",
+  ].join("\n");
 
   url.searchParams.set("title", `[annotation] ${recordSlug} / ${anchorId}`);
+  url.searchParams.set("body", preparedBody);
   url.searchParams.set("target-record-slug", recordSlug);
   url.searchParams.set("target-anchor-id", anchorId);
   url.searchParams.set("short-excerpt", anchorLabel);

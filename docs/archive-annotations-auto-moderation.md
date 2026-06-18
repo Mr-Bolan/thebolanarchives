@@ -22,8 +22,8 @@ npm run discussions:export
 
 - `discussions:self-check` validates parser and screening behavior without a GitHub token.
 - `discussions:sync` ensures each public or unlisted archive record has a GitHub
-  Discussion in the `archive-annotations` category, then updates
-  `content/annotation-discussions.json`.
+  Discussion in `archive-annotations`, falling back to `general` if the custom category
+  has not been created yet, then updates `content/annotation-discussions.json`.
 - `discussions:export` reads comments from mapped discussions, screens them, and writes
   only `screen_clear` notes into `content/annotations/<record-slug>.json`.
 
@@ -34,9 +34,9 @@ GitHub API commands require `GITHUB_TOKEN` or `GH_TOKEN`.
 - `.github/workflows/archive-discussions-sync.yml` runs on `main` content changes or
   manually. It creates missing per-record discussions and opens a PR when the discussion
   registry changes.
-- `.github/workflows/archive-intake-screener.yml` runs on annotation Discussion/comment
-  events or manually. It syncs the registry, exports clear notes, audits annotations, and
-  opens a PR with static JSON changes.
+- `.github/workflows/archive-intake-screener.yml` runs on annotation or fallback
+  Discussion/comment events or manually. It syncs the registry, exports clear notes,
+  audits annotations, and opens a PR with static JSON changes.
 
 The workflows do not write directly to `main`.
 

@@ -13,6 +13,7 @@ const owner = process.env.ARCHIVE_DISCUSSIONS_OWNER || "Mr-Bolan";
 const repo = process.env.ARCHIVE_DISCUSSIONS_REPO || "thebolanarchives";
 const repository = `${owner}/${repo}`;
 const categorySlug = process.env.ARCHIVE_DISCUSSIONS_CATEGORY || "archive-annotations";
+const fallbackCategorySlug = process.env.ARCHIVE_DISCUSSIONS_FALLBACK_CATEGORY || "general";
 const markerPattern = /<!--\s*archive-discussion:\s*([a-z0-9]+(?:-[a-z0-9]+)*)\s*-->/i;
 const githubOrigin = `https://github.com/${repository}`;
 const args = new Set(process.argv.slice(2));
@@ -39,7 +40,7 @@ async function main() {
 async function syncDiscussions() {
   const records = readPublishableRecords();
   const client = new GitHubClient();
-  const { repositoryId, categoryId } = await client.getRepositoryAndCategory();
+  const { repositoryId, categoryId, activeCategorySlug } = await client.getRepositoryAndCategory();
   const existingDiscussions = await client.listCategoryDiscussions(categoryId);
   const discussionsBySlug = new Map();
   const registry = readRegistry();
@@ -72,14 +73,14 @@ async function syncDiscussions() {
       number: discussion.number,
       url: discussion.url,
       title: discussion.title,
-      categorySlug,
+      categorySlug: activeCategorySlug,
     };
   }
 
   const nextRegistry = {
     version: 1,
     repository,
-    categorySlug,
+    categorySlug: activeCategorySlug,
     records: sortObject(nextRecords),
   };
 
@@ -201,22 +202,31 @@ class GitHubClient {
       { owner, repo },
     );
     const repositoryData = data.repository;
-    const category = repositoryData?.discussionCategories?.nodes?.find((node) => node.slug === categorySlug);
+    const categories = repositoryData?.discussionCategories?.nodes ?? [];
+    const category = categories.find((node) => node.slug === categorySlug);
+    const fallbackCategory = categories.find((node) => node.slug === fallbackCategorySlug);
 
     if (!repositoryData?.hasDiscussionsEnabled) {
       throw new Error(`GitHub Discussions are not enabled for ${repository}.`);
     }
 
     if (!category) {
-      const available = repositoryData.discussionCategories.nodes.map((node) => node.slug).sort().join(", ") || "none";
-      throw new Error(
-        `GitHub discussion category "${categorySlug}" is missing. Available categories: ${available}. Create "${categorySlug}" in ${githubOrigin}/discussions/categories before syncing.`,
-      );
+      if (!fallbackCategory) {
+        const available = categories.map((node) => node.slug).sort().join(", ") || "none";
+        throw new Error(
+          `GitHub discussion category "${categorySlug}" is missing and fallback "${fallbackCategorySlug}" is unavailable. Available categories: ${available}.`,
+        );
+      }
+
+      console.warn(`GitHub discussion category "${categorySlug}" is missing; using "${fallbackCategorySlug}" for archive annotation threads.`);
     }
+
+    const activeCategory = category ?? fallbackCategory;
 
     return {
       repositoryId: repositoryData.id,
-      categoryId: category.id,
+      categoryId: activeCategory.id,
+      activeCategorySlug: activeCategory.slug,
     };
   }
 
@@ -588,6 +598,12 @@ function mergeGeneratedAnnotations(recordSlug, discussion, generatedAnnotations)
   }
 
   const generatedPrefix = `gh_discussion_${discussion.number}_`;
+  const hasGeneratedAnnotations = existing.some((annotation) => typeof annotation?.id === "string" && annotation.id.startsWith(generatedPrefix));
+
+  if (generatedAnnotations.length === 0 && !hasGeneratedAnnotations) {
+    return;
+  }
+
   const retained = existing.filter((annotation) => {
     if (typeof annotation?.id !== "string") {
       return true;
