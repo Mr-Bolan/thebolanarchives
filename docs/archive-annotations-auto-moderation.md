@@ -35,8 +35,9 @@ GitHub API commands require `GITHUB_TOKEN` or `GH_TOKEN`.
   manually. It creates missing per-record discussions and opens a PR when the discussion
   registry changes.
 - `.github/workflows/archive-intake-screener.yml` runs on annotation or fallback
-  Discussion/comment events or manually. It syncs the registry, exports clear notes,
-  audits annotations, and opens a PR with static JSON changes.
+  Discussion/comment events, every 30 minutes, or manually. It syncs the registry,
+  exports clear notes, audits annotations, and opens or updates one PR with static JSON
+  changes.
 
 The workflows do not write directly to `main`.
 

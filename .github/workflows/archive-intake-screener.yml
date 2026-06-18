@@ -2,6 +2,8 @@ name: Screen archive annotation intake
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
   discussion:
     types: [created, edited]
   discussion_comment:
@@ -12,15 +14,27 @@ permissions:
   discussions: write
   pull-requests: write
 
+concurrency:
+  group: archive-intake-screener
+  cancel-in-progress: false
+
 jobs:
   screen:
     name: Screen and export clear notes
-    if: github.event_name == 'workflow_dispatch' || github.event.discussion.category.slug == 'archive-annotations' || github.event.discussion.category.slug == 'general'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.discussion.category.slug == 'archive-annotations' || github.event.discussion.category.slug == 'general'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      - name: Continue existing export branch
+        run: |
+          branch="archive-intake-screen"
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+            git fetch origin "$branch"
+            git checkout -B "$branch" "origin/$branch"
+          fi
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -63,13 +77,18 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          branch="archive-intake-screen-${GITHUB_RUN_ID}"
+          branch="archive-intake-screen"
           git checkout -B "$branch"
           git add content/annotation-discussions.json content/annotations
           git commit -m "add site feature: export screened annotations"
           git push --force-with-lease origin "$branch"
-          gh pr create \
-            --base main \
-            --head "$branch" \
-            --title "export screened archive annotations" \
-            --body "Exports GitHub Discussion comments that passed the rules-based archive intake screener into static annotation JSON. Comments that need review or are blocked remain in GitHub and are not rendered on the archive."
+          existing_pr="$(gh pr list --base main --head "$branch" --state open --json number --jq '.[0].number')"
+          if [ -n "$existing_pr" ]; then
+            echo "Updated existing PR #$existing_pr"
+          else
+            gh pr create \
+              --base main \
+              --head "$branch" \
+              --title "export screened archive annotations" \
+              --body "Exports GitHub Discussion comments that passed the rules-based archive intake screener into static annotation JSON. Comments that need review or are blocked remain in GitHub and are not rendered on the archive."
+          fi
