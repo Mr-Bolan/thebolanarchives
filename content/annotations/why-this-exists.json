@@ -1,16 +1,5 @@
 [
   {
-    "id": "reader_note_001",
-    "recordSlug": "why-this-exists",
-    "anchorId": "p-1",
-    "label": "reader note",
-    "body": "The archive starts with a refusal: the work can be public without turning the author into the subject.",
-    "author": "anonymous reader",
-    "created": "2026-06-15",
-    "status": "approved",
-    "excerpt": "This archive is not a portfolio."
-  },
-  {
     "id": "annotation_005",
     "recordSlug": "why-this-exists",
     "anchorId": "p-1",
@@ -29,6 +18,17 @@
     "author": "archive maintainer",
     "created": "2026-06-15",
     "status": "approved"
+  },
+  {
+    "id": "reader_note_001",
+    "recordSlug": "why-this-exists",
+    "anchorId": "p-1",
+    "label": "reader note",
+    "body": "The archive starts with a refusal: the work can be public without turning the author into the subject.",
+    "author": "anonymous reader",
+    "created": "2026-06-15",
+    "status": "approved",
+    "excerpt": "This archive is not a portfolio."
   },
   {
     "id": "gh_discussion_9_1e38a2f92554",
