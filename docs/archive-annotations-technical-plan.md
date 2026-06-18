@@ -86,6 +86,7 @@ export type ArchiveAnnotation = {
   created: string;
   status: "approved" | "archived";
   excerpt?: string;
+  sourceUrl?: string;
 };
 ```
 
@@ -101,7 +102,8 @@ Example JSON object:
   "author": "anonymous reader",
   "created": "2026-06-15",
   "status": "approved",
-  "excerpt": "Because useful work keeps disappearing into memory..."
+  "excerpt": "Because useful work keeps disappearing into memory...",
+  "sourceUrl": "https://github.com/Mr-Bolan/thebolanarchives/discussions/123"
 }
 ```
 

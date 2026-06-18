@@ -19,3 +19,6 @@ transcripts/
 .env.*
 *.local
 privacy-blocklist.json
+archive-checkin.json
+archive-projects.txt
+archive-issue.md

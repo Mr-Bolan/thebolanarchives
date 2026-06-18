@@ -45,6 +45,9 @@ jobs:
       - name: Verify static export
         run: npm run pages:verify
 
+      - name: Public output audit
+        run: npm run public-output:audit
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:

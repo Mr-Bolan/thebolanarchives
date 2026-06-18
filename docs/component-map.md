@@ -247,13 +247,15 @@ heading notes. Read `docs/archive-annotations-design-plan.md`,
 `docs/archive-annotations-technical-plan.md`, and `docs/archive-annotations-roadmap.md`
 before implementing them.
 
-Phase B status: static/read-only prototype implemented with sanitized per-record data in
-`content/annotations/*.json`, loaded through `src/lib/annotations.ts`, and audited by
-`scripts/annotations-audit.mjs`. The prototype intentionally does not include live
-comments, submission UI, backend storage, moderation tools, exact text selection,
-replies, likes, profiles, scores, search, or route changes. The current visual polish
-includes an inspection-layer discovery control, quiet paper markers, and a pointer-only
-proximity glow/glint that remains nonessential.
+Phase F status: static/read-only render layer implemented with sanitized per-record data
+in `content/annotations/*.json`, loaded through `src/lib/annotations.ts`, and audited by
+`scripts/annotations-audit.mjs`. GitHub Discussions act as public intake through
+`content/annotation-discussions.json` and `scripts/archive-discussions.mjs`; screened
+exports still become ordinary static JSON before the archive renders them. The feature
+intentionally does not include browser-side GitHub writes, live fetching, a database,
+moderation UI, exact text selection, replies, likes, profiles, scores, search, or route
+changes. The current visual polish includes an inspection-layer discovery control, quiet
+paper markers, and a pointer-only proximity glow/glint that remains nonessential.
 
 ### `ArchiveAnnotations`
 

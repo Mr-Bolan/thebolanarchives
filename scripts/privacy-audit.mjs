@@ -1,37 +1,36 @@
 #!/usr/bin/env node
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import assert from "node:assert/strict";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 
 const root = process.cwd();
 const blocklistPath = path.join(root, "privacy-blocklist.json");
 const contentRoot = path.join(root, "content");
 const collections = ["entries", "field-notes", "build-logs", "fragments", "patterns", "experiments", "graveyard"];
+const builtInChecks = [
+  [/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i, "email address"],
+  [/\b(localhost|127\.0\.0\.1|10\.\d{1,3}\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/i, "private host"],
+  [/-----BEGIN [A-Z ]*PRIVATE KEY-----/, "private key"],
+  [/\b(AKIA|ASIA)[A-Z0-9]{16}\b/, "AWS access key"],
+  [/\bsk-[A-Za-z0-9_-]{20,}\b/, "API key"],
+];
 
-if (!existsSync(blocklistPath)) {
-  console.log("privacy audit: skipped; privacy-blocklist.json is not configured");
+if (process.argv.includes("--self-check")) {
+  runSelfCheck();
   process.exit(0);
 }
 
-const terms = readTerms(blocklistPath);
+const terms = existsSync(blocklistPath) ? readTerms(blocklistPath) : [];
 const targets = findTargets();
-const hits = [];
-
-for (const target of targets) {
-  const text = readFileSync(target, "utf8").toLowerCase();
-
-  for (const term of terms) {
-    if (text.includes(term.toLowerCase())) {
-      hits.push(`${path.relative(root, target)} contains blocked term "${term}"`);
-    }
-  }
-}
+const hits = targets.flatMap((target) => scanText(path.relative(root, target), readFileSync(target, "utf8"), terms));
 
 for (const hit of hits) {
   console.error(`error: ${hit}`);
 }
 
 console.log(`privacy audit: scanned ${targets.length} public-facing file${targets.length === 1 ? "" : "s"}`);
-console.log(`privacy audit: ${hits.length} blocked term hit${hits.length === 1 ? "" : "s"}`);
+console.log(`privacy audit: ${hits.length} privacy hit${hits.length === 1 ? "" : "s"}`);
 
 process.exit(hits.length === 0 ? 0 : 1);
 
@@ -44,6 +43,25 @@ function readTerms(filePath) {
   }
 
   return terms.map((term) => term.trim());
+}
+
+function scanText(file, text, terms) {
+  const hits = [];
+
+  for (const [pattern, label] of builtInChecks) {
+    if (pattern.test(text)) {
+      hits.push(`${file} contains ${label}`);
+    }
+  }
+
+  const lower = text.toLowerCase();
+  for (const term of terms) {
+    if (lower.includes(term.toLowerCase())) {
+      hits.push(`${file} contains blocked term "${term}"`);
+    }
+  }
+
+  return hits;
 }
 
 function findTargets() {
@@ -64,12 +82,25 @@ function findTargets() {
     }
   }
 
-  const publicIndex = path.join(root, "public", "archive-index.json");
-  if (existsSync(publicIndex)) {
-    files.push(publicIndex);
+  for (const file of ["archive-index.json", "project-ledger.json"]) {
+    const publicFile = path.join(root, "public", file);
+    if (existsSync(publicFile)) {
+      files.push(publicFile);
+    }
   }
 
+  files.push(...annotationTargets(path.join(contentRoot, "annotations")));
+
   return files;
+}
+
+function annotationTargets(directory) {
+  if (!existsSync(directory)) return [];
+
+  return readdirSync(directory)
+    .filter((name) => name.endsWith(".json"))
+    .sort()
+    .map((file) => path.join(directory, file));
 }
 
 function frontmatterValue(source, key) {
@@ -78,4 +109,25 @@ function frontmatterValue(source, key) {
 
   const field = match[1].match(new RegExp(`^${key}:\\s*["']?([^"'\r\n]+)["']?\\s*$`, "m"));
   return field ? field[1].trim() : "";
+}
+
+function runSelfCheck() {
+  assert.deepEqual(scanText("clean.mdx", "credentials are a topic, not a secret", []), []);
+  assert.equal(scanText("email.mdx", "contact me at user@example.com", [])[0], "email.mdx contains email address");
+  assert.equal(scanText("host.mdx", "see http://192.168.1.10/admin", [])[0], "host.mdx contains private host");
+  assert.equal(scanText("custom.mdx", "owner-real-name", ["owner-real-name"])[0], 'custom.mdx contains blocked term "owner-real-name"');
+  assert.deepEqual(annotationTargets(path.join(root, ".missing-annotations")), []);
+
+  const temp = mkdtempSync(path.join(tmpdir(), "privacy-audit-"));
+  try {
+    const annotations = path.join(temp, "content", "annotations");
+    mkdirSync(annotations, { recursive: true });
+    writeFileSync(path.join(annotations, "sample.json"), "[]");
+    writeFileSync(path.join(annotations, "README.md"), "not public annotation data");
+    assert.deepEqual(annotationTargets(annotations).map((file) => path.basename(file)), ["sample.json"]);
+  } finally {
+    rmSync(temp, { recursive: true, force: true });
+  }
+
+  console.log("privacy audit self-check: ok");
 }

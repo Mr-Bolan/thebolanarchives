@@ -1,6 +1,6 @@
 # Archive Annotations Phase E plan
 
-Status: planning only. Do not build this until Phase E is explicitly approved.
+Status: implemented as GitHub Discussions intake plus static publication.
 
 ## goal
 
@@ -11,7 +11,7 @@ static archive site. The site should publish only reviewed annotations from stat
 
 - Storage/intake: GitHub Discussions category, preferably `archive-annotations`.
 - Render source: `content/annotations/<record-slug>.json`.
-- Publication: manual curation first, optional build-time export later.
+- Publication: screened export into static JSON through pull requests.
 - Runtime behavior: no live fetch, no API routes, no server actions, no database.
 
 ## implementation steps
@@ -26,14 +26,14 @@ static archive site. The site should publish only reviewed annotations from stat
 6. Run `npm run annotations:audit`, `npm run agent:check`, and `npm run deploy:check`
    before publishing any site-visible note.
 
-## optional later automation
+## automation
 
-Only after manual intake proves useful:
-
-- Add a GitHub Actions job that exports accepted discussions into a review branch.
-- Use only the built-in `GITHUB_TOKEN` or a narrowly scoped repository secret in Actions.
-- Open a pull request with generated JSON changes.
-- Keep humans in the approval loop.
+- `npm run discussions:sync` creates or finds per-record Discussions and writes
+  `content/annotation-discussions.json`. It prefers the `archive-annotations` category
+  and falls back to `general` when that category is not yet present.
+- `npm run discussions:export` screens Discussion comments and exports clear notes into
+  `content/annotations/*.json`.
+- GitHub Actions open pull requests for generated registry or annotation changes.
 
 Do not expose GitHub tokens in client JavaScript. Do not write directly to `main` from a
 reader submission.
@@ -44,7 +44,7 @@ reader submission.
 - The submission page tells readers their GitHub identity is public.
 - The website remains a static export.
 - No new dependency, database, CMS, or API route is required for the first pass.
-- Notes do not appear on the site until reviewed and committed as static JSON.
+- Notes do not appear on the site until exported, reviewed, and committed as static JSON.
 - Disabling intake does not break existing published annotations.
 
 ## rollback

@@ -95,9 +95,29 @@ function readArchiveRoutes() {
   }
 }
 
+function readProjectLedgerRoutes() {
+  if (!fileExists("project-ledger.json")) return [];
+
+  try {
+    const records = JSON.parse(readFileSync(path.join(outDir, "project-ledger.json"), "utf8"));
+    addCheck(
+      "out/project-ledger.json parses",
+      Array.isArray(records),
+      Array.isArray(records) ? `${records.length} projects` : "expected a JSON array",
+    );
+    return Array.isArray(records)
+      ? records.map((record) => record.route).filter((route) => typeof route === "string")
+      : [];
+  } catch (error) {
+    addCheck("out/project-ledger.json parses", false, error.message);
+    return [];
+  }
+}
+
 addCheck("out/ exists", dirExists("."), outDir);
 addCheck("out/index.html exists", fileExists("index.html"), "GitHub Pages entry file");
 addCheck("out/archive-index.json exists", fileExists("archive-index.json"), "public archive data");
+addCheck("out/project-ledger.json exists", fileExists("project-ledger.json"), "public project state data");
 
 const needsNextDir = htmlReferencesNextAssets();
 addCheck(
@@ -111,9 +131,17 @@ for (const route of ["/about", "/index", ...collectionRoutes]) {
   addCheck(`route ${route}`, Boolean(routeFile), routeFile ?? `expected ${routeCandidates(route).join(" or ")}`);
 }
 
-const archiveRoutes = readArchiveRoutes();
+const buildLogsRouteFile = findRouteFile("/build-logs");
+addCheck(
+  "route /build-logs includes project ledger",
+  Boolean(buildLogsRouteFile) && readFileSync(path.join(outDir, buildLogsRouteFile), "utf8").includes("project-ledger-title"),
+  buildLogsRouteFile ?? "expected build logs route file",
+);
 
-for (const route of archiveRoutes) {
+const archiveRoutes = readArchiveRoutes();
+const projectLedgerRoutes = readProjectLedgerRoutes();
+
+for (const route of Array.from(new Set([...archiveRoutes, ...projectLedgerRoutes]))) {
   const routeFile = findRouteFile(route);
   addCheck(`record route ${route}`, Boolean(routeFile), routeFile ?? `expected ${routeCandidates(route).join(" or ")}`);
 }

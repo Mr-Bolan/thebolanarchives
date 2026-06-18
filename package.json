@@ -5,14 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/content-audit.mjs --write-index",
+    "prebuild": "node scripts/content-audit.mjs --write-index && node scripts/project-update.mjs --write-ledger",
     "build": "next build",
+    "project:update": "node scripts/project-update.mjs",
+    "project:ledger": "node scripts/project-update.mjs --list",
     "content:audit": "node scripts/content-audit.mjs",
     "annotations:audit": "node scripts/annotations-audit.mjs",
+    "discussions:self-check": "node scripts/archive-discussions.mjs --self-check",
+    "discussions:sync": "node scripts/archive-discussions.mjs --sync",
+    "discussions:export": "node scripts/archive-discussions.mjs --export-clear",
     "privacy:audit": "node scripts/privacy-audit.mjs",
+    "public-output:audit": "node scripts/public-output-audit.mjs",
     "pages:verify": "node scripts/verify-pages-export.mjs",
-    "deploy:check": "npm run content:audit && npm run build && npm run pages:verify",
-    "agent:check": "npm run content:audit && npm run annotations:audit && npm run privacy:audit && npm run build && npm run pages:verify"
+    "deploy:check": "npm run content:audit && npm run build && npm run pages:verify && npm run public-output:audit",
+    "agent:check": "npm run project:update -- --self-check && npm run content:audit -- --self-check && npm run discussions:self-check && npm run privacy:audit -- --self-check && npm run public-output:audit -- --self-check && npm run content:audit && npm run annotations:audit && npm run privacy:audit && npm run build && npm run pages:verify && npm run public-output:audit"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

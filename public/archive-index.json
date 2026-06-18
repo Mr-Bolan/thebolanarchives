@@ -31,9 +31,9 @@
     "type": "experiment",
     "status": "sketch",
     "confidence": "low",
-    "summary": "A static experiment sketch for separating raw data, clean data, trusted data, explanation, and action.",
+    "summary": "A static experiment for separating raw data, clean data, trusted data, explanation, and action.",
     "created": "2026-06-14",
-    "updated": "2026-06-14",
+    "updated": "2026-06-16",
     "tags": [
       "dashboards",
       "data-quality",

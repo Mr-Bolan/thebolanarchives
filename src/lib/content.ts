@@ -38,7 +38,7 @@ export const COLLECTIONS = {
     type: "experiment",
     route: "/experiments",
     label: "experiments",
-    description: "Static explanations and future instruments for testing archive ideas.",
+    description: "Static explanations and small instruments for testing archive ideas.",
   },
   graveyard: {
     type: "graveyard_note",

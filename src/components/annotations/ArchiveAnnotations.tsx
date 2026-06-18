@@ -18,6 +18,7 @@ type MockNoteInput = {
   anchorLabel: string;
   author: string;
   body: string;
+  sourceUrl: string;
 };
 
 type AnnotationLayerContextValue = {
@@ -26,8 +27,11 @@ type AnnotationLayerContextValue = {
   composerAnchorId: string | null;
   cancelComposer: () => void;
   clearSubmissionStatus: () => void;
+  githubDiscussionUrl: string | null;
+  githubNewDiscussionUrl: string;
   mockAnnotationsByAnchor: Map<string, MockArchiveAnnotation[]>;
   nearAnchorId: string | null;
+  recordSlug: string;
   selectComposerAnchor: (anchorId: string, anchorLabel: string) => void;
   submissionStatus: string | null;
   submitMockNote: (input: MockNoteInput) => void;
@@ -41,8 +45,11 @@ const AnnotationLayerContext = createContext<AnnotationLayerContextValue>({
   composerAnchorId: null,
   cancelComposer: () => undefined,
   clearSubmissionStatus: () => undefined,
+  githubDiscussionUrl: null,
+  githubNewDiscussionUrl: "https://github.com/Mr-Bolan/thebolanarchives/discussions/new?category=archive-annotations",
   mockAnnotationsByAnchor: new Map(),
   nearAnchorId: null,
+  recordSlug: "",
   selectComposerAnchor: () => undefined,
   submissionStatus: null,
   submitMockNote: () => undefined,
@@ -53,11 +60,20 @@ const AnnotationLayerContext = createContext<AnnotationLayerContextValue>({
 type ArchiveAnnotationsProps = {
   annotations: ArchiveAnnotation[];
   children: ReactNode;
+  discussionUrl?: string;
+  newDiscussionUrl: string;
   recordTitle: string;
   recordSlug: string;
 };
 
-export function ArchiveAnnotations({ annotations, children, recordTitle, recordSlug }: ArchiveAnnotationsProps) {
+export function ArchiveAnnotations({
+  annotations,
+  children,
+  discussionUrl,
+  newDiscussionUrl,
+  recordTitle,
+  recordSlug,
+}: ArchiveAnnotationsProps) {
   const [activeAnchorId, setActiveAnchorId] = useState<string | null>(null);
   const [addMode, setAddMode] = useState(false);
   const [composerAnchorId, setComposerAnchorId] = useState<string | null>(null);
@@ -69,6 +85,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
   const shellRef = useRef<HTMLDivElement>(null);
   const totalAnnotations = annotations.length + mockAnnotations.length;
+  const githubDiscussionUrl = discussionUrl ?? null;
 
   useEffect(() => {
     if (!visible) {
@@ -199,14 +216,13 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
   }, []);
 
   const submitMockNote = useCallback(
-    ({ anchorId, anchorLabel, author, body }: MockNoteInput) => {
+    ({ anchorId, anchorLabel, author, body, sourceUrl }: MockNoteInput) => {
       const trimmedBody = body.trim();
 
       if (!trimmedBody) {
         return;
       }
 
-      // ponytail: mock adapter only; replace after Phase D chooses real storage.
       const mockNote: MockArchiveAnnotation = {
         id: `mock_note_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`,
         recordSlug,
@@ -215,6 +231,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
         body: trimmedBody,
         author: author.trim() || "anonymous reader",
         created: new Date().toISOString().slice(0, 10),
+        sourceUrl,
         status: "mock pending",
         mock: true,
       };
@@ -223,7 +240,7 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
       setActiveAnchorId(anchorId);
       setAddMode(false);
       setComposerAnchorId(null);
-      setSubmissionStatus(`${anchorLabel}: mock note staged for this page session; not published.`);
+      setSubmissionStatus(`${anchorLabel}: local draft preview staged for this page session; not submitted or published.`);
       setVisible(true);
     },
     [recordSlug],
@@ -250,8 +267,11 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
       cancelComposer,
       clearSubmissionStatus,
       composerAnchorId,
+      githubDiscussionUrl,
+      githubNewDiscussionUrl: newDiscussionUrl,
       mockAnnotationsByAnchor,
       nearAnchorId,
+      recordSlug,
       selectComposerAnchor,
       submissionStatus,
       submitMockNote,
@@ -264,8 +284,11 @@ export function ArchiveAnnotations({ annotations, children, recordTitle, recordS
       cancelComposer,
       clearSubmissionStatus,
       composerAnchorId,
+      githubDiscussionUrl,
+      newDiscussionUrl,
       mockAnnotationsByAnchor,
       nearAnchorId,
+      recordSlug,
       selectComposerAnchor,
       submissionStatus,
       submitMockNote,

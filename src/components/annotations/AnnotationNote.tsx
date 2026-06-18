@@ -18,6 +18,14 @@ export function AnnotationNote({ annotation }: AnnotationNoteProps) {
 
       <p>{annotation.body}</p>
 
+      {isMock ? <p className="annotation-note-session">target: {annotation.recordSlug} / {annotation.anchorId}</p> : null}
+      {annotation.sourceUrl ? (
+        <p className="annotation-note-session">
+          <a href={annotation.sourceUrl} target="_blank" rel="noreferrer">
+            {isMock ? "open GitHub handoff" : "source discussion"}
+          </a>
+        </p>
+      ) : null}
       {isMock ? <p className="annotation-note-session">mock adapter / session only / not published</p> : null}
 
       <footer>

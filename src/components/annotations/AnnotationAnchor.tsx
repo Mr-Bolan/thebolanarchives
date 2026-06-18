@@ -28,8 +28,11 @@ export function AnnotationAnchor({
     addMode,
     cancelComposer,
     composerAnchorId,
+    githubDiscussionUrl,
+    githubNewDiscussionUrl,
     mockAnnotationsByAnchor,
     nearAnchorId,
+    recordSlug,
     selectComposerAnchor,
     submitMockNote,
     toggleAnchor,
@@ -90,6 +93,9 @@ export function AnnotationAnchor({
           anchorId={anchorId}
           anchorLabel={anchorLabel}
           cancelComposer={cancelComposer}
+          githubDiscussionUrl={githubDiscussionUrl}
+          githubNewDiscussionUrl={githubNewDiscussionUrl}
+          recordSlug={recordSlug}
           submitMockNote={submitMockNote}
         />
       ) : null}
@@ -124,18 +130,35 @@ function AnnotationComposer({
   anchorId,
   anchorLabel,
   cancelComposer,
+  githubDiscussionUrl,
+  githubNewDiscussionUrl,
+  recordSlug,
   submitMockNote,
 }: {
   anchorId: string;
   anchorLabel: string;
   cancelComposer: () => void;
-  submitMockNote: (input: { anchorId: string; anchorLabel: string; author: string; body: string }) => void;
+  githubDiscussionUrl: string | null;
+  githubNewDiscussionUrl: string;
+  recordSlug: string;
+  submitMockNote: (input: { anchorId: string; anchorLabel: string; author: string; body: string; sourceUrl: string }) => void;
 }) {
   const [author, setAuthor] = useState("");
   const [body, setBody] = useState("");
+  const [copyStatus, setCopyStatus] = useState("");
   const [error, setError] = useState("");
   const bodyRef = useRef<HTMLTextAreaElement>(null);
   const fieldId = `annotation-composer-${anchorId}`;
+  const newDiscussionDraftUrl = newDiscussionHandoffUrl({
+    anchorId,
+    anchorLabel,
+    author,
+    body,
+    githubNewDiscussionUrl,
+    recordSlug,
+  });
+  const handoffUrl = githubDiscussionUrl ?? newDiscussionDraftUrl;
+  const handoffLabel = githubDiscussionUrl ? "open record discussion" : "open new discussion draft";
 
   useEffect(() => {
     bodyRef.current?.focus();
@@ -150,24 +173,72 @@ function AnnotationComposer({
       return;
     }
 
-    submitMockNote({ anchorId, anchorLabel, author, body });
+    submitMockNote({ anchorId, anchorLabel, author, body, sourceUrl: handoffUrl });
+  }
+
+  async function handleCopyPreparedNote() {
+    const trimmedBody = body.trim();
+
+    if (!trimmedBody) {
+      setError("write a note body before copying this handoff.");
+      bodyRef.current?.focus();
+      return;
+    }
+
+    const preparedNote = [
+      "target record slug:",
+      recordSlug,
+      "",
+      "target anchor ID:",
+      anchorId,
+      "",
+      "short excerpt:",
+      "",
+      "",
+      "note body:",
+      trimmedBody,
+      "",
+      "display name / pseudonym:",
+      author.trim() || "anonymous reader",
+      "",
+      githubDiscussionUrl ? "GitHub record discussion:" : "GitHub intake draft:",
+      handoffUrl,
+    ].join("\n");
+
+    try {
+      await navigator.clipboard.writeText(preparedNote);
+      setCopyStatus(
+        githubDiscussionUrl
+          ? "prepared note copied. paste it as a reply in the record discussion."
+          : "prepared note copied. paste it into the new GitHub discussion draft.",
+      );
+      setError("");
+    } catch {
+      setError("clipboard copy failed. copy the fields manually before opening GitHub.");
+    }
   }
 
   return (
     <form
       className="annotation-composer"
-      aria-label={`mock note composer for ${anchorLabel}`}
+      aria-label={`draft intake note composer for ${anchorLabel}`}
       onSubmit={handleSubmit}
     >
       <p className="annotation-composer-selected">
         selected anchor: <strong>{anchorLabel}</strong>
       </p>
       <p className="annotation-composer-warning">
-        mock adapter: this stays in memory for this page session and is not published.
+        This prepares a public GitHub intake note. If you submit it on GitHub, the discussion and your GitHub username will be visible.
+      </p>
+      <p className="annotation-composer-warning">
+        After posting, the note is screened from GitHub and appears here only when it passes the archive checks.
+      </p>
+      <p className="annotation-composer-hint">
+        Local preview is only a draft preview, not publication. This page has no token, GitHub API write, or network write.
       </p>
 
       <label htmlFor={`${fieldId}-author`}>
-        pseudonym <span>optional; blank stays anonymous</span>
+        display name <span>optional for archive review; GitHub username stays public on GitHub</span>
       </label>
       <input
         id={`${fieldId}-author`}
@@ -189,23 +260,88 @@ function AnnotationComposer({
         onChange={(event) => {
           setBody(event.target.value);
           setError("");
+          setCopyStatus("");
         }}
       />
       <p className="annotation-composer-hint" id={`${fieldId}-hint`}>
-        staged notes are mock/pending and disappear when this page session ends.
+        local previews are draft/pending and disappear when this page session ends.
       </p>
+      {copyStatus ? (
+        <p className="annotation-composer-copy-status" role="status">
+          {copyStatus}
+        </p>
+      ) : null}
       {error ? (
         <p className="annotation-composer-error" id={`${fieldId}-error`} role="alert">
           {error}
         </p>
       ) : null}
 
+      <div className="annotation-composer-actions annotation-composer-handoff">
+        <button type="button" onClick={handleCopyPreparedNote}>
+          copy prepared note
+        </button>
+        <a href={handoffUrl} target="_blank" rel="noreferrer">
+          {handoffLabel}
+        </a>
+      </div>
+
       <div className="annotation-composer-actions">
         <button type="button" onClick={cancelComposer}>
           cancel
         </button>
-        <button type="submit">submit mock note</button>
+        <button type="submit">stage mock preview</button>
       </div>
     </form>
   );
+}
+
+function newDiscussionHandoffUrl({
+  anchorId,
+  anchorLabel,
+  author,
+  body,
+  githubNewDiscussionUrl,
+  recordSlug,
+}: {
+  anchorId: string;
+  anchorLabel: string;
+  author: string;
+  body: string;
+  githubNewDiscussionUrl: string;
+  recordSlug: string;
+}) {
+  const url = new URL(githubNewDiscussionUrl);
+  const preparedBody = [
+    "target record slug:",
+    recordSlug,
+    "",
+    "target anchor ID:",
+    anchorId,
+    "",
+    "short excerpt:",
+    anchorLabel,
+    "",
+    "note body:",
+    body.trim(),
+    "",
+    "display name / pseudonym:",
+    author.trim() || "anonymous reader",
+  ].join("\n");
+
+  url.searchParams.set("title", `[annotation] ${recordSlug} / ${anchorId}`);
+  url.searchParams.set("body", preparedBody);
+  url.searchParams.set("target-record-slug", recordSlug);
+  url.searchParams.set("target-anchor-id", anchorId);
+  url.searchParams.set("short-excerpt", anchorLabel);
+
+  if (body.trim()) {
+    url.searchParams.set("note-body", body.trim());
+  }
+
+  if (author.trim()) {
+    url.searchParams.set("display-name", author.trim());
+  }
+
+  return url.toString();
 }

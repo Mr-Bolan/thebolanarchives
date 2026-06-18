@@ -51,6 +51,8 @@ thebolanarchives/
     inbox/            local-only raw notes ignored by loader/audit; commit only .gitkeep
   templates/
     content/          copyable MDX templates for each content type
+    project-checkin/  copyable agent note for projects that feed build-log updates
+    prompts/          copyable task prompts, including project check-in capture
   src/
     app/              <- Next.js App Router routes
     components/
@@ -63,7 +65,18 @@ thebolanarchives/
     styles/           tokens.css, global.css, typography.css, archive.css
     lib/              content.ts, headings.ts, page-metadata.ts
   public/
+    archive-index.json project-ledger.json <- generated public metadata
     images/  diagrams/  textures/   <- static assets (+ future CNAME when real domain is known)
+  scripts/
+    project-update.mjs <- local agent/owner tool for appending audited build-log updates
+                          and importing sanitized cross-project check-ins
+                          or writing/validating/installing discoverable local check-in forms
+                          with optional per-project form seeding
+                          and installed-project verification
+                          plus ignored local project-list batch wiring/import/sync
+                          and ignored GitHub issue-form imports
+                          (`project:ledger -- --all` lists local draft/unlisted state)
+    public-output-audit.mjs <- scans exported text files for public filler text
 ```
 
 Every folder has its own `README.md` with details. The conceptual structure mirrors brief

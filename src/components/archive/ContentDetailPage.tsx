@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { CollectionFolder, ExternalLink } from "@/lib/content";
 import { getContentByFolderAndSlug, getRelatedContent } from "@/lib/content";
 import { getAnnotationsForRecord } from "@/lib/annotations";
+import { defaultAnnotationDiscussionUrl, getAnnotationDiscussionForRecord } from "@/lib/annotation-discussions";
 import { getMarkdownHeadings } from "@/lib/headings";
 import { ArchiveMetaCard } from "@/components/archive/ArchiveMetaCard";
 import { ArchiveAnnotations } from "@/components/annotations/ArchiveAnnotations";
@@ -23,6 +24,7 @@ export async function ContentDetailPage({ folder, slug }: ContentDetailPageProps
 
   const relatedItems = getRelatedContent(item);
   const annotations = getAnnotationsForRecord(item.slug);
+  const annotationDiscussion = getAnnotationDiscussionForRecord(item.slug);
   const body = stripLeadingHeading(item.body);
   const headings = getMarkdownHeadings(body);
 
@@ -40,7 +42,13 @@ export async function ContentDetailPage({ folder, slug }: ContentDetailPageProps
         <ArchiveMetaCard item={item} />
         <TableOfContents headings={headings} />
 
-        <ArchiveAnnotations annotations={annotations} recordSlug={item.slug} recordTitle={item.title}>
+        <ArchiveAnnotations
+          annotations={annotations}
+          discussionUrl={annotationDiscussion?.url}
+          newDiscussionUrl={defaultAnnotationDiscussionUrl}
+          recordSlug={item.slug}
+          recordTitle={item.title}
+        >
           <div className="mdx-body">
             <MdxRenderer
               annotations={annotations}

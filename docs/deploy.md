@@ -31,8 +31,9 @@ The workflow does this:
 4. runs `npm run content:audit`
 5. runs `npm run build`
 6. runs `npm run pages:verify` to verify the exported Pages artifact
-7. uploads `out/`
-8. deploys the artifact to the `github-pages` environment
+7. runs `npm run public-output:audit` to reject exported filler text
+8. uploads `out/`
+9. deploys the artifact to the `github-pages` environment
 
 ## repository settings
 
@@ -76,9 +77,11 @@ npm run deploy:check
 ```
 
 `npm run deploy:check` runs `npm run content:audit`, `npm run build`, and
-`npm run pages:verify`. The verifier checks that GitHub Pages will receive
-`out/index.html`, `out/archive-index.json`, the generated `_next` assets when referenced,
-and the exported route files for `/about`, `/index`, and the archive collection pages.
+`npm run pages:verify`, then scans exported HTML, JSON, TXT, XML, CNAME text, and high-signal JS/CSS bundle text with `npm run public-output:audit`.
+The verifier checks that GitHub Pages will receive `out/index.html`,
+`out/archive-index.json`, `out/project-ledger.json`, the generated `_next` assets when
+referenced, and the exported route files for `/about`, `/index`, and the archive
+collection pages.
 
 To inspect the exported site locally after the build:
 
@@ -93,7 +96,8 @@ Then open `http://localhost:4173/thebolanarchives/` and check the main navigatio
 - Run `npm run content:audit`.
 - Run `npm run build`.
 - Run `npm run pages:verify`.
-- Verify the static export output exists: `out/index.html`, `out/archive-index.json`, and route HTML files under `out/`.
+- Run `npm run public-output:audit`.
+- Verify the static export output exists: `out/index.html`, `out/archive-index.json`, `out/project-ledger.json`, and route HTML files under `out/`.
 - Confirm only public records appear in public lists and `public/archive-index.json`.
 - Confirm no personal identity leaks in content, metadata, docs, or public assets.
 - Confirm draft records do not generate routes.

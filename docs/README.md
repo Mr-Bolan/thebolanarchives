@@ -7,5 +7,6 @@ Project briefs and design documents.
 - `design-plan.md` — framework reasoning, IA, design system, build phases (filled next phase).
 - `content-model.md` — content types, statuses, confidence, frontmatter schema (filled next phase).
 - `component-map.md` — component specs and build order (filled next phase).
+- `agent-project-updates.md` — local agent/owner loop for writing project build-log updates.
 
 Start at the repo root `codex.md` for navigation.

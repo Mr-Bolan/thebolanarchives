@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "repository": "Mr-Bolan/thebolanarchives",
+  "categorySlug": "general",
+  "records": {
+    "dashboard-without-decisions": {
+      "discussionId": "D_kwDOS64tJc4AnNQs",
+      "number": 4,
+      "url": "https://github.com/Mr-Bolan/thebolanarchives/discussions/4",
+      "title": "[archive annotations] dashboard-without-decisions",
+      "categorySlug": "general"
+    },
+    "data-trust-ladder": {
+      "discussionId": "D_kwDOS64tJc4AnNQt",
+      "number": 5,
+      "url": "https://github.com/Mr-Bolan/thebolanarchives/discussions/5",
+      "title": "[archive annotations] data-trust-ladder",
+      "categorySlug": "general"
+    },
+    "operator-knowledge-as-signal": {
+      "discussionId": "D_kwDOS64tJc4AnNQu",
+      "number": 6,
+      "url": "https://github.com/Mr-Bolan/thebolanarchives/discussions/6",
+      "title": "[archive annotations] operator-knowledge-as-signal",
+      "categorySlug": "general"
+    },
+    "static-archive-scaffold": {
+      "discussionId": "D_kwDOS64tJc4AnNQv",
+      "number": 7,
+      "url": "https://github.com/Mr-Bolan/thebolanarchives/discussions/7",
+      "title": "[archive annotations] static-archive-scaffold",
+      "categorySlug": "general"
+    },
+    "the-operator-knows-before-the-database-does": {
+      "discussionId": "D_kwDOS64tJc4AnNQw",
+      "number": 8,
+      "url": "https://github.com/Mr-Bolan/thebolanarchives/discussions/8",
+      "title": "[archive annotations] the-operator-knows-before-the-database-does",
+      "categorySlug": "general"
+    },
+    "why-this-exists": {
+      "discussionId": "D_kwDOS64tJc4AnNQx",
+      "number": 9,
+      "url": "https://github.com/Mr-Bolan/thebolanarchives/discussions/9",
+      "title": "[archive annotations] why-this-exists",
+      "categorySlug": "general"
+    },
+    "you-pay-for-the-problem-that-disappears": {
+      "discussionId": "D_kwDOS64tJc4AnNQy",
+      "number": 10,
+      "url": "https://github.com/Mr-Bolan/thebolanarchives/discussions/10",
+      "title": "[archive annotations] you-pay-for-the-problem-that-disappears",
+      "categorySlug": "general"
+    }
+  }
+}

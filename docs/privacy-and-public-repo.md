@@ -22,10 +22,13 @@ Keep these local-only unless explicitly sanitized and moved into the public cont
 - `scratch/`
 - `transcripts/`
 - `privacy-blocklist.json`
+- `archive-checkin.json`
+- `archive-projects.txt`
+- `archive-issue.md`
 - credentials and `.env*` files
 - local agent/tool state folders
 
-Use `privacy-blocklist.example.json` for safe examples. Put real blocked terms only in local `privacy-blocklist.json`.
+Use `privacy-blocklist.example.json` for safe examples. Put real blocked terms only in local `privacy-blocklist.json`. The privacy audit always runs narrow built-in checks for obvious public leaks; the local blocklist adds owner-specific terms.
 
 ## Drafts
 
@@ -40,6 +43,7 @@ Before committing:
 ```bash
 git status
 git ls-files content/inbox
+git check-ignore archive-checkin.json archive-projects.txt archive-issue.md
 npm run agent:check
 ```
 
