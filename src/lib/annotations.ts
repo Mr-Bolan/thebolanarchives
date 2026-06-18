@@ -24,10 +24,8 @@ export type RenderedArchiveAnnotation = ArchiveAnnotation | MockArchiveAnnotatio
 
 const annotationsRoot = path.join(process.cwd(), "content", "annotations");
 
-export const archiveAnnotations: ArchiveAnnotation[] = readArchiveAnnotations();
-
 export function getAnnotationsForRecord(recordSlug: string): ArchiveAnnotation[] {
-  return archiveAnnotations.filter((annotation) => annotation.recordSlug === recordSlug);
+  return readArchiveAnnotations().filter((annotation) => annotation.recordSlug === recordSlug);
 }
 
 export function getAnnotationsByAnchor(annotations: ArchiveAnnotation[]): Map<string, ArchiveAnnotation[]> {
