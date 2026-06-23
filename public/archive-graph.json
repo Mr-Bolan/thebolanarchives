@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T11:06:00.661Z",
+  "generated": "2026-06-23T11:10:24.016Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -52,6 +52,16 @@
       "slug": "desktop-certificate-and-audit-pdf-generator"
     },
     {
+      "id": "record:edge-log-agent-and-central-processor",
+      "kind": "record",
+      "label": "edge-log-agent-and-central-processor",
+      "degree": 10,
+      "route": "/build-logs/edge-log-agent-and-central-processor",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "edge-log-agent-and-central-processor"
+    },
+    {
       "id": "record:finished-batch-packout-report-export",
       "kind": "record",
       "label": "finished-batch-packout-report-export",
@@ -75,7 +85,7 @@
       "id": "record:machine-event-timeline-graph-viewer",
       "kind": "record",
       "label": "machine-event-timeline-graph-viewer",
-      "degree": 13,
+      "degree": 14,
       "route": "/build-logs/machine-event-timeline-graph-viewer",
       "type": "build_log",
       "status": "working_note",
@@ -85,7 +95,7 @@
       "id": "record:machine-metrics-collector-with-commissioning-gates",
       "kind": "record",
       "label": "machine-metrics-collector-with-commissioning-gates",
-      "degree": 15,
+      "degree": 16,
       "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
       "type": "build_log",
       "status": "working_note",
@@ -105,7 +115,7 @@
       "id": "record:minute-level-oee-kpi-runner",
       "kind": "record",
       "label": "minute-level-oee-kpi-runner",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/minute-level-oee-kpi-runner",
       "type": "build_log",
       "status": "working_note",
@@ -195,7 +205,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 16,
+      "degree": 17,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -292,7 +302,7 @@
       "id": "tag:machine-data",
       "kind": "tag",
       "label": "machine-data",
-      "degree": 3,
+      "degree": 4,
       "tag": "machine-data"
     },
     {
@@ -313,7 +323,7 @@
       "id": "tag:operations",
       "kind": "tag",
       "label": "operations",
-      "degree": 11,
+      "degree": 12,
       "tag": "operations"
     },
     {
@@ -357,6 +367,34 @@
       "label": "local-storage",
       "degree": 1,
       "tag": "local-storage"
+    },
+    {
+      "id": "tag:edge-agent",
+      "kind": "tag",
+      "label": "edge-agent",
+      "degree": 1,
+      "tag": "edge-agent"
+    },
+    {
+      "id": "tag:ingestion",
+      "kind": "tag",
+      "label": "ingestion",
+      "degree": 1,
+      "tag": "ingestion"
+    },
+    {
+      "id": "tag:mqtt",
+      "kind": "tag",
+      "label": "mqtt",
+      "degree": 1,
+      "tag": "mqtt"
+    },
+    {
+      "id": "tag:time-series",
+      "kind": "tag",
+      "label": "time-series",
+      "degree": 3,
+      "tag": "time-series"
     },
     {
       "id": "tag:batch-processing",
@@ -455,13 +493,6 @@
       "label": "sqlite",
       "degree": 1,
       "tag": "sqlite"
-    },
-    {
-      "id": "tag:time-series",
-      "kind": "tag",
-      "label": "time-series",
-      "degree": 2,
-      "tag": "time-series"
     },
     {
       "id": "tag:commissioning",
@@ -862,6 +893,56 @@
     },
     {
       "source": "record:desktop-certificate-and-audit-pdf-generator",
+      "target": "tag:operations",
+      "kind": "tag"
+    },
+    {
+      "source": "record:edge-log-agent-and-central-processor",
+      "target": "record:minute-level-oee-kpi-runner",
+      "kind": "related"
+    },
+    {
+      "source": "record:edge-log-agent-and-central-processor",
+      "target": "record:machine-metrics-collector-with-commissioning-gates",
+      "kind": "related"
+    },
+    {
+      "source": "record:edge-log-agent-and-central-processor",
+      "target": "record:machine-event-timeline-graph-viewer",
+      "kind": "related"
+    },
+    {
+      "source": "record:edge-log-agent-and-central-processor",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:edge-log-agent-and-central-processor",
+      "target": "tag:machine-data",
+      "kind": "tag"
+    },
+    {
+      "source": "record:edge-log-agent-and-central-processor",
+      "target": "tag:edge-agent",
+      "kind": "tag"
+    },
+    {
+      "source": "record:edge-log-agent-and-central-processor",
+      "target": "tag:ingestion",
+      "kind": "tag"
+    },
+    {
+      "source": "record:edge-log-agent-and-central-processor",
+      "target": "tag:mqtt",
+      "kind": "tag"
+    },
+    {
+      "source": "record:edge-log-agent-and-central-processor",
+      "target": "tag:time-series",
+      "kind": "tag"
+    },
+    {
+      "source": "record:edge-log-agent-and-central-processor",
       "target": "tag:operations",
       "kind": "tag"
     },

@@ -533,3 +533,37 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 21 public records with 7 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: edge log agent and central processor
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/edge-log-agent-and-central-processor.mdx`.
+
+The public record strips repository identity, vendor/equipment labels, topic examples,
+customer and machine identifiers, broker/server hostnames, credentials, log paths, source
+URLs, and local paths. It preserves the system shape: an edge file-watching agent that
+parses logs, attaches provenance, batches records, encodes payloads, and sends them to a
+central processor that handles network reception, decoding, validation, database writes,
+cache updates, API service, Dockerized dependencies, and graceful shutdown.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, equipment labels, topic examples, hostnames, customer ids, or machine ids in the
+  draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real edge-to-server data
+  collection system and explains the provenance/transport boundary.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: Python syntax
+  compilation passed for edge and server modules, but runtime execution was not run because
+  it requires log directories, broker/server services, cache, and database infrastructure.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now because it
+  connects the archive's machine-data thread to edge collection and central ingestion.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/edge-log-agent-and-central-processor.mdx`
+  passed; the moderation packet reported content and privacy audits green.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 22 public records with 6 ready items remaining for later
+loop work.

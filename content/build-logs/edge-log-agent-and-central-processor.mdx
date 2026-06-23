@@ -1,0 +1,145 @@
+---
+title: "edge log agent and central processor"
+slug: "edge-log-agent-and-central-processor"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a two-part machine log collection system: an edge watcher that batches encoded records and a central processor that ingests, caches, stores, and serves them."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - machine-data
+  - edge-agent
+  - ingestion
+  - mqtt
+  - time-series
+  - operations
+tools:
+  - python
+  - watchdog
+  - msgpack
+  - mqtt
+  - fastapi
+  - redis
+  - timescaledb
+  - docker
+narrative_origin: "machine log files that needed to leave the edge without losing provenance"
+visibility: "public"
+related:
+  - "minute-level-oee-kpi-runner"
+  - "machine-metrics-collector-with-commissioning-gates"
+  - "machine-event-timeline-graph-viewer"
+  - "data-trust-ladder"
+points:
+  - "edge collection is a contract between file changes, parsing, batching, and transport"
+  - "central ingestion needs separate network, decoding, storage, cache, and API responsibilities"
+  - "MessagePack can reduce payload size, but it also raises decode/versioning questions"
+  - "topic names, customer ids, machine ids, and log paths are private operational context"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered log-collection source: edge watcher, parser, sender, encoder, server network/ingestion/database/cache/API modules, SQL setup, Docker files, and configuration docs; Python syntax compilation passed on 2026-06-23; runtime execution was not run because it requires log directories, broker/server services, and database infrastructure"
+record_id: "build_log_016"
+---
+
+# build_log_016 // edge_log_agent_and_central_processor
+
+## what this is
+
+A two-part log collection system for machine data.
+
+The edge side watches configured log directories, parses changed files, attaches machine
+and customer context, batches records, encodes them, and sends them by a configured
+transport. The server side receives those records, decodes and validates them, buffers
+batches, writes to time-series storage, updates a cache, and exposes an API for later
+views.
+
+<TerminalBlock title="edge-to-server loop (sanitized)" prompt="">
+{`machine log file changes
+  -> edge watcher filters target files
+  -> parser extracts records
+  -> metadata is attached
+  -> batch is encoded
+  -> broker / HTTP / test transport sends it
+  -> server decodes + validates
+  -> batch flush writes database + cache
+  -> API serves latest and historical state`}
+</TerminalBlock>
+
+## why it exists
+
+The machine is not always where the analysis happens. Logs can start on edge machines,
+then need to reach a central processor without dropping timestamps, source-file evidence,
+machine identity, or batching boundaries.
+
+That is a different problem from polling an API every minute. It is file-watching,
+rotation handling, parsing, transport, encoding, buffering, and replay tolerance. The
+collector has to deal with partial files and noisy directories. The server has to deal
+with network messages arriving out of the clean order that a dashboard wishes existed.
+
+## the useful split
+
+The source separates edge and central responsibilities:
+
+- the edge agent owns file watching, log parsing, queueing, batching, encoding, and sender
+  selection
+- the central processor owns broker reception, decoding, validation, database insertion,
+  cache updates, API service, and graceful shutdown
+- Docker files and compose config describe the server side as infrastructure rather than
+  only a script
+- SQL setup defines the durable storage shape
+
+That split is the important part. It means the edge agent can stay small and close to the
+machine, while the central processor can handle storage and serving without knowing how
+every local log directory behaves.
+
+## what worked
+
+The source has practical operating details:
+
+- file watching filters by configured log patterns and target log types
+- records get source-file, machine, and customer metadata before batching
+- test mode writes encoded batches locally instead of requiring infrastructure
+- binary encoding is the standard path rather than an afterthought
+- the server-side processor has explicit modules for network, ingestion, database, cache,
+  and API responsibilities
+- the server starts long-running components, runs an API process, and handles shutdown
+  signals
+- setup docs describe local testing with containerized services
+
+Python syntax compilation passed for both the edge-agent modules and the server-processor
+modules. Runtime execution was not run because it requires configured log directories,
+broker or test transport setup, server services, cache, and database infrastructure.
+
+## what broke
+
+- **configuration is identity-heavy.** log directories, topic templates, customer ids,
+  machine ids, broker hosts, credentials, and output paths are private operational context.
+- **source docs include vendor/equipment examples.** useful locally, but not archive-safe
+  as public identifiers.
+- **file watching is messy.** rotations, incomplete writes, duplicated modifications, and
+  noisy directories can all create subtle ingestion errors.
+- **binary payloads need versioning.** MessagePack helps size and speed, but the server has
+  to know exactly which schema it is decoding.
+- **runtime proof needs infrastructure.** syntax can pass while broker connectivity,
+  database writes, cache updates, or API service startup still fail in deployment.
+
+## what i understand now
+
+This source sits at the boundary between the machine and the archive's later reporting
+systems. It is not trying to explain the data yet. It is trying to move the data without
+losing enough context to make explanation impossible later.
+
+The design lesson is that edge collection should be boring and explicit. Watch the files.
+Parse what changed. Attach provenance. Batch. Encode. Send. Let the central processor own
+the rest.
+
+The privacy lesson is just as plain: every useful routing field is also a possible leak.
+The archive can describe the topology; it should not publish real paths, topics,
+identifiers, hosts, or log examples.
+
+## open questions
+
+<OpenQuestions questions={[
+  "How should encoded batch schemas be versioned so old edge agents can still talk to new processors?",
+  "What replay mechanism would make file rotations and network outages auditable?",
+  "Which provenance fields are necessary for later reports, and which create avoidable privacy risk?"
+]} />

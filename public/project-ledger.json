@@ -85,6 +85,36 @@
     "next_move": ""
   },
   {
+    "title": "edge log agent and central processor",
+    "slug": "edge-log-agent-and-central-processor",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a two-part machine log collection system: an edge watcher that batches encoded records and a central processor that ingests, caches, stores, and serves them.",
+    "updated": "2026-06-23",
+    "tags": [
+      "machine-data",
+      "edge-agent",
+      "ingestion",
+      "mqtt",
+      "time-series",
+      "operations"
+    ],
+    "tools": [
+      "python",
+      "watchdog",
+      "msgpack",
+      "mqtt",
+      "fastapi",
+      "redis",
+      "timescaledb",
+      "docker"
+    ],
+    "route": "/build-logs/edge-log-agent-and-central-processor",
+    "current_state": "A build log for a two-part machine log collection system: an edge watcher that batches encoded records and a central processor that ingests, caches, stores, and serves them.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "finished-batch packout report export",
     "slug": "finished-batch-packout-report-export",
     "status": "working_note",

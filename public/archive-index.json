@@ -128,6 +128,51 @@
     "source_context": "sanitized inspection of a registered desktop-document source: templates, renderer, template registry, form pages, local job store, refactor notes, and project files; source build passed with warnings on 2026-06-23; no source test project was present"
   },
   {
+    "title": "edge log agent and central processor",
+    "slug": "edge-log-agent-and-central-processor",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a two-part machine log collection system: an edge watcher that batches encoded records and a central processor that ingests, caches, stores, and serves them.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "machine-data",
+      "edge-agent",
+      "ingestion",
+      "mqtt",
+      "time-series",
+      "operations"
+    ],
+    "tools": [
+      "python",
+      "watchdog",
+      "msgpack",
+      "mqtt",
+      "fastapi",
+      "redis",
+      "timescaledb",
+      "docker"
+    ],
+    "narrative_origin": "machine log files that needed to leave the edge without losing provenance",
+    "related": [
+      "minute-level-oee-kpi-runner",
+      "machine-metrics-collector-with-commissioning-gates",
+      "machine-event-timeline-graph-viewer",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "edge collection is a contract between file changes, parsing, batching, and transport",
+      "central ingestion needs separate network, decoding, storage, cache, and API responsibilities",
+      "MessagePack can reduce payload size, but it also raises decode/versioning questions",
+      "topic names, customer ids, machine ids, and log paths are private operational context"
+    ],
+    "route": "/build-logs/edge-log-agent-and-central-processor",
+    "record_id": "build_log_016",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered log-collection source: edge watcher, parser, sender, encoder, server network/ingestion/database/cache/API modules, SQL setup, Docker files, and configuration docs; Python syntax compilation passed on 2026-06-23; runtime execution was not run because it requires log directories, broker/server services, and database infrastructure"
+  },
+  {
     "title": "finished-batch packout report export",
     "slug": "finished-batch-packout-report-export",
     "type": "build_log",
