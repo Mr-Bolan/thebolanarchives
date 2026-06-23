@@ -1,0 +1,141 @@
+---
+title: "desktop certificate and audit PDF generator"
+slug: "desktop-certificate-and-audit-pdf-generator"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a Windows desktop tool that turns calibration, audit, and service-work models into previewable PDFs with templates, local job history, and repeatable numbering."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - document-generation
+  - windows-app
+  - pdf-export
+  - templates
+  - local-storage
+  - operations
+tools:
+  - dotnet
+  - winforms
+  - razor
+  - playwright
+  - sqlite
+  - webview2
+narrative_origin: "field paperwork that needed to become repeatable documents without becoming a server"
+visibility: "public"
+related:
+  - "manual-label-printing-from-templates"
+  - "workbook-row-to-packout-pdf"
+  - "agent-runbook-workspace-for-machine-reports"
+points:
+  - "desktop document generation is mostly state management around the renderer"
+  - "templates, defaults, numbering, preview, export, and job history all carry operational meaning"
+  - "local SQLite history makes repeat work recoverable, but also creates a privacy boundary"
+  - "brand assets and sample certificates are more identifying than the rendering code"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered desktop-document source: templates, renderer, template registry, form pages, local job store, refactor notes, and project files; source build passed with warnings on 2026-06-23; no source test project was present"
+record_id: "build_log_010"
+---
+
+# build_log_010 // desktop_certificate_and_audit_pdf_generator
+
+## what this is
+
+A Windows desktop tool for generating operational PDFs: calibration certificates, service
+audits, and service-work sign-offs. It uses typed models, Razor templates, CSS, embedded
+assets, a browser renderer, live preview, export, and a local job history so previous
+documents can be reopened or re-rendered.
+
+The shape is small, but it is not trivial:
+
+<TerminalBlock title="document generator loop (sanitized)" prompt="">
+{`operator fills model
+  -> template registry chooses document shape
+  -> defaults/rules seed checklist rows
+  -> Razor renders HTML
+  -> browser renderer exports PDF
+  -> local job store saves payload and number
+  -> previous job can be searched and previewed`}
+</TerminalBlock>
+
+## why it exists
+
+Field paperwork has a strange failure mode. The final artifact is "just a PDF," but the
+work around it is full of remembered state: client name, machine information, certificate
+number, reference weights, checklist defaults, lane counts, corrective actions, service
+date, and which template is being produced.
+
+If those details live only in a spreadsheet, a folder of old PDFs, or someone's memory, the
+next document starts from guesswork. This build tries to make the document state explicit
+without turning it into a hosted system.
+
+## the core split: model, template, render, store
+
+The useful design is the split between document model and render path. The template
+registry maps each document kind to a Razor view, CSS files, a default model, and a display
+label. The renderer compiles the view, inserts a base URL so assets resolve, writes HTML to
+a temporary file, and asks a headless browser to produce an A4 PDF with header/footer text.
+
+The desktop shell owns the operator surface: template selection, data-entry pages, preview,
+export, save, job search, and reopening a stored payload. That keeps the renderer from
+knowing about buttons and grids, and keeps the UI from hand-assembling PDFs.
+
+## local history changes the tool
+
+The local job store is more than convenience. It turns one-off document generation into a
+recoverable workflow. Each saved job records the template kind, document number, client
+label, machine label, serialized payload, timestamps, and a public-ish local identifier.
+The store initializes its own table, adds missing columns when older databases open, and
+tries to enforce uniqueness for document numbers while falling back to an index if older
+duplicates already exist.
+
+That says the app expected real use, not just a demo. Once people start reusing documents,
+the history layer becomes part of the product.
+
+## what worked
+
+The source has several practical decisions worth preserving:
+
+- templates are first-class files rather than hardcoded PDF drawing commands
+- defaults and rules seed checklists so field documents start with the expected structure
+- preview and export share the same renderer
+- the app remembers previous jobs in a local SQLite store
+- the store performs idempotent schema upgrades for saved jobs
+- refactor notes track how audit and service pages share behavior while still producing
+  different document shapes
+
+The isolated source build passed after package restore. It emitted warnings around a
+desktop WebView reference conflict and nullable-reference spots, but produced both core and
+Windows app assemblies. No test project was present in the source.
+
+## what broke
+
+- **the documents are identity-heavy.** certificate numbers, client names, machine labels,
+  logos, service dates, and sample PDFs can reveal far more than the source code.
+- **local history is sensitive.** a saved-job database is useful, but it contains document
+  payloads and should be treated as private operational data.
+- **browser rendering adds runtime weight.** the PDF path depends on browser assets, fonts,
+  CSS, file URLs, and headless rendering behavior.
+- **preview can hide export problems.** a WebView preview is reassuring, but the exported
+  PDF still needs checked margins, page breaks, fonts, and headers.
+- **shared pages invite mode leaks.** audit and service flows can share UI code, but each
+  document type still needs its own defaults and language.
+
+## what i understand now
+
+This is another version of the same pattern as the label printer and workbook exporter:
+the hard part is not creating a PDF. The hard part is preserving the small operational
+state that makes the PDF trustworthy.
+
+A desktop app is a good size for this when the documents are local, field-facing, and not
+ready for a central server. But the moment it keeps job history, it also keeps private
+context. The archive can describe the shape of that system; it should never publish the
+documents themselves.
+
+## open questions
+
+<OpenQuestions questions={[
+  "When should a local document generator become a shared service?",
+  "Which saved-job fields are necessary for recovery, and which should be omitted to reduce privacy risk?",
+  "What automated check would catch the most PDF regressions: template compile, visual diff, or text extraction?"
+]} />

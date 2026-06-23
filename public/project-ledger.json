@@ -28,6 +28,34 @@
     "next_move": ""
   },
   {
+    "title": "desktop certificate and audit PDF generator",
+    "slug": "desktop-certificate-and-audit-pdf-generator",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows desktop tool that turns calibration, audit, and service-work models into previewable PDFs with templates, local job history, and repeatable numbering.",
+    "updated": "2026-06-23",
+    "tags": [
+      "document-generation",
+      "windows-app",
+      "pdf-export",
+      "templates",
+      "local-storage",
+      "operations"
+    ],
+    "tools": [
+      "dotnet",
+      "winforms",
+      "razor",
+      "playwright",
+      "sqlite",
+      "webview2"
+    ],
+    "route": "/build-logs/desktop-certificate-and-audit-pdf-generator",
+    "current_state": "A build log for a Windows desktop tool that turns calibration, audit, and service-work models into previewable PDFs with templates, local job history, and repeatable numbering.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "finished-batch packout report export",
     "slug": "finished-batch-packout-report-export",
     "status": "working_note",

@@ -306,3 +306,38 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 15 public records with 14 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: desktop certificate and audit PDF generator
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/desktop-certificate-and-audit-pdf-generator.mdx`.
+
+The public record strips repository identity, product/brand names, client names, sample
+certificate data, logo assets, local paths, source URLs, and saved-job database details.
+It preserves the system shape: a Windows desktop document generator with typed models,
+Razor templates, CSS/assets, browser PDF rendering, live preview/export, local SQLite job
+history, repeatable numbering, and idempotent store upgrades.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, exact brand labels, logo names, sample certificate values, or saved-job database
+  contents in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real operational desktop
+  document generator and explains what it set out to do, what worked, and what stayed
+  identity-heavy.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: source restore/build
+  passed in an isolated clone, the record names the WebView/reference and nullable warning
+  areas, and no source test project was present.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now and extends
+  the archive's document-generation thread from reports and labels into desktop
+  certificate/audit workflows.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/desktop-certificate-and-audit-pdf-generator.mdx`
+  passed; the moderation packet reported content and privacy audits green.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 16 public records with 13 ready items remaining for later
+loop work.

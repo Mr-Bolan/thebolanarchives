@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T10:29:09.440Z",
+  "generated": "2026-06-23T10:36:03.528Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -25,11 +25,21 @@
       "id": "record:agent-runbook-workspace-for-machine-reports",
       "kind": "record",
       "label": "agent-runbook-workspace-for-machine-reports",
-      "degree": 9,
+      "degree": 10,
       "route": "/build-logs/agent-runbook-workspace-for-machine-reports",
       "type": "build_log",
       "status": "working_note",
       "slug": "agent-runbook-workspace-for-machine-reports"
+    },
+    {
+      "id": "record:desktop-certificate-and-audit-pdf-generator",
+      "kind": "record",
+      "label": "desktop-certificate-and-audit-pdf-generator",
+      "degree": 9,
+      "route": "/build-logs/desktop-certificate-and-audit-pdf-generator",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "desktop-certificate-and-audit-pdf-generator"
     },
     {
       "id": "record:finished-batch-packout-report-export",
@@ -65,7 +75,7 @@
       "id": "record:manual-label-printing-from-templates",
       "kind": "record",
       "label": "manual-label-printing-from-templates",
-      "degree": 9,
+      "degree": 10,
       "route": "/build-logs/manual-label-printing-from-templates",
       "type": "build_log",
       "status": "working_note",
@@ -105,7 +115,7 @@
       "id": "record:workbook-row-to-packout-pdf",
       "kind": "record",
       "label": "workbook-row-to-packout-pdf",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/workbook-row-to-packout-pdf",
       "type": "build_log",
       "status": "working_note",
@@ -218,7 +228,7 @@
       "id": "tag:operations",
       "kind": "tag",
       "label": "operations",
-      "degree": 7,
+      "degree": 8,
       "tag": "operations"
     },
     {
@@ -232,8 +242,36 @@
       "id": "tag:document-generation",
       "kind": "tag",
       "label": "document-generation",
-      "degree": 3,
+      "degree": 4,
       "tag": "document-generation"
+    },
+    {
+      "id": "tag:windows-app",
+      "kind": "tag",
+      "label": "windows-app",
+      "degree": 3,
+      "tag": "windows-app"
+    },
+    {
+      "id": "tag:pdf-export",
+      "kind": "tag",
+      "label": "pdf-export",
+      "degree": 2,
+      "tag": "pdf-export"
+    },
+    {
+      "id": "tag:templates",
+      "kind": "tag",
+      "label": "templates",
+      "degree": 2,
+      "tag": "templates"
+    },
+    {
+      "id": "tag:local-storage",
+      "kind": "tag",
+      "label": "local-storage",
+      "degree": 1,
+      "tag": "local-storage"
     },
     {
       "id": "tag:batch-processing",
@@ -325,20 +363,6 @@
       "label": "label-printing",
       "degree": 1,
       "tag": "label-printing"
-    },
-    {
-      "id": "tag:templates",
-      "kind": "tag",
-      "label": "templates",
-      "degree": 1,
-      "tag": "templates"
-    },
-    {
-      "id": "tag:windows-app",
-      "kind": "tag",
-      "label": "windows-app",
-      "degree": 2,
-      "tag": "windows-app"
     },
     {
       "id": "tag:presets",
@@ -437,13 +461,6 @@
       "label": "spreadsheet-automation",
       "degree": 1,
       "tag": "spreadsheet-automation"
-    },
-    {
-      "id": "tag:pdf-export",
-      "kind": "tag",
-      "label": "pdf-export",
-      "degree": 1,
-      "tag": "pdf-export"
     },
     {
       "id": "tag:work",
@@ -582,6 +599,51 @@
     {
       "source": "record:agent-runbook-workspace-for-machine-reports",
       "target": "tag:document-generation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:desktop-certificate-and-audit-pdf-generator",
+      "target": "record:manual-label-printing-from-templates",
+      "kind": "related"
+    },
+    {
+      "source": "record:desktop-certificate-and-audit-pdf-generator",
+      "target": "record:workbook-row-to-packout-pdf",
+      "kind": "related"
+    },
+    {
+      "source": "record:desktop-certificate-and-audit-pdf-generator",
+      "target": "record:agent-runbook-workspace-for-machine-reports",
+      "kind": "related"
+    },
+    {
+      "source": "record:desktop-certificate-and-audit-pdf-generator",
+      "target": "tag:document-generation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:desktop-certificate-and-audit-pdf-generator",
+      "target": "tag:windows-app",
+      "kind": "tag"
+    },
+    {
+      "source": "record:desktop-certificate-and-audit-pdf-generator",
+      "target": "tag:pdf-export",
+      "kind": "tag"
+    },
+    {
+      "source": "record:desktop-certificate-and-audit-pdf-generator",
+      "target": "tag:templates",
+      "kind": "tag"
+    },
+    {
+      "source": "record:desktop-certificate-and-audit-pdf-generator",
+      "target": "tag:local-storage",
+      "kind": "tag"
+    },
+    {
+      "source": "record:desktop-certificate-and-audit-pdf-generator",
+      "target": "tag:operations",
       "kind": "tag"
     },
     {

@@ -42,6 +42,48 @@
     "source_context": "sanitized inspection of a registered agent-workspace source: workspace model, routing policy, reporting workflow files, reusable scripts, query pack, report/PDF skill, and fixture verifier; PDF fixture smoke test passed on 2026-06-23"
   },
   {
+    "title": "desktop certificate and audit PDF generator",
+    "slug": "desktop-certificate-and-audit-pdf-generator",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows desktop tool that turns calibration, audit, and service-work models into previewable PDFs with templates, local job history, and repeatable numbering.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "document-generation",
+      "windows-app",
+      "pdf-export",
+      "templates",
+      "local-storage",
+      "operations"
+    ],
+    "tools": [
+      "dotnet",
+      "winforms",
+      "razor",
+      "playwright",
+      "sqlite",
+      "webview2"
+    ],
+    "narrative_origin": "field paperwork that needed to become repeatable documents without becoming a server",
+    "related": [
+      "manual-label-printing-from-templates",
+      "workbook-row-to-packout-pdf",
+      "agent-runbook-workspace-for-machine-reports"
+    ],
+    "points": [
+      "desktop document generation is mostly state management around the renderer",
+      "templates, defaults, numbering, preview, export, and job history all carry operational meaning",
+      "local SQLite history makes repeat work recoverable, but also creates a privacy boundary",
+      "brand assets and sample certificates are more identifying than the rendering code"
+    ],
+    "route": "/build-logs/desktop-certificate-and-audit-pdf-generator",
+    "record_id": "build_log_010",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered desktop-document source: templates, renderer, template registry, form pages, local job store, refactor notes, and project files; source build passed with warnings on 2026-06-23; no source test project was present"
+  },
+  {
     "title": "finished-batch packout report export",
     "slug": "finished-batch-packout-report-export",
     "type": "build_log",
