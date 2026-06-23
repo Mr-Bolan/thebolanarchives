@@ -1,8 +1,8 @@
 {
-  "generated": "2026-06-23T14:39:04.315Z",
+  "generated": "2026-06-23T21:14:45.890Z",
   "stale": false,
   "version": {
-    "sha": "fad31cb",
+    "sha": "8ae3eb0",
     "records": 26,
     "publicRecords": 26
   },
@@ -42,10 +42,10 @@
     "records": 26
   },
   "backlog": {
-    "total": 27,
+    "total": 28,
     "ready": 0,
     "byStatus": {
-      "done": 3,
+      "done": 4,
       "deferred": 4,
       "published": 20
     },

@@ -452,6 +452,20 @@
       "target": "src/components/experiments/ArchiveGraph.tsx",
       "created": "2026-06-23",
       "notes": "Done on 2026-06-23: added SVG viewBox zoom controls/wheel, empty-field panning, pointer drag and keyboard nudge for nodes, a reset control, tag activation, and matching CSS. Auto-moderation verdict publish; npm run agent:check passed."
+    },
+    {
+      "id": "intake-content-about-update",
+      "type": "content",
+      "title": "update the about page origin note",
+      "status": "done",
+      "priority": "medium",
+      "mode": "content-update",
+      "source": "intake",
+      "summary": "De-identify and rewrite the about page so it explains the archive's AI-assisted working origin without exposing private biography, employers, or clients.",
+      "privateRef": "garden/state/private/intake-content-about-update.md",
+      "target": "src/app/about/page.tsx",
+      "created": "2026-06-23",
+      "notes": "Done on 2026-06-23: updated the about page with an anonymous origin narrative around AI-assisted daily work and the archive as a record of systems rather than biography. Removed private career/client specifics. Auto-moderation verdict publish; checks passed: content:audit, privacy:audit, build, pages:verify, garden:moderate, public-output:audit."
     }
   ]
 }

@@ -46,6 +46,9 @@ _(none)_
 - **make the garden graph inspectable** (`intake-feature-grab-and-manipulate-graph-garden`, feature, medium)
   Add pan, zoom, node dragging, keyboard nudging, and tag activation to the /garden graph so dense clusters can be inspected without changing routes or adding dependencies.
 
+- **update the about page origin note** (`intake-content-about-update`, content, medium)
+  De-identify and rewrite the about page so it explains the archive's AI-assisted working origin without exposing private biography, employers, or clients.
+
 ## published
 
 - **draft a de-identified article from a registered source** (`source-59727238`, content, medium)

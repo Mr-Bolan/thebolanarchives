@@ -772,3 +772,25 @@ Moderation verdict: **publish**.
   a meaningful reader-facing feature.
 - validity: PASS. `npm run garden:moderate -- src/components/experiments/ArchiveGraph.tsx`
   passed content/privacy audits, and `npm run agent:check` passed.
+
+## 2026-06-23 - automation tick: about page origin note
+
+Intake produced one content-update item for the about page. Updated
+`src/app/about/page.tsx` with a de-identified origin note: early practical LLM use,
+automation as daily work, a narrowing conventional path, and the archive as a record of
+systems rather than personal biography.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. Removed names, clients, employers, precise personal
+  chronology, private career details, and raw intake context; the raw note remains under
+  gitignored private state.
+- goal-adherence: PASS. Clarifies why the archive exists and how AI-assisted system work
+  became its operating layer.
+- truthfulness: PASS. Keeps the narrative reflective and avoids claims about proof,
+  status, employers, clients, or guaranteed outcomes.
+- theme/voice: PASS. Plain anonymous archive voice, no portfolio gloss.
+- significance: PASS. The about page now gives readers a clearer, public-safe origin and
+  reading stance for the archive.
+- validity: PASS. `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+  `npm run pages:verify`, `npm run garden:moderate -- src/app/about/page.tsx`, and
+  `npm run public-output:audit` passed.
