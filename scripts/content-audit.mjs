@@ -153,6 +153,7 @@ function validateRecord({ body, collection, data, filePath, folder, slugFromFile
   const tools = arrayValue(data.tools);
   const related = arrayValue(data.related);
   const aliases = data.aliases === undefined ? undefined : arrayValue(data.aliases);
+  const points = data.points === undefined ? undefined : arrayValue(data.points);
   const externalLinks = data.external_links;
   const slug = stringValue(data.slug);
   const created = stringValue(data.created);
@@ -206,6 +207,10 @@ function validateRecord({ body, collection, data, filePath, folder, slugFromFile
     checkStringArray(aliases, "aliases", filePath);
   }
 
+  if (points !== undefined) {
+    checkStringArray(points, "points", filePath);
+  }
+
   if (externalLinks !== undefined) {
     checkExternalLinks(externalLinks, filePath);
   }
@@ -254,6 +259,7 @@ function validateRecord({ body, collection, data, filePath, folder, slugFromFile
     narrative_origin: stringValue(data.narrative_origin),
     visibility,
     related,
+    points,
     external_links: Array.isArray(externalLinks) ? externalLinks : undefined,
     folder,
     route: `${collection.route}/${slug}`,

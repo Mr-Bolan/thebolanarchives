@@ -1,0 +1,319 @@
+{
+  "generated": "2026-06-23T05:27:26.423Z",
+  "nodes": [
+    {
+      "id": "record:why-this-exists",
+      "kind": "record",
+      "label": "why-this-exists",
+      "degree": 5,
+      "route": "/entries/why-this-exists",
+      "type": "entry",
+      "status": "working_note",
+      "slug": "why-this-exists"
+    },
+    {
+      "id": "record:the-operator-knows-before-the-database-does",
+      "kind": "record",
+      "label": "the-operator-knows-before-the-database-does",
+      "degree": 5,
+      "route": "/field-notes/the-operator-knows-before-the-database-does",
+      "type": "field_note",
+      "status": "sketch",
+      "slug": "the-operator-knows-before-the-database-does"
+    },
+    {
+      "id": "record:static-archive-scaffold",
+      "kind": "record",
+      "label": "static-archive-scaffold",
+      "degree": 5,
+      "route": "/build-logs/static-archive-scaffold",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "static-archive-scaffold"
+    },
+    {
+      "id": "record:you-pay-for-the-problem-that-disappears",
+      "kind": "record",
+      "label": "you-pay-for-the-problem-that-disappears",
+      "degree": 2,
+      "route": "/fragments/you-pay-for-the-problem-that-disappears",
+      "type": "fragment",
+      "status": "fragment",
+      "slug": "you-pay-for-the-problem-that-disappears"
+    },
+    {
+      "id": "record:operator-knowledge-as-signal",
+      "kind": "record",
+      "label": "operator-knowledge-as-signal",
+      "degree": 5,
+      "route": "/patterns/operator-knowledge-as-signal",
+      "type": "pattern",
+      "status": "working_note",
+      "slug": "operator-knowledge-as-signal"
+    },
+    {
+      "id": "record:data-trust-ladder",
+      "kind": "record",
+      "label": "data-trust-ladder",
+      "degree": 6,
+      "route": "/experiments/data-trust-ladder",
+      "type": "experiment",
+      "status": "sketch",
+      "slug": "data-trust-ladder"
+    },
+    {
+      "id": "record:dashboard-without-decisions",
+      "kind": "record",
+      "label": "dashboard-without-decisions",
+      "degree": 5,
+      "route": "/graveyard/dashboard-without-decisions",
+      "type": "graveyard_note",
+      "status": "retired",
+      "slug": "dashboard-without-decisions"
+    },
+    {
+      "id": "tag:archive",
+      "kind": "tag",
+      "label": "archive",
+      "degree": 2,
+      "tag": "archive"
+    },
+    {
+      "id": "tag:unfinished-work",
+      "kind": "tag",
+      "label": "unfinished-work",
+      "degree": 1,
+      "tag": "unfinished-work"
+    },
+    {
+      "id": "tag:build-logs",
+      "kind": "tag",
+      "label": "build-logs",
+      "degree": 1,
+      "tag": "build-logs"
+    },
+    {
+      "id": "tag:operators",
+      "kind": "tag",
+      "label": "operators",
+      "degree": 2,
+      "tag": "operators"
+    },
+    {
+      "id": "tag:data",
+      "kind": "tag",
+      "label": "data",
+      "degree": 1,
+      "tag": "data"
+    },
+    {
+      "id": "tag:machine-signals",
+      "kind": "tag",
+      "label": "machine-signals",
+      "degree": 1,
+      "tag": "machine-signals"
+    },
+    {
+      "id": "tag:static-export",
+      "kind": "tag",
+      "label": "static-export",
+      "degree": 1,
+      "tag": "static-export"
+    },
+    {
+      "id": "tag:nextjs",
+      "kind": "tag",
+      "label": "nextjs",
+      "degree": 1,
+      "tag": "nextjs"
+    },
+    {
+      "id": "tag:work",
+      "kind": "tag",
+      "label": "work",
+      "degree": 1,
+      "tag": "work"
+    },
+    {
+      "id": "tag:systems",
+      "kind": "tag",
+      "label": "systems",
+      "degree": 1,
+      "tag": "systems"
+    },
+    {
+      "id": "tag:evidence",
+      "kind": "tag",
+      "label": "evidence",
+      "degree": 1,
+      "tag": "evidence"
+    },
+    {
+      "id": "tag:dashboards",
+      "kind": "tag",
+      "label": "dashboards",
+      "degree": 2,
+      "tag": "dashboards"
+    },
+    {
+      "id": "tag:data-quality",
+      "kind": "tag",
+      "label": "data-quality",
+      "degree": 1,
+      "tag": "data-quality"
+    },
+    {
+      "id": "tag:experiments",
+      "kind": "tag",
+      "label": "experiments",
+      "degree": 1,
+      "tag": "experiments"
+    },
+    {
+      "id": "tag:decisions",
+      "kind": "tag",
+      "label": "decisions",
+      "degree": 1,
+      "tag": "decisions"
+    },
+    {
+      "id": "tag:retired-work",
+      "kind": "tag",
+      "label": "retired-work",
+      "degree": 1,
+      "tag": "retired-work"
+    }
+  ],
+  "edges": [
+    {
+      "source": "record:why-this-exists",
+      "target": "record:static-archive-scaffold",
+      "kind": "related"
+    },
+    {
+      "source": "record:why-this-exists",
+      "target": "record:you-pay-for-the-problem-that-disappears",
+      "kind": "related"
+    },
+    {
+      "source": "record:why-this-exists",
+      "target": "tag:archive",
+      "kind": "tag"
+    },
+    {
+      "source": "record:why-this-exists",
+      "target": "tag:unfinished-work",
+      "kind": "tag"
+    },
+    {
+      "source": "record:why-this-exists",
+      "target": "tag:build-logs",
+      "kind": "tag"
+    },
+    {
+      "source": "record:the-operator-knows-before-the-database-does",
+      "target": "record:operator-knowledge-as-signal",
+      "kind": "related"
+    },
+    {
+      "source": "record:the-operator-knows-before-the-database-does",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:the-operator-knows-before-the-database-does",
+      "target": "tag:operators",
+      "kind": "tag"
+    },
+    {
+      "source": "record:the-operator-knows-before-the-database-does",
+      "target": "tag:data",
+      "kind": "tag"
+    },
+    {
+      "source": "record:the-operator-knows-before-the-database-does",
+      "target": "tag:machine-signals",
+      "kind": "tag"
+    },
+    {
+      "source": "record:static-archive-scaffold",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:static-archive-scaffold",
+      "target": "tag:archive",
+      "kind": "tag"
+    },
+    {
+      "source": "record:static-archive-scaffold",
+      "target": "tag:static-export",
+      "kind": "tag"
+    },
+    {
+      "source": "record:static-archive-scaffold",
+      "target": "tag:nextjs",
+      "kind": "tag"
+    },
+    {
+      "source": "record:you-pay-for-the-problem-that-disappears",
+      "target": "tag:work",
+      "kind": "tag"
+    },
+    {
+      "source": "record:operator-knowledge-as-signal",
+      "target": "tag:operators",
+      "kind": "tag"
+    },
+    {
+      "source": "record:operator-knowledge-as-signal",
+      "target": "tag:systems",
+      "kind": "tag"
+    },
+    {
+      "source": "record:operator-knowledge-as-signal",
+      "target": "tag:evidence",
+      "kind": "tag"
+    },
+    {
+      "source": "record:data-trust-ladder",
+      "target": "record:dashboard-without-decisions",
+      "kind": "related"
+    },
+    {
+      "source": "record:data-trust-ladder",
+      "target": "tag:dashboards",
+      "kind": "tag"
+    },
+    {
+      "source": "record:data-trust-ladder",
+      "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
+      "source": "record:data-trust-ladder",
+      "target": "tag:experiments",
+      "kind": "tag"
+    },
+    {
+      "source": "record:dashboard-without-decisions",
+      "target": "record:operator-knowledge-as-signal",
+      "kind": "related"
+    },
+    {
+      "source": "record:dashboard-without-decisions",
+      "target": "tag:dashboards",
+      "kind": "tag"
+    },
+    {
+      "source": "record:dashboard-without-decisions",
+      "target": "tag:decisions",
+      "kind": "tag"
+    },
+    {
+      "source": "record:dashboard-without-decisions",
+      "target": "tag:retired-work",
+      "kind": "tag"
+    }
+  ]
+}

@@ -19,6 +19,8 @@ Required entry point for any agent working on `thebolanarchives`. Assume this re
 9. `docs/design-plan.md`
 10. `docs/component-map.md`
 11. `docs/deploy.md`
+12. `docs/operating-the-garden.md`
+13. `garden/ORCHESTRATOR.md` (only for autonomous loop ticks; see Autonomous Operation)
 
 ## Task Modes
 
@@ -43,6 +45,30 @@ For `site-feature` work involving Archive Annotations, read
 Never commit `out/`, `.next/`, `node_modules/`, `.env*`, `privacy-blocklist.json`, `archive-issue.md`, private names, private emails, private URLs, credentials, or unpublished personal context.
 
 Do not commit `content/inbox/` except `content/inbox/.gitkeep`. Do not commit `content/private/`, `docs/private/`, `notes/private/`, `scratch/`, `transcripts/`, local agent/tool state, or private blocklist values.
+
+## Autonomous Operation (the garden loop)
+
+The repo has a self-running operating layer in `garden/`, built on the Interpretable
+Context Methodology (MWP). The filesystem is the framework.
+
+- If you are an agent woken by an automation tick, your entry point is
+  `garden/ORCHESTRATOR.md`. Read it and act as the orchestrator: intake -> draft
+  (de-identified) -> auto-moderate -> publish -> repeat until idle.
+- The owner steers by dropping notes in `garden/intake/article-updates/` and
+  `garden/intake/feature-requests/`, and by registering sources in `archive-projects.txt`.
+  See `docs/operating-the-garden.md`.
+- Approval is automated: `garden/skills/auto-moderation/SKILL.md` reasons about
+  goal-adherence, privacy (hard gate), truth, theme, significance, and validity, and emits
+  `publish | revise | hold-backlog | reject`. No human approves commits/pushes/merges.
+- Autonomous publish policy: publish on significance (new article, real update, finished
+  feature, fix, approved reader notes), never on a fixed timer. A privacy/identity trip
+  never publishes; it files a sanitized remediation item and the loop reworks it later.
+- State lives in `garden/state/` (sanitized; private specifics under gitignored
+  `garden/state/private/`). The glass-box log is `garden/state/digest.md`.
+- Tools: `npm run garden:snapshot | garden:intake | garden:backlog | garden:catalog |
+  garden:moderate`. `npm run agent:check` includes the garden self-checks.
+- Do not change the operating layer (`garden/ORCHESTRATOR.md`, `garden/CONTEXT.md`, stage
+  contracts) on a routine tick; that is an owner-directed, strongest-tier change.
 
 ## Publishing Rules
 

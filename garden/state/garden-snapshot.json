@@ -1,0 +1,65 @@
+{
+  "generated": "2026-06-23T04:56:59.063Z",
+  "stale": false,
+  "version": {
+    "sha": "45fcf2a",
+    "records": 7,
+    "publicRecords": 7
+  },
+  "archive": {
+    "records": 7,
+    "byType": {
+      "entry": 1,
+      "field_note": 1,
+      "build_log": 1,
+      "fragment": 1,
+      "pattern": 1,
+      "experiment": 1,
+      "graveyard_note": 1
+    },
+    "byVisibility": {
+      "public": 7
+    },
+    "uniqueTags": 16,
+    "relatedEdges": 12
+  },
+  "routes": {
+    "static": [
+      "/",
+      "/index",
+      "/about"
+    ],
+    "collections": [
+      "/entries",
+      "/field-notes",
+      "/build-logs",
+      "/fragments",
+      "/patterns",
+      "/experiments",
+      "/graveyard"
+    ],
+    "records": 7
+  },
+  "backlog": {
+    "total": 4,
+    "ready": 1,
+    "byStatus": {
+      "ready": 1,
+      "needs-source": 1,
+      "deferred": 2
+    },
+    "readyItems": [
+      {
+        "id": "seed-backfill-points",
+        "title": "backfill points frontmatter on existing records",
+        "priority": "medium"
+      }
+    ]
+  },
+  "intake": {
+    "articleNotes": 0,
+    "featureNotes": 0,
+    "registeredSources": 0
+  },
+  "lastDigest": "2026-06-22 — bootstrap"
+}

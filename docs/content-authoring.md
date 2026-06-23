@@ -8,9 +8,10 @@ Use this workflow when adding archive writing without changing site code.
 2. Paste it into the matching content folder as `your-slug.mdx`.
 3. Set `slug` to the same kebab-case filename, without `.mdx`.
 4. Fill the required frontmatter: `title`, `type`, `status`, `confidence`, `summary`, `created`, `updated`, `tags`, `tools`, `narrative_origin`, `visibility`, and `related`.
-5. Write the body below the frontmatter.
-6. Run `npm run content:audit`.
-7. Run `npm run build` before promoting anything public.
+5. Optionally add `points` (key takeaways for this page) and page-relevant `tags`. These do more for navigation than forcing a fixed section layout.
+6. Write the body below the frontmatter. Shape it to the content — the templates show suggested emphasis, not a required outline. Add only the sections this record needs.
+7. Run `npm run content:audit`.
+8. Run `npm run build` before promoting anything public.
 
 Folder map:
 
@@ -57,6 +58,26 @@ related:
 ```
 
 The slug must exist. Draft targets are allowed in draft work, but links to draft targets will not render on public pages.
+
+## key points
+
+Add the key claims or takeaways for a page with `points`:
+
+```yaml
+points:
+  - "dashboards can show data without creating understanding"
+  - "the operator's signal set is wider than the data model"
+```
+
+`points` render as a short "key points" block near the top of the record. They are optional,
+work on any type, and are the preferred way to make a record scannable instead of imposing a
+uniform section structure. Keep each point one honest sentence; do not inflate certainty.
+
+## body structure is flexible
+
+There is no required body outline. The per-type emphasis in `docs/content-model.md` and the
+templates are suggestions. Lead with what matters for this specific record. The enforced
+rules are the frontmatter schema and the privacy rules, not a fixed set of headings.
 
 ## agent-safe updates
 

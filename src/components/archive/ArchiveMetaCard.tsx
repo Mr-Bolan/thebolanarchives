@@ -1,7 +1,7 @@
 import type { ArchiveItem } from "@/lib/content";
 import { ConfidenceBadge } from "@/components/archive/ConfidenceBadge";
 import { StatusBadge } from "@/components/archive/StatusBadge";
-import { TagList } from "@/components/archive/TagList";
+import { TagList, tagGardenHref } from "@/components/archive/TagList";
 
 type ArchiveMetaCardProps = {
   item: ArchiveItem;
@@ -55,7 +55,7 @@ export function ArchiveMetaCard({ item, compact = false }: ArchiveMetaCardProps)
       </div>
       {compact ? null : (
         <>
-          <TagList items={item.tags} label={`${item.title} tags`} />
+          <TagList items={item.tags} label={`${item.title} tags`} hrefFor={tagGardenHref} />
           <TagList items={item.tools} label={`${item.title} tools`} />
         </>
       )}

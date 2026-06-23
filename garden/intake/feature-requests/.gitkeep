@@ -1,0 +1,3 @@
+# keep the feature-requests intake folder available locally.
+# drop .md notes here about code or features you want added to the garden.
+# raw note bodies are gitignored; the loop turns them into sanitized backlog items.

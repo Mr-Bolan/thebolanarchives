@@ -26,6 +26,13 @@ Theme: **The Blackbox Garden**. Full brief: [docs/thebolanarchives_website_theme
 content audit, generated public index, authoring workflow, and GitHub Pages deploy support
 exist. No `public/CNAME` is committed until a real custom domain is known.
 
+**Autonomous operating layer (`garden/`).** The archive can run itself: an automation tick
+reads `garden/ORCHESTRATOR.md`, becomes the orchestrator, and loops intake -> draft
+(de-identified) -> auto-moderate -> publish until idle, with no human in the
+commit/push/merge/publish path. Owner steers via `garden/intake/*` notes and the
+`archive-projects.txt` sources registry. See `docs/operating-the-garden.md` and `AGENTS.md`
+(Autonomous Operation). Built on the Interpretable Context Methodology (MWP).
+
 ---
 
 ## Directory map
@@ -62,10 +69,10 @@ thebolanarchives/
       writing/        CodeBlock, TerminalBlock, DiagramBlock, SideNote, TableOfContents, OpenQuestions
       annotations/    future Archive Annotations components
       experiments/    ExperimentFrame + future interactive modules
-    styles/           tokens.css, global.css, typography.css, archive.css
-    lib/              content.ts, headings.ts, page-metadata.ts
+    styles/           tokens.css, global.css (single stylesheet; no typography.css/archive.css)
+    lib/              content.ts, graph.ts, annotations.ts, annotation-discussions.ts, headings.ts, page-metadata.ts
   public/
-    archive-index.json project-ledger.json <- generated public metadata
+    archive-index.json project-ledger.json archive-graph.json <- generated public metadata
     images/  diagrams/  textures/   <- static assets (+ future CNAME when real domain is known)
   scripts/
     project-update.mjs <- local agent/owner tool for appending audited build-log updates
@@ -77,6 +84,15 @@ thebolanarchives/
                           and ignored GitHub issue-form imports
                           (`project:ledger -- --all` lists local draft/unlisted state)
     public-output-audit.mjs <- scans exported text files for public filler text
+    write-graph.mjs    <- generates public/archive-graph.json for the garden map (prebuild)
+  garden/             <- autonomous operating layer (MWP); see garden/ORCHESTRATOR.md
+    ORCHESTRATOR.md   the tick prompt; an agent reads this to become the orchestrator
+    CONTEXT.md        Layer 1 routing: stages, state, policy
+    stages/           one CONTEXT.md per stage (00_intake/20_draft/30_moderate/40_publish/50_annotations)
+    skills/auto-moderation/ the approval loop (publish|revise|hold-backlog|reject)
+    scripts/          snapshot, intake, backlog, catalog, moderate (npm run garden:*)
+    intake/           owner drop-boxes (raw note bodies gitignored)
+    state/            backlog, snapshot, catalog, digest, cycle-log (private/ gitignored)
 ```
 
 Every folder has its own `README.md` with details. The conceptual structure mirrors brief
@@ -117,6 +133,7 @@ content folders are ignored by the loader.
 | `/patterns` | mental models | `src/app/patterns/page.tsx` (+ `[slug]`) |
 | `/experiments` | interactive demos | `src/app/experiments/page.tsx` (+ `[slug]`) |
 | `/graveyard` | abandoned work | `src/app/graveyard/page.tsx` (+ `[slug]`) |
+| `/garden` | the blackbox garden graph (records + tags map) | `src/app/garden/page.tsx` |
 | `/index` | filterable full archive | `src/app/index/page.tsx` |
 | `/about` | anonymous explanation | `src/app/about/page.tsx` |
 
@@ -137,6 +154,7 @@ content folders are ignored by the loader.
 | `SideNote`/`FootnoteRail`, `TableOfContents`, `OpenQuestions` | `src/components/writing/` | reading aids |
 | `ArchiveAnnotations`, `AnnotationAnchor`, `AnnotationMarker`, `AnnotationNote` | `src/components/annotations/` | future contextual article notes |
 | `ExperimentFrame` | `src/components/experiments/` | interactive wrapper |
+| `ArchiveGraph` | `src/components/experiments/` | self-contained SVG graph for `/garden` (uses `src/lib/graph.ts`) |
 
 ---
 

@@ -1,20 +1,9 @@
 import type { MDXComponents } from "mdx/types";
-import { ExperimentFrame } from "@/components/experiments/ExperimentFrame";
-import { CodeBlock } from "@/components/writing/CodeBlock";
-import { DiagramBlock } from "@/components/writing/DiagramBlock";
-import { OpenQuestions } from "@/components/writing/OpenQuestions";
-import { SideNote } from "@/components/writing/SideNote";
-import { TerminalBlock } from "@/components/writing/TerminalBlock";
+import { sharedMdxComponents } from "@/components/writing/sharedMdxComponents";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    CodeBlock,
-    DiagramBlock,
-    ExperimentFrame,
-    OpenQuestions,
-    SideNote,
-    TerminalBlock,
-    pre: CodeBlock,
+    ...sharedMdxComponents,
     ...components,
   };
 }

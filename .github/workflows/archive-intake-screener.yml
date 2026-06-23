@@ -1,13 +1,19 @@
-name: Screen archive annotation intake
+# Archive annotation intake — MANUAL FALLBACK ONLY.
+#
+# The Blackbox Garden orchestrator loop now owns annotation intake. On each tick, stage 50
+# (garden/stages/50_annotations) runs discussions:sync + discussions:export, the
+# auto-moderation skill approves screen_clear notes, and stage 40 commits the approved
+# content/annotations/*.json straight to main so the next deploy renders them. There is one
+# loop, driven by significance, not a fixed timer.
+#
+# The */30 cron and discussion/comment event triggers were removed so this workflow does not
+# compete with the orchestrator or keep regenerating an unmerged PR (the reason approved
+# notes never reached the live site). This workflow remains only as a manual, PR-based
+# fallback you can dispatch by hand if the loop is paused.
+name: Screen archive annotation intake (manual fallback)
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "*/30 * * * *"
-  discussion:
-    types: [created, edited]
-  discussion_comment:
-    types: [created, edited]
 
 permissions:
   contents: write
@@ -21,7 +27,6 @@ concurrency:
 jobs:
   screen:
     name: Screen and export clear notes
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.discussion.category.slug == 'archive-annotations' || github.event.discussion.category.slug == 'general'
     runs-on: ubuntu-latest
 
     steps:

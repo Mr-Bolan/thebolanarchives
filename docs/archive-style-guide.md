@@ -39,3 +39,12 @@ The archive voice is anonymous, technical, reflective, and field-manual plain. I
 - `open questions`
 
 These are defaults, not mandatory headings.
+
+## Points And Tags
+
+- Lead with `points`: the few honest takeaways specific to that record. They render as a
+  "key points" block and are the fastest way to make a page scannable.
+- Choose `tags` that are actually relevant to the page; they are how records connect on the
+  garden map, not decoration.
+- Prefer meaningful points and tags over forcing every record into the same shape. The
+  schema enforces frontmatter and privacy, not a uniform body.

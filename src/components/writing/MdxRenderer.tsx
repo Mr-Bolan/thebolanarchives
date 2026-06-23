@@ -9,12 +9,7 @@ import { slugifyHeading, textFromChildren } from "@/lib/headings";
 import { AnnotationAnchor } from "@/components/annotations/AnnotationAnchor";
 import { ArchiveMetaCard } from "@/components/archive/ArchiveMetaCard";
 import { RelatedArtifacts } from "@/components/archive/RelatedArtifacts";
-import { ExperimentFrame } from "@/components/experiments/ExperimentFrame";
-import { CodeBlock } from "@/components/writing/CodeBlock";
-import { DiagramBlock } from "@/components/writing/DiagramBlock";
-import { OpenQuestions } from "@/components/writing/OpenQuestions";
-import { SideNote } from "@/components/writing/SideNote";
-import { TerminalBlock } from "@/components/writing/TerminalBlock";
+import { sharedMdxComponents } from "@/components/writing/sharedMdxComponents";
 
 type MdxRendererProps = {
   annotations?: ArchiveAnnotation[];
@@ -34,16 +29,11 @@ export async function MdxRenderer({ annotations = [], item, relatedItems, source
   let paragraphCount = 0;
 
   const components: MDXComponents = {
+    ...sharedMdxComponents,
     ArchiveMetaCard: ({ compact }: { compact?: boolean }) => <ArchiveMetaCard compact={compact} item={item} />,
     RelatedArtifacts: ({ heading }: { heading?: string }) => (
       <RelatedArtifacts heading={heading} items={relatedItems} />
     ),
-    OpenQuestions,
-    CodeBlock,
-    TerminalBlock,
-    DiagramBlock,
-    SideNote,
-    ExperimentFrame,
     h2: ({ children }) => (
       <AnchoredHeading annotationsByAnchor={annotationsByAnchor} counts={headingCounts} level={2}>
         {children}
@@ -75,7 +65,6 @@ export async function MdxRenderer({ annotations = [], item, relatedItems, source
         </AnnotationAnchor>
       );
     },
-    pre: CodeBlock,
   };
 
   return <MDXContent components={components} />;

@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "updated": "2026-06-23",
+  "note": "Durable, sanitized work queue for the Blackbox Garden loop. Source of truth. backlog.md is generated from this. Never put private detail here; reference it by id under garden/state/private/.",
+  "statuses": [
+    "ready",
+    "in-progress",
+    "blocked",
+    "deferred",
+    "needs-source",
+    "done"
+  ],
+  "types": [
+    "content",
+    "feature",
+    "refactor",
+    "graph",
+    "annotation",
+    "privacy",
+    "chore"
+  ],
+  "items": [
+    {
+      "id": "seed-backfill-points",
+      "type": "content",
+      "title": "backfill points frontmatter on existing records",
+      "status": "ready",
+      "priority": "medium",
+      "mode": "content-update",
+      "source": "bootstrap",
+      "summary": "Add an optional points list (key claims relevant to each page) to the 7 existing public records so the key-points block renders and the schema-softening is real, not just supported.",
+      "targets": [
+        "content/entries/why-this-exists.mdx",
+        "content/field-notes/the-operator-knows-before-the-database-does.mdx",
+        "content/build-logs/static-archive-scaffold.mdx",
+        "content/fragments/you-pay-for-the-problem-that-disappears.mdx",
+        "content/patterns/operator-knowledge-as-signal.mdx",
+        "content/experiments/data-trust-ladder.mdx",
+        "content/graveyard/dashboard-without-decisions.mdx"
+      ],
+      "created": "2026-06-22",
+      "notes": "One record per item is fine if the orchestrator prefers to parallelize."
+    },
+    {
+      "id": "seed-first-articles",
+      "type": "content",
+      "title": "write first de-identified articles from a registered source",
+      "status": "needs-source",
+      "priority": "high",
+      "mode": "content-draft",
+      "source": "bootstrap",
+      "summary": "Once the owner registers a local repo path or GitHub repo in archive-projects.txt, scan it and write the first de-identified build-log / entry about what it set out to do, how it evolved, how long it has been worked on, what works, what does not, and any novel idea worth a diagram.",
+      "created": "2026-06-22",
+      "notes": "Blocked until archive-projects.txt has at least one entry. Intake promotes this to ready when a source appears."
+    },
+    {
+      "id": "seed-dedupe-frontmatter-validation",
+      "type": "refactor",
+      "title": "de-duplicate frontmatter validation (content.ts vs content-audit.mjs)",
+      "status": "deferred",
+      "priority": "low",
+      "mode": "site-feature",
+      "source": "bootstrap",
+      "summary": "Two parallel implementations risk drifting: (1) frontmatter validation in src/lib/content.ts (readContentFile) vs scripts/content-audit.mjs; (2) the archive-graph builder in src/lib/graph.ts (buildArchiveGraph) vs garden/scripts/lib/garden-core.mjs (buildArchiveGraphFromRecords). Extract shared validators/builders so TS and node scripts cannot disagree. Risky because the first gates publishing; do it carefully behind agent:check.",
+      "created": "2026-06-22",
+      "notes": "Strongest-tier change. Keep content:audit, build, and write-graph self-check green before and after."
+    },
+    {
+      "id": "seed-graph-expansion",
+      "type": "graph",
+      "title": "expand the Blackbox Garden graph (reverse-index + series edges)",
+      "status": "deferred",
+      "priority": "low",
+      "mode": "site-feature",
+      "source": "bootstrap",
+      "summary": "After the base graph ships, add a reverse-index (records linking here), series/sequence edges, and tag-weighted layout so the map gets richer as the archive grows.",
+      "created": "2026-06-22",
+      "notes": "Depends on src/lib/graph.ts and the /garden route existing."
+    }
+  ]
+}

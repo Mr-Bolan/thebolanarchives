@@ -89,6 +89,7 @@ export type ArchiveItem = {
   narrative_origin: string;
   visibility: ContentVisibility;
   related: string[];
+  points?: string[];
   external_links?: ExternalLink[];
   folder: CollectionFolder;
   route: string;
@@ -219,6 +220,7 @@ function readContentFile(folder: CollectionFolder, file: string): ContentItem {
     narrative_origin: stringField(data, "narrative_origin", filePath),
     visibility: enumField(data, "visibility", visibilities, filePath),
     related: stringArrayField(data, "related", filePath),
+    points: optionalStringArrayField(data, "points", filePath),
     external_links: optionalExternalLinksField(data, "external_links", filePath),
     body,
     folder,

@@ -40,6 +40,7 @@ export async function ContentDetailPage({ folder, slug }: ContentDetailPageProps
 
       <div className="content-main">
         <ArchiveMetaCard item={item} />
+        <KeyPoints points={item.points} />
         <TableOfContents headings={headings} />
 
         <ArchiveAnnotations
@@ -63,6 +64,23 @@ export async function ContentDetailPage({ folder, slug }: ContentDetailPageProps
         <RelatedArtifacts items={relatedItems} />
       </div>
     </article>
+  );
+}
+
+function KeyPoints({ points }: { points?: string[] }) {
+  if (!points?.length) {
+    return null;
+  }
+
+  return (
+    <section className="key-points" aria-labelledby="key-points-title">
+      <p className="section-label">key points</p>
+      <ul id="key-points-title" className="key-points-list">
+        {points.map((point) => (
+          <li key={point}>{point}</li>
+        ))}
+      </ul>
+    </section>
   );
 }
 

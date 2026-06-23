@@ -13,6 +13,16 @@ notes/private/
 scratch/
 transcripts/
 
+# garden operating layer: keep structure, ignore raw notes and sensitive state
+garden/intake/article-updates/*
+!garden/intake/article-updates/.gitkeep
+!garden/intake/article-updates/README.md
+garden/intake/feature-requests/*
+!garden/intake/feature-requests/.gitkeep
+!garden/intake/feature-requests/README.md
+garden/state/private/*
+!garden/state/private/.gitkeep
+
 .agents/
 
 .env

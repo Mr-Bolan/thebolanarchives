@@ -1,0 +1,458 @@
+{
+  "generated": "2026-06-23T05:27:06.061Z",
+  "routes": [
+    {
+      "route": "/",
+      "file": "src/app/page.tsx"
+    },
+    {
+      "route": "/about",
+      "file": "src/app/about/page.tsx"
+    },
+    {
+      "route": "/build-logs",
+      "file": "src/app/build-logs/page.tsx"
+    },
+    {
+      "route": "/build-logs/:slug",
+      "file": "src/app/build-logs/[slug]/page.tsx"
+    },
+    {
+      "route": "/entries",
+      "file": "src/app/entries/page.tsx"
+    },
+    {
+      "route": "/entries/:slug",
+      "file": "src/app/entries/[slug]/page.tsx"
+    },
+    {
+      "route": "/experiments",
+      "file": "src/app/experiments/page.tsx"
+    },
+    {
+      "route": "/experiments/:slug",
+      "file": "src/app/experiments/[slug]/page.tsx"
+    },
+    {
+      "route": "/field-notes",
+      "file": "src/app/field-notes/page.tsx"
+    },
+    {
+      "route": "/field-notes/:slug",
+      "file": "src/app/field-notes/[slug]/page.tsx"
+    },
+    {
+      "route": "/fragments",
+      "file": "src/app/fragments/page.tsx"
+    },
+    {
+      "route": "/fragments/:slug",
+      "file": "src/app/fragments/[slug]/page.tsx"
+    },
+    {
+      "route": "/garden",
+      "file": "src/app/garden/page.tsx"
+    },
+    {
+      "route": "/graveyard",
+      "file": "src/app/graveyard/page.tsx"
+    },
+    {
+      "route": "/graveyard/:slug",
+      "file": "src/app/graveyard/[slug]/page.tsx"
+    },
+    {
+      "route": "/index",
+      "file": "src/app/index/page.tsx"
+    },
+    {
+      "route": "/patterns",
+      "file": "src/app/patterns/page.tsx"
+    },
+    {
+      "route": "/patterns/:slug",
+      "file": "src/app/patterns/[slug]/page.tsx"
+    }
+  ],
+  "components": [
+    {
+      "name": "AnnotationAnchor",
+      "folder": "annotations",
+      "file": "src/components/annotations/AnnotationAnchor.tsx"
+    },
+    {
+      "name": "AnnotationMarker",
+      "folder": "annotations",
+      "file": "src/components/annotations/AnnotationMarker.tsx"
+    },
+    {
+      "name": "AnnotationNote",
+      "folder": "annotations",
+      "file": "src/components/annotations/AnnotationNote.tsx"
+    },
+    {
+      "name": "ArchiveAnnotations",
+      "folder": "annotations",
+      "file": "src/components/annotations/ArchiveAnnotations.tsx"
+    },
+    {
+      "name": "ArchiveCard",
+      "folder": "archive",
+      "file": "src/components/archive/ArchiveCard.tsx"
+    },
+    {
+      "name": "ArchiveIndex",
+      "folder": "archive",
+      "file": "src/components/archive/ArchiveIndex.tsx"
+    },
+    {
+      "name": "ArchiveMetaCard",
+      "folder": "archive",
+      "file": "src/components/archive/ArchiveMetaCard.tsx"
+    },
+    {
+      "name": "CollectionPage",
+      "folder": "archive",
+      "file": "src/components/archive/CollectionPage.tsx"
+    },
+    {
+      "name": "ConfidenceBadge",
+      "folder": "archive",
+      "file": "src/components/archive/ConfidenceBadge.tsx"
+    },
+    {
+      "name": "ContentDetailPage",
+      "folder": "archive",
+      "file": "src/components/archive/ContentDetailPage.tsx"
+    },
+    {
+      "name": "RelatedArtifacts",
+      "folder": "archive",
+      "file": "src/components/archive/RelatedArtifacts.tsx"
+    },
+    {
+      "name": "StatusBadge",
+      "folder": "archive",
+      "file": "src/components/archive/StatusBadge.tsx"
+    },
+    {
+      "name": "TagList",
+      "folder": "archive",
+      "file": "src/components/archive/TagList.tsx"
+    },
+    {
+      "name": "ArchiveGraph",
+      "folder": "experiments",
+      "file": "src/components/experiments/ArchiveGraph.tsx"
+    },
+    {
+      "name": "ExperimentFrame",
+      "folder": "experiments",
+      "file": "src/components/experiments/ExperimentFrame.tsx"
+    },
+    {
+      "name": "Footer",
+      "folder": "layout",
+      "file": "src/components/layout/Footer.tsx"
+    },
+    {
+      "name": "Header",
+      "folder": "layout",
+      "file": "src/components/layout/Header.tsx"
+    },
+    {
+      "name": "SiteShell",
+      "folder": "layout",
+      "file": "src/components/layout/SiteShell.tsx"
+    },
+    {
+      "name": "Nav",
+      "folder": "navigation",
+      "file": "src/components/navigation/Nav.tsx"
+    },
+    {
+      "name": "CodeBlock",
+      "folder": "writing",
+      "file": "src/components/writing/CodeBlock.tsx"
+    },
+    {
+      "name": "DiagramBlock",
+      "folder": "writing",
+      "file": "src/components/writing/DiagramBlock.tsx"
+    },
+    {
+      "name": "MdxRenderer",
+      "folder": "writing",
+      "file": "src/components/writing/MdxRenderer.tsx"
+    },
+    {
+      "name": "OpenQuestions",
+      "folder": "writing",
+      "file": "src/components/writing/OpenQuestions.tsx"
+    },
+    {
+      "name": "SideNote",
+      "folder": "writing",
+      "file": "src/components/writing/SideNote.tsx"
+    },
+    {
+      "name": "TableOfContents",
+      "folder": "writing",
+      "file": "src/components/writing/TableOfContents.tsx"
+    },
+    {
+      "name": "TerminalBlock",
+      "folder": "writing",
+      "file": "src/components/writing/TerminalBlock.tsx"
+    }
+  ],
+  "lib": [
+    {
+      "file": "src/lib/annotation-discussions.ts",
+      "exports": [
+        "AnnotationDiscussion",
+        "annotationDiscussionRepository",
+        "annotationDiscussionCategorySlug",
+        "defaultAnnotationDiscussionUrl",
+        "getAnnotationDiscussionForRecord"
+      ]
+    },
+    {
+      "file": "src/lib/annotations.ts",
+      "exports": [
+        "ArchiveAnnotation",
+        "MockArchiveAnnotation",
+        "RenderedArchiveAnnotation",
+        "getAnnotationsForRecord",
+        "getAnnotationsByAnchor"
+      ]
+    },
+    {
+      "file": "src/lib/content.ts",
+      "exports": [
+        "COLLECTIONS",
+        "COLLECTION_FOLDERS",
+        "CollectionFolder",
+        "ContentType",
+        "ContentStatus",
+        "ContentConfidence",
+        "ContentVisibility",
+        "ExternalLinkKind",
+        "ExternalLink",
+        "ArchiveItem",
+        "ContentItem",
+        "getAllContent",
+        "getAllArchiveItems",
+        "getRecentContent",
+        "getListedContent",
+        "getCollectionContent",
+        "getCollectionArchiveItems",
+        "getContentBySlug",
+        "getContentByFolderAndSlug",
+        "getStaticParamsForCollection",
+        "getRelatedContent",
+        "getArchiveYears",
+        "getArchiveTags",
+        "getArchiveTools"
+      ]
+    },
+    {
+      "file": "src/lib/graph.ts",
+      "exports": [
+        "GraphNodeKind",
+        "GraphNode",
+        "GraphEdgeKind",
+        "GraphEdge",
+        "ArchiveGraph",
+        "recordNodeId",
+        "tagNodeId",
+        "buildArchiveGraph",
+        "getArchiveGraph"
+      ]
+    },
+    {
+      "file": "src/lib/headings.ts",
+      "exports": [
+        "TocHeading",
+        "getMarkdownHeadings",
+        "slugifyHeading",
+        "textFromChildren"
+      ]
+    },
+    {
+      "file": "src/lib/page-metadata.ts",
+      "exports": [
+        "getCollectionMetadata",
+        "getContentMetadata"
+      ]
+    }
+  ],
+  "scripts": [
+    "garden/scripts/backlog.mjs",
+    "garden/scripts/catalog.mjs",
+    "garden/scripts/intake.mjs",
+    "garden/scripts/lib/garden-core.mjs",
+    "garden/scripts/moderate.mjs",
+    "garden/scripts/snapshot.mjs",
+    "scripts/annotations-audit.mjs",
+    "scripts/archive-discussions.mjs",
+    "scripts/content-audit.mjs",
+    "scripts/privacy-audit.mjs",
+    "scripts/project-update.mjs",
+    "scripts/public-output-audit.mjs",
+    "scripts/verify-pages-export.mjs",
+    "scripts/write-graph.mjs"
+  ],
+  "npmScripts": [
+    {
+      "name": "dev",
+      "command": "next dev"
+    },
+    {
+      "name": "prebuild",
+      "command": "node scripts/content-audit.mjs --write-index && node scripts/project-update.mjs --write-ledger && node scripts/write-graph.mjs"
+    },
+    {
+      "name": "build",
+      "command": "next build"
+    },
+    {
+      "name": "project:update",
+      "command": "node scripts/project-update.mjs"
+    },
+    {
+      "name": "project:ledger",
+      "command": "node scripts/project-update.mjs --list"
+    },
+    {
+      "name": "garden:snapshot",
+      "command": "node garden/scripts/snapshot.mjs"
+    },
+    {
+      "name": "garden:catalog",
+      "command": "node garden/scripts/catalog.mjs"
+    },
+    {
+      "name": "garden:intake",
+      "command": "node garden/scripts/intake.mjs"
+    },
+    {
+      "name": "garden:backlog",
+      "command": "node garden/scripts/backlog.mjs"
+    },
+    {
+      "name": "garden:moderate",
+      "command": "node garden/scripts/moderate.mjs"
+    },
+    {
+      "name": "garden:self-check",
+      "command": "node garden/scripts/snapshot.mjs --self-check && node garden/scripts/catalog.mjs --self-check && node garden/scripts/intake.mjs --self-check && node garden/scripts/backlog.mjs --self-check && node garden/scripts/moderate.mjs --self-check && node scripts/write-graph.mjs --self-check"
+    },
+    {
+      "name": "content:audit",
+      "command": "node scripts/content-audit.mjs"
+    },
+    {
+      "name": "annotations:audit",
+      "command": "node scripts/annotations-audit.mjs"
+    },
+    {
+      "name": "discussions:self-check",
+      "command": "node scripts/archive-discussions.mjs --self-check"
+    },
+    {
+      "name": "discussions:sync",
+      "command": "node scripts/archive-discussions.mjs --sync"
+    },
+    {
+      "name": "discussions:export",
+      "command": "node scripts/archive-discussions.mjs --export-clear"
+    },
+    {
+      "name": "privacy:audit",
+      "command": "node scripts/privacy-audit.mjs"
+    },
+    {
+      "name": "public-output:audit",
+      "command": "node scripts/public-output-audit.mjs"
+    },
+    {
+      "name": "pages:verify",
+      "command": "node scripts/verify-pages-export.mjs"
+    },
+    {
+      "name": "deploy:check",
+      "command": "npm run content:audit && npm run build && npm run pages:verify && npm run public-output:audit"
+    },
+    {
+      "name": "agent:check",
+      "command": "npm run garden:self-check && npm run project:update -- --self-check && npm run content:audit -- --self-check && npm run discussions:self-check && npm run privacy:audit -- --self-check && npm run public-output:audit -- --self-check && npm run content:audit && npm run annotations:audit && npm run privacy:audit && npm run build && npm run pages:verify && npm run public-output:audit && npm run garden:backlog && npm run garden:catalog -- --check"
+    }
+  ],
+  "templates": [
+    "templates/prompts/new-content.md",
+    "templates/prompts/project-checkin.md",
+    "templates/prompts/project-link.md",
+    "templates/prompts/publish-content.md",
+    "templates/prompts/site-feature.md",
+    "templates/prompts/update-content.md",
+    "templates/project-checkin/AGENTS.project-checkin.md",
+    "templates/content/build-log.mdx",
+    "templates/content/entry.mdx",
+    "templates/content/experiment.mdx",
+    "templates/content/field-note.mdx",
+    "templates/content/fragment.mdx",
+    "templates/content/graveyard-note.mdx",
+    "templates/content/pattern.mdx"
+  ],
+  "skills": [
+    {
+      "name": "auto-moderation",
+      "file": "garden/skills/auto-moderation/SKILL.md",
+      "committed": true
+    },
+    {
+      "name": "(local .agents/skills present, gitignored)",
+      "file": ".agents/skills",
+      "committed": false
+    }
+  ],
+  "workflows": [
+    ".github/workflows/archive-discussions-sync.yml",
+    ".github/workflows/archive-intake-screener.yml",
+    ".github/workflows/deploy-pages.yml"
+  ],
+  "docs": [
+    "docs/README.md",
+    "docs/agent-project-updates.md",
+    "docs/agent-workflow.md",
+    "docs/archive-annotations-auto-moderation.md",
+    "docs/archive-annotations-backend-decision.md",
+    "docs/archive-annotations-data.md",
+    "docs/archive-annotations-design-plan.md",
+    "docs/archive-annotations-intake.md",
+    "docs/archive-annotations-moderation-model.md",
+    "docs/archive-annotations-phase-e-plan.md",
+    "docs/archive-annotations-roadmap.md",
+    "docs/archive-annotations-technical-plan.md",
+    "docs/archive-style-guide.md",
+    "docs/component-map.md",
+    "docs/content-authoring.md",
+    "docs/content-model.md",
+    "docs/deploy.md",
+    "docs/design-plan.md",
+    "docs/operating-the-garden.md",
+    "docs/privacy-and-public-repo.md",
+    "docs/project-linking.md",
+    "docs/thebolanarchives_website_theme_brief_backup.md",
+    "docs/thebolanarchives_website_theme_brief_chosen.md",
+    "docs/workspace-catalog.md"
+  ],
+  "totals": {
+    "routes": 18,
+    "components": 26,
+    "libModules": 6,
+    "scripts": 14,
+    "docs": 24
+  }
+}

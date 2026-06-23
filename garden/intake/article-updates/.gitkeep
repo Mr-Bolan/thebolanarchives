@@ -1,0 +1,3 @@
+# keep the article-updates intake folder available locally.
+# drop .md notes here about an article or page you want changed.
+# raw note bodies are gitignored; the loop turns them into sanitized backlog items.

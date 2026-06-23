@@ -5,10 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/content-audit.mjs --write-index && node scripts/project-update.mjs --write-ledger",
+    "prebuild": "node scripts/content-audit.mjs --write-index && node scripts/project-update.mjs --write-ledger && node scripts/write-graph.mjs",
     "build": "next build",
     "project:update": "node scripts/project-update.mjs",
     "project:ledger": "node scripts/project-update.mjs --list",
+    "garden:snapshot": "node garden/scripts/snapshot.mjs",
+    "garden:catalog": "node garden/scripts/catalog.mjs",
+    "garden:intake": "node garden/scripts/intake.mjs",
+    "garden:backlog": "node garden/scripts/backlog.mjs",
+    "garden:moderate": "node garden/scripts/moderate.mjs",
+    "garden:self-check": "node garden/scripts/snapshot.mjs --self-check && node garden/scripts/catalog.mjs --self-check && node garden/scripts/intake.mjs --self-check && node garden/scripts/backlog.mjs --self-check && node garden/scripts/moderate.mjs --self-check && node scripts/write-graph.mjs --self-check",
     "content:audit": "node scripts/content-audit.mjs",
     "annotations:audit": "node scripts/annotations-audit.mjs",
     "discussions:self-check": "node scripts/archive-discussions.mjs --self-check",
@@ -18,7 +24,7 @@
     "public-output:audit": "node scripts/public-output-audit.mjs",
     "pages:verify": "node scripts/verify-pages-export.mjs",
     "deploy:check": "npm run content:audit && npm run build && npm run pages:verify && npm run public-output:audit",
-    "agent:check": "npm run project:update -- --self-check && npm run content:audit -- --self-check && npm run discussions:self-check && npm run privacy:audit -- --self-check && npm run public-output:audit -- --self-check && npm run content:audit && npm run annotations:audit && npm run privacy:audit && npm run build && npm run pages:verify && npm run public-output:audit"
+    "agent:check": "npm run garden:self-check && npm run project:update -- --self-check && npm run content:audit -- --self-check && npm run discussions:self-check && npm run privacy:audit -- --self-check && npm run public-output:audit -- --self-check && npm run content:audit && npm run annotations:audit && npm run privacy:audit && npm run build && npm run pages:verify && npm run public-output:audit && npm run garden:backlog && npm run garden:catalog -- --check"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

@@ -40,6 +40,9 @@ series: "dashboard truth"
 sequence: 2
 last_verified: "2026-06-14"
 source_context: "operator observation during a production run"
+points:
+  - "dashboards can show data without creating understanding"
+  - "the operator's signal set is wider than the data model"
 aliases:
   - "dashboard-truth"
 external_links:
@@ -47,6 +50,11 @@ external_links:
     url: "https://github.com/Mr-Bolan/example-project"
     kind: "repository"
 ```
+
+`points` are the key claims or takeaways specific to this page. They render as a short
+"key points" block near the top of the record and make the archive scannable. Prefer
+`points` and page-relevant `tags` over forcing every record into the same section
+structure. `points` is optional and can be added to any record at any time.
 
 ## required vs optional fields
 
@@ -77,6 +85,7 @@ Optional fields:
 | `sequence` | number | order within a series |
 | `last_verified` | date string | useful for technical claims |
 | `source_context` | string | short evidence context |
+| `points` | string array | key claims/takeaways specific to this page; render as a "key points" block |
 | `aliases` | string array | old names or alternate slugs |
 | `external_links` | object array | public project/artifact links; see `docs/project-linking.md` |
 
@@ -90,7 +99,7 @@ General:
 - `created`, `updated`, and `last_verified` must be `YYYY-MM-DD`.
 - `updated` must be the same as or later than `created`.
 - `summary` should be 80-220 characters.
-- `tags`, `tools`, `related`, and `aliases` must be arrays of strings.
+- `tags`, `tools`, `related`, `aliases`, and `points` must be arrays of strings.
 - `external_links`, when present, must use `label`, `url`, and `kind`.
 - `tags` should be lowercase kebab-case.
 - `related` must not include the current `slug`.
@@ -121,47 +130,52 @@ Route mapping:
 
 ## content type definitions
 
+The emphasis notes below are optional guidance, not a required structure. Shape each record
+to its actual content. Lead with `points` and page-relevant `tags`; add only the sections a
+record genuinely needs. The hard rules are the frontmatter schema and the privacy rules, not
+a fixed body outline. Two records of the same type may look quite different — that is fine.
+
 ### `entry`
 
 A longer archive article. Use for essays, explanations, retrospectives, and records that need narrative structure.
 
-Expected sections: what this is, why it exists, what happened or was built, what broke, what is understood now, open questions.
+Suggested emphasis (optional): what this is, why it exists, what happened or was built, what broke, what is understood now, open questions.
 
 ### `field_note`
 
 A real-system observation from machines, data, people, operators, workflows, or technical environments.
 
-Expected emphasis: evidence, context, observed behavior, uncertainty, and what the observation suggests.
+Suggested emphasis (optional): evidence, context, observed behavior, uncertainty, and what the observation suggests.
 
 ### `build_log`
 
 A record of something being made.
 
-Expected emphasis: goal, current state, decisions, failures, next step, and whether the build is active, paused, or retired.
+Suggested emphasis (optional): goal, current state, decisions, failures, next step, and whether the build is active, paused, or retired.
 
 ### `fragment`
 
 A small thought that may grow later.
 
-Expected emphasis: speed and clarity. Fragments do not need full article structure.
+Suggested emphasis (optional): speed and clarity. Fragments do not need full article structure.
 
 ### `pattern`
 
 A reusable mental model or framework.
 
-Expected emphasis: definition, when it applies, what it helps explain, limits, and related examples.
+Suggested emphasis (optional): definition, when it applies, what it helps explain, limits, and related examples.
 
 ### `experiment`
 
 An interactive or technical prototype.
 
-Expected emphasis: question, controls or variables, what changes when assumptions change, static fallback explanation, and limits.
+Suggested emphasis (optional): question, controls or variables, what changes when assumptions change, static fallback explanation, and limits.
 
 ### `graveyard_note`
 
 A record of abandoned, retired, failed, or replaced work.
 
-Expected emphasis: why it died, what was learned, what replaced it, and what remains useful.
+Suggested emphasis (optional): why it died, what was learned, what replaced it, and what remains useful.
 
 ## maturity status definitions
 

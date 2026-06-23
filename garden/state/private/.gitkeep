@@ -1,0 +1,3 @@
+# keep the private state folder available locally; its contents are gitignored.
+# the orchestrator writes sensitive specifics here (referenced by id from the backlog)
+# so they never enter committed state.

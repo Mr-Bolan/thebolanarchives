@@ -1,0 +1,31 @@
+# archive-projects.example.txt
+#
+# Copy this to `archive-projects.txt` (gitignored, local-only) to register sources the
+# Blackbox Garden loop may read and write de-identified articles about. Starts empty: the
+# loop scans nothing until you opt a source in here.
+#
+# One source per line. Blank lines and lines starting with # are ignored.
+#
+# Local repositories (absolute or relative path from the repo root):
+#   ../my-local-project
+#   C:\Users\you\Documents\another-project
+#
+# Remote GitHub repositories (read with your GITHUB_TOKEN / GH_TOKEN):
+#   github owner/repo
+#   github owner/another-repo
+#
+# How the loop uses this file:
+#   - stage 00 intake (`npm run garden:intake`) scans each registered source for new or
+#     changed work worth writing about and files a sanitized backlog item.
+#   - the loop NEVER copies raw repo content into committed state; it writes de-identified
+#     articles only after the auto-moderation gate passes.
+#
+# Compatibility note:
+#   - local-path lines are also usable by `npm run project:update -- --sync-project-list
+#     archive-projects.txt` for cross-project build-log check-ins.
+#   - `github ...` lines are for the garden scanner only; do not point --*-project-list at
+#     a file containing them.
+#
+# Example (commented out so this file registers nothing by default):
+# ../service-scope-quoting-workspace
+# github your-handle/some-tool

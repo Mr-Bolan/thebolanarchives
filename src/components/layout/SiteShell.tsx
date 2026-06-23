@@ -12,6 +12,7 @@ const navItems: NavItem[] = [
   { href: "/patterns", label: "patterns" },
   { href: "/experiments", label: "experiments" },
   { href: "/graveyard", label: "graveyard" },
+  { href: "/garden", label: "garden" },
   { href: "/index", label: "index" },
   { href: "/about", label: "about" },
 ];
