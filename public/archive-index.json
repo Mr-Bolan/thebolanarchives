@@ -84,6 +84,46 @@
     "source_context": "sanitized inspection of a registered capture-decoder source: design docs, legacy Python probes, Go parser/decoder/exporter, React annotation UI, installer notes, and tests; backend and frontend tests passed on 2026-06-23"
   },
   {
+    "title": "manual label printing from templates",
+    "slug": "manual-label-printing-from-templates",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows label-printing utility that turns bundled report templates, saved field values, presets, and layout nudges into repeatable manual print jobs.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "label-printing",
+      "templates",
+      "windows-app",
+      "presets",
+      "operations",
+      "document-generation"
+    ],
+    "tools": [
+      "dotnet",
+      "winforms",
+      "windows-installer",
+      "powershell"
+    ],
+    "narrative_origin": "manual labels that needed remembered setup, not ad hoc typing",
+    "related": [
+      "workbook-row-to-packout-pdf",
+      "finished-batch-packout-report-export",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "manual printing still needs a system when the same labels are recreated under pressure",
+      "the template file became the contract: supported items load, unsupported items fail visibly",
+      "saved values, presets, and layout nudges are the real operator surface around the print button",
+      "sample labels and template filenames are privacy boundaries because they often carry operational identity"
+    ],
+    "route": "/build-logs/manual-label-printing-from-templates",
+    "record_id": "build_log_007",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered label-printing source: README, template loader, renderer, storage layer, installer scripts, and tests; source tests passed on 2026-06-23"
+  },
+  {
     "title": "real-time anomaly detection on a grading line",
     "slug": "real-time-anomaly-detection-on-a-grading-line",
     "type": "build_log",

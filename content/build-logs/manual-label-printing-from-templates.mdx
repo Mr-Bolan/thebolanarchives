@@ -1,0 +1,142 @@
+---
+title: "manual label printing from templates"
+slug: "manual-label-printing-from-templates"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a Windows label-printing utility that turns bundled report templates, saved field values, presets, and layout nudges into repeatable manual print jobs."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - label-printing
+  - templates
+  - windows-app
+  - presets
+  - operations
+  - document-generation
+tools:
+  - dotnet
+  - winforms
+  - windows-installer
+  - powershell
+narrative_origin: "manual labels that needed remembered setup, not ad hoc typing"
+visibility: "public"
+related:
+  - "workbook-row-to-packout-pdf"
+  - "finished-batch-packout-report-export"
+  - "data-trust-ladder"
+points:
+  - "manual printing still needs a system when the same labels are recreated under pressure"
+  - "the template file became the contract: supported items load, unsupported items fail visibly"
+  - "saved values, presets, and layout nudges are the real operator surface around the print button"
+  - "sample labels and template filenames are privacy boundaries because they often carry operational identity"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered label-printing source: README, template loader, renderer, storage layer, installer scripts, and tests; source tests passed on 2026-06-23"
+record_id: "build_log_007"
+---
+
+# build_log_007 // manual_label_printing_from_templates
+
+## what this is
+
+A Windows desktop utility for printing labels from bundled report templates. It is not a
+general designer and not a database-backed label platform. It is a controlled path for the
+cases where an operator needs to choose a known label, fill a handful of fields, preview it,
+adjust small layout offsets, and print it again later without rebuilding the setup from
+memory.
+
+The app keeps its useful state near the machine: copied seed templates, application
+settings, saved field values, presets, and per-template layout adjustments. The installer
+turns that into a normal Windows launch path instead of a folder of scripts.
+
+<TerminalBlock title="manual label loop (sanitized)" prompt="">
+{`bundled templates
+  -> seed into shared app data
+  -> load supported template items
+  -> fill fields from saved values or preset
+  -> preview at screen DPI
+  -> print at printer DPI
+  -> remember values, preset, and small item nudges`}
+</TerminalBlock>
+
+## why it exists
+
+Manual label printing sounds simple until the same label has to be repeated under real
+operating conditions. Someone has to remember which template to use, which values were used
+last time, which fields should default to today's date, and whether one text item needs to
+move a fraction of an inch on the physical printer.
+
+That is too much hidden state for a bare print button. The useful system is the memory
+around the button.
+
+## the contract is the template
+
+The loader treats each template as a contract. It extracts page size, parameters, text
+items, barcode-like items, and the bounds needed for rendering. Unsupported template items
+do not silently disappear; they are reported as load errors so the operator does not get a
+plausible but incomplete label.
+
+That is the right kind of narrowness. The app does not need to support every feature a
+template designer can express. It needs to support the subset it can render honestly.
+
+## what the app remembers
+
+The storage layer is the quietly important part. It persists:
+
+- recent values per field, trimmed and de-duplicated
+- named presets that capture a template, printer choice, and field values
+- app settings such as the last selected template and printer
+- per-template item adjustments for small x/y layout nudges
+
+The distinction matters. A saved value is a piece of field memory. A preset is a complete
+setup. A layout adjustment is physical-world compensation. Mixing those together would make
+the app harder to reason about and harder to repair.
+
+## what worked
+
+The source tests target the pieces most likely to fail in the real workflow:
+
+- all bundled seed templates load
+- unsupported template items return explicit errors
+- rendered labels produce nonblank bitmaps
+- item adjustments visibly move rendered content
+- tight text remains visible at print DPI
+- saved field values are trimmed, de-duplicated, and sorted by recent use
+- presets persist the full setup and remember field values
+- empty layout-adjustment records are normalized away
+
+That suite does not prove every printer will behave. It does prove the app is protecting
+the template contract, rendering path, and remembered operator state instead of only testing
+that a form opens.
+
+## what broke
+
+- **template features are a boundary.** if a designer adds an unsupported item, the safest
+  behavior is to block the label, not print a partial one.
+- **printer output still needs physical verification.** bitmap rendering can be tested, but
+  printer margins, scaling, drivers, and stock alignment remain machine-specific.
+- **small nudges can become local folklore.** layout adjustments are useful, but they need
+  to stay visible as stored state instead of turning into mystery offsets.
+- **samples identify more than code does.** template filenames, example field values, and
+  label screenshots can reveal the operation faster than the implementation.
+- **installation is part of the product.** shared template storage, writable settings,
+  shortcuts, and uninstall behavior are not packaging chores; they decide whether a
+  non-developer can use the tool.
+
+## what i understand now
+
+Manual tools still need architecture. The architecture is just smaller and more tactile:
+a bounded template grammar, a renderer that refuses unsupported content, remembered values
+that reduce typing, presets that preserve setup, and a Windows install path that makes the
+thing feel like equipment instead of source code.
+
+The lesson carries into larger reporting work. Repetition is where the product lives. If a
+human has to remember the same label setup twice, the system has already leaked state.
+
+## open questions
+
+<OpenQuestions questions={[
+  "Which template features are worth supporting, and which should stay explicit load errors?",
+  "How should layout nudges be reviewed so they stay operational knowledge instead of hidden printer lore?",
+  "What is the smallest physical printer test that would catch a label that looks correct in preview but fails on stock?"
+]} />

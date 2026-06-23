@@ -56,6 +56,32 @@
     "next_move": ""
   },
   {
+    "title": "manual label printing from templates",
+    "slug": "manual-label-printing-from-templates",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows label-printing utility that turns bundled report templates, saved field values, presets, and layout nudges into repeatable manual print jobs.",
+    "updated": "2026-06-23",
+    "tags": [
+      "label-printing",
+      "templates",
+      "windows-app",
+      "presets",
+      "operations",
+      "document-generation"
+    ],
+    "tools": [
+      "dotnet",
+      "winforms",
+      "windows-installer",
+      "powershell"
+    ],
+    "route": "/build-logs/manual-label-printing-from-templates",
+    "current_state": "A build log for a Windows label-printing utility that turns bundled report templates, saved field values, presets, and layout nudges into repeatable manual print jobs.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "real-time anomaly detection on a grading line",
     "slug": "real-time-anomaly-detection-on-a-grading-line",
     "status": "working_note",

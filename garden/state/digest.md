@@ -202,3 +202,38 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 12 public records with 17 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: manual label printing from templates
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/manual-label-printing-from-templates.mdx`.
+
+The public record strips repository identity, exact template filenames, sample field
+values, local paths, printer/site specifics, and source labels. It preserves the system
+shape: a Windows manual-label utility with bundled templates, explicit load errors for
+unsupported template items, bitmap preview/print rendering, saved field values, presets,
+per-template layout adjustments, installer setup, and tests around the fragile path.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, exact template filenames, sample values, or un-de-identified printer/site details
+  in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real operational desktop
+  utility and explains what it set out to do, what worked, and what stayed physically
+  dependent on printers and stock.
+- truthfulness: PASS. `working_note` / `partial` fits a tested Windows utility whose
+  source tests cover rendering and storage behavior, while the record keeps real-printer
+  verification limits visible.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now and connects
+  the reporting/document-generation records to the more tactile manual print workflow.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/manual-label-printing-from-templates.mdx`
+  passed; the moderation packet reported content and privacy audits green. The source's
+  own .NET test suite passed in an isolated temporary clone.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 13 public records with 16 ready items remaining for later
+loop work.

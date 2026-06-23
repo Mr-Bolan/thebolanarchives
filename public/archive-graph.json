@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T10:08:26.194Z",
+  "generated": "2026-06-23T10:16:11.735Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -25,7 +25,7 @@
       "id": "record:finished-batch-packout-report-export",
       "kind": "record",
       "label": "finished-batch-packout-report-export",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/finished-batch-packout-report-export",
       "type": "build_log",
       "status": "working_note",
@@ -40,6 +40,16 @@
       "type": "build_log",
       "status": "working_note",
       "slug": "machine-capture-to-training-dataset"
+    },
+    {
+      "id": "record:manual-label-printing-from-templates",
+      "kind": "record",
+      "label": "manual-label-printing-from-templates",
+      "degree": 9,
+      "route": "/build-logs/manual-label-printing-from-templates",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "manual-label-printing-from-templates"
     },
     {
       "id": "record:real-time-anomaly-detection-on-a-grading-line",
@@ -75,7 +85,7 @@
       "id": "record:workbook-row-to-packout-pdf",
       "kind": "record",
       "label": "workbook-row-to-packout-pdf",
-      "degree": 9,
+      "degree": 10,
       "route": "/build-logs/workbook-row-to-packout-pdf",
       "type": "build_log",
       "status": "working_note",
@@ -105,7 +115,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 11,
+      "degree": 12,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -195,7 +205,7 @@
       "id": "tag:operations",
       "kind": "tag",
       "label": "operations",
-      "degree": 4,
+      "degree": 5,
       "tag": "operations"
     },
     {
@@ -246,6 +256,41 @@
       "label": "local-tools",
       "degree": 1,
       "tag": "local-tools"
+    },
+    {
+      "id": "tag:label-printing",
+      "kind": "tag",
+      "label": "label-printing",
+      "degree": 1,
+      "tag": "label-printing"
+    },
+    {
+      "id": "tag:templates",
+      "kind": "tag",
+      "label": "templates",
+      "degree": 1,
+      "tag": "templates"
+    },
+    {
+      "id": "tag:windows-app",
+      "kind": "tag",
+      "label": "windows-app",
+      "degree": 2,
+      "tag": "windows-app"
+    },
+    {
+      "id": "tag:presets",
+      "kind": "tag",
+      "label": "presets",
+      "degree": 1,
+      "tag": "presets"
+    },
+    {
+      "id": "tag:document-generation",
+      "kind": "tag",
+      "label": "document-generation",
+      "degree": 2,
+      "tag": "document-generation"
     },
     {
       "id": "tag:anomaly-detection",
@@ -344,20 +389,6 @@
       "label": "pdf-export",
       "degree": 1,
       "tag": "pdf-export"
-    },
-    {
-      "id": "tag:windows-app",
-      "kind": "tag",
-      "label": "windows-app",
-      "degree": 1,
-      "tag": "windows-app"
-    },
-    {
-      "id": "tag:document-generation",
-      "kind": "tag",
-      "label": "document-generation",
-      "degree": 1,
-      "tag": "document-generation"
     },
     {
       "id": "tag:work",
@@ -548,6 +579,51 @@
     {
       "source": "record:machine-capture-to-training-dataset",
       "target": "tag:local-tools",
+      "kind": "tag"
+    },
+    {
+      "source": "record:manual-label-printing-from-templates",
+      "target": "record:workbook-row-to-packout-pdf",
+      "kind": "related"
+    },
+    {
+      "source": "record:manual-label-printing-from-templates",
+      "target": "record:finished-batch-packout-report-export",
+      "kind": "related"
+    },
+    {
+      "source": "record:manual-label-printing-from-templates",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:manual-label-printing-from-templates",
+      "target": "tag:label-printing",
+      "kind": "tag"
+    },
+    {
+      "source": "record:manual-label-printing-from-templates",
+      "target": "tag:templates",
+      "kind": "tag"
+    },
+    {
+      "source": "record:manual-label-printing-from-templates",
+      "target": "tag:windows-app",
+      "kind": "tag"
+    },
+    {
+      "source": "record:manual-label-printing-from-templates",
+      "target": "tag:presets",
+      "kind": "tag"
+    },
+    {
+      "source": "record:manual-label-printing-from-templates",
+      "target": "tag:operations",
+      "kind": "tag"
+    },
+    {
+      "source": "record:manual-label-printing-from-templates",
+      "target": "tag:document-generation",
       "kind": "tag"
     },
     {
