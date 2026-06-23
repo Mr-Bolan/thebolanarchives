@@ -1,0 +1,151 @@
+---
+title: "machine capture to training dataset"
+slug: "machine-capture-to-training-dataset"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for turning opaque multi-channel machine capture archives into decoded previews, annotations, and reproducible training dataset exports."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - computer-vision
+  - image-decoding
+  - annotation
+  - dataset-building
+  - reverse-engineering
+  - local-tools
+tools:
+  - go
+  - react
+  - typescript
+  - sqlite
+  - python
+  - coco
+  - yolo
+narrative_origin: "machine image captures that were visible only after decoding the archive format"
+visibility: "public"
+related:
+  - "real-time-anomaly-detection-on-a-grading-line"
+  - "operator-knowledge-as-signal"
+  - "data-trust-ladder"
+points:
+  - "the breakthrough was treating the capture file as a container with metadata and validated image payloads, not as an unknowable binary"
+  - "payload length matching width times height times channel count made strict import possible"
+  - "decoding was only the first half; the useful tool needed labels, review states, channel switching, and deterministic dataset export"
+  - "sample archives, local paths, and generated preview images are privacy boundaries in machine-vision work"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered capture-decoder source: design docs, legacy Python probes, Go parser/decoder/exporter, React annotation UI, installer notes, and tests; backend and frontend tests passed on 2026-06-23"
+record_id: "build_log_006"
+---
+
+# build_log_006 // machine_capture_to_training_dataset
+
+## what this is
+
+A local machine-vision tool for turning opaque capture archives into training data. The
+source starts as reverse engineering: inspect unknown binary payloads, decode them into
+visible RGB and infrared channels, compare algorithms, and prove that the metadata can be
+trusted enough for strict import.
+
+The later shape is more useful than a viewer. It becomes a local web app with a Go backend,
+a React annotation UI, a SQLite store, a render cache, and dataset export for common
+computer-vision training formats.
+
+<TerminalBlock title="capture workflow (sanitized)" prompt="">
+{`capture archive
+  -> parse embedded metadata
+  -> validate each payload length
+  -> decode RGB / infrared channels
+  -> render preview or full PNG
+  -> label boxes / polygons
+  -> export COCO + YOLO package`}
+</TerminalBlock>
+
+## why it exists
+
+The raw captures were not useful just because they existed. They needed to become visible,
+reviewable, and exportable. The first problem was: what is inside this archive, and why do
+the images look wrong when decoded the obvious way? The second problem was: once the images
+render, how does a reviewer turn them into examples a model can learn from?
+
+That second question changed the build from a decoding experiment into an annotation system.
+
+## the decoding lesson
+
+The early probes found three important facts:
+
+- the archive acts like a container with embedded XML-like metadata
+- each image payload has declared width, height, and channel count
+- the current samples use delta-encoded channel data, with visible RGB channels plus
+  infrared channels
+
+That meant import could be strict. If a payload length did not match
+`width * height * channels`, the importer could reject it instead of guessing. The image
+decoder could then focus on how each row and channel should be reconstructed.
+
+The main failure was visual: an earlier seed rule could draw a horizontal artifact through
+the object. The better rule treated each row/channel start as its own seed and accumulated
+signed deltas across the row, then kept a repaired legacy mode for diagnostic comparison.
+
+## what changed
+
+The project moved from loose Python image probes into a local app:
+
+- Go parses the capture archive, hashes source archives and payloads, validates dimensions,
+  decodes channels, renders PNGs, and serves an API.
+- SQLite stores captures, rows, images, labels, annotations, and review state.
+- The frontend gives reviewers capture navigation, row strips, channel switching,
+  brightness/gamma controls, labels, boxes, polygons, notes, and review states.
+- Dataset export writes rendered images, label files, a manifest, split metadata, COCO JSON,
+  and YOLO detection/segmentation labels.
+- A Windows package can run the local server and open the app in the browser.
+
+The important design boundary is local-first. This is not a cloud labeling platform. It is
+a single-user machine-room tool for getting from real capture files to clean dataset
+packages.
+
+## what worked
+
+The backend tests import sample archives, validate row and image counts, check channel
+counts and payload sizes, render RGB and individual channels as PNG, verify cache hits, test
+label and annotation lifecycle, persist annotations through reopen, and export datasets
+with reproducible split files and training-format metadata.
+
+The frontend tests cover the reviewer workflow: import a capture, browse images, switch
+channels, adjust tone controls, create/edit/delete labels, draw boxes and polygons, edit
+annotations, and poll an asynchronous export job.
+
+That is the right surface to test. The hard part is not drawing an image on screen. The hard
+part is preserving the chain from source archive to reviewed annotation to exportable model
+input.
+
+## what broke
+
+- **sample data is not harmless.** archive names, local paths, preview images, grades, and
+  defect labels can identify the work even when the code is generic.
+- **the first decoder was plausible but wrong enough.** it produced visible row artifacts,
+  which is worse than failing loudly because it can train false confidence.
+- **metadata is both evidence and risk.** it makes strict import and provenance possible,
+  but it also carries machine and capture context that should not leak into public notes.
+- **annotation counts can lie.** near-duplicate views inflate progress without improving a
+  model. the UI needed readiness guidance, not just totals.
+- **a local web app still needs operating boundaries.** imports, cache, exports, typed paths,
+  and installed data directories all need clear limits.
+
+## what i understand now
+
+The useful unit is not a decoded image. It is a reproducible training example: source hash,
+decoder version, channel choice, reviewed geometry, label definition, and export manifest.
+Without that chain, a dataset is just a folder of pictures with optimism attached.
+
+The archive decoder matters because it makes the machine's evidence visible. The annotation
+and export layers matter because they turn that evidence into something another system can
+learn from without losing where it came from.
+
+## open questions
+
+<OpenQuestions questions={[
+  "How many independent captures are needed before this becomes a dataset instead of a decoding proof?",
+  "Should annotations be tied to the source image only, or should channel-specific labels exist when infrared evidence changes the decision?",
+  "What metadata belongs in the exported manifest, and what should stay local-only?"
+]} />

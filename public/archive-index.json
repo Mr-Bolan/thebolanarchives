@@ -41,6 +41,49 @@
     "source_context": "sanitized inspection of a registered reporting source: README, operations docs, release docs, git history, service code, and tests"
   },
   {
+    "title": "machine capture to training dataset",
+    "slug": "machine-capture-to-training-dataset",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for turning opaque multi-channel machine capture archives into decoded previews, annotations, and reproducible training dataset exports.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "computer-vision",
+      "image-decoding",
+      "annotation",
+      "dataset-building",
+      "reverse-engineering",
+      "local-tools"
+    ],
+    "tools": [
+      "go",
+      "react",
+      "typescript",
+      "sqlite",
+      "python",
+      "coco",
+      "yolo"
+    ],
+    "narrative_origin": "machine image captures that were visible only after decoding the archive format",
+    "related": [
+      "real-time-anomaly-detection-on-a-grading-line",
+      "operator-knowledge-as-signal",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "the breakthrough was treating the capture file as a container with metadata and validated image payloads, not as an unknowable binary",
+      "payload length matching width times height times channel count made strict import possible",
+      "decoding was only the first half; the useful tool needed labels, review states, channel switching, and deterministic dataset export",
+      "sample archives, local paths, and generated preview images are privacy boundaries in machine-vision work"
+    ],
+    "route": "/build-logs/machine-capture-to-training-dataset",
+    "record_id": "build_log_006",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered capture-decoder source: design docs, legacy Python probes, Go parser/decoder/exporter, React annotation UI, installer notes, and tests; backend and frontend tests passed on 2026-06-23"
+  },
+  {
     "title": "real-time anomaly detection on a grading line",
     "slug": "real-time-anomaly-detection-on-a-grading-line",
     "type": "build_log",

@@ -170,3 +170,35 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 11 public records with 18 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: machine capture to training dataset
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/machine-capture-to-training-dataset.mdx`.
+
+The public record strips repository identity, exact archive extensions, sample archive
+names, sample image names, local paths, third-party tool author details, sample defect
+labels, and machine/source identifiers. It preserves the system shape: opaque capture
+archives, metadata/payload validation, multi-channel delta decoding, local annotation UI,
+SQLite/cache/export storage, and deterministic COCO/YOLO dataset export.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, exact sample names, or un-de-identified archive details in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real machine-vision system and
+  explains what it set out to do, what worked, and what stayed risky.
+- truthfulness: PASS. `working_note` / `partial` fits a local tool verified against source
+  tests, while the record keeps sample-data privacy and dataset-readiness limits visible.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now and broadens
+  the archive beyond reporting into machine-vision dataset work.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/machine-capture-to-training-dataset.mdx`
+  passed; the moderation packet reported content and privacy audits green. Source backend
+  and frontend tests passed in an isolated temporary clone.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 12 public records with 17 ready items remaining for later
+loop work.

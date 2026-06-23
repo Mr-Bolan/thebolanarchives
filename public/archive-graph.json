@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T10:00:27.872Z",
+  "generated": "2026-06-23T10:08:26.194Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -32,10 +32,20 @@
       "slug": "finished-batch-packout-report-export"
     },
     {
+      "id": "record:machine-capture-to-training-dataset",
+      "kind": "record",
+      "label": "machine-capture-to-training-dataset",
+      "degree": 9,
+      "route": "/build-logs/machine-capture-to-training-dataset",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "machine-capture-to-training-dataset"
+    },
+    {
       "id": "record:real-time-anomaly-detection-on-a-grading-line",
       "kind": "record",
       "label": "real-time-anomaly-detection-on-a-grading-line",
-      "degree": 9,
+      "degree": 10,
       "route": "/build-logs/real-time-anomaly-detection-on-a-grading-line",
       "type": "build_log",
       "status": "working_note",
@@ -85,7 +95,7 @@
       "id": "record:operator-knowledge-as-signal",
       "kind": "record",
       "label": "operator-knowledge-as-signal",
-      "degree": 7,
+      "degree": 8,
       "route": "/patterns/operator-knowledge-as-signal",
       "type": "pattern",
       "status": "working_note",
@@ -95,7 +105,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 10,
+      "degree": 11,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -194,6 +204,48 @@
       "label": "data-quality",
       "degree": 2,
       "tag": "data-quality"
+    },
+    {
+      "id": "tag:computer-vision",
+      "kind": "tag",
+      "label": "computer-vision",
+      "degree": 1,
+      "tag": "computer-vision"
+    },
+    {
+      "id": "tag:image-decoding",
+      "kind": "tag",
+      "label": "image-decoding",
+      "degree": 1,
+      "tag": "image-decoding"
+    },
+    {
+      "id": "tag:annotation",
+      "kind": "tag",
+      "label": "annotation",
+      "degree": 1,
+      "tag": "annotation"
+    },
+    {
+      "id": "tag:dataset-building",
+      "kind": "tag",
+      "label": "dataset-building",
+      "degree": 1,
+      "tag": "dataset-building"
+    },
+    {
+      "id": "tag:reverse-engineering",
+      "kind": "tag",
+      "label": "reverse-engineering",
+      "degree": 1,
+      "tag": "reverse-engineering"
+    },
+    {
+      "id": "tag:local-tools",
+      "kind": "tag",
+      "label": "local-tools",
+      "degree": 1,
+      "tag": "local-tools"
     },
     {
       "id": "tag:anomaly-detection",
@@ -451,6 +503,51 @@
     {
       "source": "record:finished-batch-packout-report-export",
       "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-capture-to-training-dataset",
+      "target": "record:real-time-anomaly-detection-on-a-grading-line",
+      "kind": "related"
+    },
+    {
+      "source": "record:machine-capture-to-training-dataset",
+      "target": "record:operator-knowledge-as-signal",
+      "kind": "related"
+    },
+    {
+      "source": "record:machine-capture-to-training-dataset",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:machine-capture-to-training-dataset",
+      "target": "tag:computer-vision",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-capture-to-training-dataset",
+      "target": "tag:image-decoding",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-capture-to-training-dataset",
+      "target": "tag:annotation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-capture-to-training-dataset",
+      "target": "tag:dataset-building",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-capture-to-training-dataset",
+      "target": "tag:reverse-engineering",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-capture-to-training-dataset",
+      "target": "tag:local-tools",
       "kind": "tag"
     },
     {

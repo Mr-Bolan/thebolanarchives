@@ -27,6 +27,35 @@
     "next_move": ""
   },
   {
+    "title": "machine capture to training dataset",
+    "slug": "machine-capture-to-training-dataset",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for turning opaque multi-channel machine capture archives into decoded previews, annotations, and reproducible training dataset exports.",
+    "updated": "2026-06-23",
+    "tags": [
+      "computer-vision",
+      "image-decoding",
+      "annotation",
+      "dataset-building",
+      "reverse-engineering",
+      "local-tools"
+    ],
+    "tools": [
+      "go",
+      "react",
+      "typescript",
+      "sqlite",
+      "python",
+      "coco",
+      "yolo"
+    ],
+    "route": "/build-logs/machine-capture-to-training-dataset",
+    "current_state": "A build log for turning opaque multi-channel machine capture archives into decoded previews, annotations, and reproducible training dataset exports.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "real-time anomaly detection on a grading line",
     "slug": "real-time-anomaly-detection-on-a-grading-line",
     "status": "working_note",

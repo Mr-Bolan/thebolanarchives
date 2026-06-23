@@ -130,14 +130,18 @@
       "id": "source-1eb2af4f",
       "type": "content",
       "title": "draft a de-identified article from a registered source",
-      "status": "ready",
+      "status": "published",
       "priority": "medium",
       "mode": "content-draft",
       "source": "registry",
       "sourceKind": "github",
       "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
       "privateRef": "garden/state/private/source-1eb2af4f.md",
-      "created": "2026-06-23"
+      "created": "2026-06-23",
+      "notes": "Published on 2026-06-23 as content/build-logs/machine-capture-to-training-dataset.mdx after auto-moderation verdict publish. Checks passed: content:audit, privacy:audit, garden:moderate, build, pages:verify, public-output:audit. Source backend and frontend tests passed in isolated temporary clones.",
+      "targets": [
+        "content/build-logs/machine-capture-to-training-dataset.mdx"
+      ]
     },
     {
       "id": "source-3d6ae11d",
