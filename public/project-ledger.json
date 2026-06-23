@@ -98,5 +98,33 @@
     "current_state": "A build log for a static browser preview that demonstrates a report review-to-publish workflow without pretending local state is production security.",
     "latest_update": "",
     "next_move": ""
+  },
+  {
+    "title": "workbook row to packout PDF",
+    "slug": "workbook-row-to-packout-pdf",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows reporting bridge that turns formatted Excel workbooks and selected ledger rows into one-page operational PDFs.",
+    "updated": "2026-06-23",
+    "tags": [
+      "reporting",
+      "spreadsheet-automation",
+      "pdf-export",
+      "windows-app",
+      "document-generation",
+      "operations"
+    ],
+    "tools": [
+      "powershell",
+      "excel-com",
+      "python",
+      "openpyxl",
+      "reportlab",
+      "pyinstaller"
+    ],
+    "route": "/build-logs/workbook-row-to-packout-pdf",
+    "current_state": "A build log for a Windows reporting bridge that turns formatted Excel workbooks and selected ledger rows into one-page operational PDFs.",
+    "latest_update": "",
+    "next_move": ""
   }
 ]

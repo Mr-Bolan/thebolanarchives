@@ -118,6 +118,48 @@
     "source_context": "sanitized inspection of a registered static portal source: README, security docs, data model notes, browser service code, data fixture, commit history, and tests; source tests passed on 2026-06-23"
   },
   {
+    "title": "workbook row to packout PDF",
+    "slug": "workbook-row-to-packout-pdf",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows reporting bridge that turns formatted Excel workbooks and selected ledger rows into one-page operational PDFs.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "reporting",
+      "spreadsheet-automation",
+      "pdf-export",
+      "windows-app",
+      "document-generation",
+      "operations"
+    ],
+    "tools": [
+      "powershell",
+      "excel-com",
+      "python",
+      "openpyxl",
+      "reportlab",
+      "pyinstaller"
+    ],
+    "narrative_origin": "a workbook that already held the report but not the handoff artifact",
+    "related": [
+      "finished-batch-packout-report-export",
+      "static-report-portal-preview",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "sometimes the fastest report renderer is the tool the workbook already lives in",
+      "a spreadsheet row can become a durable document only if the workbook layout is treated as a contract",
+      "the useful wrapper was not the PDF button; it was the row picker, validation, default filename, and installed Windows path",
+      "example workbooks and output names are privacy boundaries because operational labels travel through them"
+    ],
+    "route": "/build-logs/workbook-row-to-packout-pdf",
+    "record_id": "build_log_005",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered workbook-report source: README, Excel export script, row-based PDF generator, desktop wrapper, installer scripts, commit history, and tests; source tests passed on 2026-06-23"
+  },
+  {
     "title": "dashboard without decisions",
     "slug": "dashboard-without-decisions",
     "type": "graveyard_note",

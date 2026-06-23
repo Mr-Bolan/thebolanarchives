@@ -1,0 +1,148 @@
+---
+title: "workbook row to packout PDF"
+slug: "workbook-row-to-packout-pdf"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a Windows reporting bridge that turns formatted Excel workbooks and selected ledger rows into one-page operational PDFs."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - reporting
+  - spreadsheet-automation
+  - pdf-export
+  - windows-app
+  - document-generation
+  - operations
+tools:
+  - powershell
+  - excel-com
+  - python
+  - openpyxl
+  - reportlab
+  - pyinstaller
+narrative_origin: "a workbook that already held the report but not the handoff artifact"
+visibility: "public"
+related:
+  - "finished-batch-packout-report-export"
+  - "static-report-portal-preview"
+  - "data-trust-ladder"
+points:
+  - "sometimes the fastest report renderer is the tool the workbook already lives in"
+  - "a spreadsheet row can become a durable document only if the workbook layout is treated as a contract"
+  - "the useful wrapper was not the PDF button; it was the row picker, validation, default filename, and installed Windows path"
+  - "example workbooks and output names are privacy boundaries because operational labels travel through them"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered workbook-report source: README, Excel export script, row-based PDF generator, desktop wrapper, installer scripts, commit history, and tests; source tests passed on 2026-06-23"
+record_id: "build_log_005"
+---
+
+# build_log_005 // workbook_row_to_packout_pdf
+
+## what this is
+
+A Windows reporting bridge for the awkward middle ground between "the workbook already has
+the facts" and "someone needs a clean PDF now."
+
+There are two paths in the build. One path uses Excel itself as the PDF renderer: open a
+formatted workbook, apply page setup options, select visible or named sheets, and export
+through the native fixed-format engine. The other path reads one valid row from a production
+ledger workbook and draws a one-page report PDF from that row.
+
+<TerminalBlock title="report bridge (sanitized)" prompt="">
+{`formatted workbook
+  -> native Excel export
+  -> PDF keeps print areas, charts, fonts, page breaks
+
+ledger row
+  -> validate expected workbook layout
+  -> extract containers, weights, sizes, defects
+  -> draw one-page report
+  -> save PDF`}
+</TerminalBlock>
+
+## why it exists
+
+Spreadsheets are bad databases, but they are often excellent memory. They hold the row the
+operator recognizes, the labels the office uses, and the page layout somebody already
+tuned by hand. Rebuilding all of that in a fresh reporting system can take longer than the
+actual problem deserves.
+
+The goal here was smaller: make the workbook produce a document artifact without forcing
+someone to manually choose print settings, copy values, or remember which row was safe to
+send.
+
+## the useful decision: keep Excel in the loop
+
+For fully formatted workbooks, the PowerShell path does not try to reimplement layout. It
+starts Excel through COM automation, opens the workbook, applies page setup, and lets Excel
+export the PDF. That keeps the things Excel is already good at: merged cells, charts, print
+areas, repeated headers, page breaks, and fonts.
+
+That choice is not pure. It means Windows, Excel installed, COM cleanup, and a process that
+can fail for desktop reasons. But it is honest about the source of truth. If the workbook is
+the designed report, the renderer should probably be the workbook's renderer.
+
+## the second path: row as report input
+
+The row-based generator is more opinionated. It expects a known worksheet layout and reads a
+selected report row. It decides whether the row is a bin report or a lug report, pulls
+container counts and average weights, builds size distribution rows, separates a special
+non-packable product bucket from normal size grades, sorts defect percentages, and draws a
+one-page PDF.
+
+The desktop app wraps that with the missing operator surface:
+
+- choose the workbook
+- load valid report rows
+- search the row list
+- choose an output folder
+- generate and open the last PDF
+- remember the last workbook and output folder
+
+The installer path turns a script into something a Windows user can launch without knowing
+the command line.
+
+## what worked
+
+The source tests are aimed at the brittle parts, which is a good sign. They check that:
+
+- bin rows and lug rows produce different container labels
+- calculated grade weights and percentages match the row data
+- a legacy size slot is treated as the special product bucket, not as a normal grade
+- crop-year text wraps as one phrase
+- malformed workbook layout raises a clear layout error instead of making a quiet bad PDF
+- generated PDFs contain the expected report text
+
+That test list says what the build is really protecting: not abstract correctness, but the
+small translations that make the PDF match the spreadsheet-world expectation.
+
+## what broke
+
+- **the workbook layout became an API.** column positions, sheet names, header labels, and
+  size sequences are contracts. if the workbook moves, the generator has to know.
+- **output names can leak context.** default filenames built from row fields are convenient,
+  but they can carry operational labels into folders, emails, or screenshots.
+- **Excel automation is powerful but fragile.** it preserves layout, but it also requires a
+  desktop Excel installation and careful process cleanup.
+- **examples are dangerous.** a sample workbook can be more identifying than the code if it
+  includes real labels.
+- **packaging is its own system.** a desktop app, bundled assets, runtime dependencies, and
+  installer tooling have to agree before the reporting logic is useful to a non-developer.
+
+## what i understand now
+
+This was not a general reporting platform. It was a bridge. The value was getting from
+spreadsheet memory to durable document with as little reinvention as possible.
+
+The later, heavier reporting systems can learn from it: keep the vocabulary close to the
+operator's workbook, treat layout assumptions as testable contracts, and never forget that
+the report filename is part of the privacy surface.
+
+## open questions
+
+<OpenQuestions questions={[
+  "When should a spreadsheet layout be preserved by automation, and when should it be replaced by a real report model?",
+  "Should default output filenames strip operational labels by default, even if that makes them less convenient?",
+  "What is the smallest workbook-layout check that prevents a plausible but wrong PDF?"
+]} />

@@ -136,3 +136,37 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 10 public records with 19 ready items remaining for later
 ticks.
+
+## 2026-06-23 - automation tick: workbook row to packout PDF
+
+Continued the same wakeup because ready registered-source work remained after the previous
+publish. Chose the next ready source and drafted
+`content/build-logs/workbook-row-to-packout-pdf.mdx`.
+
+The public record strips repository identity, brand/source names, sample workbook names,
+sample grower/customer labels, local paths, and generated output names from the source. It
+preserves the system shape: Excel-native PDF export, row-based report generation, workbook
+layout validation, bin/lug handling, special product-bucket handling, a Windows desktop
+wrapper, installer packaging, and privacy risk in example workbooks and filenames.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, brand labels, or sample workbook/output identifiers in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real reporting bridge and
+  explains what it set out to do, what worked, and what remained brittle.
+- truthfulness: PASS. `working_note` / `partial` fits a tested but source-specific
+  workbook automation. The record states that the workbook layout is a contract and that
+  examples/filenames are privacy boundaries.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now and connects
+  directly to the existing reporting-system records.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/workbook-row-to-packout-pdf.mdx` passed;
+  the moderation packet reported content and privacy audits green. The source's own unit
+  tests passed in an isolated temporary clone.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 11 public records with 18 ready items remaining for later
+loop work.
