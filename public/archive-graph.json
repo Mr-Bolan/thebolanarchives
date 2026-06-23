@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T10:50:17.254Z",
+  "generated": "2026-06-23T10:56:58.947Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -25,7 +25,7 @@
       "id": "record:agent-runbook-workspace-for-machine-reports",
       "kind": "record",
       "label": "agent-runbook-workspace-for-machine-reports",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/agent-runbook-workspace-for-machine-reports",
       "type": "build_log",
       "status": "working_note",
@@ -75,7 +75,7 @@
       "id": "record:machine-metrics-collector-with-commissioning-gates",
       "kind": "record",
       "label": "machine-metrics-collector-with-commissioning-gates",
-      "degree": 12,
+      "degree": 13,
       "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
       "type": "build_log",
       "status": "working_note",
@@ -90,6 +90,16 @@
       "type": "build_log",
       "status": "working_note",
       "slug": "manual-label-printing-from-templates"
+    },
+    {
+      "id": "record:multi-site-reporter-configuration-shell",
+      "kind": "record",
+      "label": "multi-site-reporter-configuration-shell",
+      "degree": 10,
+      "route": "/build-logs/multi-site-reporter-configuration-shell",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "multi-site-reporter-configuration-shell"
     },
     {
       "id": "record:real-time-anomaly-detection-on-a-grading-line",
@@ -115,7 +125,7 @@
       "id": "record:static-report-portal-preview",
       "kind": "record",
       "label": "static-report-portal-preview",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/static-report-portal-preview",
       "type": "build_log",
       "status": "working_note",
@@ -135,7 +145,7 @@
       "id": "record:wpf-operations-console-shell",
       "kind": "record",
       "label": "wpf-operations-console-shell",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/wpf-operations-console-shell",
       "type": "build_log",
       "status": "working_note",
@@ -234,7 +244,7 @@
       "id": "tag:reporting",
       "kind": "tag",
       "label": "reporting",
-      "degree": 3,
+      "degree": 4,
       "tag": "reporting"
     },
     {
@@ -248,7 +258,7 @@
       "id": "tag:operations",
       "kind": "tag",
       "label": "operations",
-      "degree": 9,
+      "degree": 10,
       "tag": "operations"
     },
     {
@@ -427,6 +437,34 @@
       "tag": "presets"
     },
     {
+      "id": "tag:desktop-app",
+      "kind": "tag",
+      "label": "desktop-app",
+      "degree": 2,
+      "tag": "desktop-app"
+    },
+    {
+      "id": "tag:maui",
+      "kind": "tag",
+      "label": "maui",
+      "degree": 1,
+      "tag": "maui"
+    },
+    {
+      "id": "tag:configuration",
+      "kind": "tag",
+      "label": "configuration",
+      "degree": 1,
+      "tag": "configuration"
+    },
+    {
+      "id": "tag:site-management",
+      "kind": "tag",
+      "label": "site-management",
+      "degree": 1,
+      "tag": "site-management"
+    },
+    {
       "id": "tag:anomaly-detection",
       "kind": "tag",
       "label": "anomaly-detection",
@@ -516,13 +554,6 @@
       "label": "spreadsheet-automation",
       "degree": 1,
       "tag": "spreadsheet-automation"
-    },
-    {
-      "id": "tag:desktop-app",
-      "kind": "tag",
-      "label": "desktop-app",
-      "degree": 1,
-      "tag": "desktop-app"
     },
     {
       "id": "tag:wpf",
@@ -971,6 +1002,56 @@
     {
       "source": "record:manual-label-printing-from-templates",
       "target": "tag:document-generation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:multi-site-reporter-configuration-shell",
+      "target": "record:wpf-operations-console-shell",
+      "kind": "related"
+    },
+    {
+      "source": "record:multi-site-reporter-configuration-shell",
+      "target": "record:static-report-portal-preview",
+      "kind": "related"
+    },
+    {
+      "source": "record:multi-site-reporter-configuration-shell",
+      "target": "record:machine-metrics-collector-with-commissioning-gates",
+      "kind": "related"
+    },
+    {
+      "source": "record:multi-site-reporter-configuration-shell",
+      "target": "record:agent-runbook-workspace-for-machine-reports",
+      "kind": "related"
+    },
+    {
+      "source": "record:multi-site-reporter-configuration-shell",
+      "target": "tag:desktop-app",
+      "kind": "tag"
+    },
+    {
+      "source": "record:multi-site-reporter-configuration-shell",
+      "target": "tag:maui",
+      "kind": "tag"
+    },
+    {
+      "source": "record:multi-site-reporter-configuration-shell",
+      "target": "tag:configuration",
+      "kind": "tag"
+    },
+    {
+      "source": "record:multi-site-reporter-configuration-shell",
+      "target": "tag:site-management",
+      "kind": "tag"
+    },
+    {
+      "source": "record:multi-site-reporter-configuration-shell",
+      "target": "tag:reporting",
+      "kind": "tag"
+    },
+    {
+      "source": "record:multi-site-reporter-configuration-shell",
+      "target": "tag:operations",
       "kind": "tag"
     },
     {

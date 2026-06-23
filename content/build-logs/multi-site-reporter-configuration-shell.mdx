@@ -1,0 +1,147 @@
+---
+title: "multi-site reporter configuration shell"
+slug: "multi-site-reporter-configuration-shell"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a Windows MAUI reporter shell that organizes per-site configuration, site selection, wizard creation, and current-site state."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - desktop-app
+  - maui
+  - configuration
+  - site-management
+  - reporting
+  - operations
+tools:
+  - dotnet
+  - maui
+  - communitytoolkit-mvvm
+  - system-text-json
+  - microsoft-extensions-dependencyinjection
+narrative_origin: "a reporting app that needed site configuration before reports could be trusted"
+visibility: "public"
+related:
+  - "wpf-operations-console-shell"
+  - "static-report-portal-preview"
+  - "machine-metrics-collector-with-commissioning-gates"
+  - "agent-runbook-workspace-for-machine-reports"
+points:
+  - "multi-site reporting starts with configuration boundaries, not charts"
+  - "a site registry makes the current context explicit before any report is generated"
+  - "connection strings and API keys belong behind a privacy boundary even in prototypes"
+  - "build plans are useful evidence when they match code that now compiles"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered Windows MAUI reporting source: configuration library, site registry models, config loader, site manager, current-site state service, splash/site-selection/site-wizard/dashboard view models, views, and implementation plan; source restore/build passed with one XAML binding warning on 2026-06-23; no source test suite was present"
+record_id: "build_log_013"
+---
+
+# build_log_013 // multi_site_reporter_configuration_shell
+
+## what this is
+
+A Windows MAUI shell for a reporting app that needs to know which site it is operating
+against before it can show useful reports.
+
+The source splits the problem into two parts:
+
+- a configuration library with records for connection strings, API endpoints, enabled
+  tools, site config, and site registry entries
+- a desktop app with splash, site selection, site wizard, dashboard, dependency injection,
+  and current-site state
+
+The reporting surface is still early. The interesting work is the context setup: how an
+operator chooses or creates a site, how that config is persisted, and how the app carries
+the selected site into later screens.
+
+<TerminalBlock title="site configuration loop (sanitized)" prompt="">
+{`app starts
+  -> load site registry
+  -> if a recent site exists, load its config
+  -> otherwise show site selection
+  -> wizard can create a new site config
+  -> current-site state is shared through a service
+  -> dashboard reads from the selected site context`}
+</TerminalBlock>
+
+## why it exists
+
+Reports are only meaningful inside the right site context. The same screen can be correct
+for one installation and wrong for another if it points at the wrong database, API, tool
+polling settings, or machine target.
+
+This build tries to make that context explicit. Instead of burying site details in one
+global config file, it creates a registry of sites and a config folder per site. The app
+then starts by asking which site is current before moving toward the dashboard.
+
+## the useful split
+
+The configuration library is the most durable part. It defines:
+
+- a site config version
+- a site name
+- primary and optional telemetry connection strings
+- named API endpoints
+- tool enablement and polling intervals
+- a registry entry with relative path and last-accessed time
+
+The app layer then uses those objects through services. A site manager creates directories,
+writes config JSON, updates a registry file, and deletes site folders. A config loader
+deserializes and validates a site's config. A current-site state service lets view models
+share the selected site without re-reading files.
+
+That is the right direction for a reporting tool that may need to move between machines,
+sites, or operating contexts.
+
+## what worked
+
+The source restore and build passed in an isolated clone. The build produced the config
+library and Windows MAUI app assembly. That means the project references, MAUI resources,
+view models, services, and most XAML bindings are coherent enough to compile.
+
+The implementation also shows useful progress beyond a plan:
+
+- the config models and validation exist in code
+- config load/save uses JSON serialization with case-insensitive reading
+- site creation writes per-site config and updates the registry
+- splash flow tries to auto-load the most recently used site
+- site selection can load a config and update last-accessed metadata
+- the wizard builds a config object from form state
+- dependency injection wires services, view models, and views together
+
+## what broke
+
+- **credential handling is not finished.** the plan mentions secure credential storage, but
+  the visible config path still includes connection strings and endpoint keys as config
+  concepts that need careful separation.
+- **source templates are identity-heavy.** app titles, image assets, default paths, API
+  labels, database names, and key template files are useful locally but should not become
+  public archive details.
+- **the dashboard is still thin.** it reads selected-site context, but it is not yet a
+  finished reporting workflow.
+- **there is a XAML binding warning.** the source build passed, but one site-selection
+  binding points at the item type instead of the expected page binding context.
+- **there are no tests.** site creation, registry updates, config validation, and
+  last-accessed behavior all deserve tests before this becomes relied-on infrastructure.
+
+## what i understand now
+
+This is the configuration layer that has to exist before a reporting app can be honest.
+Without it, every chart or export is quietly asking the operator to trust that the app is
+pointed at the right place.
+
+The site registry is small, but it changes the shape of the tool. It makes "where am i
+reporting from?" a first-class question instead of an assumption.
+
+The privacy boundary is equally clear. Per-site config is exactly where private operational
+context gathers: paths, endpoints, credentials, database names, machine labels, and site
+names. The archive can describe the pattern. It should not publish the config.
+
+## open questions
+
+<OpenQuestions questions={[
+  "Which config fields belong in JSON, and which should move immediately into secure storage?",
+  "What test fixture would prove site creation, selection, and last-accessed updates without touching real site data?",
+  "Should the reporting dashboard refuse to open unless the current-site config passes validation?"
+]} />

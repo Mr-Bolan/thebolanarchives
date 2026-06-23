@@ -294,6 +294,48 @@
     "source_context": "sanitized inspection of a registered label-printing source: README, template loader, renderer, storage layer, installer scripts, and tests; source tests passed on 2026-06-23"
   },
   {
+    "title": "multi-site reporter configuration shell",
+    "slug": "multi-site-reporter-configuration-shell",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows MAUI reporter shell that organizes per-site configuration, site selection, wizard creation, and current-site state.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "desktop-app",
+      "maui",
+      "configuration",
+      "site-management",
+      "reporting",
+      "operations"
+    ],
+    "tools": [
+      "dotnet",
+      "maui",
+      "communitytoolkit-mvvm",
+      "system-text-json",
+      "microsoft-extensions-dependencyinjection"
+    ],
+    "narrative_origin": "a reporting app that needed site configuration before reports could be trusted",
+    "related": [
+      "wpf-operations-console-shell",
+      "static-report-portal-preview",
+      "machine-metrics-collector-with-commissioning-gates",
+      "agent-runbook-workspace-for-machine-reports"
+    ],
+    "points": [
+      "multi-site reporting starts with configuration boundaries, not charts",
+      "a site registry makes the current context explicit before any report is generated",
+      "connection strings and API keys belong behind a privacy boundary even in prototypes",
+      "build plans are useful evidence when they match code that now compiles"
+    ],
+    "route": "/build-logs/multi-site-reporter-configuration-shell",
+    "record_id": "build_log_013",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered Windows MAUI reporting source: configuration library, site registry models, config loader, site manager, current-site state service, splash/site-selection/site-wizard/dashboard view models, views, and implementation plan; source restore/build passed with one XAML binding warning on 2026-06-23; no source test suite was present"
+  },
+  {
     "title": "real-time anomaly detection on a grading line",
     "slug": "real-time-anomaly-detection-on-a-grading-line",
     "type": "build_log",

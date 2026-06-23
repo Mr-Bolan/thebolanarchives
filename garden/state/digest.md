@@ -428,3 +428,37 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 18 public records with 10 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: multi-site reporter configuration shell
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/multi-site-reporter-configuration-shell.mdx`.
+
+The public record strips repository identity, product names, brand assets, default app-data
+paths, specific database/API labels, connection string values, endpoint URLs, key template
+names, source URLs, local paths, and private tool metadata. It preserves the system shape:
+a Windows MAUI reporting shell with a configuration library, per-site registry, config
+loader, site manager, splash auto-load flow, site selection, site wizard, dashboard context,
+and current-site state service.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, brand labels, private URLs, private paths, credentials, source
+  repository names, source-specific endpoint labels, default database names, or API key
+  template values in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real reporting configuration
+  shell and explains why site context has to exist before reports can be trusted.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: source restore/build
+  passed in an isolated clone with one XAML binding warning, no source test suite was
+  present, and the article keeps the unfinished credential/dashboard work visible.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now because it
+  links reporting, site configuration, credential boundaries, and current-context state.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/multi-site-reporter-configuration-shell.mdx`
+  passed; the moderation packet reported content and privacy audits green.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 19 public records with 9 ready items remaining for later
+loop work.

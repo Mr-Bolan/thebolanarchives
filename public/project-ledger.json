@@ -195,6 +195,33 @@
     "next_move": ""
   },
   {
+    "title": "multi-site reporter configuration shell",
+    "slug": "multi-site-reporter-configuration-shell",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows MAUI reporter shell that organizes per-site configuration, site selection, wizard creation, and current-site state.",
+    "updated": "2026-06-23",
+    "tags": [
+      "desktop-app",
+      "maui",
+      "configuration",
+      "site-management",
+      "reporting",
+      "operations"
+    ],
+    "tools": [
+      "dotnet",
+      "maui",
+      "communitytoolkit-mvvm",
+      "system-text-json",
+      "microsoft-extensions-dependencyinjection"
+    ],
+    "route": "/build-logs/multi-site-reporter-configuration-shell",
+    "current_state": "A build log for a Windows MAUI reporter shell that organizes per-site configuration, site selection, wizard creation, and current-site state.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "real-time anomaly detection on a grading line",
     "slug": "real-time-anomaly-detection-on-a-grading-line",
     "status": "working_note",
