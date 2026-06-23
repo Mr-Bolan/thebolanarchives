@@ -102,3 +102,37 @@ The operating layer was installed (not by a tick — by the owner-directed boots
 The garden is ready to run. First real tick will read `garden/ORCHESTRATOR.md`, refresh the
 snapshot, run intake, and start on the highest-value `ready` backlog item
 (`seed-backfill-points`). Nothing has been published by the loop yet.
+
+## 2026-06-23 - automation tick: static report portal preview
+
+Boot sequence followed: refreshed the garden snapshot, read the backlog, ran intake, and
+re-read the backlog. Intake found no new items. The first ready registered source was
+self-healed to `published` because an existing public build log already covers that source
+system, avoiding a duplicate article.
+
+Drafted `content/build-logs/static-report-portal-preview.mdx` from the next registered
+source. The public record strips repository identity, source names, customer labels, file
+names, and any private/person-identifying details. It preserves the system shape: a static
+browser preview for report review, publication, recipient visibility, approved PDF viewing,
+safe notification wording, and the explicit production security boundary.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, or un-de-identified details in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real system, including what it
+  set out to demonstrate, what worked, and what is not production-ready.
+- truthfulness: PASS. `working_note` / `partial` fits a tested static preview whose
+  production boundaries are still explicit. `last_verified` and `source_context` identify
+  the evidence without naming the source.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/static-report-portal-preview.mdx` passed;
+  the moderation packet reported content and privacy audits green. The source's own tests
+  also passed in an isolated temporary clone.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 10 public records with 19 ready items remaining for later
+ticks.

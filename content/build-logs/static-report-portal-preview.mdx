@@ -1,0 +1,135 @@
+---
+title: "static report portal preview"
+slug: "static-report-portal-preview"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a static browser preview that demonstrates a report review-to-publish workflow without pretending local state is production security."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - report-portal
+  - static-preview
+  - publication-workflow
+  - access-control
+  - document-delivery
+  - operations
+tools:
+  - javascript
+  - localstorage
+  - github-pages
+  - node-tests
+narrative_origin: "a customer preview that needed to show the workflow without holding the production system"
+visibility: "public"
+related:
+  - "finished-batch-packout-report-export"
+  - "data-trust-ladder"
+  - "dashboard-without-decisions"
+points:
+  - "a static preview can prove the workflow shape, but it cannot prove production security"
+  - "the useful demo state is the transition from review to published, because that is when the recipient can finally see the report"
+  - "role-separated screens reduce presentation confusion even when the roles are only browser-local"
+  - "the production boundary is explicit: managed auth, private storage, backend authorization, immutable audit, and safe notifications"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered static portal source: README, security docs, data model notes, browser service code, data fixture, commit history, and tests; source tests passed on 2026-06-23"
+record_id: "build_log_004"
+---
+
+# build_log_004 // static_report_portal_preview
+
+## what this is
+
+A static browser preview for a report portal. One side of the interface acts like an
+operations workspace: choose an approved report file, send it to review, publish it, and
+see an activity trail. The other side acts like a recipient workspace: sign in, see only
+published reports, open the PDF in the portal, and download it if needed.
+
+The system is intentionally small. It has no backend, no real authentication, and no private
+document store. The state lives in browser storage, with JavaScript objects standing in for
+organisations, recipients, reports, audit entries, feature flags, and notifications.
+
+<TerminalBlock title="preview loop (sanitized)" prompt="">
+{`queued report
+  -> operations review
+  -> publish
+  -> report becomes visible to recipient
+  -> safe notification queued
+  -> open or download approved PDF`}
+</TerminalBlock>
+
+## why it exists
+
+Some workflows are hard to explain as screenshots. A report portal is one of them. The
+important moment is not that a card exists on a dashboard; it is that a report moves from
+internal review to visible document, with the receiving user seeing the result in their own
+space.
+
+This build tries to make that motion visible without building the whole production platform
+first. It is a presentation artifact, but not a throwaway mock. The preview has a service
+layer, route checks, PDF handling, a review queue, notification records, and tests around
+the publish path.
+
+## what changed
+
+The useful version split the experience into two entry paths instead of showing every
+control on one screen. The operations path owns publication. The recipient path owns report
+reading. Leaving the role switcher out of the runtime made the preview feel closer to the
+thing being demonstrated: two people looking at the same workflow from different sides.
+
+The data model stayed deliberately plain:
+
+- reports have `Draft`, `Review`, and `Published` states
+- recipient visibility requires the report to be published
+- report categories can be enabled or unavailable
+- the selected PDF comes from a repo-served approved-file list
+- notifications record that a report is available without putting report details in the
+  message body
+- activity entries record the workflow motion for the preview
+
+That is enough to test the story: a report in review is not visible, publication makes it
+visible, and the recipient can open the document after that transition.
+
+## what worked
+
+The browser-only service layer made the demo testable. The source test suite checks role
+navigation, review-to-publish behavior, published report visibility, queued notifications,
+PDF download recording, and the absence of older shortcut controls that would weaken the
+presentation.
+
+The docs also keep a useful hard line: the runtime should not keep saying "demo" or "mock"
+to the viewer, but the repo still has to be honest that it is a static preview. That split
+matters. A presentation should feel like the real workflow. The source record should still
+say what is missing.
+
+## what broke
+
+- **local state can only imitate access control.** browser role checks are useful for the
+  walkthrough, but they are not authorization.
+- **approved files are a privacy boundary.** a static repo can serve PDFs, but it should
+  only hold sanitized or explicitly approved presentation documents.
+- **feature flags are not security controls.** hiding a report category in the UI does not
+  protect the document in production.
+- **notification copy has to stay boring.** the safe body says a report is available; it
+  does not include report contents or private identifiers.
+- **the audit trail is only illustrative.** it proves the workflow shape, not durability,
+  tamper resistance, or compliance.
+
+## what i understand now
+
+The value of the preview is not that it proves a portal can be built. It proves the shape
+of the promise before the expensive parts exist. The recipient sees only published material.
+The operations user can move a document from review to release. The document viewer has a
+fallback. The message body does not leak report detail.
+
+The useful honesty is keeping the production boundary visible. To become real, the same
+workflow needs managed authentication, backend tenancy checks, private storage, signed or
+authenticated downloads, immutable audit events, report versioning, notification consent,
+and an ingestion path that creates drafts instead of publishing directly.
+
+## open questions
+
+<OpenQuestions questions={[
+  "Which preview behaviors should be promoted into the backend contract first: report visibility, audit events, or document storage?",
+  "How should report superseding work when a published file is replaced after a recipient has already read it?",
+  "What is the smallest safe notification body that still gets someone to open the portal?"
+]} />

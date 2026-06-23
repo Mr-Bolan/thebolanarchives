@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T09:20:59.789Z",
+  "generated": "2026-06-23T09:54:22.327Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -25,7 +25,7 @@
       "id": "record:finished-batch-packout-report-export",
       "kind": "record",
       "label": "finished-batch-packout-report-export",
-      "degree": 9,
+      "degree": 10,
       "route": "/build-logs/finished-batch-packout-report-export",
       "type": "build_log",
       "status": "working_note",
@@ -52,6 +52,16 @@
       "slug": "static-archive-scaffold"
     },
     {
+      "id": "record:static-report-portal-preview",
+      "kind": "record",
+      "label": "static-report-portal-preview",
+      "degree": 9,
+      "route": "/build-logs/static-report-portal-preview",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "static-report-portal-preview"
+    },
+    {
       "id": "record:you-pay-for-the-problem-that-disappears",
       "kind": "record",
       "label": "you-pay-for-the-problem-that-disappears",
@@ -75,7 +85,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 8,
+      "degree": 9,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -85,7 +95,7 @@
       "id": "record:dashboard-without-decisions",
       "kind": "record",
       "label": "dashboard-without-decisions",
-      "degree": 5,
+      "degree": 6,
       "route": "/graveyard/dashboard-without-decisions",
       "type": "graveyard_note",
       "status": "retired",
@@ -165,7 +175,7 @@
       "id": "tag:operations",
       "kind": "tag",
       "label": "operations",
-      "degree": 2,
+      "degree": 3,
       "tag": "operations"
     },
     {
@@ -223,6 +233,41 @@
       "label": "nextjs",
       "degree": 1,
       "tag": "nextjs"
+    },
+    {
+      "id": "tag:report-portal",
+      "kind": "tag",
+      "label": "report-portal",
+      "degree": 1,
+      "tag": "report-portal"
+    },
+    {
+      "id": "tag:static-preview",
+      "kind": "tag",
+      "label": "static-preview",
+      "degree": 1,
+      "tag": "static-preview"
+    },
+    {
+      "id": "tag:publication-workflow",
+      "kind": "tag",
+      "label": "publication-workflow",
+      "degree": 1,
+      "tag": "publication-workflow"
+    },
+    {
+      "id": "tag:access-control",
+      "kind": "tag",
+      "label": "access-control",
+      "degree": 1,
+      "tag": "access-control"
+    },
+    {
+      "id": "tag:document-delivery",
+      "kind": "tag",
+      "label": "document-delivery",
+      "degree": 1,
+      "tag": "document-delivery"
     },
     {
       "id": "tag:work",
@@ -433,6 +478,51 @@
     {
       "source": "record:static-archive-scaffold",
       "target": "tag:nextjs",
+      "kind": "tag"
+    },
+    {
+      "source": "record:static-report-portal-preview",
+      "target": "record:finished-batch-packout-report-export",
+      "kind": "related"
+    },
+    {
+      "source": "record:static-report-portal-preview",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:static-report-portal-preview",
+      "target": "record:dashboard-without-decisions",
+      "kind": "related"
+    },
+    {
+      "source": "record:static-report-portal-preview",
+      "target": "tag:report-portal",
+      "kind": "tag"
+    },
+    {
+      "source": "record:static-report-portal-preview",
+      "target": "tag:static-preview",
+      "kind": "tag"
+    },
+    {
+      "source": "record:static-report-portal-preview",
+      "target": "tag:publication-workflow",
+      "kind": "tag"
+    },
+    {
+      "source": "record:static-report-portal-preview",
+      "target": "tag:access-control",
+      "kind": "tag"
+    },
+    {
+      "source": "record:static-report-portal-preview",
+      "target": "tag:document-delivery",
+      "kind": "tag"
+    },
+    {
+      "source": "record:static-report-portal-preview",
+      "target": "tag:operations",
       "kind": "tag"
     },
     {

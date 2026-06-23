@@ -72,5 +72,31 @@
     "current_state": "The archive is still small, but it now has enough structure to behave like an archive instead of a pile of notes.",
     "latest_update": "",
     "next_move": ""
+  },
+  {
+    "title": "static report portal preview",
+    "slug": "static-report-portal-preview",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a static browser preview that demonstrates a report review-to-publish workflow without pretending local state is production security.",
+    "updated": "2026-06-23",
+    "tags": [
+      "report-portal",
+      "static-preview",
+      "publication-workflow",
+      "access-control",
+      "document-delivery",
+      "operations"
+    ],
+    "tools": [
+      "javascript",
+      "localstorage",
+      "github-pages",
+      "node-tests"
+    ],
+    "route": "/build-logs/static-report-portal-preview",
+    "current_state": "A build log for a static browser preview that demonstrates a report review-to-publish workflow without pretending local state is production security.",
+    "latest_update": "",
+    "next_move": ""
   }
 ]

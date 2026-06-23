@@ -78,6 +78,46 @@
     "record_id": "build_log_002"
   },
   {
+    "title": "static report portal preview",
+    "slug": "static-report-portal-preview",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a static browser preview that demonstrates a report review-to-publish workflow without pretending local state is production security.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "report-portal",
+      "static-preview",
+      "publication-workflow",
+      "access-control",
+      "document-delivery",
+      "operations"
+    ],
+    "tools": [
+      "javascript",
+      "localstorage",
+      "github-pages",
+      "node-tests"
+    ],
+    "narrative_origin": "a customer preview that needed to show the workflow without holding the production system",
+    "related": [
+      "finished-batch-packout-report-export",
+      "data-trust-ladder",
+      "dashboard-without-decisions"
+    ],
+    "points": [
+      "a static preview can prove the workflow shape, but it cannot prove production security",
+      "the useful demo state is the transition from review to published, because that is when the recipient can finally see the report",
+      "role-separated screens reduce presentation confusion even when the roles are only browser-local",
+      "the production boundary is explicit: managed auth, private storage, backend authorization, immutable audit, and safe notifications"
+    ],
+    "route": "/build-logs/static-report-portal-preview",
+    "record_id": "build_log_004",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered static portal source: README, security docs, data model notes, browser service code, data fixture, commit history, and tests; source tests passed on 2026-06-23"
+  },
+  {
     "title": "dashboard without decisions",
     "slug": "dashboard-without-decisions",
     "type": "graveyard_note",
