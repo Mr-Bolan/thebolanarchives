@@ -1,5 +1,49 @@
 [
   {
+    "title": "adaptive oee reporting workbench",
+    "slug": "adaptive-oee-reporting-workbench",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Python operations-reporting workbench with SQL query packs, Qt screens, adaptive OEE bands, anomaly models, and report-worker plumbing.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "oee",
+      "reporting",
+      "anomaly-detection",
+      "python",
+      "operations-ui",
+      "machine-data"
+    ],
+    "tools": [
+      "python",
+      "pyside6",
+      "pandas",
+      "scikit-learn",
+      "sql",
+      "yaml",
+      "matplotlib"
+    ],
+    "narrative_origin": "daily production reporting that grew into analysis, thresholds, and model artifacts",
+    "related": [
+      "static-report-portal-preview",
+      "machine-event-timeline-graph-viewer",
+      "machine-metrics-collector-with-commissioning-gates",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "reporting tools grow complicated when they must explain both metrics and exceptions",
+      "SQL query packs are a useful boundary between UI clicks and operational truth",
+      "adaptive threshold models are publishable as a pattern, but their artifacts can encode private context",
+      "refactoring a monolithic app is evidence when the new modules compile"
+    ],
+    "route": "/build-logs/adaptive-oee-reporting-workbench",
+    "record_id": "build_log_014",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered Python reporting source: Qt UI modules, report worker, SQL queries, configuration layer, database workers, adaptive threshold and anomaly modules, model artifacts, refactor notes, and smoke scripts; Python syntax compilation passed on 2026-06-23; runtime tests were not run because they depend on GUI/database context"
+  },
+  {
     "title": "agent runbook workspace for machine reports",
     "slug": "agent-runbook-workspace-for-machine-reports",
     "type": "build_log",

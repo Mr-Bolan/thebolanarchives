@@ -462,3 +462,40 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 19 public records with 9 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: adaptive oee reporting workbench
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/adaptive-oee-reporting-workbench.mdx`.
+
+The public record strips repository identity, product names, brand labels, machine names,
+database names, source-specific query labels, model timestamps, endpoint/key values,
+source URLs, local paths, and private report examples. It preserves the system shape: a
+Python operations-reporting workbench with Qt UI modules, SQL query packs, report workers,
+configuration separation, adaptive threshold bands, anomaly/clustering models, grade-lane
+analysis modules, and model-artifact privacy boundaries.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, brand labels, private URLs, private paths, credentials, source
+  repository names, exact database names, model timestamp identifiers, endpoint labels, or
+  machine labels in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real reporting/analysis
+  workbench and explains what it set out to do, what worked, and where artifacts become
+  sensitive.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: Python syntax
+  compilation passed for source modules and smoke scripts, runtime tests were not run
+  because they need GUI/database context, and the source README's unresolved merge markers
+  are called out as source-state evidence.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now because it
+  connects reports, query packs, adaptive thresholds, anomaly models, and operational
+  explanation.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/adaptive-oee-reporting-workbench.mdx`
+  passed; the moderation packet reported content and privacy audits green.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 20 public records with 8 ready items remaining for later
+loop work.

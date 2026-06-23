@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T10:56:58.947Z",
+  "generated": "2026-06-23T11:01:43.300Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -20,6 +20,16 @@
       "type": "field_note",
       "status": "sketch",
       "slug": "the-operator-knows-before-the-database-does"
+    },
+    {
+      "id": "record:adaptive-oee-reporting-workbench",
+      "kind": "record",
+      "label": "adaptive-oee-reporting-workbench",
+      "degree": 10,
+      "route": "/build-logs/adaptive-oee-reporting-workbench",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "adaptive-oee-reporting-workbench"
     },
     {
       "id": "record:agent-runbook-workspace-for-machine-reports",
@@ -65,7 +75,7 @@
       "id": "record:machine-event-timeline-graph-viewer",
       "kind": "record",
       "label": "machine-event-timeline-graph-viewer",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/machine-event-timeline-graph-viewer",
       "type": "build_log",
       "status": "working_note",
@@ -75,7 +85,7 @@
       "id": "record:machine-metrics-collector-with-commissioning-gates",
       "kind": "record",
       "label": "machine-metrics-collector-with-commissioning-gates",
-      "degree": 13,
+      "degree": 14,
       "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
       "type": "build_log",
       "status": "working_note",
@@ -125,7 +135,7 @@
       "id": "record:static-report-portal-preview",
       "kind": "record",
       "label": "static-report-portal-preview",
-      "degree": 12,
+      "degree": 13,
       "route": "/build-logs/static-report-portal-preview",
       "type": "build_log",
       "status": "working_note",
@@ -175,7 +185,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 14,
+      "degree": 15,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -234,18 +244,53 @@
       "tag": "machine-signals"
     },
     {
-      "id": "tag:agent-workflows",
+      "id": "tag:oee",
       "kind": "tag",
-      "label": "agent-workflows",
+      "label": "oee",
       "degree": 1,
-      "tag": "agent-workflows"
+      "tag": "oee"
     },
     {
       "id": "tag:reporting",
       "kind": "tag",
       "label": "reporting",
-      "degree": 4,
+      "degree": 5,
       "tag": "reporting"
+    },
+    {
+      "id": "tag:anomaly-detection",
+      "kind": "tag",
+      "label": "anomaly-detection",
+      "degree": 2,
+      "tag": "anomaly-detection"
+    },
+    {
+      "id": "tag:python",
+      "kind": "tag",
+      "label": "python",
+      "degree": 1,
+      "tag": "python"
+    },
+    {
+      "id": "tag:operations-ui",
+      "kind": "tag",
+      "label": "operations-ui",
+      "degree": 2,
+      "tag": "operations-ui"
+    },
+    {
+      "id": "tag:machine-data",
+      "kind": "tag",
+      "label": "machine-data",
+      "degree": 2,
+      "tag": "machine-data"
+    },
+    {
+      "id": "tag:agent-workflows",
+      "kind": "tag",
+      "label": "agent-workflows",
+      "degree": 1,
+      "tag": "agent-workflows"
     },
     {
       "id": "tag:runbooks",
@@ -374,13 +419,6 @@
       "tag": "local-tools"
     },
     {
-      "id": "tag:machine-data",
-      "kind": "tag",
-      "label": "machine-data",
-      "degree": 1,
-      "tag": "machine-data"
-    },
-    {
       "id": "tag:event-timelines",
       "kind": "tag",
       "label": "event-timelines",
@@ -463,13 +501,6 @@
       "label": "site-management",
       "degree": 1,
       "tag": "site-management"
-    },
-    {
-      "id": "tag:anomaly-detection",
-      "kind": "tag",
-      "label": "anomaly-detection",
-      "degree": 1,
-      "tag": "anomaly-detection"
     },
     {
       "id": "tag:real-time",
@@ -561,13 +592,6 @@
       "label": "wpf",
       "degree": 1,
       "tag": "wpf"
-    },
-    {
-      "id": "tag:operations-ui",
-      "kind": "tag",
-      "label": "operations-ui",
-      "degree": 1,
-      "tag": "operations-ui"
     },
     {
       "id": "tag:settings",
@@ -682,6 +706,56 @@
     {
       "source": "record:the-operator-knows-before-the-database-does",
       "target": "tag:machine-signals",
+      "kind": "tag"
+    },
+    {
+      "source": "record:adaptive-oee-reporting-workbench",
+      "target": "record:static-report-portal-preview",
+      "kind": "related"
+    },
+    {
+      "source": "record:adaptive-oee-reporting-workbench",
+      "target": "record:machine-event-timeline-graph-viewer",
+      "kind": "related"
+    },
+    {
+      "source": "record:adaptive-oee-reporting-workbench",
+      "target": "record:machine-metrics-collector-with-commissioning-gates",
+      "kind": "related"
+    },
+    {
+      "source": "record:adaptive-oee-reporting-workbench",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:adaptive-oee-reporting-workbench",
+      "target": "tag:oee",
+      "kind": "tag"
+    },
+    {
+      "source": "record:adaptive-oee-reporting-workbench",
+      "target": "tag:reporting",
+      "kind": "tag"
+    },
+    {
+      "source": "record:adaptive-oee-reporting-workbench",
+      "target": "tag:anomaly-detection",
+      "kind": "tag"
+    },
+    {
+      "source": "record:adaptive-oee-reporting-workbench",
+      "target": "tag:python",
+      "kind": "tag"
+    },
+    {
+      "source": "record:adaptive-oee-reporting-workbench",
+      "target": "tag:operations-ui",
+      "kind": "tag"
+    },
+    {
+      "source": "record:adaptive-oee-reporting-workbench",
+      "target": "tag:machine-data",
       "kind": "tag"
     },
     {

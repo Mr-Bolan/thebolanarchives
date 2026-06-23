@@ -1,0 +1,147 @@
+---
+title: "adaptive oee reporting workbench"
+slug: "adaptive-oee-reporting-workbench"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a Python operations-reporting workbench with SQL query packs, Qt screens, adaptive OEE bands, anomaly models, and report-worker plumbing."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - oee
+  - reporting
+  - anomaly-detection
+  - python
+  - operations-ui
+  - machine-data
+tools:
+  - python
+  - pyside6
+  - pandas
+  - scikit-learn
+  - sql
+  - yaml
+  - matplotlib
+narrative_origin: "daily production reporting that grew into analysis, thresholds, and model artifacts"
+visibility: "public"
+related:
+  - "static-report-portal-preview"
+  - "machine-event-timeline-graph-viewer"
+  - "machine-metrics-collector-with-commissioning-gates"
+  - "data-trust-ladder"
+points:
+  - "reporting tools grow complicated when they must explain both metrics and exceptions"
+  - "SQL query packs are a useful boundary between UI clicks and operational truth"
+  - "adaptive threshold models are publishable as a pattern, but their artifacts can encode private context"
+  - "refactoring a monolithic app is evidence when the new modules compile"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered Python reporting source: Qt UI modules, report worker, SQL queries, configuration layer, database workers, adaptive threshold and anomaly modules, model artifacts, refactor notes, and smoke scripts; Python syntax compilation passed on 2026-06-23; runtime tests were not run because they depend on GUI/database context"
+record_id: "build_log_014"
+---
+
+# build_log_014 // adaptive_oee_reporting_workbench
+
+## what this is
+
+A Python reporting workbench for daily operational performance. It combines a desktop UI,
+database-backed SQL queries, report-generation workers, adaptive threshold bands, anomaly
+models, and model artifacts for machine and grade-lane analysis.
+
+The source is not one clean thing. It is a workbench: part reporting app, part refactor
+record, part analysis lab, part model store.
+
+<TerminalBlock title="reporting workbench loop (sanitized)" prompt="">
+{`operator chooses day + machines
+  -> worker loads SQL query manifest
+  -> database queries return metric frames
+  -> report worker packages result tables
+  -> adaptive bands classify expected ranges
+  -> anomaly models flag exceptions
+  -> UI shows status, settings, and report flow`}
+</TerminalBlock>
+
+## why it exists
+
+Daily reports are not just totals. They need to answer why a day looked wrong, which
+machine or lane contributed, whether a stop was expected, whether throughput drifted, and
+whether the current result is unusual for that operating context.
+
+That pushes the tool beyond a static dashboard. It needs:
+
+- query packs for repeatable metrics
+- a UI that can choose date, machines, breaks, and settings
+- background workers so database calls do not freeze the interface
+- a way to separate public config from secrets
+- adaptive thresholds so "bad" is not a single hardcoded number
+- anomaly models for cases where the old thresholds are too blunt
+
+## the useful split
+
+The refactor notes show the original app was broken apart into clearer modules:
+
+- configuration management
+- database workers
+- UI pages
+- reusable dialogs
+- styling
+- report generation
+- analysis modules
+- SQL query files and manifest order
+
+That matters because reporting apps tend to collapse into one large file: buttons, SQL,
+settings, styling, error handling, export logic, and explanations all tangled together.
+The split makes the tool easier to reason about even before every feature is mature.
+
+## what worked
+
+The source has several durable ideas:
+
+- report generation discovers SQL files through a manifest rather than hardcoding every
+  query in the UI
+- background workers emit log, progress, success, and error signals
+- database connection checks are separated from page widgets
+- settings distinguish public configuration from secret values
+- adaptive threshold definitions are stored as versioned artifacts
+- anomaly and clustering models are saved beside metadata
+- grade-lane analysis has its own ingest, model, sink, and run modules
+- smoke scripts exist for refactor import checks, database import diagnosis, and machine
+  loading
+
+Python syntax compilation passed for the application modules and smoke scripts. Runtime
+tests were not run because the meaningful checks depend on GUI libraries, database access,
+and operational data that should stay outside the public archive.
+
+## what broke
+
+- **the source carries identity-heavy artifacts.** model files, threshold JSON, report
+  templates, query names, and config examples can reveal operational context even without
+  raw database exports.
+- **the README is not trustworthy.** it contains unresolved merge-conflict markers, which
+  is useful evidence of source state but not a stable public description.
+- **runtime verification is environment-bound.** the UI, database workers, and machine
+  loading checks need local GUI/database context.
+- **analysis and reporting are blended.** adaptive bands and anomaly models are powerful,
+  but they raise the question of whether a daily report should explain model confidence or
+  simply show exceptions.
+- **model artifacts need provenance.** saved models are only useful if the training window,
+  input fields, and validation limits are known.
+
+## what i understand now
+
+The interesting part is not that the app reports OEE. The interesting part is the pressure
+that OEE reporting puts on a tool once the first chart is not enough.
+
+At that point the system needs query discipline, stateful settings, background execution,
+threshold history, exception logic, and a way to explain why the report says what it says.
+That is where a dashboard becomes a workbench.
+
+The archive can preserve that pattern. It should not preserve the model artifacts,
+threshold values, brand labels, machine labels, database names, or private report examples.
+
+## open questions
+
+<OpenQuestions questions={[
+  "Which adaptive threshold artifacts are safe to keep in source, and which belong in private model storage?",
+  "Should report generation fail closed when the query manifest changes, or tolerate missing queries with warnings?",
+  "How should a daily report expose anomaly confidence without turning into a model-debugging screen?"
+]} />

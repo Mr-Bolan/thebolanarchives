@@ -1,5 +1,34 @@
 [
   {
+    "title": "adaptive oee reporting workbench",
+    "slug": "adaptive-oee-reporting-workbench",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Python operations-reporting workbench with SQL query packs, Qt screens, adaptive OEE bands, anomaly models, and report-worker plumbing.",
+    "updated": "2026-06-23",
+    "tags": [
+      "oee",
+      "reporting",
+      "anomaly-detection",
+      "python",
+      "operations-ui",
+      "machine-data"
+    ],
+    "tools": [
+      "python",
+      "pyside6",
+      "pandas",
+      "scikit-learn",
+      "sql",
+      "yaml",
+      "matplotlib"
+    ],
+    "route": "/build-logs/adaptive-oee-reporting-workbench",
+    "current_state": "A build log for a Python operations-reporting workbench with SQL query packs, Qt screens, adaptive OEE bands, anomaly models, and report-worker plumbing.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "agent runbook workspace for machine reports",
     "slug": "agent-runbook-workspace-for-machine-reports",
     "status": "working_note",
