@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T05:27:26.423Z",
+  "generated": "2026-06-23T08:43:50.864Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -15,11 +15,21 @@
       "id": "record:the-operator-knows-before-the-database-does",
       "kind": "record",
       "label": "the-operator-knows-before-the-database-does",
-      "degree": 5,
+      "degree": 6,
       "route": "/field-notes/the-operator-knows-before-the-database-does",
       "type": "field_note",
       "status": "sketch",
       "slug": "the-operator-knows-before-the-database-does"
+    },
+    {
+      "id": "record:real-time-anomaly-detection-on-a-grading-line",
+      "kind": "record",
+      "label": "real-time-anomaly-detection-on-a-grading-line",
+      "degree": 9,
+      "route": "/build-logs/real-time-anomaly-detection-on-a-grading-line",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "real-time-anomaly-detection-on-a-grading-line"
     },
     {
       "id": "record:static-archive-scaffold",
@@ -45,7 +55,7 @@
       "id": "record:operator-knowledge-as-signal",
       "kind": "record",
       "label": "operator-knowledge-as-signal",
-      "degree": 5,
+      "degree": 6,
       "route": "/patterns/operator-knowledge-as-signal",
       "type": "pattern",
       "status": "working_note",
@@ -55,7 +65,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 6,
+      "degree": 7,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -112,6 +122,48 @@
       "label": "machine-signals",
       "degree": 1,
       "tag": "machine-signals"
+    },
+    {
+      "id": "tag:anomaly-detection",
+      "kind": "tag",
+      "label": "anomaly-detection",
+      "degree": 1,
+      "tag": "anomaly-detection"
+    },
+    {
+      "id": "tag:real-time",
+      "kind": "tag",
+      "label": "real-time",
+      "degree": 1,
+      "tag": "real-time"
+    },
+    {
+      "id": "tag:operations",
+      "kind": "tag",
+      "label": "operations",
+      "degree": 1,
+      "tag": "operations"
+    },
+    {
+      "id": "tag:statistics",
+      "kind": "tag",
+      "label": "statistics",
+      "degree": 1,
+      "tag": "statistics"
+    },
+    {
+      "id": "tag:alarms",
+      "kind": "tag",
+      "label": "alarms",
+      "degree": 1,
+      "tag": "alarms"
+    },
+    {
+      "id": "tag:operator-knowledge",
+      "kind": "tag",
+      "label": "operator-knowledge",
+      "degree": 1,
+      "tag": "operator-knowledge"
     },
     {
       "id": "tag:static-export",
@@ -233,6 +285,51 @@
     {
       "source": "record:the-operator-knows-before-the-database-does",
       "target": "tag:machine-signals",
+      "kind": "tag"
+    },
+    {
+      "source": "record:real-time-anomaly-detection-on-a-grading-line",
+      "target": "record:operator-knowledge-as-signal",
+      "kind": "related"
+    },
+    {
+      "source": "record:real-time-anomaly-detection-on-a-grading-line",
+      "target": "record:the-operator-knows-before-the-database-does",
+      "kind": "related"
+    },
+    {
+      "source": "record:real-time-anomaly-detection-on-a-grading-line",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:real-time-anomaly-detection-on-a-grading-line",
+      "target": "tag:anomaly-detection",
+      "kind": "tag"
+    },
+    {
+      "source": "record:real-time-anomaly-detection-on-a-grading-line",
+      "target": "tag:real-time",
+      "kind": "tag"
+    },
+    {
+      "source": "record:real-time-anomaly-detection-on-a-grading-line",
+      "target": "tag:operations",
+      "kind": "tag"
+    },
+    {
+      "source": "record:real-time-anomaly-detection-on-a-grading-line",
+      "target": "tag:statistics",
+      "kind": "tag"
+    },
+    {
+      "source": "record:real-time-anomaly-detection-on-a-grading-line",
+      "target": "tag:alarms",
+      "kind": "tag"
+    },
+    {
+      "source": "record:real-time-anomaly-detection-on-a-grading-line",
+      "target": "tag:operator-knowledge",
       "kind": "tag"
     },
     {

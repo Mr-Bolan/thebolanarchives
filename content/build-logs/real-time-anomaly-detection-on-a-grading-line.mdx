@@ -1,0 +1,125 @@
+---
+title: "real-time anomaly detection on a grading line"
+slug: "real-time-anomaly-detection-on-a-grading-line"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A one-night build that watches a multi-lane grading line and flags, in real time, when a lane's output mix drifts — using a contingency-table expected value and no training data."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - anomaly-detection
+  - real-time
+  - operations
+  - statistics
+  - alarms
+  - operator-knowledge
+tools:
+  - python
+  - numpy
+  - asyncio
+narrative_origin: "a grading line that never said when it was drifting"
+visibility: "public"
+related:
+  - "operator-knowledge-as-signal"
+  - "the-operator-knows-before-the-database-does"
+  - "data-trust-ladder"
+points:
+  - "real-time anomaly detection is possible with only the current data and arithmetic — no training set, no history"
+  - "the baseline can just be 'what the rest of the machine is doing right now', via a contingency-table expected value"
+  - "two gates beat one: alarm only when a deviation is both statistically surprising and practically large"
+  - "the hard part was not detection; it was translating a statistical spike into a sentence the operator already uses"
+record_id: "build_log_002"
+---
+
+# build_log_002 // real_time_anomaly_detection
+
+## what this is
+
+A small real-time detector that watches a multi-lane grading line and says, in the moment,
+when one lane's output mix has drifted away from what the rest of the machine is doing. It
+reads the live throughput feed, recomputes every minute, and posts operator alarms. It was
+built in a single night — four commits from empty repo to running — and it has not been
+hardened since.
+
+## why it exists
+
+A grading line sorts product into quality grades across a lot of lanes at once. When the
+mix goes wrong on one lane, the usual way to find out is the next day, in a report, after the
+shift that produced it is already gone. A good operator can sometimes feel it. The machine
+itself never says it out loud. The goal was narrow: make the line flag its own drift while
+the drift is still happening.
+
+## the idea: expected value from the machine itself
+
+Treat the live `lane x grade` throughput as a contingency table. For any cell, the count you
+would expect if every lane behaved like the machine average is just:
+
+```text
+expected = (row_total * col_total) / grand_total
+```
+
+Then two numbers per cell:
+
+```text
+z   = (observed - expected) / sqrt(expected)     # a Pearson residual: how surprising
+d%  = 100 * (observed - expected) / expected     # how big
+```
+
+There is no training set and no model to maintain. "Normal" is defined as *what the rest of
+the machine is doing right now*, recomputed each minute over a rolling sixty-minute window.
+The machine is its own baseline.
+
+## two gates, not one
+
+A spike only becomes an alarm if it clears both gates:
+
+- statistically surprising: `|z| >= 3`
+- practically large: `|d%|` lands in a priority band (low / medium / high)
+
+Significance without magnitude is noise. Magnitude without significance is luck. Requiring
+both is what kept the thing from crying wolf on every cycle — most of the time.
+
+## the actually hard part: making it speak operator
+
+Detection was the easy half. The useful half was turning a residual into a sentence someone
+on the floor can act on without doing arithmetic:
+
+<TerminalBlock title="sample alarms (sanitized)" prompt="">
+{`14:22:07  MEDIUM  lane 12: shortage of grade d2 (-13.4 %, z=-3.6)
+14:22:07    HIGH  lane 5: downgrading c1 -> c2 (+22.1 %, -18.7 %)
+14:24:31     LOW  lane 9: excess recycle (+6.2 %, z=+3.1)`}
+</TerminalBlock>
+
+A single-grade spike reads as a *surplus* or *shortage*. A two-sided spike — one grade up,
+an adjacent grade down — reads as quality *upgrading* or *downgrading*. The recycle stream
+had to be pulled out and handled on its own so it was never described as up- or
+down-grading; it only ever reads as excess or shortage. A per-lane, per-grade cooldown stops
+the same drift from re-alarming every minute.
+
+## what broke
+
+- **alarm flooding.** the first version screamed. the cooldown was a same-night patch, not a
+  design.
+- **recycle kept getting mislabeled** as a grade drift until it was special-cased.
+- **z is unstable on small expected counts.** early in a batch, before enough has gone
+  through, almost everything looks surprising.
+- **it trusts the feed.** when the data endpoint fails it holds the last good frame instead
+  of reacting. that is safe, but it can quietly hide a real stall behind stale numbers.
+- **n = 1.** built in one session against one line. none of it is validated across machines,
+  shifts, or seasons.
+
+## what i understand now
+
+The expected-value trick is the whole lesson: you can get genuinely useful real-time anomaly
+detection out of nothing but the current data and arithmetic — no labels, no history, no
+training loop. The labor is not in the statistics. It is in turning a residual into a word
+the operator already uses. A detector no one can read is not a detector; it is a log.
+
+## open questions
+
+<OpenQuestions questions={[
+  "How do you suppress early-batch noise without missing a real early drift?",
+  "Should the detector ever say why it thinks a lane drifted, or only that it did?",
+  "What is the right memory: sixty minutes, one batch, or a whole shift?"
+]} />

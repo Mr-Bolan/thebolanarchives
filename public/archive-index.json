@@ -1,5 +1,42 @@
 [
   {
+    "title": "real-time anomaly detection on a grading line",
+    "slug": "real-time-anomaly-detection-on-a-grading-line",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A one-night build that watches a multi-lane grading line and flags, in real time, when a lane's output mix drifts — using a contingency-table expected value and no training data.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "anomaly-detection",
+      "real-time",
+      "operations",
+      "statistics",
+      "alarms",
+      "operator-knowledge"
+    ],
+    "tools": [
+      "python",
+      "numpy",
+      "asyncio"
+    ],
+    "narrative_origin": "a grading line that never said when it was drifting",
+    "related": [
+      "operator-knowledge-as-signal",
+      "the-operator-knows-before-the-database-does",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "real-time anomaly detection is possible with only the current data and arithmetic — no training set, no history",
+      "the baseline can just be 'what the rest of the machine is doing right now', via a contingency-table expected value",
+      "two gates beat one: alarm only when a deviation is both statistically surprising and practically large",
+      "the hard part was not detection; it was translating a statistical spike into a sentence the operator already uses"
+    ],
+    "route": "/build-logs/real-time-anomaly-detection-on-a-grading-line",
+    "record_id": "build_log_002"
+  },
+  {
     "title": "dashboard without decisions",
     "slug": "dashboard-without-decisions",
     "type": "graveyard_note",

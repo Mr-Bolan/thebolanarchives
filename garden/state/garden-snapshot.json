@@ -1,8 +1,8 @@
 {
-  "generated": "2026-06-23T04:56:59.063Z",
+  "generated": "2026-06-23T08:31:35.851Z",
   "stale": false,
   "version": {
-    "sha": "45fcf2a",
+    "sha": "9f4a0ee",
     "records": 7,
     "publicRecords": 7
   },
@@ -27,7 +27,8 @@
     "static": [
       "/",
       "/index",
-      "/about"
+      "/about",
+      "/garden"
     ],
     "collections": [
       "/entries",
@@ -59,7 +60,7 @@
   "intake": {
     "articleNotes": 0,
     "featureNotes": 0,
-    "registeredSources": 0
+    "registeredSources": 23
   },
   "lastDigest": "2026-06-22 — bootstrap"
 }

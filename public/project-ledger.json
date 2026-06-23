@@ -1,5 +1,30 @@
 [
   {
+    "title": "real-time anomaly detection on a grading line",
+    "slug": "real-time-anomaly-detection-on-a-grading-line",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A one-night build that watches a multi-lane grading line and flags, in real time, when a lane's output mix drifts — using a contingency-table expected value and no training data.",
+    "updated": "2026-06-23",
+    "tags": [
+      "anomaly-detection",
+      "real-time",
+      "operations",
+      "statistics",
+      "alarms",
+      "operator-knowledge"
+    ],
+    "tools": [
+      "python",
+      "numpy",
+      "asyncio"
+    ],
+    "route": "/build-logs/real-time-anomaly-detection-on-a-grading-line",
+    "current_state": "A one-night build that watches a multi-lane grading line and flags, in real time, when a lane's output mix drifts — using a contingency-table expected value and no training data.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "static archive scaffold",
     "slug": "static-archive-scaffold",
     "status": "working_note",
