@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import type { PointerEvent as ReactPointerEvent, WheelEvent as ReactWheelEvent } from "react";
 import type { ArchiveGraph as ArchiveGraphData, GraphNode } from "@/lib/graph";
 
 type ArchiveGraphProps = {
@@ -10,18 +11,50 @@ type ArchiveGraphProps = {
 };
 
 type Positioned = GraphNode & { x: number; y: number };
+type ViewBox = { x: number; y: number; width: number; height: number };
+type DragState =
+  | {
+      kind: "node";
+      id: string;
+      startGraph: { x: number; y: number };
+      startClient: { x: number; y: number };
+      origin: { x: number; y: number };
+      moved: boolean;
+    }
+  | {
+      kind: "pan";
+      startClient: { x: number; y: number };
+      origin: ViewBox;
+      moved: boolean;
+    };
 
 const WIDTH = 880;
 const HEIGHT = 620;
+const INITIAL_VIEWBOX: ViewBox = { x: 0, y: 0, width: WIDTH, height: HEIGHT };
+const MIN_VIEWBOX_WIDTH = 260;
+const MAX_VIEWBOX_WIDTH = WIDTH * 1.8;
 
 export function ArchiveGraph({ graph }: ArchiveGraphProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const focusTag = searchParams.get("tag") ?? undefined;
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const dragRef = useRef<DragState | null>(null);
   const [hoverId, setHoverId] = useState<string | null>(null);
+  const [viewBox, setViewBox] = useState<ViewBox>(INITIAL_VIEWBOX);
+  const [movedNodes, setMovedNodes] = useState<Record<string, { x: number; y: number }>>({});
+  const [isDragging, setIsDragging] = useState(false);
   const activeId = hoverId ?? (focusTag ? `tag:${focusTag}` : null);
 
-  const positioned = useMemo(() => layout(graph), [graph]);
+  const layoutPositions = useMemo(() => layout(graph), [graph]);
+  const positioned = useMemo(() => {
+    const out = new Map(layoutPositions);
+    for (const [id, position] of Object.entries(movedNodes)) {
+      const node = out.get(id);
+      if (node) out.set(id, { ...node, ...position });
+    }
+    return out;
+  }, [layoutPositions, movedNodes]);
   const adjacency = useMemo(() => buildAdjacency(graph), [graph]);
 
   const focusId = activeId;
@@ -38,15 +71,156 @@ export function ArchiveGraph({ graph }: ArchiveGraphProps) {
     return source === focusId || target === focusId;
   };
 
+  const pointFromEvent = (event: { clientX: number; clientY: number }) => {
+    const svg = svgRef.current;
+    const rect = svg?.getBoundingClientRect();
+    if (!rect) return { x: 0, y: 0 };
+    return {
+      x: viewBox.x + ((event.clientX - rect.left) / rect.width) * viewBox.width,
+      y: viewBox.y + ((event.clientY - rect.top) / rect.height) * viewBox.height,
+    };
+  };
+
+  const zoomAt = (factor: number, center = viewBoxCenter(viewBox)) => {
+    setViewBox((current) => {
+      const width = clamp(current.width * factor, MIN_VIEWBOX_WIDTH, MAX_VIEWBOX_WIDTH);
+      const height = width * (HEIGHT / WIDTH);
+      const ratio = width / current.width;
+      return {
+        x: center.x - (center.x - current.x) * ratio,
+        y: center.y - (center.y - current.y) * ratio,
+        width,
+        height,
+      };
+    });
+  };
+
+  const resetGraph = () => {
+    setViewBox(INITIAL_VIEWBOX);
+    setMovedNodes({});
+  };
+
+  const moveNode = (id: string, x: number, y: number) => {
+    setMovedNodes((current) => ({
+      ...current,
+      [id]: {
+        x: clamp(x, 24, WIDTH - 24),
+        y: clamp(y, 24, HEIGHT - 24),
+      },
+    }));
+  };
+
+  const startNodeDrag = (event: ReactPointerEvent<SVGGElement>, node: Positioned) => {
+    event.preventDefault();
+    event.stopPropagation();
+    svgRef.current?.setPointerCapture(event.pointerId);
+    const startGraph = pointFromEvent(event);
+    dragRef.current = {
+      kind: "node",
+      id: node.id,
+      startGraph,
+      startClient: { x: event.clientX, y: event.clientY },
+      origin: { x: node.x, y: node.y },
+      moved: false,
+    };
+    setHoverId(node.id);
+    setIsDragging(true);
+  };
+
+  const startPan = (event: ReactPointerEvent<SVGSVGElement>) => {
+    if (event.target !== event.currentTarget) return;
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    dragRef.current = {
+      kind: "pan",
+      startClient: { x: event.clientX, y: event.clientY },
+      origin: viewBox,
+      moved: false,
+    };
+    setIsDragging(true);
+  };
+
+  const handlePointerMove = (event: ReactPointerEvent<SVGSVGElement>) => {
+    const drag = dragRef.current;
+    if (!drag) return;
+    const clientDelta = {
+      x: event.clientX - drag.startClient.x,
+      y: event.clientY - drag.startClient.y,
+    };
+    if (Math.hypot(clientDelta.x, clientDelta.y) > 3) drag.moved = true;
+
+    if (drag.kind === "pan") {
+      const svg = svgRef.current;
+      const rect = svg?.getBoundingClientRect();
+      if (!rect) return;
+      setViewBox({
+        ...drag.origin,
+        x: drag.origin.x - (clientDelta.x / rect.width) * drag.origin.width,
+        y: drag.origin.y - (clientDelta.y / rect.height) * drag.origin.height,
+      });
+      return;
+    }
+
+    const point = pointFromEvent(event);
+    moveNode(
+      drag.id,
+      drag.origin.x + point.x - drag.startGraph.x,
+      drag.origin.y + point.y - drag.startGraph.y,
+    );
+  };
+
+  const handlePointerUp = (event: ReactPointerEvent<SVGSVGElement>) => {
+    const drag = dragRef.current;
+    dragRef.current = null;
+    setIsDragging(false);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    if (drag?.kind === "node" && !drag.moved) {
+      const node = positioned.get(drag.id);
+      if (node) activate(node, router);
+    }
+  };
+
+  const handleWheel = (event: ReactWheelEvent<SVGSVGElement>) => {
+    event.preventDefault();
+    zoomAt(event.deltaY > 0 ? 1.12 : 0.88, pointFromEvent(event));
+  };
+
+  const nudgeNode = (node: Positioned, dx: number, dy: number) => {
+    moveNode(node.id, node.x + dx, node.y + dy);
+  };
+
   return (
-    <div className="archive-graph" data-has-focus={focusId ? "true" : "false"}>
+    <div
+      className="archive-graph"
+      data-has-focus={focusId ? "true" : "false"}
+      data-dragging={isDragging ? "true" : "false"}
+    >
+      <div className="archive-graph-controls" aria-label="graph controls">
+        <button type="button" onClick={() => zoomAt(0.8)} aria-label="zoom in">
+          +
+        </button>
+        <button type="button" onClick={() => zoomAt(1.25)} aria-label="zoom out">
+          -
+        </button>
+        <button type="button" onClick={resetGraph}>
+          reset
+        </button>
+      </div>
       <div className="archive-graph-viewport">
         <svg
+          ref={svgRef}
           className="archive-graph-svg"
-          viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+          viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
           role="img"
           aria-label={`archive graph: ${graph.nodes.length} nodes, ${graph.edges.length} connections`}
           preserveAspectRatio="xMidYMid meet"
+          onPointerDown={startPan}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          onWheel={handleWheel}
         >
           <g className="archive-graph-edges">
             {graph.edges.map((edge) => {
@@ -92,11 +266,26 @@ export function ArchiveGraph({ graph }: ArchiveGraphProps) {
                   onMouseLeave={() => setHoverId(null)}
                   onFocus={() => setHoverId(node.id)}
                   onBlur={() => setHoverId(null)}
-                  onClick={() => activate(node, router)}
+                  onPointerDown={(event) => startNodeDrag(event, node)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
                       event.preventDefault();
                       activate(node, router);
+                      return;
+                    }
+                    const amount = event.shiftKey ? 24 : 8;
+                    if (event.key === "ArrowUp") {
+                      event.preventDefault();
+                      nudgeNode(node, 0, -amount);
+                    } else if (event.key === "ArrowDown") {
+                      event.preventDefault();
+                      nudgeNode(node, 0, amount);
+                    } else if (event.key === "ArrowLeft") {
+                      event.preventDefault();
+                      nudgeNode(node, -amount, 0);
+                    } else if (event.key === "ArrowRight") {
+                      event.preventDefault();
+                      nudgeNode(node, amount, 0);
                     }
                   }}
                 >
@@ -112,8 +301,8 @@ export function ArchiveGraph({ graph }: ArchiveGraphProps) {
       </div>
 
       <p className="archive-graph-hint">
-        records and tags. hover or focus a node to trace its connections; click a record to
-        open it, or a tag to gather everything it touches.
+        records and tags. zoom, pan the field, or drag a node clear; click a record to open
+        it, or a tag to gather everything it touches.
       </p>
 
       <details className="archive-graph-fallback">
@@ -139,7 +328,20 @@ export function ArchiveGraph({ graph }: ArchiveGraphProps) {
 function activate(node: GraphNode, router: ReturnType<typeof useRouter>) {
   if (node.kind === "record" && node.route) {
     router.push(node.route);
+  } else if (node.kind === "tag" && node.tag) {
+    router.push(`/garden?tag=${encodeURIComponent(node.tag)}`);
   }
+}
+
+function viewBoxCenter(viewBox: ViewBox) {
+  return {
+    x: viewBox.x + viewBox.width / 2,
+    y: viewBox.y + viewBox.height / 2,
+  };
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, value));
 }
 
 function nodeRadius(node: GraphNode): number {

@@ -43,6 +43,9 @@ _(none)_
 - **write first de-identified articles from a registered source** (`seed-first-articles`, content, high)
   Once the owner registers a local repo path or GitHub repo in archive-projects.txt, scan it and write the first de-identified build-log / entry about what it set out to do, how it evolved, how long it has been worked on, what works, what does not, and any novel idea worth a diagram.
 
+- **make the garden graph inspectable** (`intake-feature-grab-and-manipulate-graph-garden`, feature, medium)
+  Add pan, zoom, node dragging, keyboard nudging, and tag activation to the /garden graph so dense clusters can be inspected without changing routes or adding dependencies.
+
 ## published
 
 - **draft a de-identified article from a registered source** (`source-59727238`, content, medium)

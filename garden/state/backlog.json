@@ -438,6 +438,20 @@
       "privateRef": "garden/state/private/source-e630bf49.md",
       "created": "2026-06-23",
       "notes": "Held on 2026-06-23 with auto-moderation verdict hold-backlog: the registered source clone contained only a one-line README/title and no publishable implementation, template, documentation, fixtures, tests, or distinct branch content to de-identify. Deferred rather than needs-source because the intake script re-promotes needs-source registry items while registered sources remain in archive-projects.txt. Revisit if the source later gains substantive content."
+    },
+    {
+      "id": "intake-feature-grab-and-manipulate-graph-garden",
+      "type": "feature",
+      "title": "make the garden graph inspectable",
+      "status": "done",
+      "priority": "medium",
+      "mode": "site-feature",
+      "source": "intake",
+      "summary": "Add pan, zoom, node dragging, keyboard nudging, and tag activation to the /garden graph so dense clusters can be inspected without changing routes or adding dependencies.",
+      "privateRef": "garden/state/private/intake-feature-grab-and-manipulate-graph-garden.md",
+      "target": "src/components/experiments/ArchiveGraph.tsx",
+      "created": "2026-06-23",
+      "notes": "Done on 2026-06-23: added SVG viewBox zoom controls/wheel, empty-field panning, pointer drag and keyboard nudge for nodes, a reset control, tag activation, and matching CSS. Auto-moderation verdict publish; npm run agent:check passed."
     }
   ]
 }

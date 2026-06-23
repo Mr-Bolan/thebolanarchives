@@ -1449,6 +1449,31 @@ pre,
   gap: var(--space-4);
 }
 
+.archive-graph-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+.archive-graph-controls button {
+  min-width: 2rem;
+  min-height: 2rem;
+  border: 1px solid var(--line-primary);
+  border-radius: 3px;
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font-meta);
+}
+
+.archive-graph-controls button:hover,
+.archive-graph-controls button:focus-visible {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  outline: none;
+}
+
 .archive-graph-viewport {
   width: 100%;
   border: 1px solid var(--line-primary);
@@ -1457,12 +1482,19 @@ pre,
     radial-gradient(circle at 30% 20%, rgba(123, 167, 166, 0.05), transparent 60%),
     var(--surface-raised);
   overflow: hidden;
+  touch-action: none;
 }
 
 .archive-graph-svg {
   display: block;
   width: 100%;
   height: auto;
+  cursor: grab;
+  touch-action: none;
+}
+
+.archive-graph[data-dragging="true"] .archive-graph-svg {
+  cursor: grabbing;
 }
 
 .archive-graph-edge {
@@ -1491,8 +1523,12 @@ pre,
 }
 
 .archive-graph-node {
-  cursor: pointer;
+  cursor: grab;
   transition: opacity 150ms ease;
+}
+
+.archive-graph[data-dragging="true"] .archive-graph-node {
+  cursor: grabbing;
 }
 
 .archive-graph-node:focus {

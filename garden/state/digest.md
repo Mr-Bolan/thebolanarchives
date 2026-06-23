@@ -752,3 +752,23 @@ No publishable diffs were present beyond this sanitized tick log. Tick stopped i
 ## 2026-06-23 - idle automation tick
 
 12:51Z: snapshot refreshed, intake produced no new items, and the backlog had no ready items; no publishable diffs were present beyond sanitized tick state.
+
+## 2026-06-23 - automation tick: interactive garden graph
+
+Intake produced one ready feature item for the garden graph. Implemented a focused
+`/garden` graph interaction update: zoom controls and wheel zoom, background panning,
+pointer dragging and keyboard nudging for nodes, reset, and tag activation. No route,
+database, dependency, content, or operating-layer changes.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. The public diff contains only generic graph UI behavior and
+  sanitized state; the raw intake note remains under gitignored private state.
+- goal-adherence: PASS. The change makes the archive map more useful for inspecting the
+  relationships already present in the garden.
+- truthfulness: PASS. The feature is limited to local SVG interaction; no persistence or
+  live graph engine is claimed.
+- theme/voice: PASS. Controls stay quiet and technical, matching the existing archive UI.
+- significance: PASS. The graph moves from static viewing to an inspectable map, which is
+  a meaningful reader-facing feature.
+- validity: PASS. `npm run garden:moderate -- src/components/experiments/ArchiveGraph.tsx`
+  passed content/privacy audits, and `npm run agent:check` passed.
