@@ -28,8 +28,9 @@ Moderation (auto-moderation rubric):
 - significance: PASS. a complete new article worth publishing.
 - validity: PASS. content:audit + privacy:audit green; related slugs resolve.
 
-Verdict: **publish** — held at owner's request for a supervised first look before the loop
-runs unsupervised. Not committed or pushed.
+Verdict: **publish**. Owner approved the supervised first look. Committed (`5aba440`) and
+pushed to `main`; Pages deploy triggered. Remaining registered sources handed to the
+unsupervised loop.
 
 ## 2026-06-22 — bootstrap
 
