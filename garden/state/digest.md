@@ -394,3 +394,37 @@ Moderation verdict: **hold-backlog**.
   no implementation, template, or operating note.
 - validity: PASS. The item was moved out of `ready` to `needs-source`, and the loop
   continues on other ready work.
+
+## 2026-06-23 - automation tick: wpf operations console shell
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/wpf-operations-console-shell.mdx`.
+
+The public record strips repository identity, source-specific app names, generated page
+titles, API base paths, machine name/serial values, local tool metadata, source URLs, and
+private paths. It preserves the system shape: a WPF desktop shell with .NET Generic Host
+startup, dependency injection, navigation, dashboard/data/settings pages, theme services,
+and early machine/API configuration stubs.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, generated app names, source-specific API paths, sample machine values, or local
+  tool/provider metadata in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real desktop UI shell and
+  makes the source's early/prototype state explicit instead of inflating it.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: source restore/build
+  passed in an isolated clone with nullable warnings, but no source test suite was present
+  and the domain workflow remains mostly stubbed.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now because it
+  connects the archive's desktop-tool thread to the frame-building stage before operational
+  screens harden.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/wpf-operations-console-shell.mdx`
+  passed; the moderation packet reported content and privacy audits green.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 18 public records with 10 ready items remaining for later
+loop work.

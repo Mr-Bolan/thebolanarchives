@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T10:44:34.152Z",
+  "generated": "2026-06-23T10:50:17.254Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -35,7 +35,7 @@
       "id": "record:desktop-certificate-and-audit-pdf-generator",
       "kind": "record",
       "label": "desktop-certificate-and-audit-pdf-generator",
-      "degree": 9,
+      "degree": 10,
       "route": "/build-logs/desktop-certificate-and-audit-pdf-generator",
       "type": "build_log",
       "status": "working_note",
@@ -65,7 +65,7 @@
       "id": "record:machine-event-timeline-graph-viewer",
       "kind": "record",
       "label": "machine-event-timeline-graph-viewer",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/machine-event-timeline-graph-viewer",
       "type": "build_log",
       "status": "working_note",
@@ -75,7 +75,7 @@
       "id": "record:machine-metrics-collector-with-commissioning-gates",
       "kind": "record",
       "label": "machine-metrics-collector-with-commissioning-gates",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
       "type": "build_log",
       "status": "working_note",
@@ -85,7 +85,7 @@
       "id": "record:manual-label-printing-from-templates",
       "kind": "record",
       "label": "manual-label-printing-from-templates",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/manual-label-printing-from-templates",
       "type": "build_log",
       "status": "working_note",
@@ -130,6 +130,16 @@
       "type": "build_log",
       "status": "working_note",
       "slug": "workbook-row-to-packout-pdf"
+    },
+    {
+      "id": "record:wpf-operations-console-shell",
+      "kind": "record",
+      "label": "wpf-operations-console-shell",
+      "degree": 10,
+      "route": "/build-logs/wpf-operations-console-shell",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "wpf-operations-console-shell"
     },
     {
       "id": "record:you-pay-for-the-problem-that-disappears",
@@ -506,6 +516,48 @@
       "label": "spreadsheet-automation",
       "degree": 1,
       "tag": "spreadsheet-automation"
+    },
+    {
+      "id": "tag:desktop-app",
+      "kind": "tag",
+      "label": "desktop-app",
+      "degree": 1,
+      "tag": "desktop-app"
+    },
+    {
+      "id": "tag:wpf",
+      "kind": "tag",
+      "label": "wpf",
+      "degree": 1,
+      "tag": "wpf"
+    },
+    {
+      "id": "tag:operations-ui",
+      "kind": "tag",
+      "label": "operations-ui",
+      "degree": 1,
+      "tag": "operations-ui"
+    },
+    {
+      "id": "tag:settings",
+      "kind": "tag",
+      "label": "settings",
+      "degree": 1,
+      "tag": "settings"
+    },
+    {
+      "id": "tag:mvvm",
+      "kind": "tag",
+      "label": "mvvm",
+      "degree": 1,
+      "tag": "mvvm"
+    },
+    {
+      "id": "tag:prototype",
+      "kind": "tag",
+      "label": "prototype",
+      "degree": 1,
+      "tag": "prototype"
     },
     {
       "id": "tag:work",
@@ -1074,6 +1126,56 @@
     {
       "source": "record:workbook-row-to-packout-pdf",
       "target": "tag:operations",
+      "kind": "tag"
+    },
+    {
+      "source": "record:wpf-operations-console-shell",
+      "target": "record:desktop-certificate-and-audit-pdf-generator",
+      "kind": "related"
+    },
+    {
+      "source": "record:wpf-operations-console-shell",
+      "target": "record:manual-label-printing-from-templates",
+      "kind": "related"
+    },
+    {
+      "source": "record:wpf-operations-console-shell",
+      "target": "record:machine-metrics-collector-with-commissioning-gates",
+      "kind": "related"
+    },
+    {
+      "source": "record:wpf-operations-console-shell",
+      "target": "record:machine-event-timeline-graph-viewer",
+      "kind": "related"
+    },
+    {
+      "source": "record:wpf-operations-console-shell",
+      "target": "tag:desktop-app",
+      "kind": "tag"
+    },
+    {
+      "source": "record:wpf-operations-console-shell",
+      "target": "tag:wpf",
+      "kind": "tag"
+    },
+    {
+      "source": "record:wpf-operations-console-shell",
+      "target": "tag:operations-ui",
+      "kind": "tag"
+    },
+    {
+      "source": "record:wpf-operations-console-shell",
+      "target": "tag:settings",
+      "kind": "tag"
+    },
+    {
+      "source": "record:wpf-operations-console-shell",
+      "target": "tag:mvvm",
+      "kind": "tag"
+    },
+    {
+      "source": "record:wpf-operations-console-shell",
+      "target": "tag:prototype",
       "kind": "tag"
     },
     {

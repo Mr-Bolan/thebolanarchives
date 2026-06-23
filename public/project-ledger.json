@@ -294,5 +294,32 @@
     "current_state": "A build log for a Windows reporting bridge that turns formatted Excel workbooks and selected ledger rows into one-page operational PDFs.",
     "latest_update": "",
     "next_move": ""
+  },
+  {
+    "title": "wpf operations console shell",
+    "slug": "wpf-operations-console-shell",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a WPF desktop shell that frames navigation, settings, theme control, and future machine/API configuration before the real workflow arrives.",
+    "updated": "2026-06-23",
+    "tags": [
+      "desktop-app",
+      "wpf",
+      "operations-ui",
+      "settings",
+      "mvvm",
+      "prototype"
+    ],
+    "tools": [
+      "dotnet",
+      "wpf",
+      "wpf-ui",
+      "communitytoolkit-mvvm",
+      "microsoft-extensions-hosting"
+    ],
+    "route": "/build-logs/wpf-operations-console-shell",
+    "current_state": "A build log for a WPF desktop shell that frames navigation, settings, theme control, and future machine/API configuration before the real workflow arrives.",
+    "latest_update": "",
+    "next_move": ""
   }
 ]

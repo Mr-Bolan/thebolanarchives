@@ -413,6 +413,48 @@
     "source_context": "sanitized inspection of a registered workbook-report source: README, Excel export script, row-based PDF generator, desktop wrapper, installer scripts, commit history, and tests; source tests passed on 2026-06-23"
   },
   {
+    "title": "wpf operations console shell",
+    "slug": "wpf-operations-console-shell",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a WPF desktop shell that frames navigation, settings, theme control, and future machine/API configuration before the real workflow arrives.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "desktop-app",
+      "wpf",
+      "operations-ui",
+      "settings",
+      "mvvm",
+      "prototype"
+    ],
+    "tools": [
+      "dotnet",
+      "wpf",
+      "wpf-ui",
+      "communitytoolkit-mvvm",
+      "microsoft-extensions-hosting"
+    ],
+    "narrative_origin": "a desktop shell for operations tooling before the workflow hardened",
+    "related": [
+      "desktop-certificate-and-audit-pdf-generator",
+      "manual-label-printing-from-templates",
+      "machine-metrics-collector-with-commissioning-gates",
+      "machine-event-timeline-graph-viewer"
+    ],
+    "points": [
+      "a desktop app can be real infrastructure before it has real domain screens",
+      "navigation, hosting, settings, theming, and service boundaries are the first durable decisions",
+      "starter UI labels and stub machine fields are useful evidence, but not publishable identity",
+      "a shell build should be labeled as a shell, not inflated into an application"
+    ],
+    "route": "/build-logs/wpf-operations-console-shell",
+    "record_id": "build_log_012",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered WPF desktop source: solution/project files, host service, navigation window, pages, view models, settings scaffold, assets, and task metadata; source restore/build passed with nullable warnings on 2026-06-23; no source test suite was present"
+  },
+  {
     "title": "dashboard without decisions",
     "slug": "dashboard-without-decisions",
     "type": "graveyard_note",
