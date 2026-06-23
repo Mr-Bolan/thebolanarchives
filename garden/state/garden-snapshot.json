@@ -1,8 +1,8 @@
 {
-  "generated": "2026-06-23T11:43:47.824Z",
+  "generated": "2026-06-23T11:48:38.412Z",
   "stale": false,
   "version": {
-    "sha": "3502324",
+    "sha": "c8ded5d",
     "records": 26,
     "publicRecords": 26
   },
@@ -43,21 +43,13 @@
   },
   "backlog": {
     "total": 26,
-    "ready": 1,
+    "ready": 0,
     "byStatus": {
       "done": 2,
-      "deferred": 2,
-      "published": 20,
-      "needs-source": 1,
-      "ready": 1
+      "deferred": 4,
+      "published": 20
     },
-    "readyItems": [
-      {
-        "id": "source-e630bf49",
-        "title": "draft a de-identified article from a registered source",
-        "priority": "medium"
-      }
-    ]
+    "readyItems": []
   },
   "intake": {
     "articleNotes": 0,

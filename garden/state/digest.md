@@ -392,8 +392,9 @@ Moderation verdict: **hold-backlog**.
 - theme/voice: PASS. The digest records the hold plainly.
 - significance: HOLD. There is no publish-worthy article yet because the source contains
   no implementation, template, or operating note.
-- validity: PASS. The item was moved out of `ready` to `needs-source`, and the loop
-  continues on other ready work.
+- validity: PASS. The item was moved out of `ready` to `deferred`; `needs-source` was not
+  durable for registered sources because intake re-promotes it while sources remain
+  registered. The loop continues on other ready work.
 
 ## 2026-06-23 - automation tick: wpf operations console shell
 
@@ -657,6 +658,26 @@ Moderation verdict: **publish**.
   the moderation packet reported content and privacy audits green. The moderation packet
   did not include the untracked-file diff, so the manual gate treated the audited new file
   as the draft under review.
+
+## 2026-06-23 - automation tick: held empty registered source
+
+Continued the same wakeup and inspected the final ready registered source. The isolated
+clone contained only a one-line README/title and no substantive implementation, template,
+documentation, fixture, test, or distinct branch content to de-identify.
+
+Moderation verdict: **hold-backlog**.
+- privacy (hard gate): PASS. No public content was drafted or published, and no source
+  identity or source URL was copied into committed state.
+- goal-adherence: PASS. Holding the item keeps the archive from inventing a build log when
+  there is no evidence to describe.
+- truthfulness: PASS. The backlog records that the source is waiting on substantive content
+  rather than pretending a one-line title is a system.
+- theme/voice: PASS. The digest records the hold plainly.
+- significance: HOLD. There is no publish-worthy article yet because the source contains
+  no implementation, template, operating note, fixtures, or tests.
+- validity: PASS. The item was moved out of `ready` to `deferred`; `needs-source` was not
+  durable for registered sources because intake re-promotes it while sources remain
+  registered. At this point the backlog has no ready items from this wakeup.
 
 ## 2026-06-23 - automation tick: target audience role proxy
 

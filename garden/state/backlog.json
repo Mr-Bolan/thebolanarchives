@@ -232,7 +232,7 @@
       "id": "source-c28e0f8f",
       "type": "content",
       "title": "draft a de-identified article from a registered source",
-      "status": "needs-source",
+      "status": "deferred",
       "priority": "medium",
       "mode": "content-draft",
       "source": "registry",
@@ -240,7 +240,7 @@
       "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
       "privateRef": "garden/state/private/source-c28e0f8f.md",
       "created": "2026-06-23",
-      "notes": "Held on 2026-06-23 with auto-moderation verdict hold-backlog: the registered source clone contained only stock repository metadata files and no publishable implementation, template, documentation, or tests to de-identify. Revisit if the source later gains substantive content."
+      "notes": "Held on 2026-06-23 with auto-moderation verdict hold-backlog: the registered source clone contained only stock repository metadata files and no publishable implementation, template, documentation, or tests to de-identify. Deferred rather than needs-source because the intake script re-promotes needs-source registry items while registered sources remain in archive-projects.txt. Revisit if the source later gains substantive content."
     },
     {
       "id": "source-013a284a",
@@ -429,14 +429,15 @@
       "id": "source-e630bf49",
       "type": "content",
       "title": "draft a de-identified article from a registered source",
-      "status": "ready",
+      "status": "deferred",
       "priority": "medium",
       "mode": "content-draft",
       "source": "registry",
       "sourceKind": "github",
       "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
       "privateRef": "garden/state/private/source-e630bf49.md",
-      "created": "2026-06-23"
+      "created": "2026-06-23",
+      "notes": "Held on 2026-06-23 with auto-moderation verdict hold-backlog: the registered source clone contained only a one-line README/title and no publishable implementation, template, documentation, fixtures, tests, or distinct branch content to de-identify. Deferred rather than needs-source because the intake script re-promotes needs-source registry items while registered sources remain in archive-projects.txt. Revisit if the source later gains substantive content."
     }
   ]
 }
