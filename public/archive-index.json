@@ -388,6 +388,47 @@
     "source_context": "sanitized inspection of a registered machine-collector source: README, design guide, service runner, SQL definition runner, commissioning service, discovery/schema parser tests, and database policy notes; core project build passed on 2026-06-23; test project build was blocked by a test-framework reference mismatch in the isolated clone"
   },
   {
+    "title": "mailbox graph helper functions",
+    "slug": "mailbox-graph-helper-functions",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a small Python helper layer around Microsoft Graph mailbox operations: device-code auth, message reads, send-mail, folder creation, and message moves.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "email",
+      "microsoft-graph",
+      "automation",
+      "integration",
+      "python",
+      "privacy"
+    ],
+    "tools": [
+      "python",
+      "msal",
+      "requests",
+      "python-dotenv",
+      "unittest"
+    ],
+    "narrative_origin": "mailbox actions that needed a repeatable script boundary instead of manual clicking",
+    "related": [
+      "agent-runbook-workspace-for-machine-reports",
+      "static-report-portal-preview",
+      "local-timesheet-reporting-workbench"
+    ],
+    "points": [
+      "mailbox automation is mostly auth boundary, permission scope, and careful message selection",
+      "helper functions should keep tokens, recipients, message ids, and folder ids out of logs",
+      "device-code auth is useful for local tools but should not be confused with service-grade auth",
+      "credential files removed from the current tree can still remain a repository-history risk"
+    ],
+    "route": "/build-logs/mailbox-graph-helper-functions",
+    "record_id": "build_log_018",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered Python mail-helper source: auth module, mailbox function module, setup runner, README, requirements, current tree scan, git history summary, and mocked unit tests; Python syntax compilation and two mocked unit tests passed on 2026-06-23; live auth/mailbox execution was not run because it would require interactive account access and real mailbox operations"
+  },
+  {
     "title": "manual label printing from templates",
     "slug": "manual-label-printing-from-templates",
     "type": "build_log",

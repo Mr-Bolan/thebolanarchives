@@ -599,3 +599,35 @@ Moderation verdict: **publish**.
   passed; the moderation packet reported content and privacy audits green. The moderation
   packet did not include the untracked-file diff, so the manual gate treated the audited
   new file as the draft under review.
+
+## 2026-06-23 - automation tick: mailbox graph helper functions
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/mailbox-graph-helper-functions.mdx`.
+
+The public record strips repository identity, source names, source URLs, local paths,
+account identifiers, tenant/client values, raw credential material, recipients, message
+subjects, message ids, folder ids, attachment contents, and any old env-file contents. It
+preserves the system shape: Python device-code authentication, Graph mailbox read/send
+helpers, folder creation, message movement, setup-runner side effects, current-tree
+credential placeholders, history hygiene risk, and mocked HTTP tests.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, email addresses, tenant/client values, account identifiers, message ids, folder
+  ids, or raw env-file values in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real mailbox automation
+  helper and explains what it set out to do, what worked, and why auth/mailbox side effects
+  are the meaningful boundary.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: Python syntax
+  compilation and two mocked unit tests passed in an isolated virtual environment, while
+  live auth/mailbox execution was intentionally not run.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now because it
+  adds the archive's first de-identified mailbox-integration/tooling note.
+- validity: PASS. `npm run content:audit`, `npm run privacy:audit`, and
+  `npm run garden:moderate -- content/build-logs/mailbox-graph-helper-functions.mdx`
+  passed; the moderation packet reported content and privacy audits green. The moderation
+  packet did not include the untracked-file diff, so the manual gate treated the audited
+  new file as the draft under review.

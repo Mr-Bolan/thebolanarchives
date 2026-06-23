@@ -258,6 +258,33 @@
     "next_move": ""
   },
   {
+    "title": "mailbox graph helper functions",
+    "slug": "mailbox-graph-helper-functions",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a small Python helper layer around Microsoft Graph mailbox operations: device-code auth, message reads, send-mail, folder creation, and message moves.",
+    "updated": "2026-06-23",
+    "tags": [
+      "email",
+      "microsoft-graph",
+      "automation",
+      "integration",
+      "python",
+      "privacy"
+    ],
+    "tools": [
+      "python",
+      "msal",
+      "requests",
+      "python-dotenv",
+      "unittest"
+    ],
+    "route": "/build-logs/mailbox-graph-helper-functions",
+    "current_state": "A build log for a small Python helper layer around Microsoft Graph mailbox operations: device-code auth, message reads, send-mail, folder creation, and message moves.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "manual label printing from templates",
     "slug": "manual-label-printing-from-templates",
     "status": "working_note",

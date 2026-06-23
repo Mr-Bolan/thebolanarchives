@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T11:21:46.852Z",
+  "generated": "2026-06-23T11:27:42.233Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -35,7 +35,7 @@
       "id": "record:agent-runbook-workspace-for-machine-reports",
       "kind": "record",
       "label": "agent-runbook-workspace-for-machine-reports",
-      "degree": 12,
+      "degree": 13,
       "route": "/build-logs/agent-runbook-workspace-for-machine-reports",
       "type": "build_log",
       "status": "working_note",
@@ -75,7 +75,7 @@
       "id": "record:local-timesheet-reporting-workbench",
       "kind": "record",
       "label": "local-timesheet-reporting-workbench",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/local-timesheet-reporting-workbench",
       "type": "build_log",
       "status": "working_note",
@@ -110,6 +110,16 @@
       "type": "build_log",
       "status": "working_note",
       "slug": "machine-metrics-collector-with-commissioning-gates"
+    },
+    {
+      "id": "record:mailbox-graph-helper-functions",
+      "kind": "record",
+      "label": "mailbox-graph-helper-functions",
+      "degree": 9,
+      "route": "/build-logs/mailbox-graph-helper-functions",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "mailbox-graph-helper-functions"
     },
     {
       "id": "record:manual-label-printing-from-templates",
@@ -165,7 +175,7 @@
       "id": "record:static-report-portal-preview",
       "kind": "record",
       "label": "static-report-portal-preview",
-      "degree": 13,
+      "degree": 14,
       "route": "/build-logs/static-report-portal-preview",
       "type": "build_log",
       "status": "working_note",
@@ -298,7 +308,7 @@
       "id": "tag:python",
       "kind": "tag",
       "label": "python",
-      "degree": 2,
+      "degree": 3,
       "tag": "python"
     },
     {
@@ -531,6 +541,41 @@
       "label": "commissioning",
       "degree": 1,
       "tag": "commissioning"
+    },
+    {
+      "id": "tag:email",
+      "kind": "tag",
+      "label": "email",
+      "degree": 1,
+      "tag": "email"
+    },
+    {
+      "id": "tag:microsoft-graph",
+      "kind": "tag",
+      "label": "microsoft-graph",
+      "degree": 1,
+      "tag": "microsoft-graph"
+    },
+    {
+      "id": "tag:automation",
+      "kind": "tag",
+      "label": "automation",
+      "degree": 1,
+      "tag": "automation"
+    },
+    {
+      "id": "tag:integration",
+      "kind": "tag",
+      "label": "integration",
+      "degree": 1,
+      "tag": "integration"
+    },
+    {
+      "id": "tag:privacy",
+      "kind": "tag",
+      "label": "privacy",
+      "degree": 1,
+      "tag": "privacy"
     },
     {
       "id": "tag:label-printing",
@@ -1210,6 +1255,51 @@
     {
       "source": "record:machine-metrics-collector-with-commissioning-gates",
       "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mailbox-graph-helper-functions",
+      "target": "record:agent-runbook-workspace-for-machine-reports",
+      "kind": "related"
+    },
+    {
+      "source": "record:mailbox-graph-helper-functions",
+      "target": "record:static-report-portal-preview",
+      "kind": "related"
+    },
+    {
+      "source": "record:mailbox-graph-helper-functions",
+      "target": "record:local-timesheet-reporting-workbench",
+      "kind": "related"
+    },
+    {
+      "source": "record:mailbox-graph-helper-functions",
+      "target": "tag:email",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mailbox-graph-helper-functions",
+      "target": "tag:microsoft-graph",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mailbox-graph-helper-functions",
+      "target": "tag:automation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mailbox-graph-helper-functions",
+      "target": "tag:integration",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mailbox-graph-helper-functions",
+      "target": "tag:python",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mailbox-graph-helper-functions",
+      "target": "tag:privacy",
       "kind": "tag"
     },
     {

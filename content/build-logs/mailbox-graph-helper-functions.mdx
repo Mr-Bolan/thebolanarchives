@@ -1,0 +1,126 @@
+---
+title: "mailbox graph helper functions"
+slug: "mailbox-graph-helper-functions"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a small Python helper layer around Microsoft Graph mailbox operations: device-code auth, message reads, send-mail, folder creation, and message moves."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - email
+  - microsoft-graph
+  - automation
+  - integration
+  - python
+  - privacy
+tools:
+  - python
+  - msal
+  - requests
+  - python-dotenv
+  - unittest
+narrative_origin: "mailbox actions that needed a repeatable script boundary instead of manual clicking"
+visibility: "public"
+related:
+  - "agent-runbook-workspace-for-machine-reports"
+  - "static-report-portal-preview"
+  - "local-timesheet-reporting-workbench"
+points:
+  - "mailbox automation is mostly auth boundary, permission scope, and careful message selection"
+  - "helper functions should keep tokens, recipients, message ids, and folder ids out of logs"
+  - "device-code auth is useful for local tools but should not be confused with service-grade auth"
+  - "credential files removed from the current tree can still remain a repository-history risk"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered Python mail-helper source: auth module, mailbox function module, setup runner, README, requirements, current tree scan, git history summary, and mocked unit tests; Python syntax compilation and two mocked unit tests passed on 2026-06-23; live auth/mailbox execution was not run because it would require interactive account access and real mailbox operations"
+record_id: "build_log_018"
+---
+
+# build_log_018 // mailbox_graph_helper_functions
+
+## what this is
+
+A small Python helper layer around Microsoft Graph mailbox operations.
+
+It has four practical moves:
+
+- acquire an access token with a local device-code flow
+- read recent messages with pagination
+- send a message, optionally with file attachments
+- create a mail folder and move a message into it
+
+<TerminalBlock title="mailbox helper boundary (sanitized)" prompt="">
+{`environment values
+  -> device-code auth
+  -> access token
+  -> mailbox read / send / folder / move functions
+  -> mocked tests for request shape`}
+</TerminalBlock>
+
+The source is not a full product. It is a thin integration surface: enough code to stop
+rewriting the same Graph request bodies by hand.
+
+## why it exists
+
+Mail workflows are easy to automate badly. A script can send the wrong thing to the wrong
+recipient, move the wrong message, or print enough metadata to turn a harmless console log
+into a privacy leak.
+
+The useful thing here is the boundary. Auth is kept in one module. Mailbox actions are kept
+in one module. The setup runner demonstrates the end-to-end flow, while the tests mock
+network calls instead of touching a real mailbox.
+
+That is the right first split for a local tool: make the side effects visible, then make
+the safe test surface smaller than the live account surface.
+
+## what worked
+
+The helper functions cover the common mailbox primitives:
+
+- send-mail builds a Graph request with recipients, body text, and optional attachments
+- read-mail selects a narrow message shape and paginates until it has enough rows
+- folder creation returns the new folder id
+- message move uses an explicit destination id
+- errors are caught and logged rather than crashing without context
+- unit tests mock the HTTP layer for send and read behavior
+
+Python syntax compilation passed for the auth module, mailbox function module, setup
+runner, and tests. The mocked unit tests also passed in an isolated virtual environment.
+
+## what broke
+
+- **credentials are the real system boundary.** client ids, tenant ids, tokens, recipient
+  addresses, message ids, folder ids, and attachment contents must never enter the public
+  archive.
+- **repository history matters.** The current tree does not contain raw credential values,
+  but the git history indicates a local env file was once tracked and then removed. That is
+  source hygiene evidence, not something to quote.
+- **the setup runner is live and side-effectful.** It can read real mail, send a real test
+  message, create a folder, and move a message. That was not run during archive
+  verification.
+- **permission scope is broad.** Read/send/folder permissions make sense for the helper,
+  but a production tool would need stricter consent, account isolation, and audit logging.
+- **logging can leak.** Even success messages can expose recipients, folder names, message
+  subjects, or operational timing if copied into shared logs.
+
+## what i understand now
+
+This source is small, but it marks a recurring pattern in the archive: an operational
+workflow starts as manual clicking, then becomes a thin helper, then either stays a local
+tool or hardens into a service with proper identity boundaries.
+
+The useful lesson is not "send email from Python." It is that mail automation should be
+treated like a write-capable integration from the first line. Reading, sending, creating
+folders, and moving messages are all side effects. The code should make that obvious.
+
+The archive can keep the shape of the helper. It should not keep account identifiers,
+tenant values, recipients, mailbox subjects, message ids, folder ids, tokens, or old env
+file contents.
+
+## open questions
+
+<OpenQuestions questions={[
+  "What is the smallest dry-run mode that proves request bodies without touching a mailbox?",
+  "How should a local mailbox helper separate personal account consent from service-account automation?",
+  "Which fields should be logged for diagnosis without exposing recipients, subjects, or message ids?"
+]} />

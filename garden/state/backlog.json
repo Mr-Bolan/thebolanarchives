@@ -361,14 +361,18 @@
       "id": "source-fe4ef9b2",
       "type": "content",
       "title": "draft a de-identified article from a registered source",
-      "status": "ready",
+      "status": "published",
       "priority": "medium",
       "mode": "content-draft",
       "source": "registry",
       "sourceKind": "github",
       "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
       "privateRef": "garden/state/private/source-fe4ef9b2.md",
-      "created": "2026-06-23"
+      "created": "2026-06-23",
+      "notes": "Published on 2026-06-23 as content/build-logs/mailbox-graph-helper-functions.mdx after auto-moderation verdict publish. Checks passed: content:audit, privacy:audit, garden:moderate, Python syntax compilation, and two mocked source unit tests in an isolated virtual environment. Live auth/mailbox execution was not run because it would require interactive account access and real mailbox side effects.",
+      "targets": [
+        "content/build-logs/mailbox-graph-helper-functions.mdx"
+      ]
     },
     {
       "id": "source-ba33ecf7",
