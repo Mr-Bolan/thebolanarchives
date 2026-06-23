@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T11:01:43.300Z",
+  "generated": "2026-06-23T11:06:00.661Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -25,7 +25,7 @@
       "id": "record:adaptive-oee-reporting-workbench",
       "kind": "record",
       "label": "adaptive-oee-reporting-workbench",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/adaptive-oee-reporting-workbench",
       "type": "build_log",
       "status": "working_note",
@@ -75,7 +75,7 @@
       "id": "record:machine-event-timeline-graph-viewer",
       "kind": "record",
       "label": "machine-event-timeline-graph-viewer",
-      "degree": 12,
+      "degree": 13,
       "route": "/build-logs/machine-event-timeline-graph-viewer",
       "type": "build_log",
       "status": "working_note",
@@ -85,7 +85,7 @@
       "id": "record:machine-metrics-collector-with-commissioning-gates",
       "kind": "record",
       "label": "machine-metrics-collector-with-commissioning-gates",
-      "degree": 14,
+      "degree": 15,
       "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
       "type": "build_log",
       "status": "working_note",
@@ -100,6 +100,16 @@
       "type": "build_log",
       "status": "working_note",
       "slug": "manual-label-printing-from-templates"
+    },
+    {
+      "id": "record:minute-level-oee-kpi-runner",
+      "kind": "record",
+      "label": "minute-level-oee-kpi-runner",
+      "degree": 10,
+      "route": "/build-logs/minute-level-oee-kpi-runner",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "minute-level-oee-kpi-runner"
     },
     {
       "id": "record:multi-site-reporter-configuration-shell",
@@ -185,7 +195,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 15,
+      "degree": 16,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -247,7 +257,7 @@
       "id": "tag:oee",
       "kind": "tag",
       "label": "oee",
-      "degree": 1,
+      "degree": 2,
       "tag": "oee"
     },
     {
@@ -268,7 +278,7 @@
       "id": "tag:python",
       "kind": "tag",
       "label": "python",
-      "degree": 1,
+      "degree": 2,
       "tag": "python"
     },
     {
@@ -282,7 +292,7 @@
       "id": "tag:machine-data",
       "kind": "tag",
       "label": "machine-data",
-      "degree": 2,
+      "degree": 3,
       "tag": "machine-data"
     },
     {
@@ -303,7 +313,7 @@
       "id": "tag:operations",
       "kind": "tag",
       "label": "operations",
-      "degree": 10,
+      "degree": 11,
       "tag": "operations"
     },
     {
@@ -450,7 +460,7 @@
       "id": "tag:time-series",
       "kind": "tag",
       "label": "time-series",
-      "degree": 1,
+      "degree": 2,
       "tag": "time-series"
     },
     {
@@ -473,6 +483,13 @@
       "label": "presets",
       "degree": 1,
       "tag": "presets"
+    },
+    {
+      "id": "tag:kpi",
+      "kind": "tag",
+      "label": "kpi",
+      "degree": 1,
+      "tag": "kpi"
     },
     {
       "id": "tag:desktop-app",
@@ -1076,6 +1093,56 @@
     {
       "source": "record:manual-label-printing-from-templates",
       "target": "tag:document-generation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:minute-level-oee-kpi-runner",
+      "target": "record:machine-metrics-collector-with-commissioning-gates",
+      "kind": "related"
+    },
+    {
+      "source": "record:minute-level-oee-kpi-runner",
+      "target": "record:adaptive-oee-reporting-workbench",
+      "kind": "related"
+    },
+    {
+      "source": "record:minute-level-oee-kpi-runner",
+      "target": "record:machine-event-timeline-graph-viewer",
+      "kind": "related"
+    },
+    {
+      "source": "record:minute-level-oee-kpi-runner",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:minute-level-oee-kpi-runner",
+      "target": "tag:oee",
+      "kind": "tag"
+    },
+    {
+      "source": "record:minute-level-oee-kpi-runner",
+      "target": "tag:machine-data",
+      "kind": "tag"
+    },
+    {
+      "source": "record:minute-level-oee-kpi-runner",
+      "target": "tag:time-series",
+      "kind": "tag"
+    },
+    {
+      "source": "record:minute-level-oee-kpi-runner",
+      "target": "tag:kpi",
+      "kind": "tag"
+    },
+    {
+      "source": "record:minute-level-oee-kpi-runner",
+      "target": "tag:python",
+      "kind": "tag"
+    },
+    {
+      "source": "record:minute-level-oee-kpi-runner",
+      "target": "tag:operations",
       "kind": "tag"
     },
     {

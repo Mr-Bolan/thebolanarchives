@@ -499,3 +499,37 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 20 public records with 8 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: minute-level oee kpi runner
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/minute-level-oee-kpi-runner.mdx`.
+
+The public record strips repository identity, product/source names, endpoint catalogue
+details, machine identifiers, batch/grower fields, database names, default credentials,
+log filenames, source URLs, and local paths. It preserves the system shape: a compact
+Python collector that polls configured machine endpoints into a time-series table and a
+KPI runner that backfills or streams minute-level availability, throughput, quality, and
+OEE facts.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, exact endpoint names, database names, batch fields, machine identifiers, or log
+  filenames in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real low-level KPI pipeline
+  and distinguishes raw machine payloads from calculated OEE facts.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: Python syntax
+  compilation passed for the collector, KPI runner, and backfill script, but runtime
+  execution was not run because it requires machine endpoints and database access.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now because it
+  sharpens the archive's data-trust thread at the minute-fact layer under dashboards.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/minute-level-oee-kpi-runner.mdx` passed;
+  the moderation packet reported content and privacy audits green.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 21 public records with 7 ready items remaining for later
+loop work.

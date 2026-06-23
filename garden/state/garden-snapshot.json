@@ -1,27 +1,27 @@
 {
-  "generated": "2026-06-23T11:01:27.039Z",
+  "generated": "2026-06-23T11:05:44.936Z",
   "stale": false,
   "version": {
-    "sha": "63d433e",
-    "records": 20,
-    "publicRecords": 20
+    "sha": "11d44fd",
+    "records": 21,
+    "publicRecords": 21
   },
   "archive": {
-    "records": 20,
+    "records": 21,
     "byType": {
       "entry": 1,
       "field_note": 1,
-      "build_log": 14,
+      "build_log": 15,
       "fragment": 1,
       "pattern": 1,
       "experiment": 1,
       "graveyard_note": 1
     },
     "byVisibility": {
-      "public": 20
+      "public": 21
     },
-    "uniqueTags": 65,
-    "relatedEdges": 55
+    "uniqueTags": 66,
+    "relatedEdges": 59
   },
   "routes": {
     "static": [
@@ -39,24 +39,19 @@
       "/experiments",
       "/graveyard"
     ],
-    "records": 20
+    "records": 21
   },
   "backlog": {
     "total": 26,
-    "ready": 8,
+    "ready": 7,
     "byStatus": {
       "done": 2,
       "deferred": 2,
-      "published": 13,
+      "published": 14,
       "needs-source": 1,
-      "ready": 8
+      "ready": 7
     },
     "readyItems": [
-      {
-        "id": "source-29b15786",
-        "title": "draft a de-identified article from a registered source",
-        "priority": "medium"
-      },
       {
         "id": "source-4097c6aa",
         "title": "draft a de-identified article from a registered source",

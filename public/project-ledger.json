@@ -224,6 +224,35 @@
     "next_move": ""
   },
   {
+    "title": "minute-level oee kpi runner",
+    "slug": "minute-level-oee-kpi-runner",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a compact Python collector and KPI runner that polls machine endpoints, stores raw metrics, and computes minute-level OEE facts.",
+    "updated": "2026-06-23",
+    "tags": [
+      "oee",
+      "machine-data",
+      "time-series",
+      "kpi",
+      "python",
+      "operations"
+    ],
+    "tools": [
+      "python",
+      "asyncio",
+      "aiohttp",
+      "asyncpg",
+      "postgres",
+      "timescaledb",
+      "yaml"
+    ],
+    "route": "/build-logs/minute-level-oee-kpi-runner",
+    "current_state": "A build log for a compact Python collector and KPI runner that polls machine endpoints, stores raw metrics, and computes minute-level OEE facts.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "multi-site reporter configuration shell",
     "slug": "multi-site-reporter-configuration-shell",
     "status": "working_note",

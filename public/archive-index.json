@@ -338,6 +338,50 @@
     "source_context": "sanitized inspection of a registered label-printing source: README, template loader, renderer, storage layer, installer scripts, and tests; source tests passed on 2026-06-23"
   },
   {
+    "title": "minute-level oee kpi runner",
+    "slug": "minute-level-oee-kpi-runner",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a compact Python collector and KPI runner that polls machine endpoints, stores raw metrics, and computes minute-level OEE facts.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "oee",
+      "machine-data",
+      "time-series",
+      "kpi",
+      "python",
+      "operations"
+    ],
+    "tools": [
+      "python",
+      "asyncio",
+      "aiohttp",
+      "asyncpg",
+      "postgres",
+      "timescaledb",
+      "yaml"
+    ],
+    "narrative_origin": "a dashboard idea reduced down to the minute-by-minute data pipeline it needed",
+    "related": [
+      "machine-metrics-collector-with-commissioning-gates",
+      "adaptive-oee-reporting-workbench",
+      "machine-event-timeline-graph-viewer",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "OEE dashboards depend on a quiet minute-level fact pipeline",
+      "raw machine payloads and calculated KPIs need different tables and different trust rules",
+      "backfill and live streaming are two modes of the same calculation",
+      "logs and config files can reveal more operational context than the scripts themselves"
+    ],
+    "route": "/build-logs/minute-level-oee-kpi-runner",
+    "record_id": "build_log_015",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered Python KPI source: endpoint collector, schema, config file, KPI runner, backfill script, and committed run log; Python syntax compilation passed on 2026-06-23; runtime execution was not run because it requires machine endpoints and database access"
+  },
+  {
     "title": "multi-site reporter configuration shell",
     "slug": "multi-site-reporter-configuration-shell",
     "type": "build_log",

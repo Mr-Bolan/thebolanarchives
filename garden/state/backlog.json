@@ -310,14 +310,18 @@
       "id": "source-29b15786",
       "type": "content",
       "title": "draft a de-identified article from a registered source",
-      "status": "ready",
+      "status": "published",
       "priority": "medium",
       "mode": "content-draft",
       "source": "registry",
       "sourceKind": "github",
       "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
       "privateRef": "garden/state/private/source-29b15786.md",
-      "created": "2026-06-23"
+      "created": "2026-06-23",
+      "notes": "Published on 2026-06-23 as content/build-logs/minute-level-oee-kpi-runner.mdx after auto-moderation verdict publish. Checks passed: content:audit, privacy:audit, garden:moderate, build, pages:verify, public-output:audit. Source Python syntax compilation passed in an isolated temporary clone; runtime execution was not run because it requires machine endpoints and database access.",
+      "targets": [
+        "content/build-logs/minute-level-oee-kpi-runner.mdx"
+      ]
     },
     {
       "id": "source-4097c6aa",

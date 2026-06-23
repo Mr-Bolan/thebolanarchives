@@ -1,0 +1,119 @@
+---
+title: "minute-level oee kpi runner"
+slug: "minute-level-oee-kpi-runner"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a compact Python collector and KPI runner that polls machine endpoints, stores raw metrics, and computes minute-level OEE facts."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - oee
+  - machine-data
+  - time-series
+  - kpi
+  - python
+  - operations
+tools:
+  - python
+  - asyncio
+  - aiohttp
+  - asyncpg
+  - postgres
+  - timescaledb
+  - yaml
+narrative_origin: "a dashboard idea reduced down to the minute-by-minute data pipeline it needed"
+visibility: "public"
+related:
+  - "machine-metrics-collector-with-commissioning-gates"
+  - "adaptive-oee-reporting-workbench"
+  - "machine-event-timeline-graph-viewer"
+  - "data-trust-ladder"
+points:
+  - "OEE dashboards depend on a quiet minute-level fact pipeline"
+  - "raw machine payloads and calculated KPIs need different tables and different trust rules"
+  - "backfill and live streaming are two modes of the same calculation"
+  - "logs and config files can reveal more operational context than the scripts themselves"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered Python KPI source: endpoint collector, schema, config file, KPI runner, backfill script, and committed run log; Python syntax compilation passed on 2026-06-23; runtime execution was not run because it requires machine endpoints and database access"
+record_id: "build_log_015"
+---
+
+# build_log_015 // minute_level_oee_kpi_runner
+
+## what this is
+
+A compact Python pipeline for turning machine endpoint payloads into minute-level OEE
+facts. One script polls configured machine endpoints and writes raw JSON payloads into a
+time-series database. Another script backfills or streams calculated KPIs into a derived
+metrics table.
+
+The shape is smaller than the reporting workbench, but it is closer to the wire.
+
+<TerminalBlock title="minute kpi loop (sanitized)" prompt="">
+{`poll configured machine endpoints
+  -> store raw JSON payloads with timestamp + machine id
+  -> track current batch context
+  -> group raw rows by minute
+  -> calculate availability / performance / quality
+  -> write derived OEE facts
+  -> repeat forever, or backfill history`}
+</TerminalBlock>
+
+## why it exists
+
+A dashboard cannot calculate honestly unless the minute facts already exist. The UI can
+hide gaps, but the data pipeline cannot. It has to decide what counts as running, idle, or
+down; which metrics are required; how to handle missing payloads; and whether the backfill
+path produces the same result as the live path.
+
+This source is that layer: not the polished report, not the chart, but the repeating
+collector and KPI calculator underneath.
+
+## what worked
+
+The source has three clear pieces:
+
+- a collector that loads YAML config, builds endpoint URLs, fetches JSON, captures machine
+  metadata, records batch context, and bulk-inserts raw metric rows
+- a schema that separates machines, batches, raw metrics, and time-series indexing
+- a KPI runner that can backfill history or run live, grouping rows into minute buckets and
+  writing derived availability, throughput, quality, and OEE values
+
+The KPI runner also separates pure-ish math from database fetch/insert plumbing. That is
+valuable because availability, performance, and quality rules will change. They need to be
+visible enough to test, not buried in a dashboard callback.
+
+Python syntax compilation passed for the collector, KPI runner, and backfill script.
+
+## what broke
+
+- **runtime verification needs the field system.** the collector requires real machine
+  endpoints and database access, so this tick only verified syntax.
+- **config and logs are sensitive.** committed config and run logs can reveal endpoint
+  names, database defaults, machine identifiers, batch context, and timing.
+- **defaults can become accidental secrets.** database users, passwords, hostnames, and
+  endpoint paths should not live as publishable operational truth.
+- **raw payloads are not calculated facts.** storing JSON is useful, but every derived KPI
+  needs a traceable rule and a way to re-run when rules change.
+- **backfill must match live mode.** if historical and streaming calculations diverge, the
+  dashboard will be arguing with itself.
+
+## what i understand now
+
+This source is the low-level counterpart to the larger reporting and analysis tools. It
+shows the machinery under the chart: endpoint polling, hypertables, batch context, minute
+grouping, and derived KPI facts.
+
+The important distinction is raw versus interpreted. Raw metrics preserve evidence.
+Calculated OEE turns that evidence into a claim. The archive can describe the pipeline
+that makes that claim repeatable; it should not publish the private config, logs, endpoint
+catalogue, or run output.
+
+## open questions
+
+<OpenQuestions questions={[
+  "How should the system prove that backfilled OEE matches live OEE for the same minute?",
+  "Which raw endpoint payloads are necessary for auditability, and which should be reduced before storage?",
+  "Should KPI formulas be versioned beside the calculated rows so old reports remain explainable?"
+]} />
