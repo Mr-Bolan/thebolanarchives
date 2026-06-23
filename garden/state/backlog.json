@@ -378,14 +378,18 @@
       "id": "source-ba33ecf7",
       "type": "content",
       "title": "draft a de-identified article from a registered source",
-      "status": "ready",
+      "status": "published",
       "priority": "medium",
       "mode": "content-draft",
       "source": "registry",
       "sourceKind": "github",
       "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
       "privateRef": "garden/state/private/source-ba33ecf7.md",
-      "created": "2026-06-23"
+      "created": "2026-06-23",
+      "notes": "Covered on 2026-06-23 by a publishable update to content/build-logs/mailbox-graph-helper-functions.mdx after auto-moderation verdict publish. The source was a thin sibling of the mailbox helper record: default branch had only a minimal note, alternate branch had draft-send/direct-send helpers, syntax compilation passed, and the test folder contained no substantive tests. No separate article was drafted to avoid a near-duplicate.",
+      "targets": [
+        "content/build-logs/mailbox-graph-helper-functions.mdx"
+      ]
     },
     {
       "id": "source-931607f2",

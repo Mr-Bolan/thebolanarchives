@@ -32,7 +32,7 @@ points:
   - "device-code auth is useful for local tools but should not be confused with service-grade auth"
   - "credential files removed from the current tree can still remain a repository-history risk"
 last_verified: "2026-06-23"
-source_context: "sanitized inspection of a registered Python mail-helper source: auth module, mailbox function module, setup runner, README, requirements, current tree scan, git history summary, and mocked unit tests; Python syntax compilation and two mocked unit tests passed on 2026-06-23; live auth/mailbox execution was not run because it would require interactive account access and real mailbox operations"
+source_context: "sanitized inspection of registered Python mail-helper sources: auth module, mailbox function module, setup runner, README, requirements, current tree scan, git history summary, mocked unit tests, and a thinner sibling source with draft-send/direct-send helpers; Python syntax compilation and two mocked unit tests passed on 2026-06-23 for the main helper, the sibling helper syntax-compiled but had no substantive tests, and live auth/mailbox execution was not run because it would require interactive account access and real mailbox operations"
 record_id: "build_log_018"
 ---
 
@@ -78,6 +78,7 @@ the safe test surface smaller than the live account surface.
 The helper functions cover the common mailbox primitives:
 
 - send-mail builds a Graph request with recipients, body text, and optional attachments
+- a thinner sibling implementation tries both draft-create-then-send and direct-send paths
 - read-mail selects a narrow message shape and paginates until it has enough rows
 - folder creation returns the new folder id
 - message move uses an explicit destination id
@@ -86,6 +87,8 @@ The helper functions cover the common mailbox primitives:
 
 Python syntax compilation passed for the auth module, mailbox function module, setup
 runner, and tests. The mocked unit tests also passed in an isolated virtual environment.
+The thinner sibling helper syntax-compiled too, but its test folder did not contain
+substantive tests.
 
 ## what broke
 
@@ -102,6 +105,9 @@ runner, and tests. The mocked unit tests also passed in an isolated virtual envi
   but a production tool would need stricter consent, account isolation, and audit logging.
 - **logging can leak.** Even success messages can expose recipients, folder names, message
   subjects, or operational timing if copied into shared logs.
+- **branch state can hide the real source.** One sibling source kept only a minimal note on
+  the default branch while the actual helper code lived elsewhere. That is a maintenance
+  risk as much as a publishing risk.
 
 ## what i understand now
 

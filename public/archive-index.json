@@ -426,7 +426,7 @@
     "route": "/build-logs/mailbox-graph-helper-functions",
     "record_id": "build_log_018",
     "last_verified": "2026-06-23",
-    "source_context": "sanitized inspection of a registered Python mail-helper source: auth module, mailbox function module, setup runner, README, requirements, current tree scan, git history summary, and mocked unit tests; Python syntax compilation and two mocked unit tests passed on 2026-06-23; live auth/mailbox execution was not run because it would require interactive account access and real mailbox operations"
+    "source_context": "sanitized inspection of registered Python mail-helper sources: auth module, mailbox function module, setup runner, README, requirements, current tree scan, git history summary, mocked unit tests, and a thinner sibling source with draft-send/direct-send helpers; Python syntax compilation and two mocked unit tests passed on 2026-06-23 for the main helper, the sibling helper syntax-compiled but had no substantive tests, and live auth/mailbox execution was not run because it would require interactive account access and real mailbox operations"
   },
   {
     "title": "manual label printing from templates",
