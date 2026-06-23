@@ -375,3 +375,22 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 17 public records with 12 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: held empty registered source
+
+Continued the same wakeup and inspected the next ready registered source. The isolated
+clone contained only stock repository metadata files and no substantive implementation,
+template, documentation, fixtures, or tests to de-identify.
+
+Moderation verdict: **hold-backlog**.
+- privacy (hard gate): PASS. No public content was drafted or published, and no source
+  identity or source URL was copied into committed state.
+- goal-adherence: PASS. Holding the item keeps the archive from inventing a build log when
+  there is no evidence to describe.
+- truthfulness: PASS. The backlog now records that the source is waiting on substantive
+  content rather than pretending an empty repository is a finished system.
+- theme/voice: PASS. The digest records the hold plainly.
+- significance: HOLD. There is no publish-worthy article yet because the source contains
+  no implementation, template, or operating note.
+- validity: PASS. The item was moved out of `ready` to `needs-source`, and the loop
+  continues on other ready work.
