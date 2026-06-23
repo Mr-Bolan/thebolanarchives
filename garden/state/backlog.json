@@ -395,14 +395,18 @@
       "id": "source-931607f2",
       "type": "content",
       "title": "draft a de-identified article from a registered source",
-      "status": "ready",
+      "status": "published",
       "priority": "medium",
       "mode": "content-draft",
       "source": "registry",
       "sourceKind": "github",
       "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
       "privateRef": "garden/state/private/source-931607f2.md",
-      "created": "2026-06-23"
+      "created": "2026-06-23",
+      "notes": "Published on 2026-06-23 as content/build-logs/survey-api-client-wrapper.mdx after auto-moderation verdict publish. Checks passed: content:audit, privacy:audit, garden:moderate, Python syntax compilation, and source-tree import smoke after installing requests in an isolated virtual environment. Package install failed because Poetry metadata did not match an importable package folder; live API execution was not run because it would require a real access token and survey account data.",
+      "targets": [
+        "content/build-logs/survey-api-client-wrapper.mdx"
+      ]
     },
     {
       "id": "source-b91ac862",

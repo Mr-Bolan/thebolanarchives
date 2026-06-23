@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T11:32:26.945Z",
+  "generated": "2026-06-23T11:38:37.979Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -35,7 +35,7 @@
       "id": "record:agent-runbook-workspace-for-machine-reports",
       "kind": "record",
       "label": "agent-runbook-workspace-for-machine-reports",
-      "degree": 13,
+      "degree": 14,
       "route": "/build-logs/agent-runbook-workspace-for-machine-reports",
       "type": "build_log",
       "status": "working_note",
@@ -75,7 +75,7 @@
       "id": "record:local-timesheet-reporting-workbench",
       "kind": "record",
       "label": "local-timesheet-reporting-workbench",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/local-timesheet-reporting-workbench",
       "type": "build_log",
       "status": "working_note",
@@ -115,7 +115,7 @@
       "id": "record:mailbox-graph-helper-functions",
       "kind": "record",
       "label": "mailbox-graph-helper-functions",
-      "degree": 9,
+      "degree": 10,
       "route": "/build-logs/mailbox-graph-helper-functions",
       "type": "build_log",
       "status": "working_note",
@@ -180,6 +180,16 @@
       "type": "build_log",
       "status": "working_note",
       "slug": "static-report-portal-preview"
+    },
+    {
+      "id": "record:survey-api-client-wrapper",
+      "kind": "record",
+      "label": "survey-api-client-wrapper",
+      "degree": 9,
+      "route": "/build-logs/survey-api-client-wrapper",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "survey-api-client-wrapper"
     },
     {
       "id": "record:workbook-row-to-packout-pdf",
@@ -567,14 +577,14 @@
       "id": "tag:integration",
       "kind": "tag",
       "label": "integration",
-      "degree": 1,
+      "degree": 2,
       "tag": "integration"
     },
     {
       "id": "tag:privacy",
       "kind": "tag",
       "label": "privacy",
-      "degree": 1,
+      "degree": 2,
       "tag": "privacy"
     },
     {
@@ -702,6 +712,34 @@
       "label": "document-delivery",
       "degree": 1,
       "tag": "document-delivery"
+    },
+    {
+      "id": "tag:surveys",
+      "kind": "tag",
+      "label": "surveys",
+      "degree": 1,
+      "tag": "surveys"
+    },
+    {
+      "id": "tag:api-client",
+      "kind": "tag",
+      "label": "api-client",
+      "degree": 1,
+      "tag": "api-client"
+    },
+    {
+      "id": "tag:responses",
+      "kind": "tag",
+      "label": "responses",
+      "degree": 1,
+      "tag": "responses"
+    },
+    {
+      "id": "tag:collectors",
+      "kind": "tag",
+      "label": "collectors",
+      "degree": 1,
+      "tag": "collectors"
     },
     {
       "id": "tag:spreadsheet-automation",
@@ -1555,6 +1593,51 @@
     {
       "source": "record:static-report-portal-preview",
       "target": "tag:operations",
+      "kind": "tag"
+    },
+    {
+      "source": "record:survey-api-client-wrapper",
+      "target": "record:mailbox-graph-helper-functions",
+      "kind": "related"
+    },
+    {
+      "source": "record:survey-api-client-wrapper",
+      "target": "record:agent-runbook-workspace-for-machine-reports",
+      "kind": "related"
+    },
+    {
+      "source": "record:survey-api-client-wrapper",
+      "target": "record:local-timesheet-reporting-workbench",
+      "kind": "related"
+    },
+    {
+      "source": "record:survey-api-client-wrapper",
+      "target": "tag:surveys",
+      "kind": "tag"
+    },
+    {
+      "source": "record:survey-api-client-wrapper",
+      "target": "tag:api-client",
+      "kind": "tag"
+    },
+    {
+      "source": "record:survey-api-client-wrapper",
+      "target": "tag:integration",
+      "kind": "tag"
+    },
+    {
+      "source": "record:survey-api-client-wrapper",
+      "target": "tag:responses",
+      "kind": "tag"
+    },
+    {
+      "source": "record:survey-api-client-wrapper",
+      "target": "tag:collectors",
+      "kind": "tag"
+    },
+    {
+      "source": "record:survey-api-client-wrapper",
+      "target": "tag:privacy",
       "kind": "tag"
     },
     {

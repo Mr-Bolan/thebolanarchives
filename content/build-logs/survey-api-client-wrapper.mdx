@@ -1,0 +1,130 @@
+---
+title: "survey api client wrapper"
+slug: "survey-api-client-wrapper"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a small Python wrapper around a survey-platform API: token headers, surveys, responses, collectors, pagination, and custom error handling."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - surveys
+  - api-client
+  - integration
+  - responses
+  - collectors
+  - privacy
+tools:
+  - python
+  - requests
+  - poetry
+  - replit
+narrative_origin: "survey data that needed a scriptable API boundary before agents could use it"
+visibility: "public"
+related:
+  - "mailbox-graph-helper-functions"
+  - "agent-runbook-workspace-for-machine-reports"
+  - "local-timesheet-reporting-workbench"
+points:
+  - "API wrappers should make side-effectful survey, response, and collector operations explicit"
+  - "survey titles, response bodies, collector ids, and access tokens are publishing boundaries"
+  - "pagination is part of the client contract, not a detail to leave to every caller"
+  - "a package can import from source while still failing as an installable project"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered survey-API wrapper source: README, package metadata, auth/survey/response/collector modules, pagination utility, exception class, demo runner, workspace config, git history summary, and bundled vendor API PDF metadata; Python syntax compilation and source-tree import smoke passed on 2026-06-23 after installing requests in an isolated virtual environment, package install failed because Poetry metadata did not match an importable package folder, and live API execution was not run because it would require a real access token and survey account data"
+record_id: "build_log_019"
+---
+
+# build_log_019 // survey_api_client_wrapper
+
+## what this is
+
+A small Python client wrapper around a survey-platform API.
+
+It separates the client into a few plain modules:
+
+- auth/header handling
+- survey operations
+- response operations
+- collector operations
+- pagination
+- custom exceptions
+
+<TerminalBlock title="survey client boundary (sanitized)" prompt="">
+{`access token
+  -> auth headers
+  -> survey list/detail/create/update/delete
+  -> response list/detail/create/delete
+  -> collector list/detail/create/update/delete
+  -> pagination helper
+  -> caller-owned reporting or agent workflow`}
+</TerminalBlock>
+
+It is not an analytics system yet. It is the piece before that: a reusable boundary for
+turning account-scoped survey actions into functions an agent or script can call.
+
+## why it exists
+
+Survey platforms hide a lot of operational state behind an API: survey titles, question
+structures, responses, collectors, links, contact lists, and account permissions. If an
+agent is going to reason over that data, it needs a boring client layer first.
+
+This source sketches that layer. The wrapper does not know what a good survey is. It only
+knows how to authenticate, ask for surveys, ask for responses, manage collectors, follow
+pagination, and turn request failures into one custom error type.
+
+That is useful groundwork. It keeps the agent-facing layer away from raw request plumbing.
+
+## what worked
+
+The source has a clear wrapper shape:
+
+- one auth class owns bearer-token headers and token verification
+- survey operations expose list, detail, create, update, and delete calls
+- response operations expose list, detail, create, and delete calls
+- collector operations expose list, detail, create, update, and delete calls
+- pagination follows API-provided next links until no more pages remain
+- a demo runner wires the modules together from an environment-provided token
+- a bundled vendor API PDF gives offline reference material for the wrapper work
+
+Python syntax compilation passed for the modules and demo runner. A source-tree import
+smoke test also passed after installing the runtime HTTP dependency in an isolated virtual
+environment.
+
+## what broke
+
+- **packaging does not install cleanly.** The Poetry metadata names a package that does not
+  match the actual importable package folder, so `pip install .` fails before a wheel can be
+  built.
+- **there are no substantive tests.** The module can compile and import, but behavior is
+  not covered with mocked request/response tests.
+- **the demo runner is live.** It verifies the token, lists surveys, prints survey counts,
+  prints a selected survey id/title, and fetches responses and collectors. That was not run
+  during archive verification.
+- **survey data is identity-heavy.** Survey names, response bodies, response ids, collector
+  ids, contact lists, token scopes, and account metadata can all identify a real
+  organization or workflow.
+- **workspace automation has write-capable edges.** The hosted-workspace config includes a
+  repo-creation task that depends on a token environment variable. That belongs in a
+  controlled setup path, not a casual run button.
+- **the docs are heavier than the wrapper.** A large bundled vendor PDF may be useful
+  offline, but it makes the source feel more complete than the code and tests actually are.
+
+## what i understand now
+
+This is the same pattern as the mailbox helper, but aimed at survey state instead of email
+state. The hard part is not constructing a URL. The hard part is making the side effects
+and privacy boundaries obvious enough that later agent workflows cannot accidentally
+spray private survey data into logs, prompts, or generated reports.
+
+The smallest durable version of this client would add mocked tests for each operation,
+fix the package metadata, and make the demo runner a dry-run-first tool. Only then should
+it sit under an agent.
+
+## open questions
+
+<OpenQuestions questions={[
+  "Which survey fields are safe enough for an agent prompt, and which should stay behind a summarizer?",
+  "Should response and collector operations default to read-only until a caller opts into write/delete behavior?",
+  "What mocked API fixtures would prove pagination, error handling, and destructive calls without touching a real survey account?"
+]} />

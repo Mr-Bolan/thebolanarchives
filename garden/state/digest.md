@@ -624,6 +624,40 @@ Moderation verdict: **publish**.
 - validity: PASS. The item was moved out of `ready` with the existing mailbox-helper record
   as its target.
 
+## 2026-06-23 - automation tick: survey api client wrapper
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/survey-api-client-wrapper.mdx`.
+
+The public record strips repository identity, source URLs, private paths, access-token
+values, survey/account identifiers, survey titles, response bodies, response ids,
+collector ids, contact-list data, token scopes, account metadata, and hosted-workspace
+token values. It preserves the system shape: Python auth headers, survey operations,
+response operations, collector operations, pagination, custom exceptions, a live demo
+runner, package metadata mismatch, workspace write-capable edges, and the bundled vendor
+API PDF boundary.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, access tokens, survey ids/titles, response data, collector ids, or account
+  metadata in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real API-client wrapper and
+  explains what it set out to do, what worked, and where packaging/live-demo boundaries
+  stayed weak.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: source syntax
+  compilation and import smoke passed, package install failed because Poetry metadata did
+  not match the importable package folder, no substantive tests were present, and live API
+  execution was not run.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now because it
+  extends the integration-helper thread from mailbox operations into survey API state.
+- validity: PASS. `npm run content:audit`, `npm run privacy:audit`, and
+  `npm run garden:moderate -- content/build-logs/survey-api-client-wrapper.mdx` passed;
+  the moderation packet reported content and privacy audits green. The moderation packet
+  did not include the untracked-file diff, so the manual gate treated the audited new file
+  as the draft under review.
+
 ## 2026-06-23 - automation tick: mailbox graph helper functions
 
 Continued the same wakeup on the next ready registered source and drafted

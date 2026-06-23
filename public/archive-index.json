@@ -632,6 +632,46 @@
     "source_context": "sanitized inspection of a registered static portal source: README, security docs, data model notes, browser service code, data fixture, commit history, and tests; source tests passed on 2026-06-23"
   },
   {
+    "title": "survey api client wrapper",
+    "slug": "survey-api-client-wrapper",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a small Python wrapper around a survey-platform API: token headers, surveys, responses, collectors, pagination, and custom error handling.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "surveys",
+      "api-client",
+      "integration",
+      "responses",
+      "collectors",
+      "privacy"
+    ],
+    "tools": [
+      "python",
+      "requests",
+      "poetry",
+      "replit"
+    ],
+    "narrative_origin": "survey data that needed a scriptable API boundary before agents could use it",
+    "related": [
+      "mailbox-graph-helper-functions",
+      "agent-runbook-workspace-for-machine-reports",
+      "local-timesheet-reporting-workbench"
+    ],
+    "points": [
+      "API wrappers should make side-effectful survey, response, and collector operations explicit",
+      "survey titles, response bodies, collector ids, and access tokens are publishing boundaries",
+      "pagination is part of the client contract, not a detail to leave to every caller",
+      "a package can import from source while still failing as an installable project"
+    ],
+    "route": "/build-logs/survey-api-client-wrapper",
+    "record_id": "build_log_019",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered survey-API wrapper source: README, package metadata, auth/survey/response/collector modules, pagination utility, exception class, demo runner, workspace config, git history summary, and bundled vendor API PDF metadata; Python syntax compilation and source-tree import smoke passed on 2026-06-23 after installing requests in an isolated virtual environment, package install failed because Poetry metadata did not match an importable package folder, and live API execution was not run because it would require a real access token and survey account data"
+  },
+  {
     "title": "workbook row to packout PDF",
     "slug": "workbook-row-to-packout-pdf",
     "type": "build_log",

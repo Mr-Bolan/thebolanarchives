@@ -440,6 +440,32 @@
     "next_move": ""
   },
   {
+    "title": "survey api client wrapper",
+    "slug": "survey-api-client-wrapper",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a small Python wrapper around a survey-platform API: token headers, surveys, responses, collectors, pagination, and custom error handling.",
+    "updated": "2026-06-23",
+    "tags": [
+      "surveys",
+      "api-client",
+      "integration",
+      "responses",
+      "collectors",
+      "privacy"
+    ],
+    "tools": [
+      "python",
+      "requests",
+      "poetry",
+      "replit"
+    ],
+    "route": "/build-logs/survey-api-client-wrapper",
+    "current_state": "A build log for a small Python wrapper around a survey-platform API: token headers, surveys, responses, collectors, pagination, and custom error handling.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "workbook row to packout PDF",
     "slug": "workbook-row-to-packout-pdf",
     "status": "working_note",
