@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T10:36:03.528Z",
+  "generated": "2026-06-23T10:41:47.289Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -25,7 +25,7 @@
       "id": "record:agent-runbook-workspace-for-machine-reports",
       "kind": "record",
       "label": "agent-runbook-workspace-for-machine-reports",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/agent-runbook-workspace-for-machine-reports",
       "type": "build_log",
       "status": "working_note",
@@ -62,10 +62,20 @@
       "slug": "machine-capture-to-training-dataset"
     },
     {
+      "id": "record:machine-event-timeline-graph-viewer",
+      "kind": "record",
+      "label": "machine-event-timeline-graph-viewer",
+      "degree": 10,
+      "route": "/build-logs/machine-event-timeline-graph-viewer",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "machine-event-timeline-graph-viewer"
+    },
+    {
       "id": "record:machine-metrics-collector-with-commissioning-gates",
       "kind": "record",
       "label": "machine-metrics-collector-with-commissioning-gates",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
       "type": "build_log",
       "status": "working_note",
@@ -105,7 +115,7 @@
       "id": "record:static-report-portal-preview",
       "kind": "record",
       "label": "static-report-portal-preview",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/static-report-portal-preview",
       "type": "build_log",
       "status": "working_note",
@@ -135,7 +145,7 @@
       "id": "record:operator-knowledge-as-signal",
       "kind": "record",
       "label": "operator-knowledge-as-signal",
-      "degree": 8,
+      "degree": 9,
       "route": "/patterns/operator-knowledge-as-signal",
       "type": "pattern",
       "status": "working_note",
@@ -228,7 +238,7 @@
       "id": "tag:operations",
       "kind": "tag",
       "label": "operations",
-      "degree": 8,
+      "degree": 9,
       "tag": "operations"
     },
     {
@@ -342,6 +352,41 @@
       "label": "local-tools",
       "degree": 1,
       "tag": "local-tools"
+    },
+    {
+      "id": "tag:machine-data",
+      "kind": "tag",
+      "label": "machine-data",
+      "degree": 1,
+      "tag": "machine-data"
+    },
+    {
+      "id": "tag:event-timelines",
+      "kind": "tag",
+      "label": "event-timelines",
+      "degree": 1,
+      "tag": "event-timelines"
+    },
+    {
+      "id": "tag:visualization",
+      "kind": "tag",
+      "label": "visualization",
+      "degree": 1,
+      "tag": "visualization"
+    },
+    {
+      "id": "tag:flask",
+      "kind": "tag",
+      "label": "flask",
+      "degree": 1,
+      "tag": "flask"
+    },
+    {
+      "id": "tag:sqlite",
+      "kind": "tag",
+      "label": "sqlite",
+      "degree": 1,
+      "tag": "sqlite"
     },
     {
       "id": "tag:time-series",
@@ -734,6 +779,56 @@
     {
       "source": "record:machine-capture-to-training-dataset",
       "target": "tag:local-tools",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-event-timeline-graph-viewer",
+      "target": "record:machine-metrics-collector-with-commissioning-gates",
+      "kind": "related"
+    },
+    {
+      "source": "record:machine-event-timeline-graph-viewer",
+      "target": "record:agent-runbook-workspace-for-machine-reports",
+      "kind": "related"
+    },
+    {
+      "source": "record:machine-event-timeline-graph-viewer",
+      "target": "record:static-report-portal-preview",
+      "kind": "related"
+    },
+    {
+      "source": "record:machine-event-timeline-graph-viewer",
+      "target": "record:operator-knowledge-as-signal",
+      "kind": "related"
+    },
+    {
+      "source": "record:machine-event-timeline-graph-viewer",
+      "target": "tag:machine-data",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-event-timeline-graph-viewer",
+      "target": "tag:event-timelines",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-event-timeline-graph-viewer",
+      "target": "tag:visualization",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-event-timeline-graph-viewer",
+      "target": "tag:flask",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-event-timeline-graph-viewer",
+      "target": "tag:sqlite",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-event-timeline-graph-viewer",
+      "target": "tag:operations",
       "kind": "tag"
     },
     {

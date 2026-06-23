@@ -168,6 +168,50 @@
     "source_context": "sanitized inspection of a registered capture-decoder source: design docs, legacy Python probes, Go parser/decoder/exporter, React annotation UI, installer notes, and tests; backend and frontend tests passed on 2026-06-23"
   },
   {
+    "title": "machine event timeline graph viewer",
+    "slug": "machine-event-timeline-graph-viewer",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a small Flask viewer that turns machine event spans into selectable dates, timeline overlays, and daily production summaries.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "machine-data",
+      "event-timelines",
+      "visualization",
+      "flask",
+      "sqlite",
+      "operations"
+    ],
+    "tools": [
+      "python",
+      "flask",
+      "sqlalchemy",
+      "sqlite",
+      "plotly",
+      "fullcalendar",
+      "pandas"
+    ],
+    "narrative_origin": "machine event logs that needed a day-level visual debugger",
+    "related": [
+      "machine-metrics-collector-with-commissioning-gates",
+      "agent-runbook-workspace-for-machine-reports",
+      "static-report-portal-preview",
+      "operator-knowledge-as-signal"
+    ],
+    "points": [
+      "timeline viewers become useful when they preserve the difference between running, idle, stopped, and break time",
+      "date selection is not just navigation; it is a way to ask which days have inspectable evidence",
+      "committed local databases are a privacy warning even when the code itself is publishable",
+      "a graph prototype can teach the report layer what summaries operators actually need"
+    ],
+    "route": "/build-logs/machine-event-timeline-graph-viewer",
+    "record_id": "build_log_011",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered machine-event visualization source: Flask routes, SQLAlchemy models, migration files, import/cleanup scripts, browser timeline UI, and static graph helpers; Python syntax compilation passed on 2026-06-23; no source test suite was present"
+  },
+  {
     "title": "machine metrics collector with commissioning gates",
     "slug": "machine-metrics-collector-with-commissioning-gates",
     "type": "build_log",

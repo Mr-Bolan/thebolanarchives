@@ -341,3 +341,37 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 16 public records with 13 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: machine event timeline graph viewer
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/machine-event-timeline-graph-viewer.mdx`.
+
+The public record strips repository identity, page-title branding, database filenames,
+raw SQLite contents, source URLs, local paths, API key names, and raw operational row
+values. It preserves the system shape: a Flask/SQLAlchemy viewer that imports machine
+logs and event CSVs, exposes day/date JSON endpoints, renders calendar selection, draws
+running/stopped/idle/break timeline overlays, and summarizes downtime by production span.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, brand labels, private URLs, private paths, credentials, source
+  repository names, database filenames, API key names, or raw operational data values in
+  the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real machine-event
+  visualization workbench and explains what it set out to do, what worked, and where raw
+  data creates publishing risk.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: Python syntax
+  compilation passed for the app, models, scripts, and migrations in an isolated clone,
+  but no source test suite was present and full app boot was not treated as verified.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now because it
+  connects machine collection, operator-visible timelines, and later report generation.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/machine-event-timeline-graph-viewer.mdx`
+  passed; the moderation packet reported content and privacy audits green.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 17 public records with 12 ready items remaining for later
+loop work.

@@ -1,0 +1,142 @@
+---
+title: "machine event timeline graph viewer"
+slug: "machine-event-timeline-graph-viewer"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a small Flask viewer that turns machine event spans into selectable dates, timeline overlays, and daily production summaries."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - machine-data
+  - event-timelines
+  - visualization
+  - flask
+  - sqlite
+  - operations
+tools:
+  - python
+  - flask
+  - sqlalchemy
+  - sqlite
+  - plotly
+  - fullcalendar
+  - pandas
+narrative_origin: "machine event logs that needed a day-level visual debugger"
+visibility: "public"
+related:
+  - "machine-metrics-collector-with-commissioning-gates"
+  - "agent-runbook-workspace-for-machine-reports"
+  - "static-report-portal-preview"
+  - "operator-knowledge-as-signal"
+points:
+  - "timeline viewers become useful when they preserve the difference between running, idle, stopped, and break time"
+  - "date selection is not just navigation; it is a way to ask which days have inspectable evidence"
+  - "committed local databases are a privacy warning even when the code itself is publishable"
+  - "a graph prototype can teach the report layer what summaries operators actually need"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered machine-event visualization source: Flask routes, SQLAlchemy models, migration files, import/cleanup scripts, browser timeline UI, and static graph helpers; Python syntax compilation passed on 2026-06-23; no source test suite was present"
+record_id: "build_log_011"
+---
+
+# build_log_011 // machine_event_timeline_graph_viewer
+
+## what this is
+
+A small web app for inspecting machine-event history by day. It stores imported machine
+reports and event spans in SQLite, exposes Flask JSON endpoints, and renders a browser UI
+with a calendar, timeline graph, and summary table.
+
+The useful shape is this:
+
+<TerminalBlock title="viewer loop (sanitized)" prompt="">
+{`import machine logs / event CSVs
+  -> normalize daily reports and event spans
+  -> store rows in local SQLite
+  -> expose dates and filtered day ranges
+  -> select a day in the browser
+  -> draw running / stopped / idle / break periods
+  -> summarize downtime and running time by production span`}
+</TerminalBlock>
+
+It sits between raw machine capture and a finished report. The viewer is not the final
+artifact. It is the workbench where the events become visible enough to argue with.
+
+## why it exists
+
+Machine timelines are hard to read as tables. A row can tell you that something stopped,
+but it does not show whether that stop was isolated, repeated, wrapped around a break, or
+buried inside a longer production span.
+
+The app turns those spans into a day view. Dates with data become selectable. A selected
+day produces an event timeline. Running periods, stopped periods, idle overlays, and break
+overlays are drawn against the same clock, then summarized into the practical numbers a
+person would ask for: earliest start, latest end, total downtime, break duration, and total
+running time.
+
+## the useful split
+
+The source has three plain layers:
+
+- SQLAlchemy models for daily reports, machine readings, events, and normalized event
+  results
+- scripts that import, clean, export, and collate local event data
+- a browser surface that fetches dates and day ranges, then renders calendar and timeline
+  views
+
+That split is useful because the graph is only as trustworthy as the normalization step.
+If running, stopped, idle, and break rows are not separated before they reach the UI, the
+chart can look polished while saying the wrong thing.
+
+## what worked
+
+- the app has explicit models for reports, machine readings, event spans, and normalized
+  event results
+- migration files exist, so the database shape was expected to evolve
+- import and cleanup scripts sit beside the app instead of being hidden in the UI
+- the browser view asks the backend for available dates before it asks for detailed data
+- day-level filtering clips spans to the selected day instead of letting long events blur
+  across midnight
+- the graph overlays idle and break periods on top of running/stopped traces, which makes
+  the explanation easier than a single status line
+
+The bounded source verification was syntax compilation of the Python app, models, scripts,
+and migrations. That passed. No source test suite was present, and a full app boot was not
+treated as verified because the dependency manifest did not cover every imported library.
+
+## what broke
+
+- **the local databases are private.** committed SQLite files may contain operational
+  dates, event spans, grower or batch codes, and other context that should not be copied
+  into a public archive.
+- **debug routes can over-share.** endpoints that return sample rows are useful during
+  development, but they are risky if the database contains real operational traces.
+- **the dependency story is incomplete.** the app imports more than the minimal manifest
+  declares, so setup requires local knowledge.
+- **the UI carries source-specific labels.** those labels are useful in the tool, but they
+  are exactly the kind of thing the archive has to remove.
+- **there is no automated assertion that the graph tells the truth.** syntax can pass while
+  date clipping, duration totals, or status grouping remain wrong.
+
+## what i understand now
+
+This viewer is the missing middle between collection and reporting. The collector records
+machine state; the report exports a finished narrative. Between them, someone needs a way
+to look at a day and ask, "does this story make sense?"
+
+That makes the graph less like decoration and more like an argument surface. It lets the
+operator or builder inspect where the numbers came from before those numbers harden into a
+PDF, dashboard, or management summary.
+
+But the privacy lesson is just as important. A graph prototype often carries the most raw
+and specific evidence because it is built close to the data. The archive can preserve the
+pattern: calendar selection, timeline overlays, day clipping, production-span summaries.
+It should not preserve the raw database.
+
+## open questions
+
+<OpenQuestions questions={[
+  "Should debug routes be disabled by default once a viewer touches real event data?",
+  "What is the smallest fixture that would prove the timeline math around midnight and breaks?",
+  "When should this kind of viewer become part of the reporting pipeline instead of staying as a local workbench?"
+]} />

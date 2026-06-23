@@ -112,6 +112,35 @@
     "next_move": ""
   },
   {
+    "title": "machine event timeline graph viewer",
+    "slug": "machine-event-timeline-graph-viewer",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a small Flask viewer that turns machine event spans into selectable dates, timeline overlays, and daily production summaries.",
+    "updated": "2026-06-23",
+    "tags": [
+      "machine-data",
+      "event-timelines",
+      "visualization",
+      "flask",
+      "sqlite",
+      "operations"
+    ],
+    "tools": [
+      "python",
+      "flask",
+      "sqlalchemy",
+      "sqlite",
+      "plotly",
+      "fullcalendar",
+      "pandas"
+    ],
+    "route": "/build-logs/machine-event-timeline-graph-viewer",
+    "current_state": "A build log for a small Flask viewer that turns machine event spans into selectable dates, timeline overlays, and daily production summaries.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "machine metrics collector with commissioning gates",
     "slug": "machine-metrics-collector-with-commissioning-gates",
     "status": "working_note",
