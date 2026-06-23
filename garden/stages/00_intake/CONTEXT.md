@@ -23,9 +23,13 @@ writes site content and never publishes.
    credentials, client detail), and create one or more backlog items. Any sensitive
    specifics needed for the work go to `garden/state/private/<id>.md` (gitignored); the
    backlog item references them by id only.
-2. For each registered source: detect new or changed work worth writing about. Create a
-   `needs-source` or `ready` article/build-log item. Do not copy raw repo content into the
-   backlog; summarize sanitized intent.
+2. For each registered source in `archive-projects.txt`: `npm run garden:intake` creates one
+   `ready` content item per source with an OPAQUE id (`source-<hash>`) and a neutral
+   title/summary. The source identity (owner/repo or path) is written only to gitignored
+   `garden/state/private/<id>.md` (the item's `privateRef`) — repo names never enter committed
+   state. Enumeration is idempotent: a source that already has an item in ANY status
+   (including `published`) is not re-queued, and missing private refs are rehydrated (e.g. on
+   a fresh clone where the registry was materialized from a secret).
 3. For reader annotations: create one `annotation` item per record with pending screened
    notes (the actual screening happens in stage 50).
 4. Dedupe against existing backlog items. Merge rather than duplicate.

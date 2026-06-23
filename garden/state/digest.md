@@ -8,6 +8,21 @@ Keep entries sanitized. No private detail here.
 
 ---
 
+## 2026-06-23 — owner fix: registry now populates the backlog
+
+The loop emptied its queue after the first two articles because intake only promoted a single
+seed item — it never turned `archive-projects.txt` into per-source work. Fixed
+`garden/scripts/intake.mjs` to enumerate every registered source into one `ready` content
+item with an opaque id (`source-<hash>`) and a gitignored `privateRef`; repo identities never
+enter committed state. Enumeration is idempotent. Result: 22 source items created, with the
+already-published grading-line detector source marked `published`. The draft stage now also
+dedupes a source against existing records, which will self-heal the packout-report source
+(published on an earlier tick before per-source items existed) when the loop reaches it.
+
+## 2026-06-23 - idle automation tick
+
+No ready backlog items after snapshot refresh and intake. Intake produced no new items; no publishable diffs were present. Tick stopped idle.
+
 ## 2026-06-23 - automation tick: finished-batch packout report export
 
 Considered 2 ready items after intake promoted registered-source work. Chose

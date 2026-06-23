@@ -20,6 +20,11 @@ not publish and does not pass its own work; stage 30 moderates it.
 ## Process
 
 1. Pick exactly one item. Set its `status` to `in-progress` in the backlog.
+   - For a registry `source-*` item: read its `privateRef` to learn which repo/path to scan
+     (use `gh` for GitHub sources). BEFORE drafting, check existing records in `content/**`:
+     if a published record already covers this source's system, do NOT write a duplicate —
+     set the item's `status` to `published` with a short note and stop. This self-heals
+     sources written on an earlier tick that were never marked.
 2. De-identify first. Translate source material into the archive's anonymous voice: strip
    names, clients, private paths/URLs; keep the system, the decision, the failure, the
    lesson. The work is the identity.

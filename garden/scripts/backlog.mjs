@@ -6,9 +6,9 @@ import { writeFileSync } from "node:fs";
 import path from "node:path";
 import { backlogPath, gardenStateDir, readBacklog, root } from "./lib/garden-core.mjs";
 
-const VALID_STATUS = ["ready", "in-progress", "blocked", "deferred", "needs-source", "done"];
+const VALID_STATUS = ["ready", "in-progress", "blocked", "deferred", "needs-source", "done", "published"];
 const VALID_TYPE = ["content", "feature", "refactor", "graph", "annotation", "privacy", "chore"];
-const SECTION_ORDER = ["ready", "needs-source", "in-progress", "blocked", "deferred", "done"];
+const SECTION_ORDER = ["ready", "needs-source", "in-progress", "blocked", "deferred", "done", "published"];
 
 if (process.argv.includes("--self-check")) {
   runSelfCheck();

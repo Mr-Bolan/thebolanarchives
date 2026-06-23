@@ -26,7 +26,8 @@ Pages deploy. The owner is never asked. The moderation verdict is the approval.
    (e.g. `draft content: <slug>`, `publish content: <slug>`, `add site feature: <feature>`).
 5. Push to `main`. The `deploy-pages.yml` workflow builds and deploys. Batch related small
    changes into one publish where they read as one update.
-6. Mark the backlog item `done`. Append to `garden/state/digest.md` and
+6. Mark the backlog item `done` — except a registry `source-*` item, which becomes
+   `published` so intake never re-queues that source. Append to `garden/state/digest.md` and
    `garden/state/cycle-log.jsonl`.
 
 ## Outputs

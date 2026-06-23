@@ -1,8 +1,8 @@
 {
-  "generated": "2026-06-23T09:22:08.203Z",
+  "generated": "2026-06-23T09:42:10.564Z",
   "stale": false,
   "version": {
-    "sha": "802279b",
+    "sha": "f6e95e0",
     "records": 9,
     "publicRecords": 9
   },
@@ -42,18 +42,126 @@
     "records": 9
   },
   "backlog": {
-    "total": 4,
-    "ready": 0,
+    "total": 26,
+    "ready": 21,
     "byStatus": {
       "done": 2,
-      "deferred": 2
+      "deferred": 2,
+      "ready": 21,
+      "published": 1
     },
-    "readyItems": []
+    "readyItems": [
+      {
+        "id": "source-59727238",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-c87328e0",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-8a0a8869",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-1eb2af4f",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-3d6ae11d",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-dc0a8650",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-c627be20",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-b60f8b29",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-0df1f5c8",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-c28e0f8f",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-013a284a",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-369cc430",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-b3fcc99a",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-29b15786",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-4097c6aa",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-ef249c61",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-fe4ef9b2",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-ba33ecf7",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-931607f2",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-b91ac862",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      },
+      {
+        "id": "source-e630bf49",
+        "title": "draft a de-identified article from a registered source",
+        "priority": "medium"
+      }
+    ]
   },
   "intake": {
     "articleNotes": 0,
     "featureNotes": 0,
-    "registeredSources": 23
+    "registeredSources": 22
   },
-  "lastDigest": "2026-06-23 - automation tick: finished-batch packout report export"
+  "lastDigest": "2026-06-23 — owner fix: registry now populates the backlog"
 }
