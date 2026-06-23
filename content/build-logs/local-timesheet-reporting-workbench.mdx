@@ -1,0 +1,151 @@
+---
+title: "local timesheet reporting workbench"
+slug: "local-timesheet-reporting-workbench"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a local timesheet app that joins time entries to customers, projects, locations, and task types, then turns the record into weekly views and PDF/Excel exports."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - timesheets
+  - reporting
+  - local-database
+  - operations
+  - exports
+  - admin-tools
+tools:
+  - react
+  - redux
+  - antd
+  - express
+  - sequelize
+  - sqlite
+  - pdfkit
+  - exceljs
+narrative_origin: "local time entries that needed to become reviewable weekly records"
+visibility: "public"
+related:
+  - "workbook-row-to-packout-pdf"
+  - "manual-label-printing-from-templates"
+  - "desktop-certificate-and-audit-pdf-generator"
+  - "multi-site-reporter-configuration-shell"
+points:
+  - "timesheet records become more useful when they are joined to operational reference data"
+  - "PDF and spreadsheet exports turn local time entry into something reviewable outside the app"
+  - "a committed local database is a privacy boundary, even when the code around it is harmless"
+  - "verification can be mixed: a frontend build may pass while tests and backend install hygiene still fail"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered timesheet source: React/Redux frontend, Express/Sequelize/SQLite backend, reference-data routes, calendar editing, PDF/Excel export utilities, and roadmap notes; frontend production build passed on 2026-06-23, frontend formatter tests passed but the full Jest run failed on an Axios ESM transform issue, and backend npm ci failed because package and lockfile were out of sync"
+record_id: "build_log_017"
+---
+
+# build_log_017 // local_timesheet_reporting_workbench
+
+## what this is
+
+A local timesheet system with two halves:
+
+- a React frontend for entering, filtering, grouping, editing, and exporting time records
+- an Express backend over SQLite for storing entries and reference tables
+
+The important shape is not "hours in a table." The useful shape is:
+
+<TerminalBlock title="timesheet record shape (sanitized)" prompt="">
+{`customer
+  -> project
+  -> location
+  -> task type
+  -> dated time entry
+  -> weekly review table
+  -> PDF / spreadsheet export`}
+</TerminalBlock>
+
+Each entry carries a date, start and end time, duration, description, task type, project,
+location, and billable/rate fields. The app then folds those entries into views that can
+be filtered by date range, project, location, customer, or grouping mode.
+
+## why it exists
+
+Time tracking gets messy when it stays in memory, chat, paper notes, or a spreadsheet that
+does not know what a project is. A timesheet entry is only half a record until it is tied
+to the context that makes the hours meaningful.
+
+This source tries to make that context explicit. Customers own projects. Locations belong
+to customers. Tasks carry billable/rate defaults. Entries join those pieces together, and
+the review screen can then answer a more useful question than "how many hours did i type
+today?"
+
+It can ask where the time went.
+
+## what worked
+
+The frontend has a practical admin-tool spine:
+
+- entry forms load projects, customers, locations, tasks, and prior entries before editing
+- project selection auto-fills the associated customer and limits location choices
+- task selection can carry billable and rate defaults into the entry form
+- start/end time and duration fields update each other
+- weekly review supports date range filters, project/location filters, grouping, editing,
+  deletion, and export actions
+- a calendar view opens entries for after-the-fact inspection and edit flow
+- a dedicated export page groups existing entries into weekly export rows
+
+The backend mirrors that shape with routes for entries and reference data. The export
+controllers query entries with project, customer, location, and task joins, then pass the
+result into PDF and spreadsheet generators. Both generators flatten the relational record
+into a table: date, customer, project, location, task, description, hours, start, and end.
+
+That is the useful part. The system keeps the normalized local data for editing, then
+produces denormalized review artifacts for humans.
+
+## verification
+
+The source was checked in an isolated temporary clone.
+
+- frontend clean install passed
+- frontend formatter unit tests passed
+- frontend production build passed
+- full frontend Jest run failed because the app shell imports Axios through a path Jest was
+  not transforming as configured
+- backend clean install failed because the backend manifest and lockfile are out of sync
+
+So the archive should treat this as a partially verified working note, not a polished
+release. The frontend can build for production, but the repository is not cleanly
+reproducible across both halves.
+
+## what broke
+
+- **the database is not archive-safe.** The source includes local SQLite artifacts. Those
+  can contain people, customers, projects, locations, tasks, descriptions, dates, rates,
+  and hours. The public archive can describe the data model, not the stored rows.
+- **lockfile drift blocks backend reproduction.** A backend clean install should be the
+  boring proof that another machine can run the server. Here, it fails before runtime.
+- **tests do not match the dependency shape.** The frontend formatter tests pass, but the
+  default app test fails on the way Axios is loaded under Jest.
+- **console logging is noisy.** Date handling and selection flows log internal state. That
+  is useful while debugging, but it can become accidental evidence leakage in a real
+  deployed system.
+- **date/time handling carries edge cases.** Overnight entries, time zones, string formats,
+  and spreadsheet/PDF date rendering all have to agree.
+
+## what i understand now
+
+This is an admin workbench more than a timer. It does not only capture a duration; it
+tries to pin that duration to the operational grammar around it.
+
+That grammar is the value: customer, project, location, task, date, start, end, billable
+state, and rate context. Once the entry has those edges, the app can group, export, audit,
+or eventually connect to payroll/reporting flows.
+
+The privacy lesson is blunt. A timesheet system is full of ordinary-looking fields that
+become identifying when combined. The archive can keep the architecture. It should not keep
+the rows.
+
+## open questions
+
+<OpenQuestions questions={[
+  "Should the local database be treated as disposable state, encrypted state, or an explicit export/import artifact?",
+  "What is the smallest test setup that would prove date, duration, and overnight-entry behavior across frontend and backend?",
+  "Where should payroll, costing, or AI reporting begin without turning a local workbench into a premature platform?"
+]} />

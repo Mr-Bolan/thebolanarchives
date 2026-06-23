@@ -214,6 +214,51 @@
     "source_context": "sanitized inspection of a registered reporting source: README, operations docs, release docs, git history, service code, and tests"
   },
   {
+    "title": "local timesheet reporting workbench",
+    "slug": "local-timesheet-reporting-workbench",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a local timesheet app that joins time entries to customers, projects, locations, and task types, then turns the record into weekly views and PDF/Excel exports.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "timesheets",
+      "reporting",
+      "local-database",
+      "operations",
+      "exports",
+      "admin-tools"
+    ],
+    "tools": [
+      "react",
+      "redux",
+      "antd",
+      "express",
+      "sequelize",
+      "sqlite",
+      "pdfkit",
+      "exceljs"
+    ],
+    "narrative_origin": "local time entries that needed to become reviewable weekly records",
+    "related": [
+      "workbook-row-to-packout-pdf",
+      "manual-label-printing-from-templates",
+      "desktop-certificate-and-audit-pdf-generator",
+      "multi-site-reporter-configuration-shell"
+    ],
+    "points": [
+      "timesheet records become more useful when they are joined to operational reference data",
+      "PDF and spreadsheet exports turn local time entry into something reviewable outside the app",
+      "a committed local database is a privacy boundary, even when the code around it is harmless",
+      "verification can be mixed: a frontend build may pass while tests and backend install hygiene still fail"
+    ],
+    "route": "/build-logs/local-timesheet-reporting-workbench",
+    "record_id": "build_log_017",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered timesheet source: React/Redux frontend, Express/Sequelize/SQLite backend, reference-data routes, calendar editing, PDF/Excel export utilities, and roadmap notes; frontend production build passed on 2026-06-23, frontend formatter tests passed but the full Jest run failed on an Axios ESM transform issue, and backend npm ci failed because package and lockfile were out of sync"
+  },
+  {
     "title": "machine capture to training dataset",
     "slug": "machine-capture-to-training-dataset",
     "type": "build_log",

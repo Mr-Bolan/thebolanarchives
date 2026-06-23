@@ -142,6 +142,36 @@
     "next_move": ""
   },
   {
+    "title": "local timesheet reporting workbench",
+    "slug": "local-timesheet-reporting-workbench",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a local timesheet app that joins time entries to customers, projects, locations, and task types, then turns the record into weekly views and PDF/Excel exports.",
+    "updated": "2026-06-23",
+    "tags": [
+      "timesheets",
+      "reporting",
+      "local-database",
+      "operations",
+      "exports",
+      "admin-tools"
+    ],
+    "tools": [
+      "react",
+      "redux",
+      "antd",
+      "express",
+      "sequelize",
+      "sqlite",
+      "pdfkit",
+      "exceljs"
+    ],
+    "route": "/build-logs/local-timesheet-reporting-workbench",
+    "current_state": "A build log for a local timesheet app that joins time entries to customers, projects, locations, and task types, then turns the record into weekly views and PDF/Excel exports.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "machine capture to training dataset",
     "slug": "machine-capture-to-training-dataset",
     "status": "working_note",

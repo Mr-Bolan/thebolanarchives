@@ -567,3 +567,35 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 22 public records with 6 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: local timesheet reporting workbench
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/local-timesheet-reporting-workbench.mdx`.
+
+The public record strips repository identity, source names, source URLs, local paths,
+database contents, stored customer/project/location/task values, people, rates, dates, and
+timesheet descriptions. It preserves the system shape: a React/Redux timesheet frontend,
+an Express/Sequelize/SQLite backend, reference-data routes, customer/project/location/task
+relationships, weekly review tables, calendar editing, and PDF/Excel export generation.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, database filenames, or raw stored timesheet/reference values in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real local admin/reporting
+  workbench and explains what it set out to do, what worked, and where source hygiene
+  remained weak.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: frontend clean install
+  and production build passed, formatter tests passed, full frontend Jest failed on an
+  Axios transform issue, and backend clean install failed because package and lockfile are
+  out of sync.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now because it
+  extends the archive's local-tool/report-export thread into timesheet and reference-data
+  workflows.
+- validity: PASS. `npm run content:audit`, `npm run privacy:audit`, and
+  `npm run garden:moderate -- content/build-logs/local-timesheet-reporting-workbench.mdx`
+  passed; the moderation packet reported content and privacy audits green. The moderation
+  packet did not include the untracked-file diff, so the manual gate treated the audited
+  new file as the draft under review.

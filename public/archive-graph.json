@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T11:10:24.016Z",
+  "generated": "2026-06-23T11:21:46.852Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -45,7 +45,7 @@
       "id": "record:desktop-certificate-and-audit-pdf-generator",
       "kind": "record",
       "label": "desktop-certificate-and-audit-pdf-generator",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/desktop-certificate-and-audit-pdf-generator",
       "type": "build_log",
       "status": "working_note",
@@ -70,6 +70,16 @@
       "type": "build_log",
       "status": "working_note",
       "slug": "finished-batch-packout-report-export"
+    },
+    {
+      "id": "record:local-timesheet-reporting-workbench",
+      "kind": "record",
+      "label": "local-timesheet-reporting-workbench",
+      "degree": 10,
+      "route": "/build-logs/local-timesheet-reporting-workbench",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "local-timesheet-reporting-workbench"
     },
     {
       "id": "record:machine-capture-to-training-dataset",
@@ -105,7 +115,7 @@
       "id": "record:manual-label-printing-from-templates",
       "kind": "record",
       "label": "manual-label-printing-from-templates",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/manual-label-printing-from-templates",
       "type": "build_log",
       "status": "working_note",
@@ -125,7 +135,7 @@
       "id": "record:multi-site-reporter-configuration-shell",
       "kind": "record",
       "label": "multi-site-reporter-configuration-shell",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/multi-site-reporter-configuration-shell",
       "type": "build_log",
       "status": "working_note",
@@ -165,7 +175,7 @@
       "id": "record:workbook-row-to-packout-pdf",
       "kind": "record",
       "label": "workbook-row-to-packout-pdf",
-      "degree": 12,
+      "degree": 13,
       "route": "/build-logs/workbook-row-to-packout-pdf",
       "type": "build_log",
       "status": "working_note",
@@ -274,7 +284,7 @@
       "id": "tag:reporting",
       "kind": "tag",
       "label": "reporting",
-      "degree": 5,
+      "degree": 6,
       "tag": "reporting"
     },
     {
@@ -323,7 +333,7 @@
       "id": "tag:operations",
       "kind": "tag",
       "label": "operations",
-      "degree": 12,
+      "degree": 13,
       "tag": "operations"
     },
     {
@@ -414,7 +424,7 @@
       "id": "tag:exports",
       "kind": "tag",
       "label": "exports",
-      "degree": 1,
+      "degree": 2,
       "tag": "exports"
     },
     {
@@ -423,6 +433,27 @@
       "label": "data-quality",
       "degree": 3,
       "tag": "data-quality"
+    },
+    {
+      "id": "tag:timesheets",
+      "kind": "tag",
+      "label": "timesheets",
+      "degree": 1,
+      "tag": "timesheets"
+    },
+    {
+      "id": "tag:local-database",
+      "kind": "tag",
+      "label": "local-database",
+      "degree": 1,
+      "tag": "local-database"
+    },
+    {
+      "id": "tag:admin-tools",
+      "kind": "tag",
+      "label": "admin-tools",
+      "degree": 1,
+      "tag": "admin-tools"
     },
     {
       "id": "tag:computer-vision",
@@ -989,6 +1020,56 @@
     {
       "source": "record:finished-batch-packout-report-export",
       "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
+      "source": "record:local-timesheet-reporting-workbench",
+      "target": "record:workbook-row-to-packout-pdf",
+      "kind": "related"
+    },
+    {
+      "source": "record:local-timesheet-reporting-workbench",
+      "target": "record:manual-label-printing-from-templates",
+      "kind": "related"
+    },
+    {
+      "source": "record:local-timesheet-reporting-workbench",
+      "target": "record:desktop-certificate-and-audit-pdf-generator",
+      "kind": "related"
+    },
+    {
+      "source": "record:local-timesheet-reporting-workbench",
+      "target": "record:multi-site-reporter-configuration-shell",
+      "kind": "related"
+    },
+    {
+      "source": "record:local-timesheet-reporting-workbench",
+      "target": "tag:timesheets",
+      "kind": "tag"
+    },
+    {
+      "source": "record:local-timesheet-reporting-workbench",
+      "target": "tag:reporting",
+      "kind": "tag"
+    },
+    {
+      "source": "record:local-timesheet-reporting-workbench",
+      "target": "tag:local-database",
+      "kind": "tag"
+    },
+    {
+      "source": "record:local-timesheet-reporting-workbench",
+      "target": "tag:operations",
+      "kind": "tag"
+    },
+    {
+      "source": "record:local-timesheet-reporting-workbench",
+      "target": "tag:exports",
+      "kind": "tag"
+    },
+    {
+      "source": "record:local-timesheet-reporting-workbench",
+      "target": "tag:admin-tools",
       "kind": "tag"
     },
     {

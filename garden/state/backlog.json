@@ -344,14 +344,18 @@
       "id": "source-ef249c61",
       "type": "content",
       "title": "draft a de-identified article from a registered source",
-      "status": "ready",
+      "status": "published",
       "priority": "medium",
       "mode": "content-draft",
       "source": "registry",
       "sourceKind": "github",
       "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
       "privateRef": "garden/state/private/source-ef249c61.md",
-      "created": "2026-06-23"
+      "created": "2026-06-23",
+      "notes": "Published on 2026-06-23 as content/build-logs/local-timesheet-reporting-workbench.mdx after auto-moderation verdict publish. Checks passed: content:audit, privacy:audit, garden:moderate, frontend production build. Source verification caveats: backend npm ci failed because the backend package manifest and lockfile are out of sync; frontend formatter tests passed, but the full frontend Jest run failed on an Axios ESM transform issue.",
+      "targets": [
+        "content/build-logs/local-timesheet-reporting-workbench.mdx"
+      ]
     },
     {
       "id": "source-fe4ef9b2",
