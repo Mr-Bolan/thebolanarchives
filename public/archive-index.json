@@ -1,5 +1,47 @@
 [
   {
+    "title": "agent runbook workspace for machine reports",
+    "slug": "agent-runbook-workspace-for-machine-reports",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a filesystem workspace that routes agents through machine-reporting runbooks, evidence capture, reusable scripts, and report-to-PDF assembly without loading the whole system at once.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "agent-workflows",
+      "reporting",
+      "runbooks",
+      "operations",
+      "evidence",
+      "document-generation"
+    ],
+    "tools": [
+      "markdown",
+      "python",
+      "powershell",
+      "sql",
+      "jinja2",
+      "pdf-rendering"
+    ],
+    "narrative_origin": "machine reports that needed repeatable agent context, not another loose prompt",
+    "related": [
+      "machine-metrics-collector-with-commissioning-gates",
+      "workbook-row-to-packout-pdf",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "an agent workspace is useful only if it routes context, tools, and artifacts instead of loading everything",
+      "reporting workflows need evidence capture before narrative interpretation",
+      "outputs should be dated artifacts, while reusable helpers belong in tools",
+      "fixture checks matter because report rendering can fail after the text looks correct"
+    ],
+    "route": "/build-logs/agent-runbook-workspace-for-machine-reports",
+    "record_id": "build_log_009",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered agent-workspace source: workspace model, routing policy, reporting workflow files, reusable scripts, query pack, report/PDF skill, and fixture verifier; PDF fixture smoke test passed on 2026-06-23"
+  },
+  {
     "title": "finished-batch packout report export",
     "slug": "finished-batch-packout-report-export",
     "type": "build_log",

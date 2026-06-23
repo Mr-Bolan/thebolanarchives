@@ -1,0 +1,150 @@
+---
+title: "agent runbook workspace for machine reports"
+slug: "agent-runbook-workspace-for-machine-reports"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a filesystem workspace that routes agents through machine-reporting runbooks, evidence capture, reusable scripts, and report-to-PDF assembly without loading the whole system at once."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - agent-workflows
+  - reporting
+  - runbooks
+  - operations
+  - evidence
+  - document-generation
+tools:
+  - markdown
+  - python
+  - powershell
+  - sql
+  - jinja2
+  - pdf-rendering
+narrative_origin: "machine reports that needed repeatable agent context, not another loose prompt"
+visibility: "public"
+related:
+  - "machine-metrics-collector-with-commissioning-gates"
+  - "workbook-row-to-packout-pdf"
+  - "data-trust-ladder"
+points:
+  - "an agent workspace is useful only if it routes context, tools, and artifacts instead of loading everything"
+  - "reporting workflows need evidence capture before narrative interpretation"
+  - "outputs should be dated artifacts, while reusable helpers belong in tools"
+  - "fixture checks matter because report rendering can fail after the text looks correct"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered agent-workspace source: workspace model, routing policy, reporting workflow files, reusable scripts, query pack, report/PDF skill, and fixture verifier; PDF fixture smoke test passed on 2026-06-23"
+record_id: "build_log_009"
+---
+
+# build_log_009 // agent_runbook_workspace_for_machine_reports
+
+## what this is
+
+A filesystem workspace for agents operating around machine-performance reporting. It is not
+the collector service itself. It is the layer that tells an agent what to read, which
+workflow owns the current task, where scripts live, how evidence should be captured, and
+what kind of artifact must be left behind.
+
+The shape is deliberately plain:
+
+<TerminalBlock title="workspace loop (sanitized)" prompt="">
+{`boot file
+  -> workspace model
+  -> context policy
+  -> routed workflow
+  -> reusable script or query pack
+  -> dated evidence artifact
+  -> report markdown
+  -> optional PDF`}
+</TerminalBlock>
+
+## why it exists
+
+Machine reporting work can sprawl fast. One request might need service control, another
+database health, another shift-window setup, another anomaly replay, another manager-facing
+report. If every agent starts by reading the entire source tree and every note, the system
+becomes slow, leaky, and easy to confuse.
+
+The workspace tries to make context a routed resource. Start narrow. Read the workflow that
+owns the task. Use the tool docs for mechanisms. Put raw command output and generated
+reports in artifact folders. Keep reusable helpers out of outputs. That is less glamorous
+than an all-knowing agent, but much safer.
+
+## the useful decision: artifacts first
+
+The reporting workflow puts evidence capture before interpretation. A report run is not
+just "write the narrative." It has to identify the time window, capture CLI and SQL
+evidence, build a structured bundle, assemble manager-facing markdown, keep a technical
+appendix, and only then optionally render the PDF.
+
+That order matters because it separates:
+
+- the request window
+- raw command output
+- SQL query results
+- derived JSON payloads
+- manager copy
+- technical appendix
+- delivery format
+
+When those are mixed together, a report becomes impossible to audit. When they are kept as
+separate artifacts, the narrative can be revised without losing the evidence trail.
+
+## how the workspace keeps agents bounded
+
+The workspace has separate homes for instructions, tools, outputs, and source-of-truth
+reference material. The instruction files route work by task: reporting, ingestion control,
+database health, shift setup, anomaly workflows, and similar operating slices. Tool docs
+explain reusable scripts and query packs. Output folders are evidence-only.
+
+There is a small but important rule hiding in that layout: do not search broadly by default.
+Broad search is useful when blocked, but it is a bad boot sequence. It pulls in stale
+instructions, private examples, and implementation detail before the agent knows what
+question it is answering.
+
+## what worked
+
+The source has a strong reporting pipeline:
+
+- a report builder that captures CLI evidence and optional SQL evidence
+- deterministic query loading from a folder of tagged markdown query files
+- JSON bundle output for later renderer or audit use
+- separate standard report, scorecard, and technical appendix shapes
+- parser helpers for selected CLI output
+- a PDF rendering skill that converts structured markdown into HTML/PDF
+- fixture markdown files that smoke-test dense and sparse report rendering
+
+The bounded check I ran was the report fixture verifier. It passed on the isolated clone:
+the dense fixture produced the expected detail-sheet labels and the sparse fixture kept the
+expected KPI focus class and constraint copy.
+
+## what broke
+
+- **the workspace contains private vocabulary.** source docs, examples, brand assets,
+  serials, endpoint shapes, and report examples are not automatically publishable.
+- **agent context can still over-expand.** the workspace says not to load everything, but a
+  careless agent can still search too broadly and drag private examples into a task.
+- **outputs can become accidental records.** dated artifacts are useful evidence, but they
+  may include machine identifiers, windows, raw command output, or operational labels.
+- **report rendering has its own dependency chain.** markdown can look fine while the
+  HTML/PDF path fails because a renderer or template dependency is missing.
+- **workflow docs can drift from the service.** a runbook is only safe if command names,
+  output shapes, and database assumptions stay aligned with the real CLI.
+
+## what i understand now
+
+This is a different kind of build from the collector. The collector makes the data. The
+workspace makes the work repeatable.
+
+The lesson is that an agent operating layer needs boundaries as much as it needs tools.
+The useful artifact is not just a final report. It is the path from request to evidence to
+interpretation, with enough structure that another run can be checked instead of trusted.
+
+## open questions
+
+<OpenQuestions questions={[
+  "How small can each routed workflow become before the cross-links get harder than the task?",
+  "Which report artifacts should be retained, and which should be disposable after delivery?",
+  "Can fixture checks catch enough PDF/rendering regressions without requiring live operational data?"
+]} />

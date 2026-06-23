@@ -7,9 +7,6 @@ Last generated: 2026-06-23
 
 ## ready
 
-- **draft a de-identified article from a registered source** (`source-c627be20`, content, medium)
-  A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.
-
 - **draft a de-identified article from a registered source** (`source-b60f8b29`, content, medium)
   A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.
 
@@ -98,6 +95,9 @@ _(none)_
   A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.
 
 - **draft a de-identified article from a registered source** (`source-dc0a8650`, content, medium)
+  A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.
+
+- **draft a de-identified article from a registered source** (`source-c627be20`, content, medium)
   A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.
 
 - **draft a de-identified article from a registered source** (`source-79fffc37`, content, medium)

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T10:24:09.115Z",
+  "generated": "2026-06-23T10:29:09.440Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -20,6 +20,16 @@
       "type": "field_note",
       "status": "sketch",
       "slug": "the-operator-knows-before-the-database-does"
+    },
+    {
+      "id": "record:agent-runbook-workspace-for-machine-reports",
+      "kind": "record",
+      "label": "agent-runbook-workspace-for-machine-reports",
+      "degree": 9,
+      "route": "/build-logs/agent-runbook-workspace-for-machine-reports",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "agent-runbook-workspace-for-machine-reports"
     },
     {
       "id": "record:finished-batch-packout-report-export",
@@ -45,7 +55,7 @@
       "id": "record:machine-metrics-collector-with-commissioning-gates",
       "kind": "record",
       "label": "machine-metrics-collector-with-commissioning-gates",
-      "degree": 9,
+      "degree": 10,
       "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
       "type": "build_log",
       "status": "working_note",
@@ -95,7 +105,7 @@
       "id": "record:workbook-row-to-packout-pdf",
       "kind": "record",
       "label": "workbook-row-to-packout-pdf",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/workbook-row-to-packout-pdf",
       "type": "build_log",
       "status": "working_note",
@@ -125,7 +135,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 13,
+      "degree": 14,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -184,11 +194,46 @@
       "tag": "machine-signals"
     },
     {
+      "id": "tag:agent-workflows",
+      "kind": "tag",
+      "label": "agent-workflows",
+      "degree": 1,
+      "tag": "agent-workflows"
+    },
+    {
       "id": "tag:reporting",
       "kind": "tag",
       "label": "reporting",
-      "degree": 2,
+      "degree": 3,
       "tag": "reporting"
+    },
+    {
+      "id": "tag:runbooks",
+      "kind": "tag",
+      "label": "runbooks",
+      "degree": 1,
+      "tag": "runbooks"
+    },
+    {
+      "id": "tag:operations",
+      "kind": "tag",
+      "label": "operations",
+      "degree": 7,
+      "tag": "operations"
+    },
+    {
+      "id": "tag:evidence",
+      "kind": "tag",
+      "label": "evidence",
+      "degree": 2,
+      "tag": "evidence"
+    },
+    {
+      "id": "tag:document-generation",
+      "kind": "tag",
+      "label": "document-generation",
+      "degree": 3,
+      "tag": "document-generation"
     },
     {
       "id": "tag:batch-processing",
@@ -210,13 +255,6 @@
       "label": "exports",
       "degree": 1,
       "tag": "exports"
-    },
-    {
-      "id": "tag:operations",
-      "kind": "tag",
-      "label": "operations",
-      "degree": 6,
-      "tag": "operations"
     },
     {
       "id": "tag:data-quality",
@@ -308,13 +346,6 @@
       "label": "presets",
       "degree": 1,
       "tag": "presets"
-    },
-    {
-      "id": "tag:document-generation",
-      "kind": "tag",
-      "label": "document-generation",
-      "degree": 2,
-      "tag": "document-generation"
     },
     {
       "id": "tag:anomaly-detection",
@@ -429,13 +460,6 @@
       "tag": "systems"
     },
     {
-      "id": "tag:evidence",
-      "kind": "tag",
-      "label": "evidence",
-      "degree": 1,
-      "tag": "evidence"
-    },
-    {
       "id": "tag:dashboards",
       "kind": "tag",
       "label": "dashboards",
@@ -513,6 +537,51 @@
     {
       "source": "record:the-operator-knows-before-the-database-does",
       "target": "tag:machine-signals",
+      "kind": "tag"
+    },
+    {
+      "source": "record:agent-runbook-workspace-for-machine-reports",
+      "target": "record:machine-metrics-collector-with-commissioning-gates",
+      "kind": "related"
+    },
+    {
+      "source": "record:agent-runbook-workspace-for-machine-reports",
+      "target": "record:workbook-row-to-packout-pdf",
+      "kind": "related"
+    },
+    {
+      "source": "record:agent-runbook-workspace-for-machine-reports",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:agent-runbook-workspace-for-machine-reports",
+      "target": "tag:agent-workflows",
+      "kind": "tag"
+    },
+    {
+      "source": "record:agent-runbook-workspace-for-machine-reports",
+      "target": "tag:reporting",
+      "kind": "tag"
+    },
+    {
+      "source": "record:agent-runbook-workspace-for-machine-reports",
+      "target": "tag:runbooks",
+      "kind": "tag"
+    },
+    {
+      "source": "record:agent-runbook-workspace-for-machine-reports",
+      "target": "tag:operations",
+      "kind": "tag"
+    },
+    {
+      "source": "record:agent-runbook-workspace-for-machine-reports",
+      "target": "tag:evidence",
+      "kind": "tag"
+    },
+    {
+      "source": "record:agent-runbook-workspace-for-machine-reports",
+      "target": "tag:document-generation",
       "kind": "tag"
     },
     {

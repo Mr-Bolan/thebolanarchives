@@ -272,3 +272,37 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 14 public records with 15 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: agent runbook workspace for machine reports
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/agent-runbook-workspace-for-machine-reports.mdx`.
+
+The public record strips repository identity, workspace/source names, suite/product names,
+brand assets, machine serials, endpoint hosts, database names, connection strings, local
+paths, source URLs, and private report examples. It preserves the system shape: a routed
+agent workspace with instructions, tool docs, reusable scripts, query packs, output
+artifact folders, report assembly, technical appendices, and optional PDF rendering.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, workspace-specific boot names, machine serials, endpoint hosts, database names,
+  or brand labels in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real agent operating layer
+  and explains what it set out to do, what worked, and why the workspace boundaries matter.
+- truthfulness: PASS. `working_note` / `partial` fits a documentation/tooling workspace
+  verified by source inspection and a bounded fixture smoke test, not live operational
+  report execution.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now because it
+  broadens the archive from machine collection into repeatable agent operation.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/agent-runbook-workspace-for-machine-reports.mdx`
+  passed; the moderation packet reported content and privacy audits green. The source PDF
+  fixture smoke test passed in an isolated temporary clone.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 15 public records with 14 ready items remaining for later
+loop work.
