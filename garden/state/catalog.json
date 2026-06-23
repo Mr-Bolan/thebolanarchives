@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T05:27:06.061Z",
+  "generated": "2026-06-23T08:52:33.746Z",
   "routes": [
     {
       "route": "/",
@@ -418,7 +418,6 @@
     }
   ],
   "workflows": [
-    ".github/workflows/archive-discussions-sync.yml",
     ".github/workflows/archive-intake-screener.yml",
     ".github/workflows/deploy-pages.yml"
   ],

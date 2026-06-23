@@ -138,7 +138,6 @@ Last generated: 2026-06-23
 
 ## workflows
 
-- .github/workflows/archive-discussions-sync.yml
 - .github/workflows/archive-intake-screener.yml
 - .github/workflows/deploy-pages.yml
 

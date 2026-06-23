@@ -31,15 +31,20 @@ GitHub API commands require `GITHUB_TOKEN` or `GH_TOKEN`.
 
 ## workflows
 
-- `.github/workflows/archive-discussions-sync.yml` runs on `main` content changes or
-  manually. It creates missing per-record discussions and opens a PR when the discussion
-  registry changes.
-- `.github/workflows/archive-intake-screener.yml` runs on annotation or fallback
-  Discussion/comment events, every 30 minutes, or manually. It syncs the registry,
-  exports clear notes, audits annotations, and opens or updates one PR with static JSON
-  changes.
+Annotation intake is owned by the Blackbox Garden orchestrator loop. On each tick, stage 50
+(`garden/stages/50_annotations`) runs `discussions:sync` + `discussions:export`, the
+auto-moderation skill approves `screen_clear` notes, and stage 40 commits the approved
+`content/annotations/*.json` straight to `main` so the next deploy renders them. There is no
+timer and no human PR merge in the path.
 
-The workflows do not write directly to `main`.
+- `.github/workflows/archive-intake-screener.yml` remains only as a manual,
+  `workflow_dispatch` fallback you can run by hand if the loop is paused. It syncs the
+  registry, exports clear notes, audits annotations, and opens or updates one PR with static
+  JSON changes.
+
+The earlier `archive-discussions-sync.yml` workflow was removed: its only job
+(`discussions:sync`) is now done by the loop and by the manual fallback above, and its
+`push`-triggered PR competed with the no-merge publish path.
 
 ## screening states
 

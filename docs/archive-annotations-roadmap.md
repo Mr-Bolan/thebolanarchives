@@ -150,10 +150,9 @@ Excludes:
 - direct writes to `main`
 - database, CMS, API routes, or server actions
 
-Implementation: `scripts/archive-discussions.mjs`,
-`.github/workflows/archive-discussions-sync.yml`, and
-`.github/workflows/archive-intake-screener.yml`. See
-`docs/archive-annotations-auto-moderation.md`.
+Implementation: `scripts/archive-discussions.mjs` and the orchestrator loop
+(`garden/stages/50_annotations`), with `.github/workflows/archive-intake-screener.yml` as a
+manual fallback. See `docs/archive-annotations-auto-moderation.md`.
 
 ## Anti-goals
 
