@@ -1,27 +1,27 @@
 {
-  "generated": "2026-06-23T08:31:35.851Z",
+  "generated": "2026-06-23T09:22:08.203Z",
   "stale": false,
   "version": {
-    "sha": "9f4a0ee",
-    "records": 7,
-    "publicRecords": 7
+    "sha": "802279b",
+    "records": 9,
+    "publicRecords": 9
   },
   "archive": {
-    "records": 7,
+    "records": 9,
     "byType": {
       "entry": 1,
       "field_note": 1,
-      "build_log": 1,
+      "build_log": 3,
       "fragment": 1,
       "pattern": 1,
       "experiment": 1,
       "graveyard_note": 1
     },
     "byVisibility": {
-      "public": 7
+      "public": 9
     },
-    "uniqueTags": 16,
-    "relatedEdges": 12
+    "uniqueTags": 26,
+    "relatedEdges": 18
   },
   "routes": {
     "static": [
@@ -39,28 +39,21 @@
       "/experiments",
       "/graveyard"
     ],
-    "records": 7
+    "records": 9
   },
   "backlog": {
     "total": 4,
-    "ready": 1,
+    "ready": 0,
     "byStatus": {
-      "ready": 1,
-      "needs-source": 1,
+      "done": 2,
       "deferred": 2
     },
-    "readyItems": [
-      {
-        "id": "seed-backfill-points",
-        "title": "backfill points frontmatter on existing records",
-        "priority": "medium"
-      }
-    ]
+    "readyItems": []
   },
   "intake": {
     "articleNotes": 0,
     "featureNotes": 0,
     "registeredSources": 23
   },
-  "lastDigest": "2026-06-22 — bootstrap"
+  "lastDigest": "2026-06-23 - automation tick: finished-batch packout report export"
 }

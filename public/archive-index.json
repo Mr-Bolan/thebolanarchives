@@ -1,5 +1,46 @@
 [
   {
+    "title": "finished-batch packout report export",
+    "slug": "finished-batch-packout-report-export",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows-first reporting tool that turns finished production batches into packout PDFs and CSVs, with a ledger so exports are not repeated.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "reporting",
+      "batch-processing",
+      "windows-service",
+      "exports",
+      "operations",
+      "data-quality"
+    ],
+    "tools": [
+      "dotnet",
+      "wpf",
+      "sql-server",
+      "sqlite",
+      "powershell"
+    ],
+    "narrative_origin": "finished batches that still needed paperwork",
+    "related": [
+      "data-trust-ladder",
+      "operator-knowledge-as-signal",
+      "the-operator-knows-before-the-database-does"
+    ],
+    "points": [
+      "the useful unit was not 'render a report'; it was 'turn a finished batch into one durable artifact'",
+      "an export ledger made the worker safe to rerun because success, failure, and retry state were remembered",
+      "the hard part was translating machine buckets and weights into the exact categories operators expect to see",
+      "a local service plus desktop app kept the workflow close to the machine without adding a server"
+    ],
+    "route": "/build-logs/finished-batch-packout-report-export",
+    "record_id": "build_log_003",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered reporting source: README, operations docs, release docs, git history, service code, and tests"
+  },
+  {
     "title": "real-time anomaly detection on a grading line",
     "slug": "real-time-anomaly-detection-on-a-grading-line",
     "type": "build_log",
@@ -44,7 +85,7 @@
     "confidence": "medium",
     "summary": "A graveyard note for a dashboard idea that displayed activity but did not help anyone decide what to do next.",
     "created": "2026-06-14",
-    "updated": "2026-06-14",
+    "updated": "2026-06-23",
     "tags": [
       "dashboards",
       "decisions",
@@ -59,6 +100,11 @@
       "data-trust-ladder",
       "operator-knowledge-as-signal"
     ],
+    "points": [
+      "a dashboard that shows activity but changes no decision is not operationally useful",
+      "visibility is weaker than consequence",
+      "the useful remnant was the question of what would make a display decisive"
+    ],
     "route": "/graveyard/dashboard-without-decisions",
     "record_id": "graveyard_001"
   },
@@ -70,7 +116,7 @@
     "confidence": "low",
     "summary": "A static experiment for separating raw data, clean data, trusted data, explanation, and action.",
     "created": "2026-06-14",
-    "updated": "2026-06-16",
+    "updated": "2026-06-23",
     "tags": [
       "dashboards",
       "data-quality",
@@ -84,6 +130,11 @@
       "the-operator-knows-before-the-database-does",
       "dashboard-without-decisions"
     ],
+    "points": [
+      "raw data, clean data, trusted data, explanation, and action are different states",
+      "a dashboard can look useful while still being stuck at the first rung",
+      "the point is to ask which step fails before adding more instrumentation"
+    ],
     "route": "/experiments/data-trust-ladder",
     "record_id": "experiment_001"
   },
@@ -95,7 +146,7 @@
     "confidence": "medium",
     "summary": "A pattern for treating experienced human observation as a system signal rather than an anecdote outside the model.",
     "created": "2026-06-14",
-    "updated": "2026-06-14",
+    "updated": "2026-06-23",
     "tags": [
       "operators",
       "systems",
@@ -108,6 +159,11 @@
     "related": [
       "the-operator-knows-before-the-database-does"
     ],
+    "points": [
+      "operator knowledge is a noisy but real sensor layer",
+      "experienced behavior changes can warn before dashboards do",
+      "the goal is to preserve the signal without pretending it is flawless"
+    ],
     "route": "/patterns/operator-knowledge-as-signal",
     "record_id": "pattern_001"
   },
@@ -119,7 +175,7 @@
     "confidence": "medium",
     "summary": "A build log for turning a folder of records into a static archive with routes, metadata, and readable MDX pages.",
     "created": "2026-06-14",
-    "updated": "2026-06-14",
+    "updated": "2026-06-23",
     "tags": [
       "archive",
       "static-export",
@@ -135,6 +191,11 @@
       "why-this-exists",
       "data-trust-ladder"
     ],
+    "points": [
+      "local MDX records became the source for routes, lists, metadata, and related links",
+      "static export keeps the archive public without adding a server runtime",
+      "simple validation is enough for the first archive, but it is not a full editorial report"
+    ],
     "route": "/build-logs/static-archive-scaffold",
     "record_id": "build_log_001"
   },
@@ -146,7 +207,7 @@
     "confidence": "partial",
     "summary": "A field note about human observation as a richer signal set than the data model sometimes captures.",
     "created": "2026-06-14",
-    "updated": "2026-06-14",
+    "updated": "2026-06-23",
     "tags": [
       "operators",
       "data",
@@ -160,6 +221,11 @@
       "operator-knowledge-as-signal",
       "data-trust-ladder"
     ],
+    "points": [
+      "operators often notice state changes before formal data models do",
+      "human observation can be evidence without being treated as perfect truth",
+      "the missing signal is often contextual, not absent"
+    ],
     "route": "/field-notes/the-operator-knows-before-the-database-does",
     "record_id": "field_note_001",
     "source_context": "anonymized production floor observation"
@@ -172,7 +238,7 @@
     "confidence": "medium",
     "summary": "The opening record for an anonymous archive of systems, tools, fragments, and things understood later.",
     "created": "2026-06-14",
-    "updated": "2026-06-14",
+    "updated": "2026-06-23",
     "tags": [
       "archive",
       "unfinished-work",
@@ -183,6 +249,11 @@
     "related": [
       "static-archive-scaffold",
       "you-pay-for-the-problem-that-disappears"
+    ],
+    "points": [
+      "the archive is a record of unfinished systems, not a portfolio",
+      "useful work disappears unless it leaves a trail",
+      "anonymity keeps the attention on the work instead of the author"
     ],
     "route": "/entries/why-this-exists",
     "record_id": "entry_001"
@@ -195,7 +266,7 @@
     "confidence": "partial",
     "summary": "A short note about valuing solved problems by the consequence they remove, not by visible effort.",
     "created": "2026-06-14",
-    "updated": "2026-06-14",
+    "updated": "2026-06-23",
     "tags": [
       "work"
     ],
@@ -203,6 +274,10 @@
     "narrative_origin": "private note",
     "related": [
       "why-this-exists"
+    ],
+    "points": [
+      "the value of work is the consequence removed, not the effort displayed",
+      "the best solved problems can become invisible after they disappear"
     ],
     "route": "/fragments/you-pay-for-the-problem-that-disappears",
     "record_id": "fragment_001"

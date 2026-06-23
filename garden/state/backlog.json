@@ -24,7 +24,7 @@
       "id": "seed-backfill-points",
       "type": "content",
       "title": "backfill points frontmatter on existing records",
-      "status": "ready",
+      "status": "done",
       "priority": "medium",
       "mode": "content-update",
       "source": "bootstrap",
@@ -39,19 +39,19 @@
         "content/graveyard/dashboard-without-decisions.mdx"
       ],
       "created": "2026-06-22",
-      "notes": "One record per item is fine if the orchestrator prefers to parallelize."
+      "notes": "Done on 2026-06-23: added concise points frontmatter to the 7 original public records and updated their updated dates. No body rewrites."
     },
     {
       "id": "seed-first-articles",
       "type": "content",
       "title": "write first de-identified articles from a registered source",
-      "status": "needs-source",
+      "status": "done",
       "priority": "high",
       "mode": "content-draft",
       "source": "bootstrap",
       "summary": "Once the owner registers a local repo path or GitHub repo in archive-projects.txt, scan it and write the first de-identified build-log / entry about what it set out to do, how it evolved, how long it has been worked on, what works, what does not, and any novel idea worth a diagram.",
       "created": "2026-06-22",
-      "notes": "Blocked until archive-projects.txt has at least one entry. Intake promotes this to ready when a source appears."
+      "notes": "Done on 2026-06-23: published one de-identified build log, finished-batch-packout-report-export, from a registered reporting source. Source identity, private paths, endpoints, and site-specific labels were excluded from the public record."
     },
     {
       "id": "seed-dedupe-frontmatter-validation",

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T08:43:50.864Z",
+  "generated": "2026-06-23T09:20:59.789Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -15,11 +15,21 @@
       "id": "record:the-operator-knows-before-the-database-does",
       "kind": "record",
       "label": "the-operator-knows-before-the-database-does",
-      "degree": 6,
+      "degree": 7,
       "route": "/field-notes/the-operator-knows-before-the-database-does",
       "type": "field_note",
       "status": "sketch",
       "slug": "the-operator-knows-before-the-database-does"
+    },
+    {
+      "id": "record:finished-batch-packout-report-export",
+      "kind": "record",
+      "label": "finished-batch-packout-report-export",
+      "degree": 9,
+      "route": "/build-logs/finished-batch-packout-report-export",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "finished-batch-packout-report-export"
     },
     {
       "id": "record:real-time-anomaly-detection-on-a-grading-line",
@@ -55,7 +65,7 @@
       "id": "record:operator-knowledge-as-signal",
       "kind": "record",
       "label": "operator-knowledge-as-signal",
-      "degree": 6,
+      "degree": 7,
       "route": "/patterns/operator-knowledge-as-signal",
       "type": "pattern",
       "status": "working_note",
@@ -65,7 +75,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 7,
+      "degree": 8,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -124,6 +134,48 @@
       "tag": "machine-signals"
     },
     {
+      "id": "tag:reporting",
+      "kind": "tag",
+      "label": "reporting",
+      "degree": 1,
+      "tag": "reporting"
+    },
+    {
+      "id": "tag:batch-processing",
+      "kind": "tag",
+      "label": "batch-processing",
+      "degree": 1,
+      "tag": "batch-processing"
+    },
+    {
+      "id": "tag:windows-service",
+      "kind": "tag",
+      "label": "windows-service",
+      "degree": 1,
+      "tag": "windows-service"
+    },
+    {
+      "id": "tag:exports",
+      "kind": "tag",
+      "label": "exports",
+      "degree": 1,
+      "tag": "exports"
+    },
+    {
+      "id": "tag:operations",
+      "kind": "tag",
+      "label": "operations",
+      "degree": 2,
+      "tag": "operations"
+    },
+    {
+      "id": "tag:data-quality",
+      "kind": "tag",
+      "label": "data-quality",
+      "degree": 2,
+      "tag": "data-quality"
+    },
+    {
       "id": "tag:anomaly-detection",
       "kind": "tag",
       "label": "anomaly-detection",
@@ -136,13 +188,6 @@
       "label": "real-time",
       "degree": 1,
       "tag": "real-time"
-    },
-    {
-      "id": "tag:operations",
-      "kind": "tag",
-      "label": "operations",
-      "degree": 1,
-      "tag": "operations"
     },
     {
       "id": "tag:statistics",
@@ -206,13 +251,6 @@
       "label": "dashboards",
       "degree": 2,
       "tag": "dashboards"
-    },
-    {
-      "id": "tag:data-quality",
-      "kind": "tag",
-      "label": "data-quality",
-      "degree": 1,
-      "tag": "data-quality"
     },
     {
       "id": "tag:experiments",
@@ -285,6 +323,51 @@
     {
       "source": "record:the-operator-knows-before-the-database-does",
       "target": "tag:machine-signals",
+      "kind": "tag"
+    },
+    {
+      "source": "record:finished-batch-packout-report-export",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:finished-batch-packout-report-export",
+      "target": "record:operator-knowledge-as-signal",
+      "kind": "related"
+    },
+    {
+      "source": "record:finished-batch-packout-report-export",
+      "target": "record:the-operator-knows-before-the-database-does",
+      "kind": "related"
+    },
+    {
+      "source": "record:finished-batch-packout-report-export",
+      "target": "tag:reporting",
+      "kind": "tag"
+    },
+    {
+      "source": "record:finished-batch-packout-report-export",
+      "target": "tag:batch-processing",
+      "kind": "tag"
+    },
+    {
+      "source": "record:finished-batch-packout-report-export",
+      "target": "tag:windows-service",
+      "kind": "tag"
+    },
+    {
+      "source": "record:finished-batch-packout-report-export",
+      "target": "tag:exports",
+      "kind": "tag"
+    },
+    {
+      "source": "record:finished-batch-packout-report-export",
+      "target": "tag:operations",
+      "kind": "tag"
+    },
+    {
+      "source": "record:finished-batch-packout-report-export",
+      "target": "tag:data-quality",
       "kind": "tag"
     },
     {

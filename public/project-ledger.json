@@ -1,5 +1,32 @@
 [
   {
+    "title": "finished-batch packout report export",
+    "slug": "finished-batch-packout-report-export",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows-first reporting tool that turns finished production batches into packout PDFs and CSVs, with a ledger so exports are not repeated.",
+    "updated": "2026-06-23",
+    "tags": [
+      "reporting",
+      "batch-processing",
+      "windows-service",
+      "exports",
+      "operations",
+      "data-quality"
+    ],
+    "tools": [
+      "dotnet",
+      "wpf",
+      "sql-server",
+      "sqlite",
+      "powershell"
+    ],
+    "route": "/build-logs/finished-batch-packout-report-export",
+    "current_state": "A build log for a Windows-first reporting tool that turns finished production batches into packout PDFs and CSVs, with a ledger so exports are not repeated.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "real-time anomaly detection on a grading line",
     "slug": "real-time-anomaly-detection-on-a-grading-line",
     "status": "working_note",
@@ -30,7 +57,7 @@
     "status": "working_note",
     "confidence": "medium",
     "summary": "A build log for turning a folder of records into a static archive with routes, metadata, and readable MDX pages.",
-    "updated": "2026-06-14",
+    "updated": "2026-06-23",
     "tags": [
       "archive",
       "static-export",

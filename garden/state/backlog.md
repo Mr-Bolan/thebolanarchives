@@ -7,13 +7,11 @@ Last generated: 2026-06-23
 
 ## ready
 
-- **backfill points frontmatter on existing records** (`seed-backfill-points`, content, medium)
-  Add an optional points list (key claims relevant to each page) to the 7 existing public records so the key-points block renders and the schema-softening is real, not just supported.
+_(none)_
 
 ## needs-source
 
-- **write first de-identified articles from a registered source** (`seed-first-articles`, content, high)
-  Once the owner registers a local repo path or GitHub repo in archive-projects.txt, scan it and write the first de-identified build-log / entry about what it set out to do, how it evolved, how long it has been worked on, what works, what does not, and any novel idea worth a diagram.
+_(none)_
 
 ## in-progress
 
@@ -33,4 +31,8 @@ _(none)_
 
 ## done
 
-_(none)_
+- **backfill points frontmatter on existing records** (`seed-backfill-points`, content, medium)
+  Add an optional points list (key claims relevant to each page) to the 7 existing public records so the key-points block renders and the schema-softening is real, not just supported.
+
+- **write first de-identified articles from a registered source** (`seed-first-articles`, content, high)
+  Once the owner registers a local repo path or GitHub repo in archive-projects.txt, scan it and write the first de-identified build-log / entry about what it set out to do, how it evolved, how long it has been worked on, what works, what does not, and any novel idea worth a diagram.
