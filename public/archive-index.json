@@ -672,6 +672,46 @@
     "source_context": "sanitized inspection of a registered survey-API wrapper source: README, package metadata, auth/survey/response/collector modules, pagination utility, exception class, demo runner, workspace config, git history summary, and bundled vendor API PDF metadata; Python syntax compilation and source-tree import smoke passed on 2026-06-23 after installing requests in an isolated virtual environment, package install failed because Poetry metadata did not match an importable package folder, and live API execution was not run because it would require a real access token and survey account data"
   },
   {
+    "title": "target audience role proxy",
+    "slug": "target-audience-role-proxy",
+    "type": "build_log",
+    "status": "sketch",
+    "confidence": "partial",
+    "summary": "A build log for a very early React/TypeScript user-proxy interface that selects an audience-identification workflow and forwards candidate roles toward a downstream agent.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "ai-agents",
+      "user-proxy",
+      "role-identification",
+      "ui-prototype",
+      "react",
+      "workflow"
+    ],
+    "tools": [
+      "react",
+      "typescript",
+      "create-react-app",
+      "jest"
+    ],
+    "narrative_origin": "a small interface for turning human role guesses into agent input",
+    "related": [
+      "mailbox-graph-helper-functions",
+      "survey-api-client-wrapper",
+      "agent-runbook-workspace-for-machine-reports"
+    ],
+    "points": [
+      "a user-proxy screen can make the human-to-agent boundary explicit before any model is wired in",
+      "role-identification workflows need privacy discipline because role lists can encode real organizational context",
+      "a passing build does not mean the prototype is tested when the default CRA test is stale",
+      "early agent UI sketches should say what is stubbed instead of pretending a backend exists"
+    ],
+    "route": "/build-logs/target-audience-role-proxy",
+    "record_id": "build_log_020",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered React/TypeScript assistant-ui source: README, package manifest, App component, UserProxy component, CSS, default test, and git history summary; npm ci failed on a React Scripts / TypeScript peer dependency conflict, npm ci --legacy-peer-deps then production build passed on 2026-06-23, and the test run failed because the default CRA test still expected the removed starter link"
+  },
+  {
     "title": "workbook row to packout PDF",
     "slug": "workbook-row-to-packout-pdf",
     "type": "build_log",

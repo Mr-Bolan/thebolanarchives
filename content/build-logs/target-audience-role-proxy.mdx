@@ -1,0 +1,114 @@
+---
+title: "target audience role proxy"
+slug: "target-audience-role-proxy"
+type: "build_log"
+status: "sketch"
+confidence: "partial"
+summary: "A build log for a very early React/TypeScript user-proxy interface that selects an audience-identification workflow and forwards candidate roles toward a downstream agent."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - ai-agents
+  - user-proxy
+  - role-identification
+  - ui-prototype
+  - react
+  - workflow
+tools:
+  - react
+  - typescript
+  - create-react-app
+  - jest
+narrative_origin: "a small interface for turning human role guesses into agent input"
+visibility: "public"
+related:
+  - "mailbox-graph-helper-functions"
+  - "survey-api-client-wrapper"
+  - "agent-runbook-workspace-for-machine-reports"
+points:
+  - "a user-proxy screen can make the human-to-agent boundary explicit before any model is wired in"
+  - "role-identification workflows need privacy discipline because role lists can encode real organizational context"
+  - "a passing build does not mean the prototype is tested when the default CRA test is stale"
+  - "early agent UI sketches should say what is stubbed instead of pretending a backend exists"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered React/TypeScript assistant-ui source: README, package manifest, App component, UserProxy component, CSS, default test, and git history summary; npm ci failed on a React Scripts / TypeScript peer dependency conflict, npm ci --legacy-peer-deps then production build passed on 2026-06-23, and the test run failed because the default CRA test still expected the removed starter link"
+record_id: "build_log_020"
+---
+
+# build_log_020 // target_audience_role_proxy
+
+## what this is
+
+A very early user-proxy interface for an agent workflow.
+
+The app has one real custom component. It lets the user:
+
+- choose an audience-identification workflow
+- type possible roles as a comma-separated list
+- submit those roles to a parent handler
+
+<TerminalBlock title="human-to-agent boundary (sanitized)" prompt="">
+{`human selects workflow
+  -> interface reveals the matching input form
+  -> human enters possible roles
+  -> roles are split and trimmed
+  -> parent handler receives the role list
+  -> downstream agent is still a stub`}
+</TerminalBlock>
+
+The source does not include the actual role-identification agent. It is the front edge
+where a human tells the future agent what kind of audience space to explore.
+
+## why it exists
+
+Agents need inputs that are explicit enough to inspect. "Figure out the audience" is a
+foggy instruction. "Here are the possible roles; run the audience-identification workflow"
+is a better handoff.
+
+That is the useful idea in this small source. The UI is not trying to be polished. It is
+trying to turn an ambiguous prompt into a structured workflow selection plus a list of
+candidate roles.
+
+## what worked
+
+The component is simple, but the shape is clear:
+
+- workflow selection is explicit
+- the role form appears only after the relevant workflow is chosen
+- roles are collected in one text area and split into a list
+- parent callbacks receive both the selected workflow and submitted roles
+- the app shell keeps the proxy component isolated from whatever agent comes later
+
+The production build passed after installing dependencies with legacy peer handling.
+
+## what broke
+
+- **the agent is not wired in.** The parent handler logs submitted roles and comments that
+  they should be passed onward later.
+- **clean install fails.** The dependency set combines an older React Scripts stack with a
+  newer TypeScript version, so plain `npm ci` fails before build/test.
+- **the test is stale.** The default starter test still expects the removed starter link,
+  so the source test run fails even though the app renders the user-proxy screen.
+- **the README is still stock.** It explains the starter app, not the actual workflow.
+- **role lists can become private.** Generic role examples are harmless, but real role
+  lists can reveal customers, departments, hiring plans, school or workplace context, and
+  internal vocabulary.
+
+## what i understand now
+
+This is a sketch of an agent intake pattern. Before an agent can reason, somebody has to
+state the workflow and hand it bounded input. A small user-proxy screen can do that without
+pretending the model, memory, or backend exists yet.
+
+The next useful version would replace console logging with a visible review state, add a
+real test for the workflow reveal and role splitting behavior, and make the downstream
+agent boundary explicit: what data is sent, what is retained, and what never leaves the
+browser.
+
+## open questions
+
+<OpenQuestions questions={[
+  "Should role lists be normalized, deduplicated, and reviewed before an agent sees them?",
+  "What should the user-proxy show when the downstream role-identification agent is unavailable?",
+  "How can the UI mark which role examples are generic and which came from private operational context?"
+]} />

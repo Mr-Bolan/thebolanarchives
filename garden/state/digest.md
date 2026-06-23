@@ -658,6 +658,35 @@ Moderation verdict: **publish**.
   did not include the untracked-file diff, so the manual gate treated the audited new file
   as the draft under review.
 
+## 2026-06-23 - automation tick: target audience role proxy
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/target-audience-role-proxy.mdx`.
+
+The public record strips repository identity, source URLs, private paths, source-specific
+app naming, owner details, and any private role/context examples. It preserves the system
+shape: a React/TypeScript user-proxy component, workflow selection, comma-separated role
+submission, parent callback boundary, missing downstream agent, stale CRA test, dependency
+conflict, and production-build verification.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, private role lists, or identity-document data in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real early agent UI sketch
+  and explains what it set out to do, what worked, and what stayed stubbed.
+- truthfulness: PASS. `sketch` / `partial` fits the evidence: production build passed only
+  after fallback install, clean install failed on a React Scripts / TypeScript peer
+  conflict, and the default test failed because it still expected starter content.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete small public build log is worth publishing now because it
+  captures the human-to-agent intake boundary before a backend/model exists.
+- validity: PASS. `npm run content:audit`, `npm run privacy:audit`, and
+  `npm run garden:moderate -- content/build-logs/target-audience-role-proxy.mdx` passed;
+  the moderation packet reported content and privacy audits green. The moderation packet
+  did not include the untracked-file diff, so the manual gate treated the audited new file
+  as the draft under review.
+
 ## 2026-06-23 - automation tick: mailbox graph helper functions
 
 Continued the same wakeup on the next ready registered source and drafted

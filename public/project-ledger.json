@@ -466,6 +466,32 @@
     "next_move": ""
   },
   {
+    "title": "target audience role proxy",
+    "slug": "target-audience-role-proxy",
+    "status": "sketch",
+    "confidence": "partial",
+    "summary": "A build log for a very early React/TypeScript user-proxy interface that selects an audience-identification workflow and forwards candidate roles toward a downstream agent.",
+    "updated": "2026-06-23",
+    "tags": [
+      "ai-agents",
+      "user-proxy",
+      "role-identification",
+      "ui-prototype",
+      "react",
+      "workflow"
+    ],
+    "tools": [
+      "react",
+      "typescript",
+      "create-react-app",
+      "jest"
+    ],
+    "route": "/build-logs/target-audience-role-proxy",
+    "current_state": "A build log for a very early React/TypeScript user-proxy interface that selects an audience-identification workflow and forwards candidate roles toward a downstream agent.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "workbook row to packout PDF",
     "slug": "workbook-row-to-packout-pdf",
     "status": "working_note",

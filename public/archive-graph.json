@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T11:38:37.979Z",
+  "generated": "2026-06-23T11:45:03.952Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -35,7 +35,7 @@
       "id": "record:agent-runbook-workspace-for-machine-reports",
       "kind": "record",
       "label": "agent-runbook-workspace-for-machine-reports",
-      "degree": 14,
+      "degree": 15,
       "route": "/build-logs/agent-runbook-workspace-for-machine-reports",
       "type": "build_log",
       "status": "working_note",
@@ -115,7 +115,7 @@
       "id": "record:mailbox-graph-helper-functions",
       "kind": "record",
       "label": "mailbox-graph-helper-functions",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/mailbox-graph-helper-functions",
       "type": "build_log",
       "status": "working_note",
@@ -185,11 +185,21 @@
       "id": "record:survey-api-client-wrapper",
       "kind": "record",
       "label": "survey-api-client-wrapper",
-      "degree": 9,
+      "degree": 10,
       "route": "/build-logs/survey-api-client-wrapper",
       "type": "build_log",
       "status": "working_note",
       "slug": "survey-api-client-wrapper"
+    },
+    {
+      "id": "record:target-audience-role-proxy",
+      "kind": "record",
+      "label": "target-audience-role-proxy",
+      "degree": 9,
+      "route": "/build-logs/target-audience-role-proxy",
+      "type": "build_log",
+      "status": "sketch",
+      "slug": "target-audience-role-proxy"
     },
     {
       "id": "record:workbook-row-to-packout-pdf",
@@ -740,6 +750,48 @@
       "label": "collectors",
       "degree": 1,
       "tag": "collectors"
+    },
+    {
+      "id": "tag:ai-agents",
+      "kind": "tag",
+      "label": "ai-agents",
+      "degree": 1,
+      "tag": "ai-agents"
+    },
+    {
+      "id": "tag:user-proxy",
+      "kind": "tag",
+      "label": "user-proxy",
+      "degree": 1,
+      "tag": "user-proxy"
+    },
+    {
+      "id": "tag:role-identification",
+      "kind": "tag",
+      "label": "role-identification",
+      "degree": 1,
+      "tag": "role-identification"
+    },
+    {
+      "id": "tag:ui-prototype",
+      "kind": "tag",
+      "label": "ui-prototype",
+      "degree": 1,
+      "tag": "ui-prototype"
+    },
+    {
+      "id": "tag:react",
+      "kind": "tag",
+      "label": "react",
+      "degree": 1,
+      "tag": "react"
+    },
+    {
+      "id": "tag:workflow",
+      "kind": "tag",
+      "label": "workflow",
+      "degree": 1,
+      "tag": "workflow"
     },
     {
       "id": "tag:spreadsheet-automation",
@@ -1638,6 +1690,51 @@
     {
       "source": "record:survey-api-client-wrapper",
       "target": "tag:privacy",
+      "kind": "tag"
+    },
+    {
+      "source": "record:target-audience-role-proxy",
+      "target": "record:mailbox-graph-helper-functions",
+      "kind": "related"
+    },
+    {
+      "source": "record:target-audience-role-proxy",
+      "target": "record:survey-api-client-wrapper",
+      "kind": "related"
+    },
+    {
+      "source": "record:target-audience-role-proxy",
+      "target": "record:agent-runbook-workspace-for-machine-reports",
+      "kind": "related"
+    },
+    {
+      "source": "record:target-audience-role-proxy",
+      "target": "tag:ai-agents",
+      "kind": "tag"
+    },
+    {
+      "source": "record:target-audience-role-proxy",
+      "target": "tag:user-proxy",
+      "kind": "tag"
+    },
+    {
+      "source": "record:target-audience-role-proxy",
+      "target": "tag:role-identification",
+      "kind": "tag"
+    },
+    {
+      "source": "record:target-audience-role-proxy",
+      "target": "tag:ui-prototype",
+      "kind": "tag"
+    },
+    {
+      "source": "record:target-audience-role-proxy",
+      "target": "tag:react",
+      "kind": "tag"
+    },
+    {
+      "source": "record:target-audience-role-proxy",
+      "target": "tag:workflow",
       "kind": "tag"
     },
     {
