@@ -84,6 +84,48 @@
     "source_context": "sanitized inspection of a registered capture-decoder source: design docs, legacy Python probes, Go parser/decoder/exporter, React annotation UI, installer notes, and tests; backend and frontend tests passed on 2026-06-23"
   },
   {
+    "title": "machine metrics collector with commissioning gates",
+    "slug": "machine-metrics-collector-with-commissioning-gates",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows service and CLI that polls a machine API, writes time-series metrics, and refuses full ingestion until commissioning checks are satisfied.",
+    "created": "2026-06-23",
+    "updated": "2026-06-23",
+    "tags": [
+      "machine-signals",
+      "windows-service",
+      "time-series",
+      "commissioning",
+      "operations",
+      "data-quality"
+    ],
+    "tools": [
+      "dotnet-framework",
+      "windows-service",
+      "timescaledb",
+      "postgres",
+      "wpf",
+      "mstest"
+    ],
+    "narrative_origin": "a machine feed that needed operational guardrails before it could become trusted data",
+    "related": [
+      "real-time-anomaly-detection-on-a-grading-line",
+      "machine-capture-to-training-dataset",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "a collector is not only a polling loop; it is configuration, schema ownership, retries, health, and commissioning state",
+      "ingestion should be gated until the machine endpoint, database, thresholds, and mapping assumptions are known",
+      "single authoritative SQL definition files can be safer than drifting migration fragments for this kind of operational tool",
+      "heartbeat output turns a background service into something another tool can supervise"
+    ],
+    "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
+    "record_id": "build_log_008",
+    "last_verified": "2026-06-23",
+    "source_context": "sanitized inspection of a registered machine-collector source: README, design guide, service runner, SQL definition runner, commissioning service, discovery/schema parser tests, and database policy notes; core project build passed on 2026-06-23; test project build was blocked by a test-framework reference mismatch in the isolated clone"
+  },
+  {
     "title": "manual label printing from templates",
     "slug": "manual-label-printing-from-templates",
     "type": "build_log",

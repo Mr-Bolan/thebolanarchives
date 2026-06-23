@@ -56,6 +56,34 @@
     "next_move": ""
   },
   {
+    "title": "machine metrics collector with commissioning gates",
+    "slug": "machine-metrics-collector-with-commissioning-gates",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows service and CLI that polls a machine API, writes time-series metrics, and refuses full ingestion until commissioning checks are satisfied.",
+    "updated": "2026-06-23",
+    "tags": [
+      "machine-signals",
+      "windows-service",
+      "time-series",
+      "commissioning",
+      "operations",
+      "data-quality"
+    ],
+    "tools": [
+      "dotnet-framework",
+      "windows-service",
+      "timescaledb",
+      "postgres",
+      "wpf",
+      "mstest"
+    ],
+    "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
+    "current_state": "A build log for a Windows service and CLI that polls a machine API, writes time-series metrics, and refuses full ingestion until commissioning checks are satisfied.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "manual label printing from templates",
     "slug": "manual-label-printing-from-templates",
     "status": "working_note",

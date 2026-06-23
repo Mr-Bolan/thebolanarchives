@@ -237,3 +237,38 @@ Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm ru
 `npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
 the refreshed snapshot shows 13 public records with 16 ready items remaining for later
 loop work.
+
+## 2026-06-23 - automation tick: machine metrics collector with commissioning gates
+
+Continued the same wakeup on the next ready registered source and drafted
+`content/build-logs/machine-metrics-collector-with-commissioning-gates.mdx`.
+
+The public record strips repository identity, suite/product names, service names, endpoint
+hosts, database names, connection strings, serial numbers, local data paths, and source
+URLs. It preserves the system shape: a Windows service/CLI that polls a machine endpoint,
+writes time-series data, applies database definition files, supervises retry/backoff,
+publishes heartbeat state, and gates ingestion on commissioning readiness.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed, and manual review found no
+  real names, client names, private URLs, private paths, credentials, source repository
+  names, endpoint hosts, database names, serial numbers, or un-de-identified product/suite
+  labels in the draft.
+- goal-adherence: PASS. Adds a de-identified build log for a real operational collector
+  and explains what it set out to do, what worked, and where tooling/commissioning remain
+  fragile.
+- truthfulness: PASS. `working_note` / `partial` fits the evidence: source core build
+  passed in an isolated clone after package restore, while the test project build was
+  blocked by a test-framework reference mismatch. The record states that plainly instead
+  of claiming a green test run.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss, no fake certainty.
+- significance: PASS. A complete new public build log is worth publishing now and deepens
+  the archive's machine-signal/data-trust thread.
+- validity: PASS. `npm run content:audit` and
+  `npm run garden:moderate -- content/build-logs/machine-metrics-collector-with-commissioning-gates.mdx`
+  passed; the moderation packet reported content and privacy audits green.
+
+Publish checks passed: `npm run content:audit`, `npm run privacy:audit`, `npm run build`,
+`npm run pages:verify`, and `npm run public-output:audit`. Backlog regeneration passed, and
+the refreshed snapshot shows 14 public records with 15 ready items remaining for later
+loop work.

@@ -1,0 +1,151 @@
+---
+title: "machine metrics collector with commissioning gates"
+slug: "machine-metrics-collector-with-commissioning-gates"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A build log for a Windows service and CLI that polls a machine API, writes time-series metrics, and refuses full ingestion until commissioning checks are satisfied."
+created: "2026-06-23"
+updated: "2026-06-23"
+tags:
+  - machine-signals
+  - windows-service
+  - time-series
+  - commissioning
+  - operations
+  - data-quality
+tools:
+  - dotnet-framework
+  - windows-service
+  - timescaledb
+  - postgres
+  - wpf
+  - mstest
+narrative_origin: "a machine feed that needed operational guardrails before it could become trusted data"
+visibility: "public"
+related:
+  - "real-time-anomaly-detection-on-a-grading-line"
+  - "machine-capture-to-training-dataset"
+  - "data-trust-ladder"
+points:
+  - "a collector is not only a polling loop; it is configuration, schema ownership, retries, health, and commissioning state"
+  - "ingestion should be gated until the machine endpoint, database, thresholds, and mapping assumptions are known"
+  - "single authoritative SQL definition files can be safer than drifting migration fragments for this kind of operational tool"
+  - "heartbeat output turns a background service into something another tool can supervise"
+last_verified: "2026-06-23"
+source_context: "sanitized inspection of a registered machine-collector source: README, design guide, service runner, SQL definition runner, commissioning service, discovery/schema parser tests, and database policy notes; core project build passed on 2026-06-23; test project build was blocked by a test-framework reference mismatch in the isolated clone"
+record_id: "build_log_008"
+---
+
+# build_log_008 // machine_metrics_collector_with_commissioning_gates
+
+## what this is
+
+A Windows service and command-line tool for turning a live machine API into time-series
+metrics. It polls the machine, writes raw measurements and rollups into Postgres/Timescale,
+and exposes enough command surface for installation, configuration, database setup,
+machine registration, commissioning checks, and status reporting.
+
+It started from the familiar shape of a probe: can the process connect, can it read the
+current machine state, can it write rows somewhere durable. The useful version is broader.
+It treats collection as an operating system:
+
+<TerminalBlock title="collector loop (sanitized)" prompt="">
+{`runtime settings
+  -> machine endpoint probe
+  -> database definition check
+  -> commissioning readiness
+  -> supervised polling loop
+  -> time-series writes
+  -> heartbeat for outside supervision`}
+</TerminalBlock>
+
+## why it exists
+
+Machine feeds are not automatically trustworthy just because they are live. A collector can
+successfully connect to the wrong endpoint, write into a half-built schema, ingest before
+thresholds are configured, or keep failing silently after the network disappears.
+
+The build answers those failure modes with guardrails rather than confidence. The service
+can start while the machine endpoint is unavailable, retry with backoff, and publish a
+heartbeat that says whether the collector is running, blocked, degraded, or recently
+successful. The CLI gives operators and agents a way to configure connections, apply
+database definitions, inspect health, and commission a machine without editing files by
+hand.
+
+## the key decision: gate ingestion
+
+The commissioning layer is the most important idea in the source. Before ingestion is
+treated as safe, the system checks that:
+
+- the database can be reached and has the expected objects
+- the machine endpoint responds
+- the endpoint identity matches the expected machine
+- required thresholds have been set
+- machine discovery and mapping work have been recorded
+
+If those pieces do not line up, the service can stay installed and visible without
+pretending data collection is healthy. That distinction matters. "Running" and "safe to
+ingest" are different states.
+
+## schema as a maintained contract
+
+The database side moved toward a small set of authoritative SQL definition files:
+schema, functions, continuous aggregates, and views. Those files are designed to be
+reapplied. The service can load its bundled definitions or an operator-supplied shared
+definition set, then apply the same named pieces through the CLI.
+
+This is a practical answer to schema drift. The collector does not only need tables. It
+needs the functions, rollups, refresh policies, views, and per-machine parameters that make
+the rows interpretable later. Keeping those as visible definitions makes the operational
+contract easier to inspect than a pile of one-off database edits.
+
+## what worked
+
+The source has a few strong seams:
+
+- the service runner has retry/backoff around polling failures
+- heartbeat output includes last success, last error, service state, and commissioning
+  blockers
+- database apply commands use named definition files rather than hidden SQL strings
+- discovery summarises outlets, lane arrays, and observed grade/size keys without trying
+  to over-interpret them
+- schema parsing tests cover table metadata, primary keys, foreign keys, missing
+  references, and join paths
+- discovery tests use a fake machine client to check summary behavior without requiring a
+  live machine
+
+In the isolated clone, the shared core project built successfully after restoring packages.
+The test project itself did not build because the restored test framework assembly version
+did not match the version pinned by the project reference. That is useful evidence, but not
+a green test run.
+
+## what broke
+
+- **configuration is a privacy surface.** endpoint hosts, database connection strings,
+  serial numbers, and shared data paths can identify the installation immediately.
+- **background services need visible state.** without a heartbeat, "installed" and
+  "working" are too easy to confuse.
+- **database health is more than connectivity.** tables, functions, rollups, policies, seed
+  data, and views all have to agree before downstream reports mean anything.
+- **commissioning can become tribal knowledge.** if thresholds and mappings are not stored
+  as explicit readiness state, ingestion can begin on assumptions no one can audit later.
+- **old project formats carry tooling friction.** package restore and test references can
+  become their own operational dependency.
+
+## what i understand now
+
+This is the data-trust ladder in service form. Raw machine readings are only the first rung.
+The collector has to know which machine it is talking to, whether the database contract is
+present, whether the machine has been commissioned, and whether the last poll succeeded.
+
+The lesson is not "write more infrastructure." It is smaller and sharper: a live feed
+becomes trustworthy only when the system can say why it is allowed to ingest.
+
+## open questions
+
+<OpenQuestions questions={[
+  "What commissioning checks should block ingestion, and which should only warn?",
+  "How much schema drift can an operational collector repair automatically before it needs a human review?",
+  "Should heartbeat state be enough for another service to restart or disable ingestion without opening the collector UI?"
+]} />

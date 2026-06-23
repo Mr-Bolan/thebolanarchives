@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T10:16:11.735Z",
+  "generated": "2026-06-23T10:24:09.115Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -35,11 +35,21 @@
       "id": "record:machine-capture-to-training-dataset",
       "kind": "record",
       "label": "machine-capture-to-training-dataset",
-      "degree": 9,
+      "degree": 10,
       "route": "/build-logs/machine-capture-to-training-dataset",
       "type": "build_log",
       "status": "working_note",
       "slug": "machine-capture-to-training-dataset"
+    },
+    {
+      "id": "record:machine-metrics-collector-with-commissioning-gates",
+      "kind": "record",
+      "label": "machine-metrics-collector-with-commissioning-gates",
+      "degree": 9,
+      "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "machine-metrics-collector-with-commissioning-gates"
     },
     {
       "id": "record:manual-label-printing-from-templates",
@@ -55,7 +65,7 @@
       "id": "record:real-time-anomaly-detection-on-a-grading-line",
       "kind": "record",
       "label": "real-time-anomaly-detection-on-a-grading-line",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/real-time-anomaly-detection-on-a-grading-line",
       "type": "build_log",
       "status": "working_note",
@@ -115,7 +125,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 12,
+      "degree": 13,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -170,7 +180,7 @@
       "id": "tag:machine-signals",
       "kind": "tag",
       "label": "machine-signals",
-      "degree": 1,
+      "degree": 2,
       "tag": "machine-signals"
     },
     {
@@ -191,7 +201,7 @@
       "id": "tag:windows-service",
       "kind": "tag",
       "label": "windows-service",
-      "degree": 1,
+      "degree": 2,
       "tag": "windows-service"
     },
     {
@@ -205,14 +215,14 @@
       "id": "tag:operations",
       "kind": "tag",
       "label": "operations",
-      "degree": 5,
+      "degree": 6,
       "tag": "operations"
     },
     {
       "id": "tag:data-quality",
       "kind": "tag",
       "label": "data-quality",
-      "degree": 2,
+      "degree": 3,
       "tag": "data-quality"
     },
     {
@@ -256,6 +266,20 @@
       "label": "local-tools",
       "degree": 1,
       "tag": "local-tools"
+    },
+    {
+      "id": "tag:time-series",
+      "kind": "tag",
+      "label": "time-series",
+      "degree": 1,
+      "tag": "time-series"
+    },
+    {
+      "id": "tag:commissioning",
+      "kind": "tag",
+      "label": "commissioning",
+      "degree": 1,
+      "tag": "commissioning"
     },
     {
       "id": "tag:label-printing",
@@ -579,6 +603,51 @@
     {
       "source": "record:machine-capture-to-training-dataset",
       "target": "tag:local-tools",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-metrics-collector-with-commissioning-gates",
+      "target": "record:real-time-anomaly-detection-on-a-grading-line",
+      "kind": "related"
+    },
+    {
+      "source": "record:machine-metrics-collector-with-commissioning-gates",
+      "target": "record:machine-capture-to-training-dataset",
+      "kind": "related"
+    },
+    {
+      "source": "record:machine-metrics-collector-with-commissioning-gates",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:machine-metrics-collector-with-commissioning-gates",
+      "target": "tag:machine-signals",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-metrics-collector-with-commissioning-gates",
+      "target": "tag:windows-service",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-metrics-collector-with-commissioning-gates",
+      "target": "tag:time-series",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-metrics-collector-with-commissioning-gates",
+      "target": "tag:commissioning",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-metrics-collector-with-commissioning-gates",
+      "target": "tag:operations",
+      "kind": "tag"
+    },
+    {
+      "source": "record:machine-metrics-collector-with-commissioning-gates",
+      "target": "tag:data-quality",
       "kind": "tag"
     },
     {
