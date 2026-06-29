@@ -1,27 +1,27 @@
 {
-  "generated": "2026-06-29T11:56:24.337Z",
+  "generated": "2026-06-29T12:12:14.716Z",
   "stale": false,
   "version": {
-    "sha": "7fa3ad3",
-    "records": 26,
-    "publicRecords": 26
+    "sha": "0de907a",
+    "records": 27,
+    "publicRecords": 27
   },
   "archive": {
-    "records": 26,
+    "records": 27,
     "byType": {
       "entry": 1,
       "field_note": 1,
       "build_log": 20,
       "fragment": 1,
       "pattern": 1,
-      "experiment": 1,
+      "experiment": 2,
       "graveyard_note": 1
     },
     "byVisibility": {
-      "public": 26
+      "public": 27
     },
-    "uniqueTags": 87,
-    "relatedEdges": 76
+    "uniqueTags": 91,
+    "relatedEdges": 78
   },
   "routes": {
     "static": [
@@ -39,13 +39,13 @@
       "/experiments",
       "/graveyard"
     ],
-    "records": 26
+    "records": 27
   },
   "backlog": {
-    "total": 28,
+    "total": 29,
     "ready": 0,
     "byStatus": {
-      "done": 4,
+      "done": 5,
       "deferred": 4,
       "published": 20
     },

@@ -3,7 +3,7 @@
 Generated mirror of `garden/state/backlog.json`. Do not edit by hand — run
 `npm run garden:backlog` to regenerate. Edit the JSON instead.
 
-Last generated: 2026-06-23
+Last generated: 2026-06-29
 
 ## ready
 
@@ -48,6 +48,9 @@ _(none)_
 
 - **update the about page origin note** (`intake-content-about-update`, content, medium)
   De-identify and rewrite the about page so it explains the archive's AI-assisted working origin without exposing private biography, employers, or clients.
+
+- **draft the meeting notes workflow experiment** (`intake-content-update-repos`, content, medium)
+  Draft a de-identified experiment record from the local meeting-note automation source, emphasizing workflow impact while keeping transcripts, names, clients, paths, and credentials out of public content.
 
 ## published
 

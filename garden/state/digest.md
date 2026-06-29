@@ -799,3 +799,26 @@ Moderation verdict: **publish**.
 
 11:55Z: snapshot refreshed, intake produced no new items, and the backlog had no ready
 items; no publishable diffs were present beyond sanitized tick state.
+
+## 2026-06-29 - automation tick: meeting notes workflow compiler
+
+Intake produced one content item from a local meeting-note automation source. Drafted
+`content/experiments/meeting-notes-workflow-compiler.mdx` as a public experiment record:
+transcript cleanup, token-sized sectioning, staged summarization, and final consolidated
+notes. The record keeps the operational lesson and excludes transcript bodies, generated
+meeting notes, people, customers, filenames, private paths, and credential specifics.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. `npm run privacy:audit` passed. Manual review found the
+  source tree is not public-safe as-is because it contains private meeting artifacts and
+  legacy credential handling; the public draft includes only sanitized system pattern.
+- goal-adherence: PASS. Adds a successful field-tested workflow experiment to the archive,
+  matching the owner's request for more than a typical entry.
+- truthfulness: PASS. `field_tested` / `medium` matches the source and owner intake: the
+  workflow produced useful artifacts, while source hardening remains unfinished.
+- theme/voice: PASS. Plain archive voice, no portfolio gloss.
+- significance: PASS. A complete new experiment record is worth publishing because it
+  captures an early, successful AI-assisted workflow compiler.
+- validity: PASS. Source `py_compile`, `npm run content:audit`, `npm run privacy:audit`,
+  `npm run garden:moderate -- content/experiments/meeting-notes-workflow-compiler.mdx`,
+  `npm run build`, `npm run pages:verify`, and `npm run public-output:audit` passed.

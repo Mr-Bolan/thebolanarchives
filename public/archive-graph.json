@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23T11:49:04.761Z",
+  "generated": "2026-06-29T12:08:16.733Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -115,7 +115,7 @@
       "id": "record:mailbox-graph-helper-functions",
       "kind": "record",
       "label": "mailbox-graph-helper-functions",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/mailbox-graph-helper-functions",
       "type": "build_log",
       "status": "working_note",
@@ -235,7 +235,7 @@
       "id": "record:operator-knowledge-as-signal",
       "kind": "record",
       "label": "operator-knowledge-as-signal",
-      "degree": 9,
+      "degree": 10,
       "route": "/patterns/operator-knowledge-as-signal",
       "type": "pattern",
       "status": "working_note",
@@ -250,6 +250,16 @@
       "type": "experiment",
       "status": "sketch",
       "slug": "data-trust-ladder"
+    },
+    {
+      "id": "record:meeting-notes-workflow-compiler",
+      "kind": "record",
+      "label": "meeting-notes-workflow-compiler",
+      "degree": 6,
+      "route": "/experiments/meeting-notes-workflow-compiler",
+      "type": "experiment",
+      "status": "field_tested",
+      "slug": "meeting-notes-workflow-compiler"
     },
     {
       "id": "record:dashboard-without-decisions",
@@ -855,6 +865,34 @@
       "label": "experiments",
       "degree": 1,
       "tag": "experiments"
+    },
+    {
+      "id": "tag:meeting-notes",
+      "kind": "tag",
+      "label": "meeting-notes",
+      "degree": 1,
+      "tag": "meeting-notes"
+    },
+    {
+      "id": "tag:workflow-automation",
+      "kind": "tag",
+      "label": "workflow-automation",
+      "degree": 1,
+      "tag": "workflow-automation"
+    },
+    {
+      "id": "tag:transcript-processing",
+      "kind": "tag",
+      "label": "transcript-processing",
+      "degree": 1,
+      "tag": "transcript-processing"
+    },
+    {
+      "id": "tag:ai-assistance",
+      "kind": "tag",
+      "label": "ai-assistance",
+      "degree": 1,
+      "tag": "ai-assistance"
     },
     {
       "id": "tag:decisions",
@@ -1870,6 +1908,36 @@
     {
       "source": "record:data-trust-ladder",
       "target": "tag:experiments",
+      "kind": "tag"
+    },
+    {
+      "source": "record:meeting-notes-workflow-compiler",
+      "target": "record:operator-knowledge-as-signal",
+      "kind": "related"
+    },
+    {
+      "source": "record:meeting-notes-workflow-compiler",
+      "target": "record:mailbox-graph-helper-functions",
+      "kind": "related"
+    },
+    {
+      "source": "record:meeting-notes-workflow-compiler",
+      "target": "tag:meeting-notes",
+      "kind": "tag"
+    },
+    {
+      "source": "record:meeting-notes-workflow-compiler",
+      "target": "tag:workflow-automation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:meeting-notes-workflow-compiler",
+      "target": "tag:transcript-processing",
+      "kind": "tag"
+    },
+    {
+      "source": "record:meeting-notes-workflow-compiler",
+      "target": "tag:ai-assistance",
       "kind": "tag"
     },
     {

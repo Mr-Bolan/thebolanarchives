@@ -1,0 +1,93 @@
+---
+title: "meeting notes workflow compiler"
+slug: "meeting-notes-workflow-compiler"
+type: "experiment"
+status: "field_tested"
+confidence: "medium"
+summary: "A successful workflow experiment that turned long meeting transcripts into structured notes, actions, risks, and external-safe summaries."
+created: "2026-06-29"
+updated: "2026-06-29"
+tags:
+  - meeting-notes
+  - workflow-automation
+  - transcript-processing
+  - ai-assistance
+tools:
+  - python
+  - tkinter
+  - openai api
+  - transcript preprocessing
+  - token chunking
+narrative_origin: "local workflow automation source"
+visibility: "public"
+related:
+  - "operator-knowledge-as-signal"
+  - "mailbox-graph-helper-functions"
+points:
+  - "the experiment worked because it compressed a recurring meeting chore into a repeatable workflow"
+  - "the useful system was not only summarization; it was preprocessing, chunking, staged prompts, and a final consolidated artifact"
+  - "the source tree is not public-safe as-is because transcripts, generated notes, names, and legacy credential handling remain private"
+record_id: "experiment_002"
+last_verified: "2026-06-29"
+source_context: "local source review; transcript bodies and generated meeting artifacts were treated as private evidence"
+---
+
+# experiment_002 // meeting_notes_workflow_compiler
+
+## question
+
+Could a rough local tool turn a long meeting transcript into something useful enough to save real work after every meeting?
+
+## what this is
+
+This was a desktop workflow experiment for meeting notes. It took a transcript file, stripped out timestamp and platform noise, estimated the token load, split the cleaned text into model-sized sections, summarized each section, and then consolidated those section summaries into a final meeting record.
+
+The successful part was not a polished interface. It was the shape of the workflow: turn one messy conversational artifact into structured updates, decisions, actions, risks, follow-ups, and a shorter external-facing summary.
+
+<ExperimentFrame
+  title="meeting notes workflow compiler"
+  explanation="A local transcript-to-notes workflow built from cleanup, chunking, staged prompts, and final consolidation."
+  fallback="Raw transcript -> cleaned transcript -> token-sized sections -> section summaries -> consolidated meeting notes."
+>
+  <DiagramBlock caption="The experiment worked as a small compilation pipeline." alt="A five-step pipeline from raw transcript to consolidated meeting notes">
+    <ol className="diagram-steps">
+      <li>raw transcript</li>
+      <li>cleaned transcript</li>
+      <li>token-sized sections</li>
+      <li>section summaries</li>
+      <li>consolidated notes</li>
+    </ol>
+  </DiagramBlock>
+</ExperimentFrame>
+
+## what worked
+
+The workflow saved time because it attacked the dull part directly. Meeting notes are not just writing. They are extraction, grouping, prioritization, owner tracking, and deciding what can be shown outside the room.
+
+The source had a small local UI for selecting a transcript, preprocessing it, checking rough size, splitting the text, and generating the notes. It also kept the prompts close to the workflow, which made the output format repeatable instead of relying on a new ad hoc prompt every time.
+
+The final artifact was useful in daily work: not perfect, not autonomous, but good enough to reduce the after-meeting drag from manual reconstruction to review and correction.
+
+## what broke
+
+The source tree is not publishable. It includes private transcript material, generated meeting-note artifacts, personal names in sample files and prompts, and legacy credential handling that should never be copied into a public repository.
+
+The pipeline also inherited the rough edges of early AI workflow automation: local files everywhere, manual sequencing, no clean secret boundary, and no durable test harness around the thing that mattered most, which was the quality of the produced notes.
+
+## what i understand now
+
+This kind of tool matters because it sits where work actually leaks time. A meeting does not end when the call ends. Someone still has to turn speech into decisions, actions, and a record other people can trust.
+
+The experiment proved that an AI-assisted workflow could move that burden. It did not remove judgment, but it moved judgment later in the process: from building the whole record by hand to checking a structured draft.
+
+## privacy boundary
+
+No transcript content, generated notes, people, customers, filenames, private paths, or credentials belong in the public archive. The public record keeps only the system pattern and the operational lesson.
+
+## open questions
+
+<OpenQuestions questions={[
+  "What would a public-safe version look like if it used synthetic transcripts and environment-based secrets?",
+  "Which checks would prove the notes are complete enough without exposing real meeting content?",
+  "Should this stay an archived experiment, or become the pattern for other workflow compilers?"
+]} />

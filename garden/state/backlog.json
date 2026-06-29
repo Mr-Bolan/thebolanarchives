@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-23",
+  "updated": "2026-06-29",
   "note": "Durable, sanitized work queue for the Blackbox Garden loop. Source of truth. backlog.md is generated from this. Never put private detail here; reference it by id under garden/state/private/.",
   "statuses": [
     "ready",
@@ -466,6 +466,20 @@
       "target": "src/app/about/page.tsx",
       "created": "2026-06-23",
       "notes": "Done on 2026-06-23: updated the about page with an anonymous origin narrative around AI-assisted daily work and the archive as a record of systems rather than biography. Removed private career/client specifics. Auto-moderation verdict publish; checks passed: content:audit, privacy:audit, build, pages:verify, garden:moderate, public-output:audit."
+    },
+    {
+      "id": "intake-content-update-repos",
+      "type": "content",
+      "title": "draft the meeting notes workflow experiment",
+      "status": "done",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Draft a de-identified experiment record from the local meeting-note automation source, emphasizing workflow impact while keeping transcripts, names, clients, paths, and credentials out of public content.",
+      "privateRef": "garden/state/private/intake-content-update-repos.md",
+      "target": "content/experiments/meeting-notes-workflow-compiler.mdx",
+      "created": "2026-06-29",
+      "notes": "Done on 2026-06-29: published a de-identified experiment record for the local meeting-note workflow compiler. Transcript bodies, generated notes, filenames, people, customers, private paths, and legacy credential specifics were excluded. Auto-moderation verdict publish; checks passed: source py_compile, content:audit, privacy:audit, garden:moderate, build, pages:verify, public-output:audit."
     }
   ]
 }

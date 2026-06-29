@@ -1,5 +1,42 @@
 [
   {
+    "title": "meeting notes workflow compiler",
+    "slug": "meeting-notes-workflow-compiler",
+    "type": "experiment",
+    "status": "field_tested",
+    "confidence": "medium",
+    "summary": "A successful workflow experiment that turned long meeting transcripts into structured notes, actions, risks, and external-safe summaries.",
+    "created": "2026-06-29",
+    "updated": "2026-06-29",
+    "tags": [
+      "meeting-notes",
+      "workflow-automation",
+      "transcript-processing",
+      "ai-assistance"
+    ],
+    "tools": [
+      "python",
+      "tkinter",
+      "openai api",
+      "transcript preprocessing",
+      "token chunking"
+    ],
+    "narrative_origin": "local workflow automation source",
+    "related": [
+      "operator-knowledge-as-signal",
+      "mailbox-graph-helper-functions"
+    ],
+    "points": [
+      "the experiment worked because it compressed a recurring meeting chore into a repeatable workflow",
+      "the useful system was not only summarization; it was preprocessing, chunking, staged prompts, and a final consolidated artifact",
+      "the source tree is not public-safe as-is because transcripts, generated notes, names, and legacy credential handling remain private"
+    ],
+    "route": "/experiments/meeting-notes-workflow-compiler",
+    "record_id": "experiment_002",
+    "last_verified": "2026-06-29",
+    "source_context": "local source review; transcript bodies and generated meeting artifacts were treated as private evidence"
+  },
+  {
     "title": "adaptive oee reporting workbench",
     "slug": "adaptive-oee-reporting-workbench",
     "type": "build_log",
