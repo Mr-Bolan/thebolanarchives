@@ -52,6 +52,9 @@ _(none)_
 - **draft the meeting notes workflow experiment** (`intake-content-update-repos`, content, medium)
   Draft a de-identified experiment record from the local meeting-note automation source, emphasizing workflow impact while keeping transcripts, names, clients, paths, and credentials out of public content.
 
+- **move article tags with dragged graph records** (`intake-feature-garden-map`, feature, medium)
+  Fix the garden graph drag behavior so a dragged record carries its directly connected tag nodes, making shared tag relationships easier to inspect without changing routes or data shape.
+
 ## published
 
 - **draft a de-identified article from a registered source** (`source-59727238`, content, medium)

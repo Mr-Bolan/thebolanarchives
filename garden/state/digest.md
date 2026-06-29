@@ -822,3 +822,23 @@ Moderation verdict: **publish**.
 - validity: PASS. Source `py_compile`, `npm run content:audit`, `npm run privacy:audit`,
   `npm run garden:moderate -- content/experiments/meeting-notes-workflow-compiler.mdx`,
   `npm run build`, `npm run pages:verify`, and `npm run public-output:audit` passed.
+
+## 2026-06-29 - automation tick: garden graph tag dragging
+
+Intake produced one feature item for the `/garden` map. Updated
+`src/components/experiments/ArchiveGraph.tsx` so dragging a record node also moves its
+directly connected tag nodes by the same graph-space delta. This keeps the article's tag
+cluster together while inspecting shared tag relationships.
+
+Moderation verdict: **publish**.
+- privacy (hard gate): PASS. The diff changes only client-side graph interaction and
+  sanitized state.
+- goal-adherence: PASS. Improves the garden map as an inspection tool for shared tags
+  across archive records.
+- truthfulness: PASS. The behavior is limited to local drag state; no persistence or new
+  graph data model is claimed.
+- theme/voice: PASS. No visible copy or route behavior changed.
+- significance: PASS. Fixes a current interaction issue in the map the owner explicitly
+  flagged.
+- validity: PASS. `npm run garden:moderate -- src/components/experiments/ArchiveGraph.tsx`
+  passed content/privacy audits, and `npm run agent:check` passed.

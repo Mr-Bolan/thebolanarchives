@@ -19,6 +19,7 @@ type DragState =
       startGraph: { x: number; y: number };
       startClient: { x: number; y: number };
       origin: { x: number; y: number };
+      followers: Array<{ id: string; origin: { x: number; y: number } }>;
       moved: boolean;
     }
   | {
@@ -101,12 +102,21 @@ export function ArchiveGraph({ graph }: ArchiveGraphProps) {
   };
 
   const moveNode = (id: string, x: number, y: number) => {
+    moveNodes([{ id, x, y }]);
+  };
+
+  const moveNodes = (updates: Array<{ id: string; x: number; y: number }>) => {
     setMovedNodes((current) => ({
       ...current,
-      [id]: {
-        x: clamp(x, 24, WIDTH - 24),
-        y: clamp(y, 24, HEIGHT - 24),
-      },
+      ...Object.fromEntries(
+        updates.map(({ id, x, y }) => [
+          id,
+          {
+            x: clamp(x, 24, WIDTH - 24),
+            y: clamp(y, 24, HEIGHT - 24),
+          },
+        ]),
+      ),
     }));
   };
 
@@ -121,6 +131,7 @@ export function ArchiveGraph({ graph }: ArchiveGraphProps) {
       startGraph,
       startClient: { x: event.clientX, y: event.clientY },
       origin: { x: node.x, y: node.y },
+      followers: tagFollowers(node, positioned, adjacency),
       moved: false,
     };
     setHoverId(node.id);
@@ -162,11 +173,16 @@ export function ArchiveGraph({ graph }: ArchiveGraphProps) {
     }
 
     const point = pointFromEvent(event);
-    moveNode(
-      drag.id,
-      drag.origin.x + point.x - drag.startGraph.x,
-      drag.origin.y + point.y - drag.startGraph.y,
-    );
+    const dx = point.x - drag.startGraph.x;
+    const dy = point.y - drag.startGraph.y;
+    moveNodes([
+      { id: drag.id, x: drag.origin.x + dx, y: drag.origin.y + dy },
+      ...drag.followers.map((follower) => ({
+        id: follower.id,
+        x: follower.origin.x + dx,
+        y: follower.origin.y + dy,
+      })),
+    ]);
   };
 
   const handlePointerUp = (event: ReactPointerEvent<SVGSVGElement>) => {
@@ -360,6 +376,18 @@ function buildAdjacency(graph: ArchiveGraphData): Map<string, Set<string>> {
     link(edge.target, edge.source);
   }
   return map;
+}
+
+function tagFollowers(
+  node: Positioned,
+  positioned: Map<string, Positioned>,
+  adjacency: Map<string, Set<string>>,
+) {
+  if (node.kind !== "record") return [];
+  return [...(adjacency.get(node.id) ?? [])]
+    .map((id) => positioned.get(id))
+    .filter((neighbor): neighbor is Positioned => neighbor?.kind === "tag")
+    .map((neighbor) => ({ id: neighbor.id, origin: { x: neighbor.x, y: neighbor.y } }));
 }
 
 // Deterministic Fruchterman-Reingold layout. No randomness so server and client agree and

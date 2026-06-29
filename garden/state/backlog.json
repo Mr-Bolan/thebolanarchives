@@ -480,6 +480,20 @@
       "target": "content/experiments/meeting-notes-workflow-compiler.mdx",
       "created": "2026-06-29",
       "notes": "Done on 2026-06-29: published a de-identified experiment record for the local meeting-note workflow compiler. Transcript bodies, generated notes, filenames, people, customers, private paths, and legacy credential specifics were excluded. Auto-moderation verdict publish; checks passed: source py_compile, content:audit, privacy:audit, garden:moderate, build, pages:verify, public-output:audit."
+    },
+    {
+      "id": "intake-feature-garden-map",
+      "type": "feature",
+      "title": "move article tags with dragged graph records",
+      "status": "done",
+      "priority": "medium",
+      "mode": "site-feature",
+      "source": "intake",
+      "summary": "Fix the garden graph drag behavior so a dragged record carries its directly connected tag nodes, making shared tag relationships easier to inspect without changing routes or data shape.",
+      "privateRef": "garden/state/private/intake-feature-garden-map.md",
+      "target": "src/components/experiments/ArchiveGraph.tsx",
+      "created": "2026-06-29",
+      "notes": "Done on 2026-06-29: updated /garden graph dragging so record nodes carry directly connected tag nodes with them. Auto-moderation verdict publish; npm run garden:moderate -- src/components/experiments/ArchiveGraph.tsx passed content/privacy audits and npm run agent:check passed."
     }
   ]
 }
