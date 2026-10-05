@@ -86,6 +86,9 @@ _(none)_
 - **review packages sources** (`inventory-review-packages-20261005`, content, medium)
   Verify source evidence, reconcile existing records, and draft distinct de-identified content. Source details and row-level outcomes remain in ignored private state.
 
+- **restore deployment after dependency audit failure** (`deploy-dependency-audit-20261005`, feature, high)
+  Pages run 37261444138 failed its dependency audit after the inventory publication commit. Update vulnerable dependencies without weakening the audit, verify the static export, and confirm deployment.
+
 - **de-identify publication commit metadata** (`privacy-publish-metadata-20261005`, privacy, high)
   Local publication metadata defaults are identifying. Verify an anonymous command-scoped author and committer before publishing this batch; preserve existing history and global configuration.
 

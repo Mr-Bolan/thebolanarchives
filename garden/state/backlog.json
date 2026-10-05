@@ -1339,6 +1339,18 @@
       "notes": "Auto-moderation verdict hold-backlog: insufficient source evidence or significance for a separate publication; see sanitized summary for resumption condition."
     },
     {
+      "id": "deploy-dependency-audit-20261005",
+      "type": "feature",
+      "title": "restore deployment after dependency audit failure",
+      "status": "done",
+      "priority": "high",
+      "mode": "deploy-maintenance",
+      "source": "moderation",
+      "summary": "Pages run 37261444138 failed its dependency audit after the inventory publication commit. Update vulnerable dependencies without weakening the audit, verify the static export, and confirm deployment.",
+      "created": "2026-10-05",
+      "notes": "Auto-moderation verdict publish: lockfile-only dependency repair within existing package ranges, with generated Next type reference. Zero audit vulnerabilities; agent:check and deploy:check pass. Remote deployment confirmation follows push."
+    },
+    {
       "id": "privacy-publish-metadata-20261005",
       "type": "privacy",
       "title": "de-identify publication commit metadata",

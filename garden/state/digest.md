@@ -975,3 +975,31 @@ uncommitted.
 
 Final idle pass: no new intake and no ready work; publishing the approved batch leaves
 no uncommitted publishable diffs.
+
+### deployment follow-up
+
+The inventory batch reached the repository in commit 219a165, but Pages run
+37261444138 failed at the dependency security audit; deployment was skipped.
+Local content and export checks had passed, but do not include that dependency audit.
+The loop resumed with a deploy-maintenance item to repair the locked dependencies.
+The security gate remains unchanged. Repository publication is not live deployment.
+
+Auto-moderation verdict for deploy-dependency-audit-20261005: **publish**.
+
+- Privacy: reviewed dependency and state diffs; only public npm registry URLs and
+  sanitized operational details are added. Anonymous command-scoped Git metadata applies.
+- Goal: restores the static archive publication path for the reviewed inventory batch.
+- Truth: the original failed workflow is recorded. Local success is not represented as
+  remote deployment success; the replacement workflow must be checked after push.
+- Theme: no reader-facing prose, visual design, or routes were changed.
+- Significance: fixes a deployment-blocking security audit rather than bypassing it.
+- Validity: npm audit reports zero vulnerabilities; agent:check and deploy:check pass,
+  including 83 Pages checks. The moderation packet passes content and privacy audits.
+
+The existing manifest ranges resolve to Next 16.3.8, PostCSS 8.5.28, Nano ID 3.3.19,
+Sharp 0.35.5, and updated browser mapping data. Package ranges and CI gates are unchanged.
+Next generated its additional root-params type reference. No application changes were
+needed. The generated graph timestamp is retained from the verified build.
+
+Final intake produced no new items. No ready or in-progress work remains after the
+approved repair; remote Pages completion is checked after pushing this batch.
