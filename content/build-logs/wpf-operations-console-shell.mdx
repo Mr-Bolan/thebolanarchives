@@ -6,7 +6,7 @@ status: "working_note"
 confidence: "partial"
 summary: "A build log for a WPF desktop shell that frames navigation, settings, theme control, and future machine/API configuration before the real workflow arrives."
 created: "2026-06-23"
-updated: "2026-06-23"
+updated: "2026-10-05"
 tags:
   - desktop-app
   - wpf
@@ -32,12 +32,29 @@ points:
   - "navigation, hosting, settings, theming, and service boundaries are the first durable decisions"
   - "starter UI labels and stub machine fields are useful evidence, but not publishable identity"
   - "a shell build should be labeled as a shell, not inflated into an application"
-last_verified: "2026-06-23"
-source_context: "sanitized inspection of a registered WPF desktop source: solution/project files, host service, navigation window, pages, view models, settings scaffold, assets, and task metadata; source restore/build passed with nullable warnings on 2026-06-23; no source test suite was present"
+last_verified: "2026-10-05"
+source_context: "source-review-only follow-up of settings view-model HTTP preview, database connection, and schema-initialization commands; current runtime unverified; earlier restore/build evidence below is dated 2026-06-23 and was not repeated"
 record_id: "build_log_012"
 ---
 
 # build_log_012 // wpf_operations_console_shell
+
+## source update // 2026-10-05
+
+The settings surface is no longer entirely simulated. The current view model contains an
+HTTP preview command with a timeout and bounded response display, plus a database
+connection command that queries server and account information.
+
+A separate verify/initialize command checks the metrics table and time-column type. With
+the relevant options enabled, it can create a missing table, attempt extension creation
+when permitted, and request hypertable conversion. That changes the risk of this screen:
+some settings actions now mutate infrastructure rather than merely describe it.
+
+The earlier shell account below is retained as the June snapshot. Its statement that all
+machine/API actions are stubs should not be applied to these current commands. This review
+did not execute them, connect to a database, or contact an endpoint. Runtime behavior and
+schema compatibility remain unverified. A disposable synthetic database is needed before
+treating initialization as a dependable operator workflow.
 
 ## what this is
 
@@ -46,7 +63,7 @@ Generic Host startup, dependency injection, navigation services, a fluent main w
 dashboard/data/settings pages, theme switching, icons, and view models wired through MVVM
 attributes.
 
-It is also plainly still a shell. Several screens are stubs. The dashboard is a
+In the June snapshot it was plainly still a shell. Several screens were stubs. The dashboard was a
 counter. The data page renders generated color blocks. The settings page sketches future
 connection, endpoint, database, batch, machine target, and threshold-band configuration,
 but the actual machine/API behavior is not implemented yet.
@@ -115,8 +132,8 @@ That gives later work a place to land.
 - **starter labels remain.** generated app names, demo buttons, color blocks, and demo
   version text are useful as evidence of stage, but they should not be mistaken for product
   language.
-- **machine/API fields are stubs.** connection test and machine-info actions
-  simulate success rather than calling a real service.
+- **the June machine/API fields were stubs.** the current source adds live HTTP and database
+  paths, including schema writes; their presence is not evidence of successful operation.
 - **nullable warnings remain.** configuration properties, navigation fields, color lists,
   and base-path setup need sharper initialization.
 - **local tool metadata is not part of the archive.** assistant/project-management config

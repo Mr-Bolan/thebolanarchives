@@ -1,0 +1,65 @@
+---
+title: "procedure rendering and release gates"
+slug: "procedure-rendering-and-release-gates"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A source review of procedure PDF tooling, its local document library, and a filesystem workflow whose structural checks do not establish operational correctness."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - document-generation
+  - agent-workflows
+  - validation
+  - release-gates
+tools:
+  - nodejs
+  - handlebars
+  - puppeteer
+narrative_origin: "de-identified source review"
+visibility: "public"
+related:
+  - "request-documents-with-visible-missing-inputs"
+points:
+  - "shared template defaults reduce repetition but do not verify a procedure"
+  - "a stored review verdict is not automatically an enforced release gate"
+last_verified: "2026-10-05"
+source_context: "Source review only; runtime unverified. No source applications, builds, endpoints, or customer datasets were exercised."
+---
+
+# build_log // procedure_rendering_and_release_gates
+
+## current state
+
+Related procedure tooling separates JSON document content from Handlebars layouts and
+browser PDF rendering. One renderer merges common roles, training fields, references, and
+baseline risks into task-specific input. A fuller authoring service adds a local JSON
+document library, duplication, and questionnaire normalization.
+
+A separate filesystem harness adds runs, stage state, handoff files, review records, and
+release manifests. These sources share a document-authoring problem; this record does not
+claim a proven lineage or identical behavior across copies.
+
+## structure is only one check
+
+The harness verifier requires a title, number, purpose, and nonempty step text. Its final
+mode additionally requires owner, approver, issue date, and version. Missing risks, roles,
+references, and explanatory concepts produce warnings rather than blocking errors.
+
+The CLI finalize branch runs that structural check and calls the finalizer. In the inspected
+branch it does not consult the saved review verdict. The finalizer marks the run completed
+and writes a manifest of supplied artifact paths. Neither a completed state nor an approver
+field proves that an independent review occurred.
+
+That distinction matters more than the visual finish of the PDF. A template can supply
+expected sections; it cannot establish that the instructions are correct for a real task.
+
+## next check
+
+Try finalization with a structurally complete synthetic document and a negative review
+verdict. Check whether the command rejects it and whether listed artifacts actually exist.
+That would test the gate the workflow description implies.
+
+Source review only, 2026-10-05. Rendering, commands, and field use remain runtime-unverified;
+no operational procedure is endorsed here and no private document library was read.
+

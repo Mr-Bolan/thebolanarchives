@@ -1,0 +1,41 @@
+---
+title: "file watchers need a retention boundary"
+slug: "file-watchers-need-a-retention-boundary"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "Two local watcher variants expose different boundaries between observing file growth, processing exports, and deleting source evidence."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "file-processing"
+  - "data-safety"
+tools:
+  - "python"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "Stable file size is a readiness heuristic, not proof of completion."
+  - "Observing a directory does not establish permission to delete its contents."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# file watchers need a retention boundary
+
+## observation is not ownership
+
+One watcher compares recursive snapshots of file sizes and logs additions, growth, and deletion. It does not detect same-size edits or reductions as changes. A related variant adds copying and archiving of changed files, but that does not establish a complete history.
+
+A separate processing loop waits for repeated equal file sizes, reads a tabular export, and calculates overall and size-band recovery cutoffs. Equal sizes are a readiness heuristic, not proof that a writer has finished.
+
+The sharper boundary is retention. That loop deletes old files in its watched directory before selecting candidate exports, and removes an input after processing. Directory membership has become permission to delete.
+
+## what needs proving
+
+A useful next fixture would contain an unrelated old file, a paused writer, an empty export, and a same-size rewrite. The desired contract is explicit: observation, successful processing, and permission to remove an original are different decisions.
+
+This is source-review-only evidence, runtime-unverified. No watcher ran, no export was read, and no files were removed.
+

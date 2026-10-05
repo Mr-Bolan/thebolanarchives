@@ -1,0 +1,64 @@
+---
+title: "versioned quote document engine"
+slug: "versioned-quote-document-engine"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A source review of related quotation prototypes: editable browser output, a quote repository, and a document engine that records payload revisions separately from artifacts."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - document-generation
+  - revision-history
+  - pdf-export
+tools:
+  - typescript
+  - python
+  - sqlite
+  - playwright
+narrative_origin: "de-identified source review"
+visibility: "public"
+related:
+  - "desktop-certificate-and-audit-pdf-generator"
+points:
+  - "payload revision history and rendered-file retention are different guarantees"
+  - "the inspected Python registry installs quotes, not every document type named in its extension comments"
+last_verified: "2026-10-05"
+source_context: "Source review only; runtime unverified. No source applications, builds, endpoints, or customer datasets were exercised."
+---
+
+# build_log // versioned_quote_document_engine
+
+## current state
+
+Three related local implementations expose different boundaries. An editable HTML quotation
+uses browser export with a print fallback. A Python implementation persists quotes in
+SQLite and renders them through an HTML template. A TypeScript engine registers quote and
+service-scope packs, each with input normalization, a schema, and an HTML renderer.
+
+The grouping describes inspected implementations, not a verified migration sequence or a
+claim that one replaced the others.
+
+## where the history lives
+
+The TypeScript store records the original and normalized payload for each revision, along
+with a change reason. Updating a document inserts a new version and moves its latest-version
+pointer inside a database transaction. Rendering records an artifact hash, format, path,
+and payload-version number.
+
+There is an important limit: the output filename uses document identity but not revision.
+Rendering again can overwrite that path even though older artifact rows remain. A historical
+hash is evidence of what was recorded, not a promise that the old bytes remain retrievable.
+
+The Python registry is extensible, but the inspected registration code installs only a quote
+type. Comments naming invoices and agreements do not establish their implementation.
+
+## next check
+
+A useful next test would render two revisions, then retrieve both original artifacts and
+compare their hashes. That would test retention rather than merely the existence of history
+rows.
+
+This is source-review-only evidence from 2026-10-05. Runtime behavior, PDF layout, migrations,
+and concurrent numbering are unverified. No source application or customer document was run.
+

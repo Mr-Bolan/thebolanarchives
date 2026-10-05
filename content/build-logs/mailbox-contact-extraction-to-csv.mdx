@@ -1,0 +1,55 @@
+---
+title: "mailbox text to contact rows"
+slug: "mailbox-contact-extraction-to-csv"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A Python prototype combines message-header parsing with model-assisted contact extraction, then writes CSV rows without a separate evidence-review stage."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - email
+  - extraction
+  - data-quality
+  - privacy
+tools:
+  - python
+  - extract-msg
+  - csv
+narrative_origin: "local extraction-script source review"
+visibility: "public"
+related:
+  - "mailbox-graph-helper-functions"
+points:
+  - "header-derived fields and model-derived fields have different evidence strength"
+  - "an empty extraction result does not distinguish absence from failure"
+last_verified: "2026-10-05"
+source_context: "source-review-only inspection of message parsing, response cleanup, and CSV-writing code; runtime-unverified; no mailbox messages, contact datasets, or live model calls inspected or executed"
+---
+
+## the extraction path
+
+The script enumerates saved message files, reads sender metadata, and derives a company
+label from either a signature marker or the sender domain. It splits message text into
+word-count chunks and asks a model for contact-shaped JSON. Parsed fields are trimmed
+and written to CSV alongside message-derived context.
+
+That is a concrete extraction pipeline, not a verified address book. A domain-derived
+company label is a heuristic. A requested JSON shape is not a guarantee that the returned
+values are strings, complete, or supported by the message.
+
+## where uncertainty disappears
+
+The request handler substitutes an empty contacts list on an exception. JSON parse
+failures also become empty lists. The writer can then fall back to sender metadata.
+This keeps a row flowing through the script, but it does not preserve whether the model
+found no contacts or the extraction failed.
+
+The output file is opened for replacement, and the reviewed write loop has no
+deduplication stage. Its so-called token counter counts whitespace-separated words,
+not model tokens.
+
+A safer next iteration would retain extraction status and field provenance, validate
+the response types, and review synthetic rows before export. No messages or generated
+contact files were read, and no request was sent. Accuracy, runtime compatibility, and
+consent for processing real mail are not established by this source review.

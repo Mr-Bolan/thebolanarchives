@@ -1,0 +1,47 @@
+---
+title: "offline oee needs an observation window"
+slug: "offline-oee-needs-an-observation-window"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "Offline calculators and a SQL function illustrate why observation windows, missing-value policies, and state weights belong beside an OEE number."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "oee"
+  - "missing-data"
+  - "aggregation"
+tools:
+  - "python"
+  - "pandas"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "Observation windows and missing-data policies belong beside a metric."
+  - "A shared metric name does not establish shared calculation semantics."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# offline oee needs an observation window
+
+## a denominator is part of the result
+
+One offline pipeline classifies each aligned minute from machine speed and throughput. If both values are missing, its classifier returns down. Its daily aggregation can restrict the calculation to the first and last observed signal, then divides running rows by classified rows in that window.
+
+That option changes the question being answered. An observed window is not automatically a scheduled shift, and missing evidence is not automatically evidence of downtime.
+
+A separate calculator builds timestamp-level availability, performance, and quality. It computes OEE only when all three values exist. Its hourly and shift summaries average the non-missing OEE samples.
+
+## preserve the differences
+
+A separately inspected SQL function assigns half credit to its intermediate availability state, while the first pipeline counts only running rows in its numerator. Even a shared metric name does not establish a shared policy.
+
+These are related calculation approaches, not verified versions of one application. Averaging available samples can hide missing intervals; counting rows as minutes depends on the upstream series being regular.
+
+A synthetic timeline with a missing interior interval, unequal sample spacing, and an unobserved shift edge would make those policies inspectable. Every summary should carry its observation window and missing-data treatment.
+
+This is source-review-only, runtime-unverified. Raw logs and generated operational reports were not read. No reported production result is being endorsed.
+

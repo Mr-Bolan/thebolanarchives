@@ -1,0 +1,42 @@
+---
+title: "detector replay is a hypothesis test"
+slug: "detector-replay-is-a-hypothesis-test"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "A standalone replay script encodes candidate detector semantics; its comparison machinery is useful without treating unreviewed outputs as findings."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "anomaly-detection"
+  - "replay"
+  - "validation"
+tools:
+  - "python"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "A replay encodes candidate semantics, not proof of the original detector."
+  - "Window and peer definitions can change otherwise plausible scores."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# detector replay is a hypothesis test
+
+## make the candidate explicit
+
+The inspected script reconstructs rolling lane-and-grade quantities, clears the window on batch changes, and compares derived shares with persisted event fields. One candidate uses the mean and population standard deviation across lanes, including the lane being tested.
+
+It records predicted quantities, scores, percentage deviations, unmatched timestamps, and mismatches. Those are useful surfaces for testing a hypothesis about an unknown detector.
+
+The candidate arithmetic differs from the contingency-table detector already described in the archive. No source relationship has been established, so this note does not revise that detector's history.
+
+## a replay is not a result
+
+Window units, lane mapping, batch resets, and peer membership can all change the answer while leaving a plausible score. A synthetic fixture should isolate each choice before comparing any operational event history.
+
+This is source-review-only, runtime-unverified. The script's comments about prior observations were not accepted as verified findings. Referenced datasets and generated comparisons were not opened, and no replay was run. Authorship and any live-system equivalence remain unestablished.
+

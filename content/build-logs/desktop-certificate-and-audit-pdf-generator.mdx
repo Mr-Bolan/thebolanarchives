@@ -6,7 +6,7 @@ status: "working_note"
 confidence: "partial"
 summary: "A build log for a Windows desktop tool that turns calibration, audit, and service-work models into previewable PDFs with templates, local job history, and repeatable numbering."
 created: "2026-06-23"
-updated: "2026-06-23"
+updated: "2026-10-05"
 tags:
   - document-generation
   - windows-app
@@ -16,6 +16,7 @@ tags:
   - operations
 tools:
   - dotnet
+  - wpf
   - winforms
   - razor
   - playwright
@@ -32,12 +33,31 @@ points:
   - "templates, defaults, numbering, preview, export, and job history all carry operational meaning"
   - "local SQLite history makes repeat work recoverable, but also creates a privacy boundary"
   - "brand assets and sample certificates are more identifying than the rendering code"
-last_verified: "2026-06-23"
-source_context: "sanitized inspection of a registered desktop-document source: templates, renderer, template registry, form pages, local job store, refactor notes, and project files; source build passed with warnings on 2026-06-23; no source test project was present"
+last_verified: "2026-10-05"
+source_context: "source-review-only follow-up of WPF startup, document readiness evaluator, and readiness/export test source; current runtime unverified and tests not executed; the earlier build result below belongs to the 2026-06-23 snapshot"
 record_id: "build_log_010"
 ---
 
 # build_log_010 // desktop_certificate_and_audit_pdf_generator
+
+## source update // 2026-10-05
+
+The current source has a WPF application path and a test project. The earlier description
+of a forms-based shell without tests is a June snapshot, not the current tree.
+
+WPF startup now composes the document services, opens work-item state, and loads activity
+and resume snapshots. A readiness evaluator separates blocking issues from warnings:
+required fields, date formats, measurement values, and unresolved checklist failures can
+block readiness, while incomplete optional reference-weight metadata can produce warnings.
+
+The test source includes a case where correcting one checklist item must not clear a
+different lane's failure. Export tests also require an attached output-path chooser before
+enabling export. These are concrete contracts in source, not newly passing test results.
+
+This follow-up was source review only. No desktop app, renderer, database, build, or test
+was run; runtime behavior is unverified. The next useful check is a synthetic incomplete
+document carried through save, reopen, readiness, and export. The remaining sections retain
+the earlier architecture and its dated verification history.
 
 ## what this is
 
@@ -104,9 +124,10 @@ The source has several practical decisions worth preserving:
 - refactor notes track how audit and service pages share behavior while still producing
   different document shapes
 
-The isolated source build passed after package restore. It emitted warnings around a
+The isolated source build recorded on 2026-06-23 passed after package restore. It emitted warnings around a
 desktop WebView reference conflict and nullable-reference spots, but produced both core and
-Windows app assemblies. No test project was present in the source.
+Windows app assemblies. No test project was present in that inspected snapshot; the current
+source now contains one, as noted above.
 
 ## what broke
 

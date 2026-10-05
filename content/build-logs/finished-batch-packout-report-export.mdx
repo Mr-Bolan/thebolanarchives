@@ -6,7 +6,7 @@ status: "working_note"
 confidence: "partial"
 summary: "A build log for a Windows-first reporting tool that turns finished production batches into packout PDFs and CSVs, with a ledger so exports are not repeated."
 created: "2026-06-23"
-updated: "2026-06-23"
+updated: "2026-10-05"
 tags:
   - reporting
   - batch-processing
@@ -31,12 +31,29 @@ points:
   - "an export ledger made the worker safe to rerun because success, failure, and retry state were remembered"
   - "the hard part was translating machine buckets and weights into the exact categories operators expect to see"
   - "a local service plus desktop app kept the workflow close to the machine without adding a server"
-last_verified: "2026-06-23"
-source_context: "sanitized inspection of a registered reporting source: README, operations docs, release docs, git history, service code, and tests"
+last_verified: "2026-10-05"
+source_context: "source-review-only follow-up of the service export worker and a reduced command-line sibling's batch selection, output loop, and ledger calls; runtime unverified; no source builds, database queries, or report exports executed"
 record_id: "build_log_003"
 ---
 
 # build_log_003 // finished_batch_packout_report_export
+
+## source update // 2026-10-05
+
+A reduced command-line sibling now provides a narrower path through the same reporting
+problem. It selects finished batches and tracks two PDF layouts separately, so an already
+exported output can be skipped while the other is still attempted. This belongs with the
+existing batch-export record rather than a second account of the same reporting model.
+
+Its default dry-run is not an offline preview: configuration loading, output-directory
+creation, and database batch selection happen before the run flag gates PDF rendering and
+ledger updates. Nothing in that path was executed during this review.
+
+The service worker still checks a successful ledger entry and file existence before
+skipping work, and delays retries for failures. Neither inspected loop establishes an
+atomic transaction between creating a file and recording success. The supported claim is
+rerun suppression under those checks, not a general exactly-once guarantee across crashes
+or concurrent workers. Runtime behavior remains unverified in this source-only follow-up.
 
 ## what this is
 
@@ -124,9 +141,9 @@ which button was already pressed.
 
 ## what i understand now
 
-The real artifact is not the PDF. The real artifact is the guarantee that a completed batch
-can become a report exactly once, be retried when the render fails, and be recreated only
-when there is a reason. The report renderer is just the visible end of that contract.
+The real artifact is not only the PDF. It is the recorded relationship between a completed
+batch, an output, and the next retry decision. That supports controlled reruns; it does not
+by itself prove exactly-once behavior. The report renderer is the visible end of that contract.
 
 The pattern generalizes: if a task bridges machine data and operator paperwork, start with
 idempotency and evidence of completion. The UI can improve later. The ledger has to be right

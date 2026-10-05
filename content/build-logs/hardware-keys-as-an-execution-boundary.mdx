@@ -1,0 +1,52 @@
+---
+title: "hardware keys as an execution boundary"
+slug: "hardware-keys-as-an-execution-boundary"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A local hardware-key runtime maps profiles to commands and HTTP actions, but a declared confirmation option does not yet create an approval boundary."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "automation"
+  - "hardware"
+  - "configuration"
+  - "safety"
+tools:
+  - "go"
+  - "yaml"
+narrative_origin: "de-identified source review"
+visibility: "public"
+related:
+  - "agent-runbook-workspace-for-machine-reports"
+points:
+  - "a command catalog separates key placement from executable actions"
+  - "a confirmation field is not a confirmation gate"
+last_verified: "2026-10-05"
+source_context: "Source-review-only inspection of profile validation, runtime dispatch, and action execution code; runtime and hardware behavior unverified."
+---
+
+## current state
+
+The inspected runtime loads YAML pages whose keys either contain an action or refer to
+a command catalog. Validation rejects duplicate page identifiers, invalid key indexes,
+unknown command references, and unsupported action types.
+
+The runtime includes lock handling, long-press selection, cooldowns, and visual execution
+states. Shell and agent actions share a command executor. HTTP actions have retry logic;
+both paths accept timeouts and have dry-run branches that return before execution.
+
+## the unfinished boundary
+
+The confirmation option is weaker than its name suggests. When enabled, the headless
+runtime logs that confirmation was requested and executes anyway. The field therefore
+cannot be treated as approval for a consequential action.
+
+Likewise, profile validation checks configuration shape, not whether a command is safe.
+Commands run through a shell, and the executor inherits its environment unless an
+explicit replacement environment is supplied. A local control file can unlock the
+runtime, so the lock is not an independent authorization system.
+
+This is source review only; runtime, USB behavior, and cancellation are unverified.
+No command, network action, or hardware interaction was attempted. A useful next check
+would prove that a confirmation-required action remains unexecuted until approval.

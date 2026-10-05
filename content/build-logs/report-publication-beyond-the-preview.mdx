@@ -1,0 +1,67 @@
+---
+title: "report publication beyond the preview"
+slug: "report-publication-beyond-the-preview"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A source review of newer report-portal code: authenticated requests, typed publication validation, and revision-aware lifecycle operations beyond a browser-only preview."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - report-portal
+  - publication-workflow
+  - validation
+  - revision-history
+tools:
+  - javascript
+narrative_origin: "de-identified source review"
+visibility: "public"
+related:
+  - "static-report-portal-preview"
+points:
+  - "publication validation can check meaning-bearing relationships as well as JSON shape"
+  - "restoring a publication is a revisioned operation, not just changing a visible status"
+last_verified: "2026-10-05"
+source_context: "Source review only; runtime unverified. No source applications, builds, endpoints, or customer datasets were exercised."
+---
+
+# build_log // report_publication_beyond_the_preview
+
+## what differs from the preview
+
+The existing static portal record describes browser-local roles and publication state.
+Inspected private-pilot code now includes an authentication client, session refresh handling,
+and authenticated report requests. A related publication application adds typed submission
+validation and publication lifecycle handlers. This is a source-level distinction, not
+proof that either backend is deployed or securely configured.
+
+The historical preview copies have identical application-script hashes. They do not need
+another article merely because they occupy different directories.
+
+## publication is more than a file upload
+
+The newer validator bounds request size and nesting, checks the publication type and schema
+version, and applies content rules. A document package requires a finalized state and exactly
+one primary attachment. A run summary checks timestamp order, declared entity associations,
+duplicate result codes, and percentage bases.
+
+Those checks preserve meaning that a generic JSON parser cannot know. A percentage without
+a usable denominator is not repaired by rendering it neatly.
+
+Lifecycle requests carry an operation identifier, an expected revision, and a reason.
+The restore path validates candidate content and compares its definition hash before
+delegating the state change to a database operation. A replay lookup happens first.
+
+## the remaining boundary
+
+Handlers calling backend operations do not establish the backend's transaction behavior,
+tenant isolation, or retry correctness. The source inspection supports the shape of those
+requests, not a production guarantee. Authentication code also does not establish that
+real sessions, storage, or delivery are configured correctly.
+
+The useful next verification would use synthetic data to exercise replay, stale revisions,
+withdrawal, and restoration while checking both recipient visibility and retained history.
+
+Source-review-only, 2026-10-05. Runtime, deployment, access control, and delivery are
+unverified. No endpoints were called, notifications sent, or private report datasets read.
+

@@ -1,0 +1,77 @@
+---
+title: "outcome recipes before dataset export"
+slug: "outcome-recipes-before-dataset-export"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A local dataset workbench connects observed outcomes to evidence windows and specialist judgments, then checks the recipe before writing an export package."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - datasets
+  - evidence
+  - validation
+  - provenance
+tools:
+  - go
+  - react
+  - sqlite
+narrative_origin: "source review of a local dataset recipe workbench"
+visibility: "public"
+related:
+  - "machine-capture-to-training-dataset"
+  - "operator-knowledge-as-signal"
+points:
+  - "an outcome needs an entity, a timestamp, and evidence before it becomes a training example"
+  - "recipe validation is scoped, but the export's separate nonempty judgment check is store-wide"
+  - "recipe validation is not proof of representative labels or leakage-free evaluation"
+last_verified: "2026-10-05"
+source_context: "source-review-only inspection of recipe validation, scenario materialization, export orchestration, and package writing; runtime unverified; no datasets or live connectors opened"
+---
+
+# build_log // outcome_recipes_before_dataset_export
+
+## the different starting point
+
+The image-annotation build linked below starts with captured images. This inspected branch
+starts with an observed outcome: what happened, to which entity, and when. It is a distinct
+workflow, not evidence that the image application was replaced or that the branches were
+merged.
+
+The store represents source collections, joins, relations, time windows, scenarios, and
+specialist judgments. The materialization code assembles evidence around outcome records.
+That gives a judgment somewhere to point, instead of leaving a label beside an unexplained
+row.
+
+## export is a gate
+
+The validator checks for an outcome definition, label alternatives, entity and time fields,
+connected collections, and referenced fields. Its judgment counts are scoped to the selected
+recipe, and it warns when captured judgments cover only one label. The export path treats
+those warnings as a refusal and materializes scenarios when needed.
+
+The separate nonempty-judgment check has a wider scope. The inspected loader obtains the
+store-wide judgment collection, which the package writer also serializes. If another recipe
+has judgments, a selected recipe with none can pass that particular check when its other
+validation checks pass. This does not establish isolation between recipes in the export.
+
+The package writer includes the outcome contract, recipe, examples, judgments, and supporting
+relationship metadata. Recording the dataset version happens after package writing. These
+are source-level boundaries, not a verified recovery guarantee if either operation fails.
+
+One limitation is visible in the validator: its per-label minimum check applies to labels
+with a positive count. A declared label with no judgments is not rejected by that particular
+check. Multiple represented labels therefore do not prove that every requested label is
+represented.
+
+## what remains unproved
+
+This was source review only on 2026-10-05. No app, connector, export, test suite, or training
+run was executed. No source datasets were read. Runtime behavior remains unverified.
+
+Two useful checks are synthetic: declare three labels but supply judgments for only two;
+then create one otherwise valid recipe without judgments and another with judgments, and
+inspect the first recipe's export decision and package contents. Neither check was run here,
+and the source has not been changed. Separate checks would still be needed for time leakage,
+overlapping entities, and specialist agreement. A well-described recipe is a better question,
+not yet a trustworthy model.

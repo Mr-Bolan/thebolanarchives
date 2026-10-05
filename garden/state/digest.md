@@ -852,3 +852,126 @@ items; no publishable diffs were present beyond sanitized tick state.
 
 13:31Z: snapshot refreshed, intake produced no new items, and the backlog had no ready
 items; no publishable diffs were present beyond sanitized tick state.
+
+## 2026-10-05 - inventory intake, source review, and publication
+
+Tick: 2026-10-05T03:18:03.621Z. Reconciled 144 local location rows, 28 repository
+rows, and 49 package rows. These are 221 inventory entries, not 221 unique products.
+The complete inventory, source identities, source evidence, row dispositions, and
+independent review reports remain in ignored private state.
+
+The batch adds 34 records and updates 3 existing records. Registered 35 verified
+sources in the local-only registry. Historical copies, installers, support files,
+and upstream code were reconciled without claiming independent authorship or
+automatically creating another article per directory.
+
+### moderation reasoning
+
+Privacy / identity: **PASS** for each publication target below. Independently reviewed
+the complete new files and existing-file changes for source identities, personal details,
+client material, private locations, and credentials. Public prose preserves technical
+behavior without raw source identifiers. Generated public metadata and sanitized state
+were checked separately. Content drafts passed the identity gate. A separate final commit
+metadata check tripped the privacy gate before any commit or push; see the resolved
+remediation below.
+
+Goal-adherence: **PASS**. Each target records a concrete implementation, a meaningful
+change to an existing system, or a source-backed limitation. Related components were
+grouped and already-covered sources reconciled to avoid duplicate records.
+
+Truthfulness: **PASS after revision**. Records use working-note maturity and partial
+confidence, explicitly distinguish static source inspection from execution, and retain
+dated historical verification separately. Five packaged Python helpers were syntax-parsed;
+that is not a runtime test. Moderation required corrections to crawler buffer/counter
+claims and to a dataset export's store-wide judgment scope; both were revised and
+independently re-approved. No private operational dataset or live source system was used
+to manufacture performance claims.
+
+Theme / voice: **PASS**. Plain, anonymous technical writing; no portfolio claims,
+marketing framing, or upgrade of maturity to make unfinished work appear complete.
+
+Significance / effectiveness: **PASS**. New implementation notes and consequential
+updates warrant one coherent inventory-driven publish. A duplicate-removal race was
+resolved to one canonical scaffolding note, and all inventory entries now have a
+recorded disposition. Individual publication reasons follow.
+
+Structural validity: **PASS**. All 37 final MDX files have independent publish verdicts,
+passing per-target moderation audit packets, and matching reviewed file hashes.
+The full agent check passed. After the final content correction, moderation and deployment
+checks passed again: 61 public records, 0 content errors or warnings, 0 privacy hits,
+83 Pages export checks, and 0 public-output filler matches.
+
+### approved targets
+
+- `content/field-notes/file-watchers-need-a-retention-boundary.mdx`: **publish**. Stable file size is a readiness heuristic, not proof of completion. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/allocation-models-need-an-objective-contract.mdx`: **publish**. Prediction targets and optimisation objectives need separate meanings and units. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/quality-scenarios-need-consistent-denominators.mdx`: **publish**. Mean sample proportions and pooled proportions answer different questions. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/coverage-cells-are-not-complete-proof.mdx`: **publish**. Rule intersection with a cell does not prove coverage of every point. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/offline-oee-needs-an-observation-window.mdx`: **publish**. Observation windows and missing-data policies belong beside a metric. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/commissioning-controls-need-correlated-evidence.mdx`: **publish**. Process launch, connection health, and delivery are different observations. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/call-graphs-need-a-source-boundary.mdx`: **publish**. A recursive file walk defines what the graph claims to describe. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/mqtt-capture-keeps-receipt-and-recovery-separate.mdx`: **publish**. Reconnection does not establish recovery of a missing message interval. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/timeline-overlays-need-interval-invariants.mdx`: **publish**. Interval identities must remain unique across combined state sets. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/dataset-splits-should-leave-a-manifest.mdx`: **publish**. A dataset split needs reproducible membership independently of file movement. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/detector-replay-is-a-hypothesis-test.mdx`: **publish**. A replay encodes candidate semantics, not proof of the original detector. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/versioned-quote-document-engine.mdx`: **publish**. payload revision history and rendered-file retention are different guarantees Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/request-documents-with-visible-missing-inputs.mdx`: **publish**. missing fields can survive rendering as visible markers Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/procedure-rendering-and-release-gates.mdx`: **publish**. shared template defaults reduce repetition but do not verify a procedure Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/browser-forms-before-document-history.mdx`: **publish**. direct PDF drawing makes pagination part of application logic Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/report-publication-beyond-the-preview.mdx`: **publish**. publication validation can check meaning-bearing relationships as well as JSON shape Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/outcome-recipes-before-dataset-export.mdx`: **publish**. an outcome needs an entity, a timestamp, and evidence before it becomes a training example Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/equipment-taxonomy-as-a-job-matching-boundary.mdx`: **publish**. listings and candidate experience reference the same equipment model Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/desktop-certificate-and-audit-pdf-generator.mdx`: **publish**. Records the current WPF readiness and export contracts while preserving dated earlier build evidence. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/wpf-operations-console-shell.mdx`: **publish**. Distinguishes current HTTP and database mutation paths from the earlier simulated settings shell. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/finished-batch-packout-report-export.mdx`: **publish**. Adds reduced export-path evidence and corrects the earlier exactly-once overclaim. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/project-scaffolding-is-not-a-safe-rerun.mdx`: **publish**. allowing an existing directory does not protect the files inside it Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/blocking-led-timing.mdx`: **publish**. blocking delays make an output sequence simple but suspend other loop work Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/calculator-assumptions-before-results.mdx`: **publish**. frequency conversion is part of the model, not merely display formatting Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/curriculum-project-contact-cli.mdx`: **publish**. a schema can describe a larger workflow than the command surface implements Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/mailbox-contact-extraction-to-csv.mdx`: **publish**. header-derived fields and model-derived fields have different evidence strength Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/media-conversion-and-extraction-boundaries.mdx`: **publish**. a converted image, extracted image, video frame, and audio segment are different units of work Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/local-crm-route-prototype.mdx`: **publish**. parameterized queries do not define validation or authorization Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/unfinished-web-change-monitor.mdx`: **publish**. change detection needs an explicit baseline for each source Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/a-page-watcher-with-visible-crawl-state.mdx`: **publish**. the first successful hash establishes a baseline rather than a change Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/evidence-linked-research-without-automatic-conclusions.mdx`: **publish**. source coverage and audience conclusions are different outputs Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/hardware-keys-as-an-execution-boundary.mdx`: **publish**. a command catalog separates key placement from executable actions Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/interface-contracts-before-priority-ranking.mdx`: **publish**. eligibility is checked before priority Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/resumable-cases-and-frozen-experiment-inputs.mdx`: **publish**. resumption checks the input snapshot and comparison configuration Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/thread-scoped-experiments-with-container-limits.mdx`: **publish**. execution identity must be tied to code and inputs before reusing a result Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/field-notes/a-schedule-filter-can-erase-a-report-window.mdx`: **publish**. same-day timestamp ranges can vanish when schedule iteration excludes the end date Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+- `content/build-logs/qc-intake-before-operational-claims.mdx`: **publish**. A sample's location changes what its columns mean. Source evidence was independently checked; current runtime claims remain limited as stated in the record.
+
+### held work
+
+- `inventory-hold-01-20261005`: **hold-backlog** (blocked). Source evidence is unavailable at its recorded location. Resume only when a readable replacement or restored source is provided.
+- `inventory-hold-02-20261005`: **hold-backlog** (deferred). Report templates lack a verified producer or distinct implementation history. Hold until provenance supports a useful independent record.
+- `inventory-hold-03-20261005`: **hold-backlog** (deferred). Reviewed support metadata does not establish a distinct software implementation. Resume with a bounded source that can be inspected without private operational notes.
+- `inventory-hold-04-20261005`: **hold-backlog** (deferred). A copied component overlaps existing coverage but lacks a verified canonical counterpart or meaningful change. Resume when provenance and a distinct technical contribution are established.
+- `inventory-hold-05-20261005`: **hold-backlog** (deferred). Packaged rendering assets do not establish a distinct project history beyond existing document tooling. Hold until a maintained source and substantive change are available.
+
+These holds preserve real evidence limits; they are not requests for commit or publish
+approval. An earlier placeholder-only source remains deferred. The earlier procedure
+source hold was resolved by substantive local source evidence and the approved procedure
+record, without asserting that its minimal default branch changed.
+
+### completion
+
+Publication metadata remediation: `privacy-publish-metadata-20261005` was filed ready,
+then resolved before publication. Verified an anonymous author and committer using
+command-scoped Git settings. Verdict after remediation: **publish**. This prevents the
+current batch from inheriting identifying local defaults; it does not claim to sanitize
+pre-existing history, and global configuration was not changed.
+
+State and generated-metadata verdict: **publish** with the content batch. The queue and
+logs preserve sanitized decisions, the snapshot matches the final backlog, and generated
+indexes describe only approved records. JSON/JSONL validation and a separate identity scan
+of all 45 changed publication files passed; raw inventory and registry paths are gitignored.
+
+The final intake pass produced no new items and rehydrated no source references.
+The backlog has no ready or in-progress items. Remaining work is explicitly blocked or
+deferred on the evidence conditions above. Approved content, generated public metadata,
+and sanitized tick state form the publication batch; raw intake and private reports stay
+uncommitted.
+
+Final idle pass: no new intake and no ready work; publishing the approved batch leaves
+no uncommitted publishable diffs.

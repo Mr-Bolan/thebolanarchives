@@ -1,0 +1,52 @@
+---
+title: "evidence-linked research without automatic conclusions"
+slug: "evidence-linked-research-without-automatic-conclusions"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A research CLI separates source coverage, suggested comment tags, profile ranking, and evidence-linked synthesis without treating collection as a finding."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "research"
+  - "evidence"
+  - "provenance"
+  - "cli"
+tools:
+  - "python"
+narrative_origin: "de-identified source review"
+visibility: "public"
+related:
+  - "target-audience-role-proxy"
+  - "data-trust-ladder"
+points:
+  - "source coverage and audience conclusions are different outputs"
+  - "valid evidence references establish traceability, not truth"
+last_verified: "2026-10-05"
+source_context: "Source-review-only inspection of reporting, comment coding, prioritization, and synthesis code; runtime unverified; no collected observations read."
+---
+
+## current state
+
+The inspected Python tool keeps research studies separate from curriculum authoring.
+Its reporting code counts observations by query, source type, and research area. The
+report explicitly stops at coverage rather than drawing audience conclusions.
+
+A second path tags comments with regular expressions and gives them a deterministic
+review score. The output retains observation identifiers and labels the tags as machine
+suggestions. This is a queue for inspection, not a discovery engine.
+
+Profile ranking applies weighted scores and retains a configured fraction. Synthesis
+checks that goals and findings refer to retained profiles and existing observations.
+Those checks make unsupported references visible, but cannot decide whether the cited
+text actually supports the interpretation. The profile-ranking path also permits an
+empty evidence list; the stronger nonempty requirement appears in synthesis.
+
+## what remains uncertain
+
+Popularity, keyword matches, and a ranking rubric can all bias which material reaches
+review. Traceability does not establish a representative sample or a valid market.
+
+This is source review only, with runtime unverified. No research dataset, comment body,
+API collection, or generated finding was inspected. The next useful check would use
+synthetic observations to test missing references, empty evidence, and tied rankings.

@@ -1,0 +1,43 @@
+---
+title: "call graphs need a source boundary"
+slug: "call-graphs-need-a-source-boundary"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "Small call-graph wrappers make dependencies visible, while their source-selection rule determines how much noise the resulting graph contains."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "code-analysis"
+  - "developer-tools"
+tools:
+  - "python"
+  - "pyan"
+  - "graphviz"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "A recursive file walk defines what the graph claims to describe."
+  - "Upstream analysis and local orchestration are different contributions."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# call graphs need a source boundary
+
+## the wrapper's contribution
+
+The inspected wrapper recursively collects Python files, asks an existing call-graph library for definition and use edges, writes a temporary DOT file, and invokes Graphviz for raster and vector output. A smaller companion generates DOT for the bundled analysis library itself.
+
+The graph engine is upstream software. The local contribution is orchestration and output selection, not a new analysis algorithm.
+
+## scope before layout
+
+The recursive walk does not prune dependency environments or generated directories. A graph of every Python file under a folder can become a graph of installed dependencies rather than the application.
+
+The useful next change would be an explicit source-root and exclusion contract, followed by a small fixture that demonstrates which files enter the graph. Visual density is not evidence of architectural complexity until that boundary is known.
+
+This is source-review-only, runtime-unverified. The wrappers and rendering commands were not executed, and existing generated diagrams were not treated as evidence of successful current behaviour.
+

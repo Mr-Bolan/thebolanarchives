@@ -1,27 +1,27 @@
 {
-  "generated": "2026-06-29T13:31:32.520Z",
+  "generated": "2026-10-05T03:56:43.926Z",
   "stale": false,
   "version": {
-    "sha": "04a3893",
-    "records": 27,
-    "publicRecords": 27
+    "sha": "5abf6e9",
+    "records": 61,
+    "publicRecords": 61
   },
   "archive": {
-    "records": 27,
+    "records": 61,
     "byType": {
       "entry": 1,
-      "field_note": 1,
-      "build_log": 20,
+      "field_note": 16,
+      "build_log": 39,
       "fragment": 1,
       "pattern": 1,
       "experiment": 2,
       "graveyard_note": 1
     },
     "byVisibility": {
-      "public": 27
+      "public": 61
     },
-    "uniqueTags": 91,
-    "relatedEdges": 78
+    "uniqueTags": 146,
+    "relatedEdges": 117
   },
   "routes": {
     "static": [
@@ -39,22 +39,23 @@
       "/experiments",
       "/graveyard"
     ],
-    "records": 27
+    "records": 61
   },
   "backlog": {
-    "total": 30,
+    "total": 78,
     "ready": 0,
     "byStatus": {
-      "done": 6,
-      "deferred": 4,
-      "published": 20
+      "done": 14,
+      "deferred": 7,
+      "published": 56,
+      "blocked": 1
     },
     "readyItems": []
   },
   "intake": {
     "articleNotes": 0,
     "featureNotes": 0,
-    "registeredSources": 22
+    "registeredSources": 57
   },
   "lastDigest": "2026-06-23 — owner fix: registry now populates the backlog"
 }

@@ -1,0 +1,53 @@
+---
+title: "a schedule filter can erase a report window"
+slug: "a-schedule-filter-can-erase-a-report-window"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "Source inspection of a downtime helper shows how date iteration and inclusive time predicates can change which minutes survive a scheduled reporting window."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "reporting"
+  - "time-windows"
+  - "boundary-conditions"
+  - "data-quality"
+tools:
+  - "python"
+  - "sql"
+narrative_origin: "de-identified reporting-helper source review"
+visibility: "public"
+related:
+  - "minute-level-oee-kpi-runner"
+  - "agent-runbook-workspace-for-machine-reports"
+points:
+  - "same-day timestamp ranges can vanish when schedule iteration excludes the end date"
+  - "inclusive clock predicates need an explicit boundary policy"
+last_verified: "2026-10-05"
+source_context: "Source-review-only inspection of a downloaded downtime aggregation helper; no database connection or customer data read; runtime unverified."
+---
+
+## the mismatch
+
+The helper's base query uses an inclusive start timestamp and exclusive end timestamp.
+Without a schedule, those timestamps define the reporting interval.
+
+With a schedule, it builds additional daily clauses. The date iterator stops before
+the end date. For two timestamps on the same date, it produces no days at all. The
+empty-clause branch then returns an always-false filter. A scheduled same-day interval
+can therefore produce no rows even though the base timestamp range is nonempty.
+
+There is a second boundary choice: work windows and breaks use inclusive SQL time
+comparisons. A minute at a break's end remains excluded. Whether that is correct depends
+on the reporting convention; the code alone cannot settle it.
+
+## what this supports
+
+This is a source-derived boundary finding, not a claim about an incorrect delivered
+report. No source application or database was run, and runtime behavior is unverified.
+The helper came from a downloaded tooling collection; its presence establishes neither
+authorship nor deployment.
+
+The smallest useful verification would cover a same-day window, a final partial day,
+and minutes exactly at work and break boundaries using synthetic timestamps. Decide
+the interval convention before comparing the resulting totals with a dashboard.

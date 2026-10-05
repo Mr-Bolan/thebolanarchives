@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-06-29",
+  "updated": "2026-10-05",
   "note": "Durable, sanitized work queue for the Blackbox Garden loop. Source of truth. backlog.md is generated from this. Never put private detail here; reference it by id under garden/state/private/.",
   "statuses": [
     "ready",
@@ -232,7 +232,7 @@
       "id": "source-c28e0f8f",
       "type": "content",
       "title": "draft a de-identified article from a registered source",
-      "status": "deferred",
+      "status": "published",
       "priority": "medium",
       "mode": "content-draft",
       "source": "registry",
@@ -240,7 +240,10 @@
       "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
       "privateRef": "garden/state/private/source-c28e0f8f.md",
       "created": "2026-06-23",
-      "notes": "Held on 2026-06-23 with auto-moderation verdict hold-backlog: the registered source clone contained only stock repository metadata files and no publishable implementation, template, documentation, or tests to de-identify. Deferred rather than needs-source because the intake script re-promotes needs-source registry items while registered sources remain in archive-projects.txt. Revisit if the source later gains substantive content."
+      "notes": "Revisited on 2026-10-05: substantive local source beyond the previously inspected minimal default branch supports a de-identified procedure-workflow article. Independent moderation verdict publish; full checks passed. No claim of default-branch equivalence.",
+      "targets": [
+        "content/build-logs/procedure-rendering-and-release-gates.mdx"
+      ]
     },
     {
       "id": "source-013a284a",
@@ -494,6 +497,859 @@
       "target": "src/components/experiments/ArchiveGraph.tsx",
       "created": "2026-06-29",
       "notes": "Done on 2026-06-29: updated /garden graph dragging so record nodes carry directly connected tag nodes with them. Auto-moderation verdict publish; npm run garden:moderate -- src/components/experiments/ArchiveGraph.tsx passed content/privacy audits and npm run agent:check passed."
+    },
+    {
+      "id": "intake-content-project-inventory-2026-10-05",
+      "type": "content",
+      "title": "review project inventory and draft evidenced archive content",
+      "status": "done",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Reconciled 221 source inventory rows; produced 34 new records and 3 meaningful updates, registered 35 verified sources, and retained 5 evidence-based holds. Raw inventory and source identities remain private.",
+      "privateRef": "garden/state/private/intake-content-project-inventory-2026-10-05.md",
+      "target": null,
+      "created": "2026-10-05",
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private.",
+      "targets": [
+        "content/field-notes/file-watchers-need-a-retention-boundary.mdx",
+        "content/field-notes/allocation-models-need-an-objective-contract.mdx",
+        "content/field-notes/quality-scenarios-need-consistent-denominators.mdx",
+        "content/field-notes/coverage-cells-are-not-complete-proof.mdx",
+        "content/field-notes/offline-oee-needs-an-observation-window.mdx",
+        "content/field-notes/commissioning-controls-need-correlated-evidence.mdx",
+        "content/field-notes/call-graphs-need-a-source-boundary.mdx",
+        "content/build-logs/mqtt-capture-keeps-receipt-and-recovery-separate.mdx",
+        "content/field-notes/timeline-overlays-need-interval-invariants.mdx",
+        "content/field-notes/dataset-splits-should-leave-a-manifest.mdx",
+        "content/field-notes/detector-replay-is-a-hypothesis-test.mdx",
+        "content/build-logs/versioned-quote-document-engine.mdx",
+        "content/build-logs/request-documents-with-visible-missing-inputs.mdx",
+        "content/build-logs/procedure-rendering-and-release-gates.mdx",
+        "content/build-logs/browser-forms-before-document-history.mdx",
+        "content/build-logs/report-publication-beyond-the-preview.mdx",
+        "content/build-logs/outcome-recipes-before-dataset-export.mdx",
+        "content/build-logs/equipment-taxonomy-as-a-job-matching-boundary.mdx",
+        "content/build-logs/desktop-certificate-and-audit-pdf-generator.mdx",
+        "content/build-logs/wpf-operations-console-shell.mdx",
+        "content/build-logs/finished-batch-packout-report-export.mdx",
+        "content/field-notes/project-scaffolding-is-not-a-safe-rerun.mdx",
+        "content/field-notes/blocking-led-timing.mdx",
+        "content/field-notes/calculator-assumptions-before-results.mdx",
+        "content/build-logs/curriculum-project-contact-cli.mdx",
+        "content/build-logs/mailbox-contact-extraction-to-csv.mdx",
+        "content/field-notes/media-conversion-and-extraction-boundaries.mdx",
+        "content/build-logs/local-crm-route-prototype.mdx",
+        "content/build-logs/unfinished-web-change-monitor.mdx",
+        "content/build-logs/a-page-watcher-with-visible-crawl-state.mdx",
+        "content/build-logs/evidence-linked-research-without-automatic-conclusions.mdx",
+        "content/build-logs/hardware-keys-as-an-execution-boundary.mdx",
+        "content/build-logs/interface-contracts-before-priority-ranking.mdx",
+        "content/build-logs/resumable-cases-and-frozen-experiment-inputs.mdx",
+        "content/build-logs/thread-scoped-experiments-with-container-limits.mdx",
+        "content/field-notes/a-schedule-filter-can-erase-a-report-window.mdx",
+        "content/build-logs/qc-intake-before-operational-claims.mdx"
+      ]
+    },
+    {
+      "id": "inventory-review-documents-20261005",
+      "type": "content",
+      "title": "review documents sources",
+      "status": "done",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Verify source evidence, reconcile existing records, and draft distinct de-identified content. Source details and row-level outcomes remain in ignored private state.",
+      "privateRef": "garden/state/private/inventory-documents-report.json",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/versioned-quote-document-engine.mdx",
+        "content/build-logs/request-documents-with-visible-missing-inputs.mdx",
+        "content/build-logs/procedure-rendering-and-release-gates.mdx",
+        "content/build-logs/browser-forms-before-document-history.mdx",
+        "content/build-logs/report-publication-beyond-the-preview.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "inventory-review-analysis-20261005",
+      "type": "content",
+      "title": "review analysis sources",
+      "status": "done",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Verify source evidence, reconcile existing records, and draft distinct de-identified content. Source details and row-level outcomes remain in ignored private state.",
+      "privateRef": "garden/state/private/inventory-analysis-report.json",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/file-watchers-need-a-retention-boundary.mdx",
+        "content/field-notes/allocation-models-need-an-objective-contract.mdx",
+        "content/field-notes/quality-scenarios-need-consistent-denominators.mdx",
+        "content/field-notes/coverage-cells-are-not-complete-proof.mdx",
+        "content/field-notes/offline-oee-needs-an-observation-window.mdx",
+        "content/field-notes/commissioning-controls-need-correlated-evidence.mdx",
+        "content/field-notes/call-graphs-need-a-source-boundary.mdx",
+        "content/build-logs/mqtt-capture-keeps-receipt-and-recovery-separate.mdx",
+        "content/field-notes/timeline-overlays-need-interval-invariants.mdx",
+        "content/field-notes/dataset-splits-should-leave-a-manifest.mdx",
+        "content/field-notes/detector-replay-is-a-hypothesis-test.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "inventory-review-research-20261005",
+      "type": "content",
+      "title": "review research sources",
+      "status": "done",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Verify source evidence, reconcile existing records, and draft distinct de-identified content. Source details and row-level outcomes remain in ignored private state.",
+      "privateRef": "garden/state/private/inventory-research-report.json",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/evidence-linked-research-without-automatic-conclusions.mdx",
+        "content/build-logs/hardware-keys-as-an-execution-boundary.mdx",
+        "content/build-logs/interface-contracts-before-priority-ranking.mdx",
+        "content/build-logs/resumable-cases-and-frozen-experiment-inputs.mdx",
+        "content/build-logs/thread-scoped-experiments-with-container-limits.mdx",
+        "content/build-logs/a-page-watcher-with-visible-crawl-state.mdx",
+        "content/field-notes/a-schedule-filter-can-erase-a-report-window.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "inventory-review-existing-20261005",
+      "type": "content",
+      "title": "review previously indexed sources",
+      "status": "done",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Verify source evidence, reconcile existing records, and draft distinct de-identified content. Source details and row-level outcomes remain in ignored private state.",
+      "privateRef": "garden/state/private/inventory-existing-report.json",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/outcome-recipes-before-dataset-export.mdx",
+        "content/build-logs/equipment-taxonomy-as-a-job-matching-boundary.mdx",
+        "content/build-logs/desktop-certificate-and-audit-pdf-generator.mdx",
+        "content/build-logs/wpf-operations-console-shell.mdx",
+        "content/build-logs/finished-batch-packout-report-export.mdx",
+        "content/field-notes/project-scaffolding-is-not-a-safe-rerun.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "inventory-review-misc-20261005",
+      "type": "content",
+      "title": "review additional local sources",
+      "status": "done",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Verify source evidence, reconcile existing records, and draft distinct de-identified content. Source details and row-level outcomes remain in ignored private state.",
+      "privateRef": "garden/state/private/inventory-misc-report.json",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/blocking-led-timing.mdx",
+        "content/field-notes/calculator-assumptions-before-results.mdx",
+        "content/build-logs/curriculum-project-contact-cli.mdx",
+        "content/build-logs/mailbox-contact-extraction-to-csv.mdx",
+        "content/field-notes/media-conversion-and-extraction-boundaries.mdx",
+        "content/build-logs/local-crm-route-prototype.mdx",
+        "content/build-logs/unfinished-web-change-monitor.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "inventory-review-packages-20261005",
+      "type": "content",
+      "title": "review packages sources",
+      "status": "done",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Verify source evidence, reconcile existing records, and draft distinct de-identified content. Source details and row-level outcomes remain in ignored private state.",
+      "privateRef": "garden/state/private/inventory-packages-report.json",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/qc-intake-before-operational-claims.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-ed6ee9cf",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-ed6ee9cf.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/file-watchers-need-a-retention-boundary.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-107f9df8",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-107f9df8.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/allocation-models-need-an-objective-contract.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-e89831b4",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-e89831b4.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/quality-scenarios-need-consistent-denominators.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-84ee8815",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-84ee8815.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/coverage-cells-are-not-complete-proof.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-dca55993",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-dca55993.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/offline-oee-needs-an-observation-window.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-cd3bb106",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-cd3bb106.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/commissioning-controls-need-correlated-evidence.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-c386a5c8",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-c386a5c8.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/call-graphs-need-a-source-boundary.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-358a4b55",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-358a4b55.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/mqtt-capture-keeps-receipt-and-recovery-separate.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-2b7a6fb1",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-2b7a6fb1.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/timeline-overlays-need-interval-invariants.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-8f12c8b6",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-8f12c8b6.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/dataset-splits-should-leave-a-manifest.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-11b897e4",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-11b897e4.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/detector-replay-is-a-hypothesis-test.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-2e553e31",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-2e553e31.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/versioned-quote-document-engine.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-ca3e45b9",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-ca3e45b9.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/request-documents-with-visible-missing-inputs.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-7b27013d",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-7b27013d.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/procedure-rendering-and-release-gates.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-50ecedbc",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-50ecedbc.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/browser-forms-before-document-history.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-95370c95",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-95370c95.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/report-publication-beyond-the-preview.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-aab93462",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-aab93462.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/evidence-linked-research-without-automatic-conclusions.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-b858f1b4",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-b858f1b4.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/hardware-keys-as-an-execution-boundary.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-fb218057",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-fb218057.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/interface-contracts-before-priority-ranking.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-0beddd3a",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-0beddd3a.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/resumable-cases-and-frozen-experiment-inputs.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-29807e66",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-29807e66.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/thread-scoped-experiments-with-container-limits.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-d29bfe33",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "github",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-d29bfe33.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/a-page-watcher-with-visible-crawl-state.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-69e310b3",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-69e310b3.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/a-schedule-filter-can-erase-a-report-window.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-48787df8",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-48787df8.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/outcome-recipes-before-dataset-export.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-bb19cf72",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "github",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-bb19cf72.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/equipment-taxonomy-as-a-job-matching-boundary.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-0de936fd",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "github",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-0de936fd.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/project-scaffolding-is-not-a-safe-rerun.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-b65e288f",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-b65e288f.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/blocking-led-timing.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-cb5b554f",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-cb5b554f.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/calculator-assumptions-before-results.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-de100426",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-de100426.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/curriculum-project-contact-cli.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-93c667ce",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-93c667ce.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/mailbox-contact-extraction-to-csv.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-57429d98",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-57429d98.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/field-notes/media-conversion-and-extraction-boundaries.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-44494a3f",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-44494a3f.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/local-crm-route-prototype.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-3fa8627c",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "local",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-3fa8627c.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/unfinished-web-change-monitor.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-d3ec1fe8",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "github",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-d3ec1fe8.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/report-publication-beyond-the-preview.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "source-424e47c3",
+      "type": "content",
+      "title": "draft a de-identified article from a registered source",
+      "status": "published",
+      "priority": "medium",
+      "mode": "content-draft",
+      "source": "registry",
+      "sourceKind": "github",
+      "summary": "A registered source to scan and turn into a de-identified build-log or article: what it set out to do, how it evolved, how long it ran, what works, what broke, any novel idea worth a diagram. The source identity is in gitignored garden/state/private; keep owner/repo names out of committed state until de-identified. Set status to published once an article ships.",
+      "privateRef": "garden/state/private/source-424e47c3.md",
+      "created": "2026-10-05",
+      "targets": [
+        "content/build-logs/finished-batch-packout-report-export.mdx"
+      ],
+      "notes": "Completed on 2026-10-05 after source reconciliation and independent auto-moderation verdict publish for all targets. Full agent:check passed; final content revision passed re-moderation and deploy:check. Source runtime limitations remain explicit in each record. Raw source evidence remains private."
+    },
+    {
+      "id": "inventory-hold-01-20261005",
+      "type": "content",
+      "title": "restore an unavailable source before drafting",
+      "status": "blocked",
+      "priority": "low",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Source evidence is unavailable at its recorded location. Resume only when a readable replacement or restored source is provided.",
+      "privateRef": "garden/state/private/inventory-hold-01-20261005.md",
+      "created": "2026-10-05",
+      "notes": "Auto-moderation verdict hold-backlog: insufficient source evidence or significance for a separate publication; see sanitized summary for resumption condition."
+    },
+    {
+      "id": "inventory-hold-02-20261005",
+      "type": "content",
+      "title": "establish provenance for isolated report templates",
+      "status": "deferred",
+      "priority": "low",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Report templates lack a verified producer or distinct implementation history. Hold until provenance supports a useful independent record.",
+      "privateRef": "garden/state/private/inventory-hold-02-20261005.md",
+      "created": "2026-10-05",
+      "notes": "Auto-moderation verdict hold-backlog: insufficient source evidence or significance for a separate publication; see sanitized summary for resumption condition."
+    },
+    {
+      "id": "inventory-hold-03-20261005",
+      "type": "content",
+      "title": "identify bounded implementation evidence for a support workspace",
+      "status": "deferred",
+      "priority": "low",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Reviewed support metadata does not establish a distinct software implementation. Resume with a bounded source that can be inspected without private operational notes.",
+      "privateRef": "garden/state/private/inventory-hold-03-20261005.md",
+      "created": "2026-10-05",
+      "notes": "Auto-moderation verdict hold-backlog: insufficient source evidence or significance for a separate publication; see sanitized summary for resumption condition."
+    },
+    {
+      "id": "inventory-hold-04-20261005",
+      "type": "content",
+      "title": "reconcile an isolated source copy",
+      "status": "deferred",
+      "priority": "low",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "A copied component overlaps existing coverage but lacks a verified canonical counterpart or meaningful change. Resume when provenance and a distinct technical contribution are established.",
+      "privateRef": "garden/state/private/inventory-hold-04-20261005.md",
+      "created": "2026-10-05",
+      "notes": "Auto-moderation verdict hold-backlog: insufficient source evidence or significance for a separate publication; see sanitized summary for resumption condition."
+    },
+    {
+      "id": "inventory-hold-05-20261005",
+      "type": "content",
+      "title": "establish distinct evidence for a rendering package",
+      "status": "deferred",
+      "priority": "low",
+      "mode": "content-draft",
+      "source": "intake",
+      "summary": "Packaged rendering assets do not establish a distinct project history beyond existing document tooling. Hold until a maintained source and substantive change are available.",
+      "privateRef": "garden/state/private/inventory-hold-05-20261005.md",
+      "created": "2026-10-05",
+      "notes": "Auto-moderation verdict hold-backlog: insufficient source evidence or significance for a separate publication; see sanitized summary for resumption condition."
+    },
+    {
+      "id": "privacy-publish-metadata-20261005",
+      "type": "privacy",
+      "title": "de-identify publication commit metadata",
+      "status": "done",
+      "priority": "high",
+      "mode": "content-publish",
+      "source": "moderation",
+      "summary": "Local publication metadata defaults are identifying. Verify an anonymous command-scoped author and committer before publishing this batch; preserve existing history and global configuration.",
+      "privateRef": "garden/state/private/privacy-publish-metadata-20261005.md",
+      "created": "2026-10-05",
+      "notes": "Resolved before any commit or push: verified anonymous author and committer under command-scoped Git settings. Auto-moderation verdict publish after remediation. Existing history and global configuration are unchanged."
     }
   ]
 }

@@ -1,0 +1,52 @@
+---
+title: "a curriculum workspace starts with projects and contacts"
+slug: "curriculum-project-contact-cli"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A local command-line prototype stores curriculum projects and imports contacts, while its wider lesson and research schema extends beyond the implemented commands."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - curriculum
+  - cli
+  - sqlite
+  - data-import
+tools:
+  - python
+  - click
+  - sqlite
+narrative_origin: "local command-line source review"
+visibility: "public"
+related:
+  - "target-audience-role-proxy"
+points:
+  - "a schema can describe a larger workflow than the command surface implements"
+  - "repeated imports need an explicit duplicate policy"
+last_verified: "2026-10-05"
+source_context: "source-review-only inspection of command registration, schema initialization, and CSV helpers; runtime-unverified; no database or contact files opened"
+---
+
+## the implemented surface
+
+The entry point initializes a local SQLite schema and registers commands for creating
+and listing projects, adding contacts, generating a CSV header template, importing
+contacts, and displaying project information. Inserts use bound values, and imports
+look up the project before associating new contact rows with it.
+
+The schema reaches further: lesson plans, teaching tools, modalities, research steps,
+goals, and related observations. The project-information command can query those tables.
+Their existence does not establish that the tool generates courses or runs an agent
+workflow. The inspected command registration does not implement those capabilities.
+
+## the import boundary
+
+The CSV helper returns dictionary rows. The import command indexes expected columns and
+inserts each row, without a duplicate lookup or upsert. Reimporting a file can therefore
+add repeated contacts. A missing column can also fail outside the command's SQLite-error
+handler.
+
+The useful next step is a synthetic import fixture with missing columns, duplicates,
+and an unknown project. Real contact stores are unnecessary for that check and were not
+read here. No command was run, so persistence behavior and the broader workflow remain
+runtime-unverified.

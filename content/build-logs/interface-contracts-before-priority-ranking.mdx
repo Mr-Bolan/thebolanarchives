@@ -1,0 +1,54 @@
+---
+title: "interface contracts before priority ranking"
+slug: "interface-contracts-before-priority-ranking"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A deterministic interface tool validates workflow contracts and filters ineligible suggestions before ranking the remaining capabilities with explicit reasons."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "interface-design"
+  - "validation"
+  - "workflow"
+  - "explainability"
+tools:
+  - "python"
+  - "json-schema"
+  - "yaml"
+narrative_origin: "de-identified source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "eligibility is checked before priority"
+  - "a repeatable ranking needs stable tie-breakers and visible reasons"
+last_verified: "2026-10-05"
+source_context: "Source-review-only inspection of a contract validator and ranking implementation; matching tool copies reconciled; runtime unverified."
+---
+
+## current state
+
+The inspected tool validates capability documents with JSON Schema and additional
+semantic checks. It checks workflow state references, warns about unreachable states,
+and requires resume and cancellation policies for multi-step surfaces. Suggested
+actions must have matching explanation templates and a dismissal policy.
+
+Ranking is a separate operation over supplied candidates. Permission, tenant,
+prerequisite, state, and channel flags must each be explicitly true before a candidate
+is eligible. Filtered candidates retain reason codes rather than simply disappearing.
+
+Eligible candidates sort by priority band, urgency, due time, previous position, and
+stable identifiers. The output carries a policy version, explanation, and sort trace.
+Two inspected package copies contain the same tool bytes; they are one implementation,
+not two builds.
+
+## limits
+
+These are checks on declarations and supplied flags. The ranking function does not
+authenticate a user or verify permissions against an application backend. A valid
+workflow document also does not prove that the rendered interface implements recovery.
+
+This is source review only, with runtime unverified. The bundled self-test was not run.
+The next useful evidence would connect one contract to actual application transitions
+and test that revoked eligibility remains excluded at execution time.

@@ -1,0 +1,56 @@
+---
+title: "thread-scoped experiments with container limits"
+slug: "thread-scoped-experiments-with-container-limits"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A research-agent adaptation adds thread-scoped experiment reservations, replay checks, and restricted container execution while keeping isolation claims provisional."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "research"
+  - "sandboxing"
+  - "provenance"
+  - "execution-budgets"
+tools:
+  - "python"
+  - "sqlite"
+  - "docker"
+narrative_origin: "de-identified source review of an upstream-based adaptation"
+visibility: "public"
+related:
+  - "resumable-cases-and-frozen-experiment-inputs"
+points:
+  - "execution identity must be tied to code and inputs before reusing a result"
+  - "container restrictions do not establish safety for every connected tool"
+last_verified: "2026-10-05"
+source_context: "Source-review-only inspection of experiment reservation and container-launch code in a local adaptation of an upstream research agent; runtime unverified."
+---
+
+## current state
+
+This implementation adapts an upstream agent and companion interface. It is documented
+as separate from the earlier investigation workbench, not a completed integration or
+a wholly original framework.
+
+The experiment store reserves work by thread and call identity. Its fingerprint combines
+the command, evaluation plan, and hashes of supplied input bytes. Reusing an identity
+with different fingerprinted material raises an error instead of returning a stale
+result. Reservation also checks remaining execution time, concurrent work in the same
+thread, and saved-artifact capacity.
+
+The container launcher requests no network, a read-only root filesystem, a non-root
+user, dropped capabilities, and process, CPU, and memory limits. Bounded temporary
+filesystems provide working space. These are concrete launch arguments, not an observed
+containment result.
+
+## limits
+
+The SQL tools sit outside that experiment container boundary. The source documentation
+explicitly says database account privileges determine access, including writes. A
+restricted experiment process therefore does not make the entire research agent
+read-only.
+
+This is source review only, with runtime unverified. No container, database, model,
+or attachment was opened or executed. Cancellation, replay recovery, output limits,
+and isolation still need controlled tests before operational claims are warranted.

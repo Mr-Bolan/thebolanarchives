@@ -1,0 +1,49 @@
+---
+title: "a blinking light can occupy the whole loop"
+slug: "blocking-led-timing"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "Two small microcontroller sketches expose the difference between a visible timing sequence and a loop that remains available to observe other inputs."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - embedded-systems
+  - timing
+  - state-machines
+tools:
+  - arduino
+  - cpp
+narrative_origin: "local microcontroller source review"
+visibility: "public"
+related:
+  - "the-operator-knows-before-the-database-does"
+points:
+  - "blocking delays make an output sequence simple but suspend other loop work"
+  - "waiting for release is distinct from debouncing a press"
+last_verified: "2026-10-05"
+source_context: "source-review-only inspection of two LED sketches; runtime-unverified; no compilation, board upload, wiring check, or timing measurement"
+---
+
+## what the code schedules
+
+One sketch uses an input pull-up, waits for an active-low button press, delays for three
+seconds, and flashes an LED ten times. It then waits until the button is released before
+returning to the top of the loop.
+
+The release wait prevents a held button from immediately retriggering the sequence. It
+does not implement a timed debounce filter, and the flashing section does not inspect
+the button. A brief press and release during that section is not remembered by this code.
+
+A second sketch repeatedly blinks a fixed message using dot and dash durations. Its
+lookup table covers only the characters used in that message, not a general text encoder.
+
+## the useful limit
+
+Both sketches make timing readable by putting delays next to output changes. The cost is
+that the main loop cannot do other polling during those delays. That may be sufficient
+for an isolated exercise; it becomes a constraint when another input needs attention.
+
+A timestamp-driven state machine would be a possible next experiment, not an implemented
+feature here. Hardware behavior, electrical debounce, and timing accuracy remain
+unverified. This note records source structure, not a successful device test.

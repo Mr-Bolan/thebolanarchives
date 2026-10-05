@@ -1,0 +1,70 @@
+---
+title: "qc intake before operational claims"
+slug: "qc-intake-before-operational-claims"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A packaged validation workflow separates sample meaning, data-quality flags, and machine coverage before attempting to explain operational results."
+created: "2026-10-05"
+updated: "2026-10-05"
+last_verified: "2026-10-05"
+source_context: "Read-only review of packaged Python helpers and semantic rules; five scripts syntax-parsed. No operational data processed or live database queried."
+tags:
+  - data-quality
+  - quality-control
+  - evidence
+  - workflow
+tools:
+  - python
+  - openpyxl
+  - pandas
+narrative_origin: "packaged validation workflow review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+  - "machine-metrics-collector-with-commissioning-gates"
+points:
+  - "A sample's location changes what its columns mean."
+  - "Blank cells and observed zeroes must remain different."
+  - "An output file proves a stage wrote something, not that its evidence passed review."
+---
+
+## what the package contains
+
+This is a filesystem workflow for turning quality samples and machine exports into a reviewable run record. Its staged documents separate data trust, description, diagnosis, and proposed operating changes. Python helpers create run folders, clean a QC workbook, inventory machine exports, and prepare query text.
+
+The interesting part is the boundary between those jobs. A cleaner can organize observations without explaining why the machine produced them. A file manifest can describe coverage without proving that two sources refer to the same run.
+
+This record concerns the inspected package. It does not establish deployment, field performance, or the authorship of every component.
+
+## a column is not a meaning
+
+The QC cleaner uses location and sample type to decide which measurements apply. Receiving samples can describe a full size distribution. Downstream size samples can instead check compliance against one named target band. A partly filled row is therefore not automatically a broken distribution.
+
+Blank measurements are omitted. Applicable zeroes can remain as observations. Filling every blank with zero would turn an absent measurement into evidence that nothing was found.
+
+The rules also distinguish sample validity from operational signals. A defect total above the sample size is flagged under this workflow's mutually exclusive defect convention. Good product found in a lower-quality stream is recorded as a potential loss signal. The latter does not, by itself, identify the cause or prescribe a machine setting.
+
+These are source-specific sampling conventions, not universal QC rules. Another form or sampling method would need its own interpretation.
+
+## evidence leaves several outputs
+
+The cleaner writes separate tables for samples, long-form measurements, validation flags, operational signals, and summaries. That separation lets a reviewer see both a proposed signal and the qualifications attached to its inputs.
+
+There is a consequential limitation: the summary loop aggregates the sample collection without first excluding rows marked blocked. Quality-status counts are included, but the consumer still has to apply a policy before using the aggregate. A summary is not automatically an approved dataset.
+
+The machine manifest performs a different inspection. It lists files and columns, checks expected filenames, and optionally examines timestamp ranges. Its workbook inspection samples up to 5,000 rows per sheet; CSV timestamp inspection samples up to 100,000 rows. Those ranges describe the sampled data, not necessarily the full export. Filename presence is also weaker evidence than valid contents or successful run alignment.
+
+## where completion is still too easy
+
+The status helper labels a stage complete when its output folder contains anything other than the keep-file. That is convenient progress reporting, but it cannot establish whether the artifact is current, valid, or approved.
+
+The cleaner also emits a table of semantic rules marked implemented. Those rows are fixed declarations in the script, not results from executing assertions. They should not be presented as a passing test suite.
+
+Both details matter because downstream analysis can inherit more confidence than the earlier stage earned. A useful next change would distinguish artifact presence from validation and review, and attach those states to the specific run.
+
+## verification boundary
+
+Five packaged Python helpers passed syntax parsing during this review. Their source and the QC semantic rules were inspected read-only. No private workbook was cleaned, no generated SQL was executed, and no operational outcome was validated.
+
+The workflow has a concrete implementation worth examining. The remaining test is whether synthetic fixtures and reviewed run evidence demonstrate that its flags, summaries, and stage transitions preserve the distinctions the design intends.

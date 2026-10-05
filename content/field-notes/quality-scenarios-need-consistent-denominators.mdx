@@ -1,0 +1,46 @@
+---
+title: "quality scenarios need consistent denominators"
+slug: "quality-scenarios-need-consistent-denominators"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "A quality scenario dashboard combines sampled defect proportions with received weights; its aggregation choices change the meaning of the result."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "quality-control"
+  - "modelling"
+  - "data-quality"
+tools:
+  - "python"
+  - "pandas"
+  - "streamlit"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "Mean sample proportions and pooled proportions answer different questions."
+  - "A scenario projection does not demonstrate an operational improvement."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# quality scenarios need consistent denominators
+
+## the calculation boundary
+
+The source separates a current-state calculation from a future-state weight projection. Current-state cells use the mean of per-sample proportions at different inspection locations. Another helper instead divides summed defect counts by summed sample sizes.
+
+Those formulas answer different questions when samples have unequal sizes. Neither should silently stand in for the other.
+
+The projection multiplies selected receiving weights by current-state cells and adds the results into output categories. That is a scenario transformation; it does not by itself demonstrate an equipment improvement or financial return.
+
+## the small test that matters
+
+Use two synthetic samples with unequal sizes and show both averages. Then trace one unit of input weight through every destination and check whether it is counted once.
+
+The current-state helper also reads a defect-total column that its initial required-column check does not include. Input validation and arithmetic need to agree before a polished table can be trusted.
+
+This is source-review-only, runtime-unverified. No customer samples, prices, reports, or live dashboard were opened. Similar inventory labels were not treated as proof of identical versions.
+

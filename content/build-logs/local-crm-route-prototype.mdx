@@ -1,0 +1,57 @@
+---
+title: "a local relationship store with uneven update contracts"
+slug: "local-crm-route-prototype"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "An Express and SQLite prototype exposes project and contact routes, but its update semantics and access boundary remain separate unfinished parts of the system."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - api-design
+  - sqlite
+  - validation
+  - local-tools
+tools:
+  - nodejs
+  - express
+  - sqlite
+narrative_origin: "local route-source review"
+visibility: "public"
+related:
+  - "local-timesheet-reporting-workbench"
+points:
+  - "parameterized queries do not define validation or authorization"
+  - "routes sharing a PATCH verb can still have incompatible update semantics"
+last_verified: "2026-10-05"
+source_context: "source-review-only inspection of server composition, database opening, and project/contact route modules; runtime-unverified; no database opened or server started"
+---
+
+## what exists
+
+The server mounts route modules for several related record types and opens an existing
+SQLite file in read-write mode. The inspected project and contact handlers use bound
+query values for inserts, reads, updates, and deletes.
+
+The interesting difference is in updates. The general project PATCH handler constructs
+an update for every expected field, regardless of which fields the caller supplied.
+The contact PATCH handler instead filters supplied keys through an allowlist and skips
+null values. Separate project handlers also update individual fields.
+
+A caller cannot infer one partial-update contract from the HTTP verb alone. Omitted
+project fields still reach the database binding path; null contact fields cannot be used
+to clear a value through the inspected handler. Exact missing-value behavior was not
+tested against the driver.
+
+## boundaries still missing
+
+The inspected server configures a browser origin and request methods, but no
+authentication middleware appears in that composition or the two reviewed route
+modules. That is not evidence about any external deployment wrapper, and it is not a
+claim that a live system is exposed.
+
+Database error text is returned in responses, while list queries return whole rows.
+Validation, response shaping, and a consistent update contract would be useful next
+steps before using real records. This review did not open the database, run migrations,
+start the server, or verify the frontend. It establishes a source prototype, not an
+operational relationship-management system.

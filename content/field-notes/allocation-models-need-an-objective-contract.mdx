@@ -1,0 +1,45 @@
+---
+title: "allocation models need an objective contract"
+slug: "allocation-models-need-an-objective-contract"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "An archived allocation prototype connects derived production features to a solver, but the solver objective needs its own explanation."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "modelling"
+  - "optimisation"
+tools:
+  - "python"
+  - "scikit-learn"
+  - "scipy"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "Prediction targets and optimisation objectives need separate meanings and units."
+  - "Allocation fixtures should check conservation and join multiplicity."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# allocation models need an objective contract
+
+## two models, two questions
+
+The inspected archived scripts derive allocation features from sample timing and receiving quantities, train a random-forest regressor to predict container counts, then aggregate predictions by machine.
+
+The optimisation step uses those predicted counts as coefficients in a linear minimisation, constrains allocations to sum to the available total, and supplies a fixed list of hypothetical capacities.
+
+Predicting a count does not establish what minimising that count as a cost should mean. The link between prediction and allocation is a modelling assumption, not something the solver can validate.
+
+## boundaries still open
+
+The feature builder expands receiving dates before a weekly merge and rounds allocations upward. Join multiplicity and conservation of the original total deserve explicit checks. The solver's fixed capacity list also assumes a particular number of machines.
+
+A useful next step is a synthetic conservation fixture and a written objective with units: what exactly improves when the objective falls?
+
+This is source-review-only, runtime-unverified. Archived code is not evidence of the current model's deployment or accuracy. Notebook outputs, datasets, and serialized models were not inspected.
+

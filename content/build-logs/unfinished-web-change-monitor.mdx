@@ -1,0 +1,51 @@
+---
+title: "a change monitor needs a remembered baseline"
+slug: "unfinished-web-change-monitor"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "An unfinished website-monitor script sketches fetching, comparison, email, and plotting, but leaves the previous-state and UI-thread contracts unresolved."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - monitoring
+  - state-management
+  - concurrency
+tools:
+  - python
+  - beautifulsoup
+  - tkinter
+  - pandas
+narrative_origin: "local monitoring-script source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "change detection needs an explicit baseline for each source"
+  - "fetching, notification, and UI updates need separate execution boundaries"
+last_verified: "2026-10-05"
+source_context: "source-review-only inspection of a standalone monitoring script; runtime-unverified; no fetch, email, UI launch, or source execution"
+---
+
+## a recognizable intention
+
+The script proposes fetching several pages, selecting elements by a CSS class, comparing
+them with previous information, emailing a change, and appending data to a plot. It
+starts one worker thread per page and joins those workers.
+
+The previous-information variable is referenced without a definition in the inspected
+file. There is no per-page baseline store or update step. The function also assigns to
+the dataframe it tries to read, without declaring that dataframe global. Those source
+paths do not support a claim that change detection works.
+
+## the unfinished contract
+
+Workers call plotting code directly, while the button callback waits for all workers.
+UI construction and plotting are tangled in an inconsistently indented block. The
+network request has no explicit timeout. Importing a scheduling library does not
+establish a scheduler; no periodic registration appears in this file.
+
+The smallest useful continuation would define a synthetic page snapshot, a normalized
+comparison value, and a baseline transition before reconnecting email or a UI. Fetch
+failure should remain different from a content change. This is a record of an unfinished
+source sketch, not a tested monitor, and no endpoint or recipient was contacted.

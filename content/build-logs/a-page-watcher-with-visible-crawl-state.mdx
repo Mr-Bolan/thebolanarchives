@@ -1,0 +1,53 @@
+---
+title: "a page watcher with visible crawl state"
+slug: "a-page-watcher-with-visible-crawl-state"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A small crawler exposes hashes, queue size, fetch counts, and change counts as register-like state, while its fetch path leaves important limits unresolved."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "monitoring"
+  - "crawling"
+  - "observability"
+  - "limits"
+tools:
+  - "javascript"
+narrative_origin: "de-identified repository source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "the first successful hash establishes a baseline rather than a change"
+  - "a processed-prefix limit does not bound response memory"
+last_verified: "2026-10-05"
+source_context: "Source-review-only inspection of crawler and watcher code through read-only repository access; no target fetched; runtime unverified."
+---
+
+## current state
+
+The watcher hashes fetched page bytes and compares them with the previous hash. The
+first successful fetch establishes a baseline. Later differences increment a change
+counter and produce a short excerpt with the old and new hashes.
+
+The crawler keeps a page map and a queue, discovers same-origin links and sitemap
+entries, and applies simple robots disallow prefixes. Its state exposes known pages,
+queued URLs, fetched pages, and changed pages. That makes partial progress inspectable
+instead of presenting a single unexplained healthy indicator.
+
+## limits visible in code
+
+The nominal page-loop allowance excludes preliminary robots and sitemap requests.
+Thrown fetch errors do not advance the loop counter, while returned HTTP error responses
+do. It should not be described as a strict total request budget.
+
+The fetch helper reads the whole response before exposing a bounded prefix for processing.
+That prefix is a view which can keep the full backing buffer alive; neither peak nor
+retained response memory is bounded by it. Redirects are followed without a separate
+destination validation step in the helper, so same-origin link discovery does not prove
+that every network destination stays on that origin.
+
+A changed hash says bytes differ, not that the change matters. This is source review
+only, with runtime unverified. No watched site was contacted. Synthetic redirect,
+oversized-response, and fetch-failure cases would be useful next checks.

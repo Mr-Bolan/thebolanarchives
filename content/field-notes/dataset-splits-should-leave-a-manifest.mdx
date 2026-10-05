@@ -1,0 +1,43 @@
+---
+title: "dataset splits should leave a manifest"
+slug: "dataset-splits-should-leave-a-manifest"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "A local image-classification prototype shows why a dataset split should be recorded independently of moving images into folders."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "datasets"
+  - "computer-vision"
+  - "reproducibility"
+tools:
+  - "python"
+  - "pyqt"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "A dataset split needs reproducible membership independently of file movement."
+  - "Directory preparation and split decisions should be verified separately."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# dataset splits should leave a manifest
+
+## a split is a decision
+
+The inspected source includes an image-review interface and helpers for label folders and dataset metadata. A separate splitter shuffles image filenames within each class, calculates training and validation cutoffs, and moves the remaining files into a test destination.
+
+The splitter does not set a seed or write a membership manifest. Its test-ratio argument is not used to calculate the remainder. It creates the top-level split directories but does not create their per-class destination directories before moving files.
+
+## make the decision reversible
+
+A safer design to verify would calculate a manifest first: source identity, class, destination, and split policy. Destination creation and copying could then be checked separately from the random decision. Capture-level grouping would also need consideration before treating related images as independent examples.
+
+This source is not assumed to be an earlier version of the archive's existing capture-to-dataset application.
+
+This is source-review-only, runtime-unverified. No images, labels, dataset metadata, or model files were read; no files were moved. The observations concern the standalone helper as inspected, not a tested end-to-end UI path.
+

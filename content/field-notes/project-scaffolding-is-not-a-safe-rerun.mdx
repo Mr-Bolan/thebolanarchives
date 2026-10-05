@@ -1,0 +1,56 @@
+---
+title: "project scaffolding is not a safe rerun"
+slug: "project-scaffolding-is-not-a-safe-rerun"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "A small Python scaffolder mixes directory creation, file replacement, commits, tags, and pushes. Its source shows why a repeatable command needs separate mutation boundaries."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - developer-tools
+  - scaffolding
+  - git
+  - idempotency
+tools:
+  - python
+  - git
+narrative_origin: "source inspection of project creation and repository helpers"
+visibility: "public"
+related:
+  - "finished-batch-packout-report-export"
+points:
+  - "allowing an existing directory does not protect the files inside it"
+  - "scaffolding, committing, and pushing are separate decisions even when one script performs them"
+last_verified: "2026-10-05"
+source_context: "source-review-only inspection of a Python project creator and Git helper; runtime unverified; neither script nor any Git mutation in its source workspace was executed"
+---
+
+# field_note // project_scaffolding_is_not_a_safe_rerun
+
+## the small command with several effects
+
+The inspected creator makes source, test, documentation, data, and configuration folders.
+It allows the target directory to exist, then opens each scaffold file in write mode and
+writes an empty string. For an existing matching file, that means truncation rather than
+preservation.
+
+After creating files, it changes the working directory and calls a Git helper. That helper
+initializes a repository when needed, stages everything, commits, creates a timestamped
+tag, and attempts to push the default branch and tags. Providing a remote is optional in
+the helper; attempting a push is not.
+
+The failure boundary comes late. A missing remote can make the push fail after local files
+and history have already changed. An existing directory is therefore not a safe invitation
+to retry the entire command.
+
+## the boundary worth preserving
+
+A safer design would make three decisions explicit: which missing files to create, whether
+to record a local snapshot, and whether to publish it remotely. Existing files would need
+an overwrite policy, and the proposed Git changes would need their own review boundary.
+Those are proposed improvements, not features found in this source.
+
+This is a source observation from 2026-10-05, not a reproduced data-loss incident. Neither
+script was run, no files were generated in its workspace, and no commits or pushes were
+attempted in that workspace. Runtime behavior remains unverified.

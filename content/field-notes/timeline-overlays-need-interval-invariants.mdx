@@ -1,0 +1,44 @@
+---
+title: "timeline overlays need interval invariants"
+slug: "timeline-overlays-need-interval-invariants"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "Standalone timeline queries and plotting helpers show why interval identity, overlap handling, and inferred breaks need explicit contracts."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "event-timelines"
+  - "sql"
+  - "data-quality"
+tools:
+  - "sql"
+  - "python"
+  - "pandas"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "Interval identities must remain unique across combined state sets."
+  - "Overlapping events need an explicit duration-counting policy."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# timeline overlays need interval invariants
+
+## two layers of time
+
+One query splits the clock at collected start and end points, assigns a state to each interval, and infers breaks from sufficiently long stopped intervals. That duration threshold is a rule in the query, not an observed reason for stopping.
+
+Another query emits machine spans and product-flow segments. Its plotting helper merges overlapping segments before finding gaps inside a span. This is a useful distinction: the machine can be running while no product passes through it.
+
+## invariants before totals
+
+The second query independently numbers running and stopped spans, then combines them and groups overlay duration by that number. The numbering can collide across the two sets. It also sums overlap durations directly, whereas the plot helper merges intervals first. Overlapping events therefore need a deliberate counting rule.
+
+These loose sources complement the existing timeline-viewer record; no version lineage or replacement is asserted.
+
+This is source-review-only, runtime-unverified. Exported rows, databases, and generated HTML were not opened. Synthetic overlapping events and globally unique span identifiers are the next verification boundary.
+

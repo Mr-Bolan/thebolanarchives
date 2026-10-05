@@ -1,0 +1,61 @@
+---
+title: "browser forms before document history"
+slug: "browser-forms-before-document-history"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A source review of small browser paperwork tools: two construct PDFs directly, while an assessment form assembles a summary without creating document history."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - browser-tools
+  - document-generation
+  - validation
+tools:
+  - javascript
+  - jspdf
+narrative_origin: "de-identified source review"
+visibility: "public"
+related:
+  - "desktop-certificate-and-audit-pdf-generator"
+points:
+  - "direct PDF drawing makes pagination part of application logic"
+  - "collecting form values is not the same as validating or preserving a record"
+last_verified: "2026-10-05"
+source_context: "Source review only; runtime unverified. No source applications, builds, endpoints, or customer datasets were exercised."
+---
+
+# build_log // browser_forms_before_document_history
+
+## current state
+
+Two standalone browser tools collect calibration and inspection fields, accept images,
+and build PDFs through drawing calls. Their page-space helpers track a vertical position,
+add a page near the bottom margin, and reset that position. The calibration form also
+adds and removes measurement rows.
+
+An associated assessment form takes checked items and nonempty notes and assembles an
+on-page summary. This is a smaller boundary than the desktop generator already recorded
+in the archive: these inspected handlers show form-to-output logic, not a saved-job model.
+
+## limits visible in the code
+
+Manual PDF layout requires each section to estimate its space. A page-break helper alone
+does not establish that long text, large tables, or uploaded images fit correctly.
+
+The assessment summary inserts note values into an HTML string and assigns it to
+`innerHTML`. Input is therefore being interpreted as markup, not simply displayed as text.
+That is a source-level concern; no exploit or deployed exposure was tested.
+
+These are observations about paperwork software, not evidence that a calibration method,
+inspection result, or issued certificate is valid.
+
+## next check
+
+Use synthetic long notes, oversized tables, and markup-like text to inspect layout and
+summary handling. Establish an explicit save-and-reopen contract before relying on the
+form as document history.
+
+Source-review-only, 2026-10-05. Browser behavior, exports, persistence, and field results are
+runtime-unverified. No completed forms or customer records were inspected.
+

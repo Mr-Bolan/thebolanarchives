@@ -1,0 +1,46 @@
+---
+title: "commissioning controls need correlated evidence"
+slug: "commissioning-controls-need-correlated-evidence"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "A desktop agent controller and network tester expose useful controls, but process state and log keywords do not prove end-to-end delivery."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "commissioning"
+  - "observability"
+  - "messaging"
+tools:
+  - "python"
+  - "pyqt"
+  - "mqtt"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "Process launch, connection health, and delivery are different observations."
+  - "A specific test message needs correlated evidence at each boundary."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# commissioning controls need correlated evidence
+
+## three different success states
+
+The desktop controller starts and stops a child process, exposes configuration, and keeps a system-tray presence. Its process worker emits a positive connection state immediately after starting the process. A separate connection-test action exists.
+
+Those are different observations: a process was launched, a broker was reachable, and a message completed the pipeline.
+
+The neighbouring network tester publishes a generated message, waits briefly, and checks recent component logs. Its checks search for processing, cache-update, and insertion keywords. They do not pass a message identifier into those checks.
+
+## the missing correlation
+
+An older log line could satisfy a keyword check. That does not make the tool useless, but its success labels are evidence of component activity rather than proof that this particular message reached storage.
+
+The next useful fixture would inject a unique correlation value and verify that value at each boundary, while keeping process health and broker connectivity separate.
+
+This is source-review-only, runtime-unverified. Neither control application ran; no messages, service commands, or connection tests were sent. The nested collection service is outside this note's ownership.
+

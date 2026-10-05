@@ -1,5 +1,1067 @@
 [
   {
+    "title": "a blinking light can occupy the whole loop",
+    "slug": "blocking-led-timing",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "Two small microcontroller sketches expose the difference between a visible timing sequence and a loop that remains available to observe other inputs.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "embedded-systems",
+      "timing",
+      "state-machines"
+    ],
+    "tools": [
+      "arduino",
+      "cpp"
+    ],
+    "narrative_origin": "local microcontroller source review",
+    "related": [
+      "the-operator-knows-before-the-database-does"
+    ],
+    "points": [
+      "blocking delays make an output sequence simple but suspend other loop work",
+      "waiting for release is distinct from debouncing a press"
+    ],
+    "route": "/field-notes/blocking-led-timing",
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only inspection of two LED sketches; runtime-unverified; no compilation, board upload, wiring check, or timing measurement"
+  },
+  {
+    "title": "a change monitor needs a remembered baseline",
+    "slug": "unfinished-web-change-monitor",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "An unfinished website-monitor script sketches fetching, comparison, email, and plotting, but leaves the previous-state and UI-thread contracts unresolved.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "monitoring",
+      "state-management",
+      "concurrency"
+    ],
+    "tools": [
+      "python",
+      "beautifulsoup",
+      "tkinter",
+      "pandas"
+    ],
+    "narrative_origin": "local monitoring-script source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "change detection needs an explicit baseline for each source",
+      "fetching, notification, and UI updates need separate execution boundaries"
+    ],
+    "route": "/build-logs/unfinished-web-change-monitor",
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only inspection of a standalone monitoring script; runtime-unverified; no fetch, email, UI launch, or source execution"
+  },
+  {
+    "title": "a curriculum workspace starts with projects and contacts",
+    "slug": "curriculum-project-contact-cli",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A local command-line prototype stores curriculum projects and imports contacts, while its wider lesson and research schema extends beyond the implemented commands.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "curriculum",
+      "cli",
+      "sqlite",
+      "data-import"
+    ],
+    "tools": [
+      "python",
+      "click",
+      "sqlite"
+    ],
+    "narrative_origin": "local command-line source review",
+    "related": [
+      "target-audience-role-proxy"
+    ],
+    "points": [
+      "a schema can describe a larger workflow than the command surface implements",
+      "repeated imports need an explicit duplicate policy"
+    ],
+    "route": "/build-logs/curriculum-project-contact-cli",
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only inspection of command registration, schema initialization, and CSV helpers; runtime-unverified; no database or contact files opened"
+  },
+  {
+    "title": "a local relationship store with uneven update contracts",
+    "slug": "local-crm-route-prototype",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "An Express and SQLite prototype exposes project and contact routes, but its update semantics and access boundary remain separate unfinished parts of the system.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "api-design",
+      "sqlite",
+      "validation",
+      "local-tools"
+    ],
+    "tools": [
+      "nodejs",
+      "express",
+      "sqlite"
+    ],
+    "narrative_origin": "local route-source review",
+    "related": [
+      "local-timesheet-reporting-workbench"
+    ],
+    "points": [
+      "parameterized queries do not define validation or authorization",
+      "routes sharing a PATCH verb can still have incompatible update semantics"
+    ],
+    "route": "/build-logs/local-crm-route-prototype",
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only inspection of server composition, database opening, and project/contact route modules; runtime-unverified; no database opened or server started"
+  },
+  {
+    "title": "a page watcher with visible crawl state",
+    "slug": "a-page-watcher-with-visible-crawl-state",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A small crawler exposes hashes, queue size, fetch counts, and change counts as register-like state, while its fetch path leaves important limits unresolved.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "monitoring",
+      "crawling",
+      "observability",
+      "limits"
+    ],
+    "tools": [
+      "javascript"
+    ],
+    "narrative_origin": "de-identified repository source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "the first successful hash establishes a baseline rather than a change",
+      "a processed-prefix limit does not bound response memory"
+    ],
+    "route": "/build-logs/a-page-watcher-with-visible-crawl-state",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only inspection of crawler and watcher code through read-only repository access; no target fetched; runtime unverified."
+  },
+  {
+    "title": "a schedule filter can erase a report window",
+    "slug": "a-schedule-filter-can-erase-a-report-window",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "Source inspection of a downtime helper shows how date iteration and inclusive time predicates can change which minutes survive a scheduled reporting window.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "reporting",
+      "time-windows",
+      "boundary-conditions",
+      "data-quality"
+    ],
+    "tools": [
+      "python",
+      "sql"
+    ],
+    "narrative_origin": "de-identified reporting-helper source review",
+    "related": [
+      "minute-level-oee-kpi-runner",
+      "agent-runbook-workspace-for-machine-reports"
+    ],
+    "points": [
+      "same-day timestamp ranges can vanish when schedule iteration excludes the end date",
+      "inclusive clock predicates need an explicit boundary policy"
+    ],
+    "route": "/field-notes/a-schedule-filter-can-erase-a-report-window",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only inspection of a downloaded downtime aggregation helper; no database connection or customer data read; runtime unverified."
+  },
+  {
+    "title": "allocation models need an objective contract",
+    "slug": "allocation-models-need-an-objective-contract",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "An archived allocation prototype connects derived production features to a solver, but the solver objective needs its own explanation.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "modelling",
+      "optimisation"
+    ],
+    "tools": [
+      "python",
+      "scikit-learn",
+      "scipy"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "Prediction targets and optimisation objectives need separate meanings and units.",
+      "Allocation fixtures should check conservation and join multiplicity."
+    ],
+    "route": "/field-notes/allocation-models-need-an-objective-contract",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "browser forms before document history",
+    "slug": "browser-forms-before-document-history",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A source review of small browser paperwork tools: two construct PDFs directly, while an assessment form assembles a summary without creating document history.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "browser-tools",
+      "document-generation",
+      "validation"
+    ],
+    "tools": [
+      "javascript",
+      "jspdf"
+    ],
+    "narrative_origin": "de-identified source review",
+    "related": [
+      "desktop-certificate-and-audit-pdf-generator"
+    ],
+    "points": [
+      "direct PDF drawing makes pagination part of application logic",
+      "collecting form values is not the same as validating or preserving a record"
+    ],
+    "route": "/build-logs/browser-forms-before-document-history",
+    "last_verified": "2026-10-05",
+    "source_context": "Source review only; runtime unverified. No source applications, builds, endpoints, or customer datasets were exercised."
+  },
+  {
+    "title": "calculator assumptions come before results",
+    "slug": "calculator-assumptions-before-results",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "Source review of two browser calculators shows how frequency conversions, labels, and unhandled edge cases become part of the result before it reaches a chart.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "calculations",
+      "validation",
+      "browser-tools"
+    ],
+    "tools": [
+      "javascript",
+      "html",
+      "chartjs"
+    ],
+    "narrative_origin": "local calculator source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "frequency conversion is part of the model, not merely display formatting",
+      "a label should describe the operation the code actually performs"
+    ],
+    "route": "/field-notes/calculator-assumptions-before-results",
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only inspection of two standalone calculator pages; runtime-unverified; no browser execution or financial validation"
+  },
+  {
+    "title": "call graphs need a source boundary",
+    "slug": "call-graphs-need-a-source-boundary",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "Small call-graph wrappers make dependencies visible, while their source-selection rule determines how much noise the resulting graph contains.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "code-analysis",
+      "developer-tools"
+    ],
+    "tools": [
+      "python",
+      "pyan",
+      "graphviz"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "A recursive file walk defines what the graph claims to describe.",
+      "Upstream analysis and local orchestration are different contributions."
+    ],
+    "route": "/field-notes/call-graphs-need-a-source-boundary",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "commissioning controls need correlated evidence",
+    "slug": "commissioning-controls-need-correlated-evidence",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A desktop agent controller and network tester expose useful controls, but process state and log keywords do not prove end-to-end delivery.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "commissioning",
+      "observability",
+      "messaging"
+    ],
+    "tools": [
+      "python",
+      "pyqt",
+      "mqtt"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "Process launch, connection health, and delivery are different observations.",
+      "A specific test message needs correlated evidence at each boundary."
+    ],
+    "route": "/field-notes/commissioning-controls-need-correlated-evidence",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "conversion is not evidence of complete extraction",
+    "slug": "media-conversion-and-extraction-boundaries",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "Several small media utilities make different promises: image conversion, embedded-image OCR, frame OCR, and audio transcription. Their outputs need distinct completeness checks.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "media-processing",
+      "ocr",
+      "transcript-processing",
+      "data-quality"
+    ],
+    "tools": [
+      "python",
+      "pillow",
+      "pymupdf",
+      "tesseract",
+      "opencv",
+      "moviepy"
+    ],
+    "narrative_origin": "local media-utility source review",
+    "related": [
+      "meeting-notes-workflow-compiler"
+    ],
+    "points": [
+      "a converted image, extracted image, video frame, and audio segment are different units of work",
+      "output-file existence does not establish extraction completeness"
+    ],
+    "route": "/field-notes/media-conversion-and-extraction-boundaries",
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only inspection of image conversion, PDF OCR, video-frame OCR, and audio transcription scripts; runtime-unverified; no recordings, documents, transcripts, or generated outputs opened"
+  },
+  {
+    "title": "coverage cells are not complete proof",
+    "slug": "coverage-cells-are-not-complete-proof",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A grading-rule modeller distinguishes holes, overlaps, and forbidden destinations, but a covered heatmap cell is only an intersection claim.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "rules",
+      "validation",
+      "visualization"
+    ],
+    "tools": [
+      "python",
+      "sqlite",
+      "plotly"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "Rule intersection with a cell does not prove coverage of every point.",
+      "Exact-point tests complement coarse heatmap warnings."
+    ],
+    "route": "/field-notes/coverage-cells-are-not-complete-proof",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "dataset splits should leave a manifest",
+    "slug": "dataset-splits-should-leave-a-manifest",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A local image-classification prototype shows why a dataset split should be recorded independently of moving images into folders.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "datasets",
+      "computer-vision",
+      "reproducibility"
+    ],
+    "tools": [
+      "python",
+      "pyqt"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "A dataset split needs reproducible membership independently of file movement.",
+      "Directory preparation and split decisions should be verified separately."
+    ],
+    "route": "/field-notes/dataset-splits-should-leave-a-manifest",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "detector replay is a hypothesis test",
+    "slug": "detector-replay-is-a-hypothesis-test",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A standalone replay script encodes candidate detector semantics; its comparison machinery is useful without treating unreviewed outputs as findings.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "anomaly-detection",
+      "replay",
+      "validation"
+    ],
+    "tools": [
+      "python"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "A replay encodes candidate semantics, not proof of the original detector.",
+      "Window and peer definitions can change otherwise plausible scores."
+    ],
+    "route": "/field-notes/detector-replay-is-a-hypothesis-test",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "equipment taxonomy as a job matching boundary",
+    "slug": "equipment-taxonomy-as-a-job-matching-boundary",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A specialist job-board prototype connects listings and candidate experience through shared equipment records, while its write paths expose unfinished identity boundaries.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "data-modeling",
+      "matching",
+      "access-control",
+      "prototypes"
+    ],
+    "tools": [
+      "nextjs",
+      "typescript",
+      "prisma",
+      "sqlite"
+    ],
+    "narrative_origin": "source review of a specialist work-listing prototype",
+    "related": [
+      "static-report-portal-preview"
+    ],
+    "points": [
+      "listings and candidate experience reference the same equipment model",
+      "a stored application is not proof that a recipient was notified",
+      "email-keyed writes do not establish verified account ownership"
+    ],
+    "route": "/build-logs/equipment-taxonomy-as-a-job-matching-boundary",
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only inspection of database schema and listing/application server actions, with local planning-board generator review; runtime unverified; no candidate records, submissions, or endpoints accessed"
+  },
+  {
+    "title": "evidence-linked research without automatic conclusions",
+    "slug": "evidence-linked-research-without-automatic-conclusions",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A research CLI separates source coverage, suggested comment tags, profile ranking, and evidence-linked synthesis without treating collection as a finding.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "research",
+      "evidence",
+      "provenance",
+      "cli"
+    ],
+    "tools": [
+      "python"
+    ],
+    "narrative_origin": "de-identified source review",
+    "related": [
+      "target-audience-role-proxy",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "source coverage and audience conclusions are different outputs",
+      "valid evidence references establish traceability, not truth"
+    ],
+    "route": "/build-logs/evidence-linked-research-without-automatic-conclusions",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only inspection of reporting, comment coding, prioritization, and synthesis code; runtime unverified; no collected observations read."
+  },
+  {
+    "title": "file watchers need a retention boundary",
+    "slug": "file-watchers-need-a-retention-boundary",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "Two local watcher variants expose different boundaries between observing file growth, processing exports, and deleting source evidence.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "file-processing",
+      "data-safety"
+    ],
+    "tools": [
+      "python"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "Stable file size is a readiness heuristic, not proof of completion.",
+      "Observing a directory does not establish permission to delete its contents."
+    ],
+    "route": "/field-notes/file-watchers-need-a-retention-boundary",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "hardware keys as an execution boundary",
+    "slug": "hardware-keys-as-an-execution-boundary",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A local hardware-key runtime maps profiles to commands and HTTP actions, but a declared confirmation option does not yet create an approval boundary.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "automation",
+      "hardware",
+      "configuration",
+      "safety"
+    ],
+    "tools": [
+      "go",
+      "yaml"
+    ],
+    "narrative_origin": "de-identified source review",
+    "related": [
+      "agent-runbook-workspace-for-machine-reports"
+    ],
+    "points": [
+      "a command catalog separates key placement from executable actions",
+      "a confirmation field is not a confirmation gate"
+    ],
+    "route": "/build-logs/hardware-keys-as-an-execution-boundary",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only inspection of profile validation, runtime dispatch, and action execution code; runtime and hardware behavior unverified."
+  },
+  {
+    "title": "interface contracts before priority ranking",
+    "slug": "interface-contracts-before-priority-ranking",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A deterministic interface tool validates workflow contracts and filters ineligible suggestions before ranking the remaining capabilities with explicit reasons.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "interface-design",
+      "validation",
+      "workflow",
+      "explainability"
+    ],
+    "tools": [
+      "python",
+      "json-schema",
+      "yaml"
+    ],
+    "narrative_origin": "de-identified source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "eligibility is checked before priority",
+      "a repeatable ranking needs stable tie-breakers and visible reasons"
+    ],
+    "route": "/build-logs/interface-contracts-before-priority-ranking",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only inspection of a contract validator and ranking implementation; matching tool copies reconciled; runtime unverified."
+  },
+  {
+    "title": "mailbox text to contact rows",
+    "slug": "mailbox-contact-extraction-to-csv",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A Python prototype combines message-header parsing with model-assisted contact extraction, then writes CSV rows without a separate evidence-review stage.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "email",
+      "extraction",
+      "data-quality",
+      "privacy"
+    ],
+    "tools": [
+      "python",
+      "extract-msg",
+      "csv"
+    ],
+    "narrative_origin": "local extraction-script source review",
+    "related": [
+      "mailbox-graph-helper-functions"
+    ],
+    "points": [
+      "header-derived fields and model-derived fields have different evidence strength",
+      "an empty extraction result does not distinguish absence from failure"
+    ],
+    "route": "/build-logs/mailbox-contact-extraction-to-csv",
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only inspection of message parsing, response cleanup, and CSV-writing code; runtime-unverified; no mailbox messages, contact datasets, or live model calls inspected or executed"
+  },
+  {
+    "title": "mqtt capture keeps receipt and recovery separate",
+    "slug": "mqtt-capture-keeps-receipt-and-recovery-separate",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A capture and offline profiling tool preserves message metadata while explicitly leaving reconnect recovery and live throughput unverified.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "mqtt",
+      "capture",
+      "data-quality"
+    ],
+    "tools": [
+      "python",
+      "paho-mqtt"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "Reconnection does not establish recovery of a missing message interval.",
+      "Streaming input can still accumulate growing retained inventories."
+    ],
+    "route": "/build-logs/mqtt-capture-keeps-receipt-and-recovery-separate",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "offline oee needs an observation window",
+    "slug": "offline-oee-needs-an-observation-window",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "Offline calculators and a SQL function illustrate why observation windows, missing-value policies, and state weights belong beside an OEE number.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "oee",
+      "missing-data",
+      "aggregation"
+    ],
+    "tools": [
+      "python",
+      "pandas"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "Observation windows and missing-data policies belong beside a metric.",
+      "A shared metric name does not establish shared calculation semantics."
+    ],
+    "route": "/field-notes/offline-oee-needs-an-observation-window",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "outcome recipes before dataset export",
+    "slug": "outcome-recipes-before-dataset-export",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A local dataset workbench connects observed outcomes to evidence windows and specialist judgments, then checks the recipe before writing an export package.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "datasets",
+      "evidence",
+      "validation",
+      "provenance"
+    ],
+    "tools": [
+      "go",
+      "react",
+      "sqlite"
+    ],
+    "narrative_origin": "source review of a local dataset recipe workbench",
+    "related": [
+      "machine-capture-to-training-dataset",
+      "operator-knowledge-as-signal"
+    ],
+    "points": [
+      "an outcome needs an entity, a timestamp, and evidence before it becomes a training example",
+      "recipe validation is scoped, but the export's separate nonempty judgment check is store-wide",
+      "recipe validation is not proof of representative labels or leakage-free evaluation"
+    ],
+    "route": "/build-logs/outcome-recipes-before-dataset-export",
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only inspection of recipe validation, scenario materialization, export orchestration, and package writing; runtime unverified; no datasets or live connectors opened"
+  },
+  {
+    "title": "procedure rendering and release gates",
+    "slug": "procedure-rendering-and-release-gates",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A source review of procedure PDF tooling, its local document library, and a filesystem workflow whose structural checks do not establish operational correctness.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "document-generation",
+      "agent-workflows",
+      "validation",
+      "release-gates"
+    ],
+    "tools": [
+      "nodejs",
+      "handlebars",
+      "puppeteer"
+    ],
+    "narrative_origin": "de-identified source review",
+    "related": [
+      "request-documents-with-visible-missing-inputs"
+    ],
+    "points": [
+      "shared template defaults reduce repetition but do not verify a procedure",
+      "a stored review verdict is not automatically an enforced release gate"
+    ],
+    "route": "/build-logs/procedure-rendering-and-release-gates",
+    "last_verified": "2026-10-05",
+    "source_context": "Source review only; runtime unverified. No source applications, builds, endpoints, or customer datasets were exercised."
+  },
+  {
+    "title": "project scaffolding is not a safe rerun",
+    "slug": "project-scaffolding-is-not-a-safe-rerun",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A small Python scaffolder mixes directory creation, file replacement, commits, tags, and pushes. Its source shows why a repeatable command needs separate mutation boundaries.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "developer-tools",
+      "scaffolding",
+      "git",
+      "idempotency"
+    ],
+    "tools": [
+      "python",
+      "git"
+    ],
+    "narrative_origin": "source inspection of project creation and repository helpers",
+    "related": [
+      "finished-batch-packout-report-export"
+    ],
+    "points": [
+      "allowing an existing directory does not protect the files inside it",
+      "scaffolding, committing, and pushing are separate decisions even when one script performs them"
+    ],
+    "route": "/field-notes/project-scaffolding-is-not-a-safe-rerun",
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only inspection of a Python project creator and Git helper; runtime unverified; neither script nor any Git mutation in its source workspace was executed"
+  },
+  {
+    "title": "qc intake before operational claims",
+    "slug": "qc-intake-before-operational-claims",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A packaged validation workflow separates sample meaning, data-quality flags, and machine coverage before attempting to explain operational results.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "data-quality",
+      "quality-control",
+      "evidence",
+      "workflow"
+    ],
+    "tools": [
+      "python",
+      "openpyxl",
+      "pandas"
+    ],
+    "narrative_origin": "packaged validation workflow review",
+    "related": [
+      "data-trust-ladder",
+      "machine-metrics-collector-with-commissioning-gates"
+    ],
+    "points": [
+      "A sample's location changes what its columns mean.",
+      "Blank cells and observed zeroes must remain different.",
+      "An output file proves a stage wrote something, not that its evidence passed review."
+    ],
+    "route": "/build-logs/qc-intake-before-operational-claims",
+    "last_verified": "2026-10-05",
+    "source_context": "Read-only review of packaged Python helpers and semantic rules; five scripts syntax-parsed. No operational data processed or live database queried."
+  },
+  {
+    "title": "quality scenarios need consistent denominators",
+    "slug": "quality-scenarios-need-consistent-denominators",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A quality scenario dashboard combines sampled defect proportions with received weights; its aggregation choices change the meaning of the result.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "quality-control",
+      "modelling",
+      "data-quality"
+    ],
+    "tools": [
+      "python",
+      "pandas",
+      "streamlit"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "Mean sample proportions and pooled proportions answer different questions.",
+      "A scenario projection does not demonstrate an operational improvement."
+    ],
+    "route": "/field-notes/quality-scenarios-need-consistent-denominators",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "report publication beyond the preview",
+    "slug": "report-publication-beyond-the-preview",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A source review of newer report-portal code: authenticated requests, typed publication validation, and revision-aware lifecycle operations beyond a browser-only preview.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "report-portal",
+      "publication-workflow",
+      "validation",
+      "revision-history"
+    ],
+    "tools": [
+      "javascript"
+    ],
+    "narrative_origin": "de-identified source review",
+    "related": [
+      "static-report-portal-preview"
+    ],
+    "points": [
+      "publication validation can check meaning-bearing relationships as well as JSON shape",
+      "restoring a publication is a revisioned operation, not just changing a visible status"
+    ],
+    "route": "/build-logs/report-publication-beyond-the-preview",
+    "last_verified": "2026-10-05",
+    "source_context": "Source review only; runtime unverified. No source applications, builds, endpoints, or customer datasets were exercised."
+  },
+  {
+    "title": "request documents with visible missing inputs",
+    "slug": "request-documents-with-visible-missing-inputs",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A source review of a Markdown-to-PDF work queue that keeps missing inputs visible and separates rendering success from document readiness.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "document-generation",
+      "work-queues",
+      "validation"
+    ],
+    "tools": [
+      "python",
+      "yaml",
+      "wkhtmltopdf"
+    ],
+    "narrative_origin": "de-identified source review",
+    "related": [
+      "versioned-quote-document-engine"
+    ],
+    "points": [
+      "missing fields can survive rendering as visible markers",
+      "a completed queue item records rendering success, not approval of its contents"
+    ],
+    "route": "/build-logs/request-documents-with-visible-missing-inputs",
+    "last_verified": "2026-10-05",
+    "source_context": "Source review only; runtime unverified. No source applications, builds, endpoints, or customer datasets were exercised."
+  },
+  {
+    "title": "resumable cases and frozen experiment inputs",
+    "slug": "resumable-cases-and-frozen-experiment-inputs",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "An investigation workbench represents progress as bounded case state and compares registered evaluators against a preserved baseline on frozen input snapshots.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "research",
+      "checkpoints",
+      "experiments",
+      "provenance"
+    ],
+    "tools": [
+      "python"
+    ],
+    "narrative_origin": "de-identified source review",
+    "related": [
+      "real-time-anomaly-detection-on-a-grading-line",
+      "data-trust-ladder"
+    ],
+    "points": [
+      "resumption checks the input snapshot and comparison configuration",
+      "elapsed-time accounting is not preemptive cancellation"
+    ],
+    "route": "/build-logs/resumable-cases-and-frozen-experiment-inputs",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only inspection of case-state and replay-experiment modules in an investigation workbench; runtime and integration unverified."
+  },
+  {
+    "title": "thread-scoped experiments with container limits",
+    "slug": "thread-scoped-experiments-with-container-limits",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A research-agent adaptation adds thread-scoped experiment reservations, replay checks, and restricted container execution while keeping isolation claims provisional.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "research",
+      "sandboxing",
+      "provenance",
+      "execution-budgets"
+    ],
+    "tools": [
+      "python",
+      "sqlite",
+      "docker"
+    ],
+    "narrative_origin": "de-identified source review of an upstream-based adaptation",
+    "related": [
+      "resumable-cases-and-frozen-experiment-inputs"
+    ],
+    "points": [
+      "execution identity must be tied to code and inputs before reusing a result",
+      "container restrictions do not establish safety for every connected tool"
+    ],
+    "route": "/build-logs/thread-scoped-experiments-with-container-limits",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only inspection of experiment reservation and container-launch code in a local adaptation of an upstream research agent; runtime unverified."
+  },
+  {
+    "title": "timeline overlays need interval invariants",
+    "slug": "timeline-overlays-need-interval-invariants",
+    "type": "field_note",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "Standalone timeline queries and plotting helpers show why interval identity, overlap handling, and inferred breaks need explicit contracts.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "event-timelines",
+      "sql",
+      "data-quality"
+    ],
+    "tools": [
+      "sql",
+      "python",
+      "pandas"
+    ],
+    "narrative_origin": "bounded source review",
+    "related": [
+      "data-trust-ladder"
+    ],
+    "points": [
+      "Interval identities must remain unique across combined state sets.",
+      "Overlapping events need an explicit duration-counting policy."
+    ],
+    "route": "/field-notes/timeline-overlays-need-interval-invariants",
+    "last_verified": "2026-10-05",
+    "source_context": "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+  },
+  {
+    "title": "versioned quote document engine",
+    "slug": "versioned-quote-document-engine",
+    "type": "build_log",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A source review of related quotation prototypes: editable browser output, a quote repository, and a document engine that records payload revisions separately from artifacts.",
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "tags": [
+      "document-generation",
+      "revision-history",
+      "pdf-export"
+    ],
+    "tools": [
+      "typescript",
+      "python",
+      "sqlite",
+      "playwright"
+    ],
+    "narrative_origin": "de-identified source review",
+    "related": [
+      "desktop-certificate-and-audit-pdf-generator"
+    ],
+    "points": [
+      "payload revision history and rendered-file retention are different guarantees",
+      "the inspected Python registry installs quotes, not every document type named in its extension comments"
+    ],
+    "route": "/build-logs/versioned-quote-document-engine",
+    "last_verified": "2026-10-05",
+    "source_context": "Source review only; runtime unverified. No source applications, builds, endpoints, or customer datasets were exercised."
+  },
+  {
     "title": "meeting notes workflow compiler",
     "slug": "meeting-notes-workflow-compiler",
     "type": "experiment",
@@ -130,7 +1192,7 @@
     "confidence": "partial",
     "summary": "A build log for a Windows desktop tool that turns calibration, audit, and service-work models into previewable PDFs with templates, local job history, and repeatable numbering.",
     "created": "2026-06-23",
-    "updated": "2026-06-23",
+    "updated": "2026-10-05",
     "tags": [
       "document-generation",
       "windows-app",
@@ -141,6 +1203,7 @@
     ],
     "tools": [
       "dotnet",
+      "wpf",
       "winforms",
       "razor",
       "playwright",
@@ -161,8 +1224,8 @@
     ],
     "route": "/build-logs/desktop-certificate-and-audit-pdf-generator",
     "record_id": "build_log_010",
-    "last_verified": "2026-06-23",
-    "source_context": "sanitized inspection of a registered desktop-document source: templates, renderer, template registry, form pages, local job store, refactor notes, and project files; source build passed with warnings on 2026-06-23; no source test project was present"
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only follow-up of WPF startup, document readiness evaluator, and readiness/export test source; current runtime unverified and tests not executed; the earlier build result below belongs to the 2026-06-23 snapshot"
   },
   {
     "title": "edge log agent and central processor",
@@ -217,7 +1280,7 @@
     "confidence": "partial",
     "summary": "A build log for a Windows-first reporting tool that turns finished production batches into packout PDFs and CSVs, with a ledger so exports are not repeated.",
     "created": "2026-06-23",
-    "updated": "2026-06-23",
+    "updated": "2026-10-05",
     "tags": [
       "reporting",
       "batch-processing",
@@ -247,8 +1310,8 @@
     ],
     "route": "/build-logs/finished-batch-packout-report-export",
     "record_id": "build_log_003",
-    "last_verified": "2026-06-23",
-    "source_context": "sanitized inspection of a registered reporting source: README, operations docs, release docs, git history, service code, and tests"
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only follow-up of the service export worker and a reduced command-line sibling's batch selection, output loop, and ledger calls; runtime unverified; no source builds, database queries, or report exports executed"
   },
   {
     "title": "local timesheet reporting workbench",
@@ -798,7 +1861,7 @@
     "confidence": "partial",
     "summary": "A build log for a WPF desktop shell that frames navigation, settings, theme control, and future machine/API configuration before the real workflow arrives.",
     "created": "2026-06-23",
-    "updated": "2026-06-23",
+    "updated": "2026-10-05",
     "tags": [
       "desktop-app",
       "wpf",
@@ -829,8 +1892,8 @@
     ],
     "route": "/build-logs/wpf-operations-console-shell",
     "record_id": "build_log_012",
-    "last_verified": "2026-06-23",
-    "source_context": "sanitized inspection of a registered WPF desktop source: solution/project files, host service, navigation window, pages, view models, settings scaffold, assets, and task metadata; source restore/build passed with nullable warnings on 2026-06-23; no source test suite was present"
+    "last_verified": "2026-10-05",
+    "source_context": "source-review-only follow-up of settings view-model HTTP preview, database connection, and schema-initialization commands; current runtime unverified; earlier restore/build evidence below is dated 2026-06-23 and was not repeated"
   },
   {
     "title": "dashboard without decisions",

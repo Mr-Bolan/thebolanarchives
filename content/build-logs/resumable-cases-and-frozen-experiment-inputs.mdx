@@ -1,0 +1,56 @@
+---
+title: "resumable cases and frozen experiment inputs"
+slug: "resumable-cases-and-frozen-experiment-inputs"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "An investigation workbench represents progress as bounded case state and compares registered evaluators against a preserved baseline on frozen input snapshots."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "research"
+  - "checkpoints"
+  - "experiments"
+  - "provenance"
+tools:
+  - "python"
+narrative_origin: "de-identified source review"
+visibility: "public"
+related:
+  - "real-time-anomaly-detection-on-a-grading-line"
+  - "data-trust-ladder"
+points:
+  - "resumption checks the input snapshot and comparison configuration"
+  - "elapsed-time accounting is not preemptive cancellation"
+last_verified: "2026-10-05"
+source_context: "Source-review-only inspection of case-state and replay-experiment modules in an investigation workbench; runtime and integration unverified."
+---
+
+## current state
+
+This is investigation infrastructure, not another live anomaly detector. Its case model
+stores an objective, registered tools, progress counters, artifact references, and an
+explicit resume point. It bounds list sizes and rejects artifact locations that escape
+the declared case workspace.
+
+The replay module takes a frozen snapshot and already-registered evaluator callables.
+It preserves a baseline result, records candidate comparisons, and can return progress
+for continuation. On resume it compares the snapshot hash, evaluator descriptors,
+candidate manifest, scoring direction, and budget with the saved state.
+
+That helps prevent comparing results from different declared inputs as though they
+belonged to one experiment. It does not establish evaluator purity or prove that a
+descriptor uniquely identifies executable code.
+
+## limits
+
+The replay module has no persistence or source connector of its own. It is a bounded
+comparison component, not evidence of a complete durable execution service.
+
+Its timeout is checked after the callable returns. A callable that never returns is
+not interrupted by that check. Snapshot freezing also does not stop a callable from
+performing unrelated side effects.
+
+This is source review only, with runtime unverified. No evaluator, source query, or
+application was run. A future execution boundary needs independent cancellation and
+isolation evidence before these budget fields can be described as enforcement.

@@ -1,0 +1,69 @@
+---
+title: "equipment taxonomy as a job matching boundary"
+slug: "equipment-taxonomy-as-a-job-matching-boundary"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A specialist job-board prototype connects listings and candidate experience through shared equipment records, while its write paths expose unfinished identity boundaries."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - data-modeling
+  - matching
+  - access-control
+  - prototypes
+tools:
+  - nextjs
+  - typescript
+  - prisma
+  - sqlite
+narrative_origin: "source review of a specialist work-listing prototype"
+visibility: "public"
+related:
+  - "static-report-portal-preview"
+points:
+  - "listings and candidate experience reference the same equipment model"
+  - "a stored application is not proof that a recipient was notified"
+  - "email-keyed writes do not establish verified account ownership"
+last_verified: "2026-10-05"
+source_context: "source-review-only inspection of database schema and listing/application server actions, with local planning-board generator review; runtime unverified; no candidate records, submissions, or endpoints accessed"
+---
+
+# build_log // equipment_taxonomy_as_a_job_matching_boundary
+
+## the useful join
+
+This prototype makes equipment a shared vocabulary. A listing references equipment models;
+a candidate profile references those same models with experience duration and capacity.
+The database can connect the two without relying entirely on free-text job titles.
+
+The listing action checks required fields and a positive, ordered pay range before creating
+a published listing. The application action records a profile and its equipment experience,
+then creates an application. A database uniqueness constraint covers the listing/profile
+pair, and the action checks for an existing application before inserting another.
+
+These are implemented request paths. They are not evidence of successful hiring, verified
+skills, production deployment, or a complete matching engine.
+
+## the boundary still missing
+
+The inspected application action has no account-authentication step. It normalizes the
+submitted email and uses it to create or update a user. That establishes a storage key,
+not the submitter's right to modify that profile. Schema fields describing profile
+visibility do not, by themselves, demonstrate access enforcement.
+
+The action writes an application and redirects to a completion page. It does not show a
+notification delivery step. Copy suggesting that the other party has the details should
+not be read as proof that anyone received a message.
+
+## planning state is another kind of evidence
+
+A local companion board derives workflow state from output-file existence and dependency
+completion, with explicit in-progress or blocked assignments taking precedence. That is
+useful for navigation, but an output file existing is not a content-quality verdict. The
+planning board and the product database answer different questions.
+
+This review read source only on 2026-10-05. No app was started, no form was submitted, no
+personal records were read, and runtime behavior remains unverified. The next meaningful
+proof would use synthetic accounts to test ownership checks and distinguish stored,
+delivered, and acknowledged applications.

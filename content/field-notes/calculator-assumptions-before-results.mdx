@@ -1,0 +1,55 @@
+---
+title: "calculator assumptions come before results"
+slug: "calculator-assumptions-before-results"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "Source review of two browser calculators shows how frequency conversions, labels, and unhandled edge cases become part of the result before it reaches a chart."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - calculations
+  - validation
+  - browser-tools
+tools:
+  - javascript
+  - html
+  - chartjs
+narrative_origin: "local calculator source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "frequency conversion is part of the model, not merely display formatting"
+  - "a label should describe the operation the code actually performs"
+last_verified: "2026-10-05"
+source_context: "source-review-only inspection of two standalone calculator pages; runtime-unverified; no browser execution or financial validation"
+---
+
+## two small models
+
+One page adjusts a base hourly amount by summed percentages, annualizes optional weekly,
+monthly, or yearly overhead, prorates that overhead to the entered contract duration,
+and divides the combined requirement by contract hours. A final percentage multiplies
+the requirement before the page updates its result and comparison chart.
+
+The interface calls that last percentage a profit margin. The code applies a markup
+multiplier to cost; it does not solve for a target share of final revenue. The distinction
+belongs beside the input, not hidden behind the chart.
+
+The other page divides an annual rate into 26 equal periods, computes a payoff count,
+and constructs a repayment table plus a separate horizon projection. It rejects payments
+that do not exceed the first period's interest. The payoff expression has no separate
+zero-rate branch: substituting zero produces a zero divided by zero in the logarithmic
+calculation.
+
+## what this establishes
+
+These are observations about the reviewed JavaScript, not validated pricing or lending
+models. No current rates, financial recommendations, or claims about actual repayments
+are being made.
+
+The next useful check is a set of synthetic fixtures: zero rate, missing values,
+non-finite input, a final partial payment, and equivalent overhead entered at different
+frequencies. None was executed in this review. A neat table cannot substitute for that
+calculation contract.

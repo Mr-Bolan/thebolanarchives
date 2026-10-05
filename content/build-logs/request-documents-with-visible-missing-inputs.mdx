@@ -1,0 +1,61 @@
+---
+title: "request documents with visible missing inputs"
+slug: "request-documents-with-visible-missing-inputs"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A source review of a Markdown-to-PDF work queue that keeps missing inputs visible and separates rendering success from document readiness."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - document-generation
+  - work-queues
+  - validation
+tools:
+  - python
+  - yaml
+  - wkhtmltopdf
+narrative_origin: "de-identified source review"
+visibility: "public"
+related:
+  - "versioned-quote-document-engine"
+points:
+  - "missing fields can survive rendering as visible markers"
+  - "a completed queue item records rendering success, not approval of its contents"
+last_verified: "2026-10-05"
+source_context: "Source review only; runtime unverified. No source applications, builds, endpoints, or customer datasets were exercised."
+---
+
+# build_log // request_documents_with_visible_missing_inputs
+
+## current state
+
+A local document workflow reads YAML frontmatter and section bodies from Markdown requests.
+Its builder dispatches to quotation, scope-of-work, and agreement layouts. Text helpers
+escape ordinary content and convert a limited set of headings, lists, and tables into HTML.
+A separate renderer invokes a PDF tool.
+
+Missing values in several required-looking positions become explicit missing-input markers.
+That preserves uncertainty on the page instead of silently supplying invented details.
+
+## what the queue means
+
+The processor moves a request into processing, invokes the builder, and moves the request
+to done when that call returns. Exceptions move it to a failed area with diagnostic output.
+Those transitions make a batch easier to inspect.
+
+They do not establish content approval. In the inspected processor, success is tied to the
+build returning, not to a scan for unresolved markers. A readable PDF can therefore still be
+an incomplete request. The document counter also lives in a JSON file; this review does not
+establish safe concurrent allocation.
+
+## next check
+
+Use a synthetic request with deliberately absent fields to check whether the release path
+blocks it or simply produces a marked PDF. Keep completion of rendering separate from
+readiness to send.
+
+This is a source-review-only record dated 2026-10-05. Runtime execution, output appearance,
+and the adequacy of agreement text are unverified. No requests or generated customer
+documents were used as evidence.
+

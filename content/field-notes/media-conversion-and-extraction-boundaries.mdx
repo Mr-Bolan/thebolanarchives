@@ -1,0 +1,63 @@
+---
+title: "conversion is not evidence of complete extraction"
+slug: "media-conversion-and-extraction-boundaries"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "Several small media utilities make different promises: image conversion, embedded-image OCR, frame OCR, and audio transcription. Their outputs need distinct completeness checks."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - media-processing
+  - ocr
+  - transcript-processing
+  - data-quality
+tools:
+  - python
+  - pillow
+  - pymupdf
+  - tesseract
+  - opencv
+  - moviepy
+narrative_origin: "local media-utility source review"
+visibility: "public"
+related:
+  - "meeting-notes-workflow-compiler"
+points:
+  - "a converted image, extracted image, video frame, and audio segment are different units of work"
+  - "output-file existence does not establish extraction completeness"
+last_verified: "2026-10-05"
+source_context: "source-review-only inspection of image conversion, PDF OCR, video-frame OCR, and audio transcription scripts; runtime-unverified; no recordings, documents, transcripts, or generated outputs opened"
+---
+
+## four boundaries, not one application
+
+These utilities were inspected as separate scripts. Their proximity in a source
+inventory is not evidence that they form an integrated pipeline.
+
+The image converter enumerates HEIC files, decodes them through an image library, and
+writes PNG or JPEG siblings. It validates the requested output format. It does not
+extract text, and the reviewed loop has no destination-collision check.
+
+The PDF utility walks each page's embedded-image list and runs OCR on those image bytes.
+It labels output by page and image number. It does not render the whole page or extract
+the PDF's text layer, so its function name should not be read as a promise to recover
+all document text.
+
+The video utility runs OCR over each entire frame and appends nonempty text when it
+differs from the previous retained result. There is no subtitle-region crop or timestamp
+in the output path. Small OCR variations can evade this exact-string deduplication;
+the code alone cannot establish readable subtitle recovery.
+
+## when a file becomes a false completion flag
+
+The audio utility converts a recording and transcribes short chunks. Chunk-level
+exceptions are printed, after which processing continues. The assembled text can still
+be written, while a later run skips transcription when that output file already exists.
+This creates a source-visible possibility of treating partial output as completed work.
+No such failure was observed in execution.
+
+Before these outputs feed a notes workflow, a useful completion record would identify
+the input, expected units, successful units, and failed units. Synthetic images and
+audio could test those boundaries without private material. That remains proposed work:
+none of the utilities, OCR engines, codecs, or remote transcription calls was run here.

@@ -1,0 +1,46 @@
+---
+title: "coverage cells are not complete proof"
+slug: "coverage-cells-are-not-complete-proof"
+type: "field_note"
+status: "working_note"
+confidence: "partial"
+summary: "A grading-rule modeller distinguishes holes, overlaps, and forbidden destinations, but a covered heatmap cell is only an intersection claim."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "rules"
+  - "validation"
+  - "visualization"
+tools:
+  - "python"
+  - "sqlite"
+  - "plotly"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "Rule intersection with a cell does not prove coverage of every point."
+  - "Exact-point tests complement coarse heatmap warnings."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# coverage cells are not complete proof
+
+## what the grid actually checks
+
+The inspected modeller represents rules as ranges across confidence, severity, and count. A grid cell is classified by which rule boxes intersect it. No matches produce a hole or fallback warning; multiple matches produce overlap. A single match then passes through destination-permission and review checks.
+
+That ordering makes ambiguity visible before selecting a destination.
+
+But intersection is weaker than complete coverage. A narrow rule touching one corner can make a whole cell look covered. Two disjoint rules touching different parts of the same coarse cell can also produce an overlap label without sharing an exact observation.
+
+## point checks remain necessary
+
+The separate scenario evaluator tests an exact point against the same ranges. It reports unmatched and ambiguous observations and compares a unique result with an expected destination.
+
+The grid is a screening surface, not a proof of exhaustive or conflict-free routing. Boundary-point fixtures and finer partitioning would help distinguish actual holes from coarse-bin warnings.
+
+This is source-review-only, runtime-unverified. No stored grading configuration or operational result was inspected, and no machine routing behaviour is claimed.
+

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-29T12:08:16.733Z",
+  "generated": "2026-10-05T03:46:30.544Z",
   "nodes": [
     {
       "id": "record:why-this-exists",
@@ -12,14 +12,174 @@
       "slug": "why-this-exists"
     },
     {
+      "id": "record:a-schedule-filter-can-erase-a-report-window",
+      "kind": "record",
+      "label": "a-schedule-filter-can-erase-a-report-window",
+      "degree": 6,
+      "route": "/field-notes/a-schedule-filter-can-erase-a-report-window",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "a-schedule-filter-can-erase-a-report-window"
+    },
+    {
+      "id": "record:allocation-models-need-an-objective-contract",
+      "kind": "record",
+      "label": "allocation-models-need-an-objective-contract",
+      "degree": 3,
+      "route": "/field-notes/allocation-models-need-an-objective-contract",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "allocation-models-need-an-objective-contract"
+    },
+    {
+      "id": "record:blocking-led-timing",
+      "kind": "record",
+      "label": "blocking-led-timing",
+      "degree": 4,
+      "route": "/field-notes/blocking-led-timing",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "blocking-led-timing"
+    },
+    {
+      "id": "record:calculator-assumptions-before-results",
+      "kind": "record",
+      "label": "calculator-assumptions-before-results",
+      "degree": 4,
+      "route": "/field-notes/calculator-assumptions-before-results",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "calculator-assumptions-before-results"
+    },
+    {
+      "id": "record:call-graphs-need-a-source-boundary",
+      "kind": "record",
+      "label": "call-graphs-need-a-source-boundary",
+      "degree": 3,
+      "route": "/field-notes/call-graphs-need-a-source-boundary",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "call-graphs-need-a-source-boundary"
+    },
+    {
+      "id": "record:commissioning-controls-need-correlated-evidence",
+      "kind": "record",
+      "label": "commissioning-controls-need-correlated-evidence",
+      "degree": 4,
+      "route": "/field-notes/commissioning-controls-need-correlated-evidence",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "commissioning-controls-need-correlated-evidence"
+    },
+    {
+      "id": "record:coverage-cells-are-not-complete-proof",
+      "kind": "record",
+      "label": "coverage-cells-are-not-complete-proof",
+      "degree": 4,
+      "route": "/field-notes/coverage-cells-are-not-complete-proof",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "coverage-cells-are-not-complete-proof"
+    },
+    {
+      "id": "record:dataset-splits-should-leave-a-manifest",
+      "kind": "record",
+      "label": "dataset-splits-should-leave-a-manifest",
+      "degree": 4,
+      "route": "/field-notes/dataset-splits-should-leave-a-manifest",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "dataset-splits-should-leave-a-manifest"
+    },
+    {
+      "id": "record:detector-replay-is-a-hypothesis-test",
+      "kind": "record",
+      "label": "detector-replay-is-a-hypothesis-test",
+      "degree": 4,
+      "route": "/field-notes/detector-replay-is-a-hypothesis-test",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "detector-replay-is-a-hypothesis-test"
+    },
+    {
+      "id": "record:file-watchers-need-a-retention-boundary",
+      "kind": "record",
+      "label": "file-watchers-need-a-retention-boundary",
+      "degree": 3,
+      "route": "/field-notes/file-watchers-need-a-retention-boundary",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "file-watchers-need-a-retention-boundary"
+    },
+    {
+      "id": "record:media-conversion-and-extraction-boundaries",
+      "kind": "record",
+      "label": "media-conversion-and-extraction-boundaries",
+      "degree": 5,
+      "route": "/field-notes/media-conversion-and-extraction-boundaries",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "media-conversion-and-extraction-boundaries"
+    },
+    {
+      "id": "record:offline-oee-needs-an-observation-window",
+      "kind": "record",
+      "label": "offline-oee-needs-an-observation-window",
+      "degree": 4,
+      "route": "/field-notes/offline-oee-needs-an-observation-window",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "offline-oee-needs-an-observation-window"
+    },
+    {
+      "id": "record:project-scaffolding-is-not-a-safe-rerun",
+      "kind": "record",
+      "label": "project-scaffolding-is-not-a-safe-rerun",
+      "degree": 5,
+      "route": "/field-notes/project-scaffolding-is-not-a-safe-rerun",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "project-scaffolding-is-not-a-safe-rerun"
+    },
+    {
+      "id": "record:quality-scenarios-need-consistent-denominators",
+      "kind": "record",
+      "label": "quality-scenarios-need-consistent-denominators",
+      "degree": 4,
+      "route": "/field-notes/quality-scenarios-need-consistent-denominators",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "quality-scenarios-need-consistent-denominators"
+    },
+    {
       "id": "record:the-operator-knows-before-the-database-does",
       "kind": "record",
       "label": "the-operator-knows-before-the-database-does",
-      "degree": 7,
+      "degree": 8,
       "route": "/field-notes/the-operator-knows-before-the-database-does",
       "type": "field_note",
       "status": "sketch",
       "slug": "the-operator-knows-before-the-database-does"
+    },
+    {
+      "id": "record:timeline-overlays-need-interval-invariants",
+      "kind": "record",
+      "label": "timeline-overlays-need-interval-invariants",
+      "degree": 4,
+      "route": "/field-notes/timeline-overlays-need-interval-invariants",
+      "type": "field_note",
+      "status": "working_note",
+      "slug": "timeline-overlays-need-interval-invariants"
+    },
+    {
+      "id": "record:a-page-watcher-with-visible-crawl-state",
+      "kind": "record",
+      "label": "a-page-watcher-with-visible-crawl-state",
+      "degree": 5,
+      "route": "/build-logs/a-page-watcher-with-visible-crawl-state",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "a-page-watcher-with-visible-crawl-state"
     },
     {
       "id": "record:adaptive-oee-reporting-workbench",
@@ -35,17 +195,37 @@
       "id": "record:agent-runbook-workspace-for-machine-reports",
       "kind": "record",
       "label": "agent-runbook-workspace-for-machine-reports",
-      "degree": 15,
+      "degree": 17,
       "route": "/build-logs/agent-runbook-workspace-for-machine-reports",
       "type": "build_log",
       "status": "working_note",
       "slug": "agent-runbook-workspace-for-machine-reports"
     },
     {
+      "id": "record:browser-forms-before-document-history",
+      "kind": "record",
+      "label": "browser-forms-before-document-history",
+      "degree": 4,
+      "route": "/build-logs/browser-forms-before-document-history",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "browser-forms-before-document-history"
+    },
+    {
+      "id": "record:curriculum-project-contact-cli",
+      "kind": "record",
+      "label": "curriculum-project-contact-cli",
+      "degree": 5,
+      "route": "/build-logs/curriculum-project-contact-cli",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "curriculum-project-contact-cli"
+    },
+    {
       "id": "record:desktop-certificate-and-audit-pdf-generator",
       "kind": "record",
       "label": "desktop-certificate-and-audit-pdf-generator",
-      "degree": 11,
+      "degree": 13,
       "route": "/build-logs/desktop-certificate-and-audit-pdf-generator",
       "type": "build_log",
       "status": "working_note",
@@ -62,20 +242,70 @@
       "slug": "edge-log-agent-and-central-processor"
     },
     {
+      "id": "record:equipment-taxonomy-as-a-job-matching-boundary",
+      "kind": "record",
+      "label": "equipment-taxonomy-as-a-job-matching-boundary",
+      "degree": 5,
+      "route": "/build-logs/equipment-taxonomy-as-a-job-matching-boundary",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "equipment-taxonomy-as-a-job-matching-boundary"
+    },
+    {
+      "id": "record:evidence-linked-research-without-automatic-conclusions",
+      "kind": "record",
+      "label": "evidence-linked-research-without-automatic-conclusions",
+      "degree": 6,
+      "route": "/build-logs/evidence-linked-research-without-automatic-conclusions",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "evidence-linked-research-without-automatic-conclusions"
+    },
+    {
       "id": "record:finished-batch-packout-report-export",
       "kind": "record",
       "label": "finished-batch-packout-report-export",
-      "degree": 12,
+      "degree": 13,
       "route": "/build-logs/finished-batch-packout-report-export",
       "type": "build_log",
       "status": "working_note",
       "slug": "finished-batch-packout-report-export"
     },
     {
+      "id": "record:hardware-keys-as-an-execution-boundary",
+      "kind": "record",
+      "label": "hardware-keys-as-an-execution-boundary",
+      "degree": 5,
+      "route": "/build-logs/hardware-keys-as-an-execution-boundary",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "hardware-keys-as-an-execution-boundary"
+    },
+    {
+      "id": "record:interface-contracts-before-priority-ranking",
+      "kind": "record",
+      "label": "interface-contracts-before-priority-ranking",
+      "degree": 5,
+      "route": "/build-logs/interface-contracts-before-priority-ranking",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "interface-contracts-before-priority-ranking"
+    },
+    {
+      "id": "record:local-crm-route-prototype",
+      "kind": "record",
+      "label": "local-crm-route-prototype",
+      "degree": 5,
+      "route": "/build-logs/local-crm-route-prototype",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "local-crm-route-prototype"
+    },
+    {
       "id": "record:local-timesheet-reporting-workbench",
       "kind": "record",
       "label": "local-timesheet-reporting-workbench",
-      "degree": 12,
+      "degree": 13,
       "route": "/build-logs/local-timesheet-reporting-workbench",
       "type": "build_log",
       "status": "working_note",
@@ -85,7 +315,7 @@
       "id": "record:machine-capture-to-training-dataset",
       "kind": "record",
       "label": "machine-capture-to-training-dataset",
-      "degree": 10,
+      "degree": 11,
       "route": "/build-logs/machine-capture-to-training-dataset",
       "type": "build_log",
       "status": "working_note",
@@ -105,17 +335,27 @@
       "id": "record:machine-metrics-collector-with-commissioning-gates",
       "kind": "record",
       "label": "machine-metrics-collector-with-commissioning-gates",
-      "degree": 16,
+      "degree": 17,
       "route": "/build-logs/machine-metrics-collector-with-commissioning-gates",
       "type": "build_log",
       "status": "working_note",
       "slug": "machine-metrics-collector-with-commissioning-gates"
     },
     {
+      "id": "record:mailbox-contact-extraction-to-csv",
+      "kind": "record",
+      "label": "mailbox-contact-extraction-to-csv",
+      "degree": 5,
+      "route": "/build-logs/mailbox-contact-extraction-to-csv",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "mailbox-contact-extraction-to-csv"
+    },
+    {
       "id": "record:mailbox-graph-helper-functions",
       "kind": "record",
       "label": "mailbox-graph-helper-functions",
-      "degree": 12,
+      "degree": 13,
       "route": "/build-logs/mailbox-graph-helper-functions",
       "type": "build_log",
       "status": "working_note",
@@ -135,11 +375,21 @@
       "id": "record:minute-level-oee-kpi-runner",
       "kind": "record",
       "label": "minute-level-oee-kpi-runner",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/minute-level-oee-kpi-runner",
       "type": "build_log",
       "status": "working_note",
       "slug": "minute-level-oee-kpi-runner"
+    },
+    {
+      "id": "record:mqtt-capture-keeps-receipt-and-recovery-separate",
+      "kind": "record",
+      "label": "mqtt-capture-keeps-receipt-and-recovery-separate",
+      "degree": 4,
+      "route": "/build-logs/mqtt-capture-keeps-receipt-and-recovery-separate",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "mqtt-capture-keeps-receipt-and-recovery-separate"
     },
     {
       "id": "record:multi-site-reporter-configuration-shell",
@@ -152,14 +402,74 @@
       "slug": "multi-site-reporter-configuration-shell"
     },
     {
+      "id": "record:outcome-recipes-before-dataset-export",
+      "kind": "record",
+      "label": "outcome-recipes-before-dataset-export",
+      "degree": 6,
+      "route": "/build-logs/outcome-recipes-before-dataset-export",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "outcome-recipes-before-dataset-export"
+    },
+    {
+      "id": "record:procedure-rendering-and-release-gates",
+      "kind": "record",
+      "label": "procedure-rendering-and-release-gates",
+      "degree": 5,
+      "route": "/build-logs/procedure-rendering-and-release-gates",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "procedure-rendering-and-release-gates"
+    },
+    {
+      "id": "record:qc-intake-before-operational-claims",
+      "kind": "record",
+      "label": "qc-intake-before-operational-claims",
+      "degree": 6,
+      "route": "/build-logs/qc-intake-before-operational-claims",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "qc-intake-before-operational-claims"
+    },
+    {
       "id": "record:real-time-anomaly-detection-on-a-grading-line",
       "kind": "record",
       "label": "real-time-anomaly-detection-on-a-grading-line",
-      "degree": 11,
+      "degree": 12,
       "route": "/build-logs/real-time-anomaly-detection-on-a-grading-line",
       "type": "build_log",
       "status": "working_note",
       "slug": "real-time-anomaly-detection-on-a-grading-line"
+    },
+    {
+      "id": "record:report-publication-beyond-the-preview",
+      "kind": "record",
+      "label": "report-publication-beyond-the-preview",
+      "degree": 5,
+      "route": "/build-logs/report-publication-beyond-the-preview",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "report-publication-beyond-the-preview"
+    },
+    {
+      "id": "record:request-documents-with-visible-missing-inputs",
+      "kind": "record",
+      "label": "request-documents-with-visible-missing-inputs",
+      "degree": 5,
+      "route": "/build-logs/request-documents-with-visible-missing-inputs",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "request-documents-with-visible-missing-inputs"
+    },
+    {
+      "id": "record:resumable-cases-and-frozen-experiment-inputs",
+      "kind": "record",
+      "label": "resumable-cases-and-frozen-experiment-inputs",
+      "degree": 7,
+      "route": "/build-logs/resumable-cases-and-frozen-experiment-inputs",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "resumable-cases-and-frozen-experiment-inputs"
     },
     {
       "id": "record:static-archive-scaffold",
@@ -175,7 +485,7 @@
       "id": "record:static-report-portal-preview",
       "kind": "record",
       "label": "static-report-portal-preview",
-      "degree": 14,
+      "degree": 16,
       "route": "/build-logs/static-report-portal-preview",
       "type": "build_log",
       "status": "working_note",
@@ -195,11 +505,41 @@
       "id": "record:target-audience-role-proxy",
       "kind": "record",
       "label": "target-audience-role-proxy",
-      "degree": 9,
+      "degree": 11,
       "route": "/build-logs/target-audience-role-proxy",
       "type": "build_log",
       "status": "sketch",
       "slug": "target-audience-role-proxy"
+    },
+    {
+      "id": "record:thread-scoped-experiments-with-container-limits",
+      "kind": "record",
+      "label": "thread-scoped-experiments-with-container-limits",
+      "degree": 5,
+      "route": "/build-logs/thread-scoped-experiments-with-container-limits",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "thread-scoped-experiments-with-container-limits"
+    },
+    {
+      "id": "record:unfinished-web-change-monitor",
+      "kind": "record",
+      "label": "unfinished-web-change-monitor",
+      "degree": 4,
+      "route": "/build-logs/unfinished-web-change-monitor",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "unfinished-web-change-monitor"
+    },
+    {
+      "id": "record:versioned-quote-document-engine",
+      "kind": "record",
+      "label": "versioned-quote-document-engine",
+      "degree": 5,
+      "route": "/build-logs/versioned-quote-document-engine",
+      "type": "build_log",
+      "status": "working_note",
+      "slug": "versioned-quote-document-engine"
     },
     {
       "id": "record:workbook-row-to-packout-pdf",
@@ -235,7 +575,7 @@
       "id": "record:operator-knowledge-as-signal",
       "kind": "record",
       "label": "operator-knowledge-as-signal",
-      "degree": 10,
+      "degree": 11,
       "route": "/patterns/operator-knowledge-as-signal",
       "type": "pattern",
       "status": "working_note",
@@ -245,7 +585,7 @@
       "id": "record:data-trust-ladder",
       "kind": "record",
       "label": "data-trust-ladder",
-      "degree": 17,
+      "degree": 35,
       "route": "/experiments/data-trust-ladder",
       "type": "experiment",
       "status": "sketch",
@@ -255,7 +595,7 @@
       "id": "record:meeting-notes-workflow-compiler",
       "kind": "record",
       "label": "meeting-notes-workflow-compiler",
-      "degree": 6,
+      "degree": 7,
       "route": "/experiments/meeting-notes-workflow-compiler",
       "type": "experiment",
       "status": "field_tested",
@@ -293,6 +633,258 @@
       "tag": "build-logs"
     },
     {
+      "id": "tag:reporting",
+      "kind": "tag",
+      "label": "reporting",
+      "degree": 7,
+      "tag": "reporting"
+    },
+    {
+      "id": "tag:time-windows",
+      "kind": "tag",
+      "label": "time-windows",
+      "degree": 1,
+      "tag": "time-windows"
+    },
+    {
+      "id": "tag:boundary-conditions",
+      "kind": "tag",
+      "label": "boundary-conditions",
+      "degree": 1,
+      "tag": "boundary-conditions"
+    },
+    {
+      "id": "tag:data-quality",
+      "kind": "tag",
+      "label": "data-quality",
+      "degree": 10,
+      "tag": "data-quality"
+    },
+    {
+      "id": "tag:modelling",
+      "kind": "tag",
+      "label": "modelling",
+      "degree": 2,
+      "tag": "modelling"
+    },
+    {
+      "id": "tag:optimisation",
+      "kind": "tag",
+      "label": "optimisation",
+      "degree": 1,
+      "tag": "optimisation"
+    },
+    {
+      "id": "tag:embedded-systems",
+      "kind": "tag",
+      "label": "embedded-systems",
+      "degree": 1,
+      "tag": "embedded-systems"
+    },
+    {
+      "id": "tag:timing",
+      "kind": "tag",
+      "label": "timing",
+      "degree": 1,
+      "tag": "timing"
+    },
+    {
+      "id": "tag:state-machines",
+      "kind": "tag",
+      "label": "state-machines",
+      "degree": 1,
+      "tag": "state-machines"
+    },
+    {
+      "id": "tag:calculations",
+      "kind": "tag",
+      "label": "calculations",
+      "degree": 1,
+      "tag": "calculations"
+    },
+    {
+      "id": "tag:validation",
+      "kind": "tag",
+      "label": "validation",
+      "degree": 10,
+      "tag": "validation"
+    },
+    {
+      "id": "tag:browser-tools",
+      "kind": "tag",
+      "label": "browser-tools",
+      "degree": 2,
+      "tag": "browser-tools"
+    },
+    {
+      "id": "tag:code-analysis",
+      "kind": "tag",
+      "label": "code-analysis",
+      "degree": 1,
+      "tag": "code-analysis"
+    },
+    {
+      "id": "tag:developer-tools",
+      "kind": "tag",
+      "label": "developer-tools",
+      "degree": 2,
+      "tag": "developer-tools"
+    },
+    {
+      "id": "tag:commissioning",
+      "kind": "tag",
+      "label": "commissioning",
+      "degree": 2,
+      "tag": "commissioning"
+    },
+    {
+      "id": "tag:observability",
+      "kind": "tag",
+      "label": "observability",
+      "degree": 2,
+      "tag": "observability"
+    },
+    {
+      "id": "tag:messaging",
+      "kind": "tag",
+      "label": "messaging",
+      "degree": 1,
+      "tag": "messaging"
+    },
+    {
+      "id": "tag:rules",
+      "kind": "tag",
+      "label": "rules",
+      "degree": 1,
+      "tag": "rules"
+    },
+    {
+      "id": "tag:visualization",
+      "kind": "tag",
+      "label": "visualization",
+      "degree": 2,
+      "tag": "visualization"
+    },
+    {
+      "id": "tag:datasets",
+      "kind": "tag",
+      "label": "datasets",
+      "degree": 2,
+      "tag": "datasets"
+    },
+    {
+      "id": "tag:computer-vision",
+      "kind": "tag",
+      "label": "computer-vision",
+      "degree": 2,
+      "tag": "computer-vision"
+    },
+    {
+      "id": "tag:reproducibility",
+      "kind": "tag",
+      "label": "reproducibility",
+      "degree": 1,
+      "tag": "reproducibility"
+    },
+    {
+      "id": "tag:anomaly-detection",
+      "kind": "tag",
+      "label": "anomaly-detection",
+      "degree": 3,
+      "tag": "anomaly-detection"
+    },
+    {
+      "id": "tag:replay",
+      "kind": "tag",
+      "label": "replay",
+      "degree": 1,
+      "tag": "replay"
+    },
+    {
+      "id": "tag:file-processing",
+      "kind": "tag",
+      "label": "file-processing",
+      "degree": 1,
+      "tag": "file-processing"
+    },
+    {
+      "id": "tag:data-safety",
+      "kind": "tag",
+      "label": "data-safety",
+      "degree": 1,
+      "tag": "data-safety"
+    },
+    {
+      "id": "tag:media-processing",
+      "kind": "tag",
+      "label": "media-processing",
+      "degree": 1,
+      "tag": "media-processing"
+    },
+    {
+      "id": "tag:ocr",
+      "kind": "tag",
+      "label": "ocr",
+      "degree": 1,
+      "tag": "ocr"
+    },
+    {
+      "id": "tag:transcript-processing",
+      "kind": "tag",
+      "label": "transcript-processing",
+      "degree": 2,
+      "tag": "transcript-processing"
+    },
+    {
+      "id": "tag:oee",
+      "kind": "tag",
+      "label": "oee",
+      "degree": 3,
+      "tag": "oee"
+    },
+    {
+      "id": "tag:missing-data",
+      "kind": "tag",
+      "label": "missing-data",
+      "degree": 1,
+      "tag": "missing-data"
+    },
+    {
+      "id": "tag:aggregation",
+      "kind": "tag",
+      "label": "aggregation",
+      "degree": 1,
+      "tag": "aggregation"
+    },
+    {
+      "id": "tag:scaffolding",
+      "kind": "tag",
+      "label": "scaffolding",
+      "degree": 1,
+      "tag": "scaffolding"
+    },
+    {
+      "id": "tag:git",
+      "kind": "tag",
+      "label": "git",
+      "degree": 1,
+      "tag": "git"
+    },
+    {
+      "id": "tag:idempotency",
+      "kind": "tag",
+      "label": "idempotency",
+      "degree": 1,
+      "tag": "idempotency"
+    },
+    {
+      "id": "tag:quality-control",
+      "kind": "tag",
+      "label": "quality-control",
+      "degree": 2,
+      "tag": "quality-control"
+    },
+    {
       "id": "tag:operators",
       "kind": "tag",
       "label": "operators",
@@ -314,25 +906,39 @@
       "tag": "machine-signals"
     },
     {
-      "id": "tag:oee",
+      "id": "tag:event-timelines",
       "kind": "tag",
-      "label": "oee",
+      "label": "event-timelines",
       "degree": 2,
-      "tag": "oee"
+      "tag": "event-timelines"
     },
     {
-      "id": "tag:reporting",
+      "id": "tag:sql",
       "kind": "tag",
-      "label": "reporting",
-      "degree": 6,
-      "tag": "reporting"
+      "label": "sql",
+      "degree": 1,
+      "tag": "sql"
     },
     {
-      "id": "tag:anomaly-detection",
+      "id": "tag:monitoring",
       "kind": "tag",
-      "label": "anomaly-detection",
+      "label": "monitoring",
       "degree": 2,
-      "tag": "anomaly-detection"
+      "tag": "monitoring"
+    },
+    {
+      "id": "tag:crawling",
+      "kind": "tag",
+      "label": "crawling",
+      "degree": 1,
+      "tag": "crawling"
+    },
+    {
+      "id": "tag:limits",
+      "kind": "tag",
+      "label": "limits",
+      "degree": 1,
+      "tag": "limits"
     },
     {
       "id": "tag:python",
@@ -359,7 +965,7 @@
       "id": "tag:agent-workflows",
       "kind": "tag",
       "label": "agent-workflows",
-      "degree": 1,
+      "degree": 2,
       "tag": "agent-workflows"
     },
     {
@@ -380,15 +986,43 @@
       "id": "tag:evidence",
       "kind": "tag",
       "label": "evidence",
-      "degree": 2,
+      "degree": 5,
       "tag": "evidence"
     },
     {
       "id": "tag:document-generation",
       "kind": "tag",
       "label": "document-generation",
-      "degree": 4,
+      "degree": 8,
       "tag": "document-generation"
+    },
+    {
+      "id": "tag:curriculum",
+      "kind": "tag",
+      "label": "curriculum",
+      "degree": 1,
+      "tag": "curriculum"
+    },
+    {
+      "id": "tag:cli",
+      "kind": "tag",
+      "label": "cli",
+      "degree": 2,
+      "tag": "cli"
+    },
+    {
+      "id": "tag:sqlite",
+      "kind": "tag",
+      "label": "sqlite",
+      "degree": 3,
+      "tag": "sqlite"
+    },
+    {
+      "id": "tag:data-import",
+      "kind": "tag",
+      "label": "data-import",
+      "degree": 1,
+      "tag": "data-import"
     },
     {
       "id": "tag:windows-app",
@@ -401,7 +1035,7 @@
       "id": "tag:pdf-export",
       "kind": "tag",
       "label": "pdf-export",
-      "degree": 2,
+      "degree": 3,
       "tag": "pdf-export"
     },
     {
@@ -436,7 +1070,7 @@
       "id": "tag:mqtt",
       "kind": "tag",
       "label": "mqtt",
-      "degree": 1,
+      "degree": 2,
       "tag": "mqtt"
     },
     {
@@ -445,6 +1079,48 @@
       "label": "time-series",
       "degree": 3,
       "tag": "time-series"
+    },
+    {
+      "id": "tag:data-modeling",
+      "kind": "tag",
+      "label": "data-modeling",
+      "degree": 1,
+      "tag": "data-modeling"
+    },
+    {
+      "id": "tag:matching",
+      "kind": "tag",
+      "label": "matching",
+      "degree": 1,
+      "tag": "matching"
+    },
+    {
+      "id": "tag:access-control",
+      "kind": "tag",
+      "label": "access-control",
+      "degree": 2,
+      "tag": "access-control"
+    },
+    {
+      "id": "tag:prototypes",
+      "kind": "tag",
+      "label": "prototypes",
+      "degree": 1,
+      "tag": "prototypes"
+    },
+    {
+      "id": "tag:research",
+      "kind": "tag",
+      "label": "research",
+      "degree": 3,
+      "tag": "research"
+    },
+    {
+      "id": "tag:provenance",
+      "kind": "tag",
+      "label": "provenance",
+      "degree": 4,
+      "tag": "provenance"
     },
     {
       "id": "tag:batch-processing",
@@ -468,11 +1144,67 @@
       "tag": "exports"
     },
     {
-      "id": "tag:data-quality",
+      "id": "tag:automation",
       "kind": "tag",
-      "label": "data-quality",
+      "label": "automation",
+      "degree": 2,
+      "tag": "automation"
+    },
+    {
+      "id": "tag:hardware",
+      "kind": "tag",
+      "label": "hardware",
+      "degree": 1,
+      "tag": "hardware"
+    },
+    {
+      "id": "tag:configuration",
+      "kind": "tag",
+      "label": "configuration",
+      "degree": 2,
+      "tag": "configuration"
+    },
+    {
+      "id": "tag:safety",
+      "kind": "tag",
+      "label": "safety",
+      "degree": 1,
+      "tag": "safety"
+    },
+    {
+      "id": "tag:interface-design",
+      "kind": "tag",
+      "label": "interface-design",
+      "degree": 1,
+      "tag": "interface-design"
+    },
+    {
+      "id": "tag:workflow",
+      "kind": "tag",
+      "label": "workflow",
       "degree": 3,
-      "tag": "data-quality"
+      "tag": "workflow"
+    },
+    {
+      "id": "tag:explainability",
+      "kind": "tag",
+      "label": "explainability",
+      "degree": 1,
+      "tag": "explainability"
+    },
+    {
+      "id": "tag:api-design",
+      "kind": "tag",
+      "label": "api-design",
+      "degree": 1,
+      "tag": "api-design"
+    },
+    {
+      "id": "tag:local-tools",
+      "kind": "tag",
+      "label": "local-tools",
+      "degree": 2,
+      "tag": "local-tools"
     },
     {
       "id": "tag:timesheets",
@@ -494,13 +1226,6 @@
       "label": "admin-tools",
       "degree": 1,
       "tag": "admin-tools"
-    },
-    {
-      "id": "tag:computer-vision",
-      "kind": "tag",
-      "label": "computer-vision",
-      "degree": 1,
-      "tag": "computer-vision"
     },
     {
       "id": "tag:image-decoding",
@@ -531,27 +1256,6 @@
       "tag": "reverse-engineering"
     },
     {
-      "id": "tag:local-tools",
-      "kind": "tag",
-      "label": "local-tools",
-      "degree": 1,
-      "tag": "local-tools"
-    },
-    {
-      "id": "tag:event-timelines",
-      "kind": "tag",
-      "label": "event-timelines",
-      "degree": 1,
-      "tag": "event-timelines"
-    },
-    {
-      "id": "tag:visualization",
-      "kind": "tag",
-      "label": "visualization",
-      "degree": 1,
-      "tag": "visualization"
-    },
-    {
       "id": "tag:flask",
       "kind": "tag",
       "label": "flask",
@@ -559,25 +1263,25 @@
       "tag": "flask"
     },
     {
-      "id": "tag:sqlite",
-      "kind": "tag",
-      "label": "sqlite",
-      "degree": 1,
-      "tag": "sqlite"
-    },
-    {
-      "id": "tag:commissioning",
-      "kind": "tag",
-      "label": "commissioning",
-      "degree": 1,
-      "tag": "commissioning"
-    },
-    {
       "id": "tag:email",
       "kind": "tag",
       "label": "email",
-      "degree": 1,
+      "degree": 2,
       "tag": "email"
+    },
+    {
+      "id": "tag:extraction",
+      "kind": "tag",
+      "label": "extraction",
+      "degree": 1,
+      "tag": "extraction"
+    },
+    {
+      "id": "tag:privacy",
+      "kind": "tag",
+      "label": "privacy",
+      "degree": 3,
+      "tag": "privacy"
     },
     {
       "id": "tag:microsoft-graph",
@@ -587,25 +1291,11 @@
       "tag": "microsoft-graph"
     },
     {
-      "id": "tag:automation",
-      "kind": "tag",
-      "label": "automation",
-      "degree": 1,
-      "tag": "automation"
-    },
-    {
       "id": "tag:integration",
       "kind": "tag",
       "label": "integration",
       "degree": 2,
       "tag": "integration"
-    },
-    {
-      "id": "tag:privacy",
-      "kind": "tag",
-      "label": "privacy",
-      "degree": 2,
-      "tag": "privacy"
     },
     {
       "id": "tag:label-printing",
@@ -629,6 +1319,13 @@
       "tag": "kpi"
     },
     {
+      "id": "tag:capture",
+      "kind": "tag",
+      "label": "capture",
+      "degree": 1,
+      "tag": "capture"
+    },
+    {
       "id": "tag:desktop-app",
       "kind": "tag",
       "label": "desktop-app",
@@ -643,18 +1340,18 @@
       "tag": "maui"
     },
     {
-      "id": "tag:configuration",
-      "kind": "tag",
-      "label": "configuration",
-      "degree": 1,
-      "tag": "configuration"
-    },
-    {
       "id": "tag:site-management",
       "kind": "tag",
       "label": "site-management",
       "degree": 1,
       "tag": "site-management"
+    },
+    {
+      "id": "tag:release-gates",
+      "kind": "tag",
+      "label": "release-gates",
+      "degree": 1,
+      "tag": "release-gates"
     },
     {
       "id": "tag:real-time",
@@ -685,6 +1382,48 @@
       "tag": "operator-knowledge"
     },
     {
+      "id": "tag:report-portal",
+      "kind": "tag",
+      "label": "report-portal",
+      "degree": 2,
+      "tag": "report-portal"
+    },
+    {
+      "id": "tag:publication-workflow",
+      "kind": "tag",
+      "label": "publication-workflow",
+      "degree": 2,
+      "tag": "publication-workflow"
+    },
+    {
+      "id": "tag:revision-history",
+      "kind": "tag",
+      "label": "revision-history",
+      "degree": 2,
+      "tag": "revision-history"
+    },
+    {
+      "id": "tag:work-queues",
+      "kind": "tag",
+      "label": "work-queues",
+      "degree": 1,
+      "tag": "work-queues"
+    },
+    {
+      "id": "tag:checkpoints",
+      "kind": "tag",
+      "label": "checkpoints",
+      "degree": 1,
+      "tag": "checkpoints"
+    },
+    {
+      "id": "tag:experiments",
+      "kind": "tag",
+      "label": "experiments",
+      "degree": 2,
+      "tag": "experiments"
+    },
+    {
       "id": "tag:static-export",
       "kind": "tag",
       "label": "static-export",
@@ -699,32 +1438,11 @@
       "tag": "nextjs"
     },
     {
-      "id": "tag:report-portal",
-      "kind": "tag",
-      "label": "report-portal",
-      "degree": 1,
-      "tag": "report-portal"
-    },
-    {
       "id": "tag:static-preview",
       "kind": "tag",
       "label": "static-preview",
       "degree": 1,
       "tag": "static-preview"
-    },
-    {
-      "id": "tag:publication-workflow",
-      "kind": "tag",
-      "label": "publication-workflow",
-      "degree": 1,
-      "tag": "publication-workflow"
-    },
-    {
-      "id": "tag:access-control",
-      "kind": "tag",
-      "label": "access-control",
-      "degree": 1,
-      "tag": "access-control"
     },
     {
       "id": "tag:document-delivery",
@@ -797,11 +1515,32 @@
       "tag": "react"
     },
     {
-      "id": "tag:workflow",
+      "id": "tag:sandboxing",
       "kind": "tag",
-      "label": "workflow",
+      "label": "sandboxing",
       "degree": 1,
-      "tag": "workflow"
+      "tag": "sandboxing"
+    },
+    {
+      "id": "tag:execution-budgets",
+      "kind": "tag",
+      "label": "execution-budgets",
+      "degree": 1,
+      "tag": "execution-budgets"
+    },
+    {
+      "id": "tag:state-management",
+      "kind": "tag",
+      "label": "state-management",
+      "degree": 1,
+      "tag": "state-management"
+    },
+    {
+      "id": "tag:concurrency",
+      "kind": "tag",
+      "label": "concurrency",
+      "degree": 1,
+      "tag": "concurrency"
     },
     {
       "id": "tag:spreadsheet-automation",
@@ -860,13 +1599,6 @@
       "tag": "dashboards"
     },
     {
-      "id": "tag:experiments",
-      "kind": "tag",
-      "label": "experiments",
-      "degree": 1,
-      "tag": "experiments"
-    },
-    {
       "id": "tag:meeting-notes",
       "kind": "tag",
       "label": "meeting-notes",
@@ -879,13 +1611,6 @@
       "label": "workflow-automation",
       "degree": 1,
       "tag": "workflow-automation"
-    },
-    {
-      "id": "tag:transcript-processing",
-      "kind": "tag",
-      "label": "transcript-processing",
-      "degree": 1,
-      "tag": "transcript-processing"
     },
     {
       "id": "tag:ai-assistance",
@@ -936,6 +1661,291 @@
       "kind": "tag"
     },
     {
+      "source": "record:a-schedule-filter-can-erase-a-report-window",
+      "target": "record:minute-level-oee-kpi-runner",
+      "kind": "related"
+    },
+    {
+      "source": "record:a-schedule-filter-can-erase-a-report-window",
+      "target": "record:agent-runbook-workspace-for-machine-reports",
+      "kind": "related"
+    },
+    {
+      "source": "record:a-schedule-filter-can-erase-a-report-window",
+      "target": "tag:reporting",
+      "kind": "tag"
+    },
+    {
+      "source": "record:a-schedule-filter-can-erase-a-report-window",
+      "target": "tag:time-windows",
+      "kind": "tag"
+    },
+    {
+      "source": "record:a-schedule-filter-can-erase-a-report-window",
+      "target": "tag:boundary-conditions",
+      "kind": "tag"
+    },
+    {
+      "source": "record:a-schedule-filter-can-erase-a-report-window",
+      "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
+      "source": "record:allocation-models-need-an-objective-contract",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:allocation-models-need-an-objective-contract",
+      "target": "tag:modelling",
+      "kind": "tag"
+    },
+    {
+      "source": "record:allocation-models-need-an-objective-contract",
+      "target": "tag:optimisation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:blocking-led-timing",
+      "target": "record:the-operator-knows-before-the-database-does",
+      "kind": "related"
+    },
+    {
+      "source": "record:blocking-led-timing",
+      "target": "tag:embedded-systems",
+      "kind": "tag"
+    },
+    {
+      "source": "record:blocking-led-timing",
+      "target": "tag:timing",
+      "kind": "tag"
+    },
+    {
+      "source": "record:blocking-led-timing",
+      "target": "tag:state-machines",
+      "kind": "tag"
+    },
+    {
+      "source": "record:calculator-assumptions-before-results",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:calculator-assumptions-before-results",
+      "target": "tag:calculations",
+      "kind": "tag"
+    },
+    {
+      "source": "record:calculator-assumptions-before-results",
+      "target": "tag:validation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:calculator-assumptions-before-results",
+      "target": "tag:browser-tools",
+      "kind": "tag"
+    },
+    {
+      "source": "record:call-graphs-need-a-source-boundary",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:call-graphs-need-a-source-boundary",
+      "target": "tag:code-analysis",
+      "kind": "tag"
+    },
+    {
+      "source": "record:call-graphs-need-a-source-boundary",
+      "target": "tag:developer-tools",
+      "kind": "tag"
+    },
+    {
+      "source": "record:commissioning-controls-need-correlated-evidence",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:commissioning-controls-need-correlated-evidence",
+      "target": "tag:commissioning",
+      "kind": "tag"
+    },
+    {
+      "source": "record:commissioning-controls-need-correlated-evidence",
+      "target": "tag:observability",
+      "kind": "tag"
+    },
+    {
+      "source": "record:commissioning-controls-need-correlated-evidence",
+      "target": "tag:messaging",
+      "kind": "tag"
+    },
+    {
+      "source": "record:coverage-cells-are-not-complete-proof",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:coverage-cells-are-not-complete-proof",
+      "target": "tag:rules",
+      "kind": "tag"
+    },
+    {
+      "source": "record:coverage-cells-are-not-complete-proof",
+      "target": "tag:validation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:coverage-cells-are-not-complete-proof",
+      "target": "tag:visualization",
+      "kind": "tag"
+    },
+    {
+      "source": "record:dataset-splits-should-leave-a-manifest",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:dataset-splits-should-leave-a-manifest",
+      "target": "tag:datasets",
+      "kind": "tag"
+    },
+    {
+      "source": "record:dataset-splits-should-leave-a-manifest",
+      "target": "tag:computer-vision",
+      "kind": "tag"
+    },
+    {
+      "source": "record:dataset-splits-should-leave-a-manifest",
+      "target": "tag:reproducibility",
+      "kind": "tag"
+    },
+    {
+      "source": "record:detector-replay-is-a-hypothesis-test",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:detector-replay-is-a-hypothesis-test",
+      "target": "tag:anomaly-detection",
+      "kind": "tag"
+    },
+    {
+      "source": "record:detector-replay-is-a-hypothesis-test",
+      "target": "tag:replay",
+      "kind": "tag"
+    },
+    {
+      "source": "record:detector-replay-is-a-hypothesis-test",
+      "target": "tag:validation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:file-watchers-need-a-retention-boundary",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:file-watchers-need-a-retention-boundary",
+      "target": "tag:file-processing",
+      "kind": "tag"
+    },
+    {
+      "source": "record:file-watchers-need-a-retention-boundary",
+      "target": "tag:data-safety",
+      "kind": "tag"
+    },
+    {
+      "source": "record:media-conversion-and-extraction-boundaries",
+      "target": "record:meeting-notes-workflow-compiler",
+      "kind": "related"
+    },
+    {
+      "source": "record:media-conversion-and-extraction-boundaries",
+      "target": "tag:media-processing",
+      "kind": "tag"
+    },
+    {
+      "source": "record:media-conversion-and-extraction-boundaries",
+      "target": "tag:ocr",
+      "kind": "tag"
+    },
+    {
+      "source": "record:media-conversion-and-extraction-boundaries",
+      "target": "tag:transcript-processing",
+      "kind": "tag"
+    },
+    {
+      "source": "record:media-conversion-and-extraction-boundaries",
+      "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
+      "source": "record:offline-oee-needs-an-observation-window",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:offline-oee-needs-an-observation-window",
+      "target": "tag:oee",
+      "kind": "tag"
+    },
+    {
+      "source": "record:offline-oee-needs-an-observation-window",
+      "target": "tag:missing-data",
+      "kind": "tag"
+    },
+    {
+      "source": "record:offline-oee-needs-an-observation-window",
+      "target": "tag:aggregation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:project-scaffolding-is-not-a-safe-rerun",
+      "target": "record:finished-batch-packout-report-export",
+      "kind": "related"
+    },
+    {
+      "source": "record:project-scaffolding-is-not-a-safe-rerun",
+      "target": "tag:developer-tools",
+      "kind": "tag"
+    },
+    {
+      "source": "record:project-scaffolding-is-not-a-safe-rerun",
+      "target": "tag:scaffolding",
+      "kind": "tag"
+    },
+    {
+      "source": "record:project-scaffolding-is-not-a-safe-rerun",
+      "target": "tag:git",
+      "kind": "tag"
+    },
+    {
+      "source": "record:project-scaffolding-is-not-a-safe-rerun",
+      "target": "tag:idempotency",
+      "kind": "tag"
+    },
+    {
+      "source": "record:quality-scenarios-need-consistent-denominators",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:quality-scenarios-need-consistent-denominators",
+      "target": "tag:quality-control",
+      "kind": "tag"
+    },
+    {
+      "source": "record:quality-scenarios-need-consistent-denominators",
+      "target": "tag:modelling",
+      "kind": "tag"
+    },
+    {
+      "source": "record:quality-scenarios-need-consistent-denominators",
+      "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
       "source": "record:the-operator-knows-before-the-database-does",
       "target": "record:operator-knowledge-as-signal",
       "kind": "related"
@@ -958,6 +1968,51 @@
     {
       "source": "record:the-operator-knows-before-the-database-does",
       "target": "tag:machine-signals",
+      "kind": "tag"
+    },
+    {
+      "source": "record:timeline-overlays-need-interval-invariants",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:timeline-overlays-need-interval-invariants",
+      "target": "tag:event-timelines",
+      "kind": "tag"
+    },
+    {
+      "source": "record:timeline-overlays-need-interval-invariants",
+      "target": "tag:sql",
+      "kind": "tag"
+    },
+    {
+      "source": "record:timeline-overlays-need-interval-invariants",
+      "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
+      "source": "record:a-page-watcher-with-visible-crawl-state",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:a-page-watcher-with-visible-crawl-state",
+      "target": "tag:monitoring",
+      "kind": "tag"
+    },
+    {
+      "source": "record:a-page-watcher-with-visible-crawl-state",
+      "target": "tag:crawling",
+      "kind": "tag"
+    },
+    {
+      "source": "record:a-page-watcher-with-visible-crawl-state",
+      "target": "tag:observability",
+      "kind": "tag"
+    },
+    {
+      "source": "record:a-page-watcher-with-visible-crawl-state",
+      "target": "tag:limits",
       "kind": "tag"
     },
     {
@@ -1056,6 +2111,51 @@
       "kind": "tag"
     },
     {
+      "source": "record:browser-forms-before-document-history",
+      "target": "record:desktop-certificate-and-audit-pdf-generator",
+      "kind": "related"
+    },
+    {
+      "source": "record:browser-forms-before-document-history",
+      "target": "tag:browser-tools",
+      "kind": "tag"
+    },
+    {
+      "source": "record:browser-forms-before-document-history",
+      "target": "tag:document-generation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:browser-forms-before-document-history",
+      "target": "tag:validation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:curriculum-project-contact-cli",
+      "target": "record:target-audience-role-proxy",
+      "kind": "related"
+    },
+    {
+      "source": "record:curriculum-project-contact-cli",
+      "target": "tag:curriculum",
+      "kind": "tag"
+    },
+    {
+      "source": "record:curriculum-project-contact-cli",
+      "target": "tag:cli",
+      "kind": "tag"
+    },
+    {
+      "source": "record:curriculum-project-contact-cli",
+      "target": "tag:sqlite",
+      "kind": "tag"
+    },
+    {
+      "source": "record:curriculum-project-contact-cli",
+      "target": "tag:data-import",
+      "kind": "tag"
+    },
+    {
       "source": "record:desktop-certificate-and-audit-pdf-generator",
       "target": "record:manual-label-printing-from-templates",
       "kind": "related"
@@ -1151,6 +2251,61 @@
       "kind": "tag"
     },
     {
+      "source": "record:equipment-taxonomy-as-a-job-matching-boundary",
+      "target": "record:static-report-portal-preview",
+      "kind": "related"
+    },
+    {
+      "source": "record:equipment-taxonomy-as-a-job-matching-boundary",
+      "target": "tag:data-modeling",
+      "kind": "tag"
+    },
+    {
+      "source": "record:equipment-taxonomy-as-a-job-matching-boundary",
+      "target": "tag:matching",
+      "kind": "tag"
+    },
+    {
+      "source": "record:equipment-taxonomy-as-a-job-matching-boundary",
+      "target": "tag:access-control",
+      "kind": "tag"
+    },
+    {
+      "source": "record:equipment-taxonomy-as-a-job-matching-boundary",
+      "target": "tag:prototypes",
+      "kind": "tag"
+    },
+    {
+      "source": "record:evidence-linked-research-without-automatic-conclusions",
+      "target": "record:target-audience-role-proxy",
+      "kind": "related"
+    },
+    {
+      "source": "record:evidence-linked-research-without-automatic-conclusions",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:evidence-linked-research-without-automatic-conclusions",
+      "target": "tag:research",
+      "kind": "tag"
+    },
+    {
+      "source": "record:evidence-linked-research-without-automatic-conclusions",
+      "target": "tag:evidence",
+      "kind": "tag"
+    },
+    {
+      "source": "record:evidence-linked-research-without-automatic-conclusions",
+      "target": "tag:provenance",
+      "kind": "tag"
+    },
+    {
+      "source": "record:evidence-linked-research-without-automatic-conclusions",
+      "target": "tag:cli",
+      "kind": "tag"
+    },
+    {
       "source": "record:finished-batch-packout-report-export",
       "target": "record:data-trust-ladder",
       "kind": "related"
@@ -1193,6 +2348,81 @@
     {
       "source": "record:finished-batch-packout-report-export",
       "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
+      "source": "record:hardware-keys-as-an-execution-boundary",
+      "target": "record:agent-runbook-workspace-for-machine-reports",
+      "kind": "related"
+    },
+    {
+      "source": "record:hardware-keys-as-an-execution-boundary",
+      "target": "tag:automation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:hardware-keys-as-an-execution-boundary",
+      "target": "tag:hardware",
+      "kind": "tag"
+    },
+    {
+      "source": "record:hardware-keys-as-an-execution-boundary",
+      "target": "tag:configuration",
+      "kind": "tag"
+    },
+    {
+      "source": "record:hardware-keys-as-an-execution-boundary",
+      "target": "tag:safety",
+      "kind": "tag"
+    },
+    {
+      "source": "record:interface-contracts-before-priority-ranking",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:interface-contracts-before-priority-ranking",
+      "target": "tag:interface-design",
+      "kind": "tag"
+    },
+    {
+      "source": "record:interface-contracts-before-priority-ranking",
+      "target": "tag:validation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:interface-contracts-before-priority-ranking",
+      "target": "tag:workflow",
+      "kind": "tag"
+    },
+    {
+      "source": "record:interface-contracts-before-priority-ranking",
+      "target": "tag:explainability",
+      "kind": "tag"
+    },
+    {
+      "source": "record:local-crm-route-prototype",
+      "target": "record:local-timesheet-reporting-workbench",
+      "kind": "related"
+    },
+    {
+      "source": "record:local-crm-route-prototype",
+      "target": "tag:api-design",
+      "kind": "tag"
+    },
+    {
+      "source": "record:local-crm-route-prototype",
+      "target": "tag:sqlite",
+      "kind": "tag"
+    },
+    {
+      "source": "record:local-crm-route-prototype",
+      "target": "tag:validation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:local-crm-route-prototype",
+      "target": "tag:local-tools",
       "kind": "tag"
     },
     {
@@ -1386,6 +2616,31 @@
       "kind": "tag"
     },
     {
+      "source": "record:mailbox-contact-extraction-to-csv",
+      "target": "record:mailbox-graph-helper-functions",
+      "kind": "related"
+    },
+    {
+      "source": "record:mailbox-contact-extraction-to-csv",
+      "target": "tag:email",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mailbox-contact-extraction-to-csv",
+      "target": "tag:extraction",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mailbox-contact-extraction-to-csv",
+      "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mailbox-contact-extraction-to-csv",
+      "target": "tag:privacy",
+      "kind": "tag"
+    },
+    {
       "source": "record:mailbox-graph-helper-functions",
       "target": "record:agent-runbook-workspace-for-machine-reports",
       "kind": "related"
@@ -1526,6 +2781,26 @@
       "kind": "tag"
     },
     {
+      "source": "record:mqtt-capture-keeps-receipt-and-recovery-separate",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:mqtt-capture-keeps-receipt-and-recovery-separate",
+      "target": "tag:mqtt",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mqtt-capture-keeps-receipt-and-recovery-separate",
+      "target": "tag:capture",
+      "kind": "tag"
+    },
+    {
+      "source": "record:mqtt-capture-keeps-receipt-and-recovery-separate",
+      "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
       "source": "record:multi-site-reporter-configuration-shell",
       "target": "record:wpf-operations-console-shell",
       "kind": "related"
@@ -1576,6 +2851,91 @@
       "kind": "tag"
     },
     {
+      "source": "record:outcome-recipes-before-dataset-export",
+      "target": "record:machine-capture-to-training-dataset",
+      "kind": "related"
+    },
+    {
+      "source": "record:outcome-recipes-before-dataset-export",
+      "target": "record:operator-knowledge-as-signal",
+      "kind": "related"
+    },
+    {
+      "source": "record:outcome-recipes-before-dataset-export",
+      "target": "tag:datasets",
+      "kind": "tag"
+    },
+    {
+      "source": "record:outcome-recipes-before-dataset-export",
+      "target": "tag:evidence",
+      "kind": "tag"
+    },
+    {
+      "source": "record:outcome-recipes-before-dataset-export",
+      "target": "tag:validation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:outcome-recipes-before-dataset-export",
+      "target": "tag:provenance",
+      "kind": "tag"
+    },
+    {
+      "source": "record:procedure-rendering-and-release-gates",
+      "target": "record:request-documents-with-visible-missing-inputs",
+      "kind": "related"
+    },
+    {
+      "source": "record:procedure-rendering-and-release-gates",
+      "target": "tag:document-generation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:procedure-rendering-and-release-gates",
+      "target": "tag:agent-workflows",
+      "kind": "tag"
+    },
+    {
+      "source": "record:procedure-rendering-and-release-gates",
+      "target": "tag:validation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:procedure-rendering-and-release-gates",
+      "target": "tag:release-gates",
+      "kind": "tag"
+    },
+    {
+      "source": "record:qc-intake-before-operational-claims",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:qc-intake-before-operational-claims",
+      "target": "record:machine-metrics-collector-with-commissioning-gates",
+      "kind": "related"
+    },
+    {
+      "source": "record:qc-intake-before-operational-claims",
+      "target": "tag:data-quality",
+      "kind": "tag"
+    },
+    {
+      "source": "record:qc-intake-before-operational-claims",
+      "target": "tag:quality-control",
+      "kind": "tag"
+    },
+    {
+      "source": "record:qc-intake-before-operational-claims",
+      "target": "tag:evidence",
+      "kind": "tag"
+    },
+    {
+      "source": "record:qc-intake-before-operational-claims",
+      "target": "tag:workflow",
+      "kind": "tag"
+    },
+    {
       "source": "record:real-time-anomaly-detection-on-a-grading-line",
       "target": "record:operator-knowledge-as-signal",
       "kind": "related"
@@ -1618,6 +2978,81 @@
     {
       "source": "record:real-time-anomaly-detection-on-a-grading-line",
       "target": "tag:operator-knowledge",
+      "kind": "tag"
+    },
+    {
+      "source": "record:report-publication-beyond-the-preview",
+      "target": "record:static-report-portal-preview",
+      "kind": "related"
+    },
+    {
+      "source": "record:report-publication-beyond-the-preview",
+      "target": "tag:report-portal",
+      "kind": "tag"
+    },
+    {
+      "source": "record:report-publication-beyond-the-preview",
+      "target": "tag:publication-workflow",
+      "kind": "tag"
+    },
+    {
+      "source": "record:report-publication-beyond-the-preview",
+      "target": "tag:validation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:report-publication-beyond-the-preview",
+      "target": "tag:revision-history",
+      "kind": "tag"
+    },
+    {
+      "source": "record:request-documents-with-visible-missing-inputs",
+      "target": "record:versioned-quote-document-engine",
+      "kind": "related"
+    },
+    {
+      "source": "record:request-documents-with-visible-missing-inputs",
+      "target": "tag:document-generation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:request-documents-with-visible-missing-inputs",
+      "target": "tag:work-queues",
+      "kind": "tag"
+    },
+    {
+      "source": "record:request-documents-with-visible-missing-inputs",
+      "target": "tag:validation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:resumable-cases-and-frozen-experiment-inputs",
+      "target": "record:real-time-anomaly-detection-on-a-grading-line",
+      "kind": "related"
+    },
+    {
+      "source": "record:resumable-cases-and-frozen-experiment-inputs",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:resumable-cases-and-frozen-experiment-inputs",
+      "target": "tag:research",
+      "kind": "tag"
+    },
+    {
+      "source": "record:resumable-cases-and-frozen-experiment-inputs",
+      "target": "tag:checkpoints",
+      "kind": "tag"
+    },
+    {
+      "source": "record:resumable-cases-and-frozen-experiment-inputs",
+      "target": "tag:experiments",
+      "kind": "tag"
+    },
+    {
+      "source": "record:resumable-cases-and-frozen-experiment-inputs",
+      "target": "tag:provenance",
       "kind": "tag"
     },
     {
@@ -1773,6 +3208,71 @@
     {
       "source": "record:target-audience-role-proxy",
       "target": "tag:workflow",
+      "kind": "tag"
+    },
+    {
+      "source": "record:thread-scoped-experiments-with-container-limits",
+      "target": "record:resumable-cases-and-frozen-experiment-inputs",
+      "kind": "related"
+    },
+    {
+      "source": "record:thread-scoped-experiments-with-container-limits",
+      "target": "tag:research",
+      "kind": "tag"
+    },
+    {
+      "source": "record:thread-scoped-experiments-with-container-limits",
+      "target": "tag:sandboxing",
+      "kind": "tag"
+    },
+    {
+      "source": "record:thread-scoped-experiments-with-container-limits",
+      "target": "tag:provenance",
+      "kind": "tag"
+    },
+    {
+      "source": "record:thread-scoped-experiments-with-container-limits",
+      "target": "tag:execution-budgets",
+      "kind": "tag"
+    },
+    {
+      "source": "record:unfinished-web-change-monitor",
+      "target": "record:data-trust-ladder",
+      "kind": "related"
+    },
+    {
+      "source": "record:unfinished-web-change-monitor",
+      "target": "tag:monitoring",
+      "kind": "tag"
+    },
+    {
+      "source": "record:unfinished-web-change-monitor",
+      "target": "tag:state-management",
+      "kind": "tag"
+    },
+    {
+      "source": "record:unfinished-web-change-monitor",
+      "target": "tag:concurrency",
+      "kind": "tag"
+    },
+    {
+      "source": "record:versioned-quote-document-engine",
+      "target": "record:desktop-certificate-and-audit-pdf-generator",
+      "kind": "related"
+    },
+    {
+      "source": "record:versioned-quote-document-engine",
+      "target": "tag:document-generation",
+      "kind": "tag"
+    },
+    {
+      "source": "record:versioned-quote-document-engine",
+      "target": "tag:revision-history",
+      "kind": "tag"
+    },
+    {
+      "source": "record:versioned-quote-document-engine",
+      "target": "tag:pdf-export",
       "kind": "tag"
     },
     {

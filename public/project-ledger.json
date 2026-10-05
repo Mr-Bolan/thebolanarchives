@@ -1,5 +1,512 @@
 [
   {
+    "title": "a change monitor needs a remembered baseline",
+    "slug": "unfinished-web-change-monitor",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "An unfinished website-monitor script sketches fetching, comparison, email, and plotting, but leaves the previous-state and UI-thread contracts unresolved.",
+    "updated": "2026-10-05",
+    "tags": [
+      "monitoring",
+      "state-management",
+      "concurrency"
+    ],
+    "tools": [
+      "python",
+      "beautifulsoup",
+      "tkinter",
+      "pandas"
+    ],
+    "route": "/build-logs/unfinished-web-change-monitor",
+    "current_state": "An unfinished website-monitor script sketches fetching, comparison, email, and plotting, but leaves the previous-state and UI-thread contracts unresolved.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "a curriculum workspace starts with projects and contacts",
+    "slug": "curriculum-project-contact-cli",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A local command-line prototype stores curriculum projects and imports contacts, while its wider lesson and research schema extends beyond the implemented commands.",
+    "updated": "2026-10-05",
+    "tags": [
+      "curriculum",
+      "cli",
+      "sqlite",
+      "data-import"
+    ],
+    "tools": [
+      "python",
+      "click",
+      "sqlite"
+    ],
+    "route": "/build-logs/curriculum-project-contact-cli",
+    "current_state": "A local command-line prototype stores curriculum projects and imports contacts, while its wider lesson and research schema extends beyond the implemented commands.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "a local relationship store with uneven update contracts",
+    "slug": "local-crm-route-prototype",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "An Express and SQLite prototype exposes project and contact routes, but its update semantics and access boundary remain separate unfinished parts of the system.",
+    "updated": "2026-10-05",
+    "tags": [
+      "api-design",
+      "sqlite",
+      "validation",
+      "local-tools"
+    ],
+    "tools": [
+      "nodejs",
+      "express",
+      "sqlite"
+    ],
+    "route": "/build-logs/local-crm-route-prototype",
+    "current_state": "An Express and SQLite prototype exposes project and contact routes, but its update semantics and access boundary remain separate unfinished parts of the system.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "a page watcher with visible crawl state",
+    "slug": "a-page-watcher-with-visible-crawl-state",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A small crawler exposes hashes, queue size, fetch counts, and change counts as register-like state, while its fetch path leaves important limits unresolved.",
+    "updated": "2026-10-05",
+    "tags": [
+      "monitoring",
+      "crawling",
+      "observability",
+      "limits"
+    ],
+    "tools": [
+      "javascript"
+    ],
+    "route": "/build-logs/a-page-watcher-with-visible-crawl-state",
+    "current_state": "The watcher hashes fetched page bytes and compares them with the previous hash. The first successful fetch establishes a baseline. Later differences increment a change counter and produce a short excerpt with the old and new hashes.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "browser forms before document history",
+    "slug": "browser-forms-before-document-history",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A source review of small browser paperwork tools: two construct PDFs directly, while an assessment form assembles a summary without creating document history.",
+    "updated": "2026-10-05",
+    "tags": [
+      "browser-tools",
+      "document-generation",
+      "validation"
+    ],
+    "tools": [
+      "javascript",
+      "jspdf"
+    ],
+    "route": "/build-logs/browser-forms-before-document-history",
+    "current_state": "Two standalone browser tools collect calibration and inspection fields, accept images, and build PDFs through drawing calls. Their page-space helpers track a vertical position, add a page near the bottom margin, and reset that position. The calibration form also adds and removes measurement rows.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "desktop certificate and audit PDF generator",
+    "slug": "desktop-certificate-and-audit-pdf-generator",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows desktop tool that turns calibration, audit, and service-work models into previewable PDFs with templates, local job history, and repeatable numbering.",
+    "updated": "2026-10-05",
+    "tags": [
+      "document-generation",
+      "windows-app",
+      "pdf-export",
+      "templates",
+      "local-storage",
+      "operations"
+    ],
+    "tools": [
+      "dotnet",
+      "wpf",
+      "winforms",
+      "razor",
+      "playwright",
+      "sqlite",
+      "webview2"
+    ],
+    "route": "/build-logs/desktop-certificate-and-audit-pdf-generator",
+    "current_state": "A build log for a Windows desktop tool that turns calibration, audit, and service-work models into previewable PDFs with templates, local job history, and repeatable numbering.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "equipment taxonomy as a job matching boundary",
+    "slug": "equipment-taxonomy-as-a-job-matching-boundary",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A specialist job-board prototype connects listings and candidate experience through shared equipment records, while its write paths expose unfinished identity boundaries.",
+    "updated": "2026-10-05",
+    "tags": [
+      "data-modeling",
+      "matching",
+      "access-control",
+      "prototypes"
+    ],
+    "tools": [
+      "nextjs",
+      "typescript",
+      "prisma",
+      "sqlite"
+    ],
+    "route": "/build-logs/equipment-taxonomy-as-a-job-matching-boundary",
+    "current_state": "A specialist job-board prototype connects listings and candidate experience through shared equipment records, while its write paths expose unfinished identity boundaries.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "evidence-linked research without automatic conclusions",
+    "slug": "evidence-linked-research-without-automatic-conclusions",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A research CLI separates source coverage, suggested comment tags, profile ranking, and evidence-linked synthesis without treating collection as a finding.",
+    "updated": "2026-10-05",
+    "tags": [
+      "research",
+      "evidence",
+      "provenance",
+      "cli"
+    ],
+    "tools": [
+      "python"
+    ],
+    "route": "/build-logs/evidence-linked-research-without-automatic-conclusions",
+    "current_state": "The inspected Python tool keeps research studies separate from curriculum authoring. Its reporting code counts observations by query, source type, and research area. The report explicitly stops at coverage rather than drawing audience conclusions.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "finished-batch packout report export",
+    "slug": "finished-batch-packout-report-export",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a Windows-first reporting tool that turns finished production batches into packout PDFs and CSVs, with a ledger so exports are not repeated.",
+    "updated": "2026-10-05",
+    "tags": [
+      "reporting",
+      "batch-processing",
+      "windows-service",
+      "exports",
+      "operations",
+      "data-quality"
+    ],
+    "tools": [
+      "dotnet",
+      "wpf",
+      "sql-server",
+      "sqlite",
+      "powershell"
+    ],
+    "route": "/build-logs/finished-batch-packout-report-export",
+    "current_state": "A build log for a Windows-first reporting tool that turns finished production batches into packout PDFs and CSVs, with a ledger so exports are not repeated.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "hardware keys as an execution boundary",
+    "slug": "hardware-keys-as-an-execution-boundary",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A local hardware-key runtime maps profiles to commands and HTTP actions, but a declared confirmation option does not yet create an approval boundary.",
+    "updated": "2026-10-05",
+    "tags": [
+      "automation",
+      "hardware",
+      "configuration",
+      "safety"
+    ],
+    "tools": [
+      "go",
+      "yaml"
+    ],
+    "route": "/build-logs/hardware-keys-as-an-execution-boundary",
+    "current_state": "The inspected runtime loads YAML pages whose keys either contain an action or refer to a command catalog. Validation rejects duplicate page identifiers, invalid key indexes, unknown command references, and unsupported action types.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "interface contracts before priority ranking",
+    "slug": "interface-contracts-before-priority-ranking",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A deterministic interface tool validates workflow contracts and filters ineligible suggestions before ranking the remaining capabilities with explicit reasons.",
+    "updated": "2026-10-05",
+    "tags": [
+      "interface-design",
+      "validation",
+      "workflow",
+      "explainability"
+    ],
+    "tools": [
+      "python",
+      "json-schema",
+      "yaml"
+    ],
+    "route": "/build-logs/interface-contracts-before-priority-ranking",
+    "current_state": "The inspected tool validates capability documents with JSON Schema and additional semantic checks. It checks workflow state references, warns about unreachable states, and requires resume and cancellation policies for multi-step surfaces. Suggested actions must have matching explanation templates and a dismissal policy",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "mailbox text to contact rows",
+    "slug": "mailbox-contact-extraction-to-csv",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A Python prototype combines message-header parsing with model-assisted contact extraction, then writes CSV rows without a separate evidence-review stage.",
+    "updated": "2026-10-05",
+    "tags": [
+      "email",
+      "extraction",
+      "data-quality",
+      "privacy"
+    ],
+    "tools": [
+      "python",
+      "extract-msg",
+      "csv"
+    ],
+    "route": "/build-logs/mailbox-contact-extraction-to-csv",
+    "current_state": "A Python prototype combines message-header parsing with model-assisted contact extraction, then writes CSV rows without a separate evidence-review stage.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "mqtt capture keeps receipt and recovery separate",
+    "slug": "mqtt-capture-keeps-receipt-and-recovery-separate",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A capture and offline profiling tool preserves message metadata while explicitly leaving reconnect recovery and live throughput unverified.",
+    "updated": "2026-10-05",
+    "tags": [
+      "mqtt",
+      "capture",
+      "data-quality"
+    ],
+    "tools": [
+      "python",
+      "paho-mqtt"
+    ],
+    "route": "/build-logs/mqtt-capture-keeps-receipt-and-recovery-separate",
+    "current_state": "A capture and offline profiling tool preserves message metadata while explicitly leaving reconnect recovery and live throughput unverified.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "outcome recipes before dataset export",
+    "slug": "outcome-recipes-before-dataset-export",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A local dataset workbench connects observed outcomes to evidence windows and specialist judgments, then checks the recipe before writing an export package.",
+    "updated": "2026-10-05",
+    "tags": [
+      "datasets",
+      "evidence",
+      "validation",
+      "provenance"
+    ],
+    "tools": [
+      "go",
+      "react",
+      "sqlite"
+    ],
+    "route": "/build-logs/outcome-recipes-before-dataset-export",
+    "current_state": "A local dataset workbench connects observed outcomes to evidence windows and specialist judgments, then checks the recipe before writing an export package.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "procedure rendering and release gates",
+    "slug": "procedure-rendering-and-release-gates",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A source review of procedure PDF tooling, its local document library, and a filesystem workflow whose structural checks do not establish operational correctness.",
+    "updated": "2026-10-05",
+    "tags": [
+      "document-generation",
+      "agent-workflows",
+      "validation",
+      "release-gates"
+    ],
+    "tools": [
+      "nodejs",
+      "handlebars",
+      "puppeteer"
+    ],
+    "route": "/build-logs/procedure-rendering-and-release-gates",
+    "current_state": "Related procedure tooling separates JSON document content from Handlebars layouts and browser PDF rendering. One renderer merges common roles, training fields, references, and baseline risks into task-specific input. A fuller authoring service adds a local JSON document library, duplication, and questionnaire normaliza",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "qc intake before operational claims",
+    "slug": "qc-intake-before-operational-claims",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A packaged validation workflow separates sample meaning, data-quality flags, and machine coverage before attempting to explain operational results.",
+    "updated": "2026-10-05",
+    "tags": [
+      "data-quality",
+      "quality-control",
+      "evidence",
+      "workflow"
+    ],
+    "tools": [
+      "python",
+      "openpyxl",
+      "pandas"
+    ],
+    "route": "/build-logs/qc-intake-before-operational-claims",
+    "current_state": "A packaged validation workflow separates sample meaning, data-quality flags, and machine coverage before attempting to explain operational results.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "report publication beyond the preview",
+    "slug": "report-publication-beyond-the-preview",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A source review of newer report-portal code: authenticated requests, typed publication validation, and revision-aware lifecycle operations beyond a browser-only preview.",
+    "updated": "2026-10-05",
+    "tags": [
+      "report-portal",
+      "publication-workflow",
+      "validation",
+      "revision-history"
+    ],
+    "tools": [
+      "javascript"
+    ],
+    "route": "/build-logs/report-publication-beyond-the-preview",
+    "current_state": "A source review of newer report-portal code: authenticated requests, typed publication validation, and revision-aware lifecycle operations beyond a browser-only preview.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "request documents with visible missing inputs",
+    "slug": "request-documents-with-visible-missing-inputs",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A source review of a Markdown-to-PDF work queue that keeps missing inputs visible and separates rendering success from document readiness.",
+    "updated": "2026-10-05",
+    "tags": [
+      "document-generation",
+      "work-queues",
+      "validation"
+    ],
+    "tools": [
+      "python",
+      "yaml",
+      "wkhtmltopdf"
+    ],
+    "route": "/build-logs/request-documents-with-visible-missing-inputs",
+    "current_state": "A local document workflow reads YAML frontmatter and section bodies from Markdown requests. Its builder dispatches to quotation, scope-of-work, and agreement layouts. Text helpers escape ordinary content and convert a limited set of headings, lists, and tables into HTML. A separate renderer invokes a PDF tool.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "resumable cases and frozen experiment inputs",
+    "slug": "resumable-cases-and-frozen-experiment-inputs",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "An investigation workbench represents progress as bounded case state and compares registered evaluators against a preserved baseline on frozen input snapshots.",
+    "updated": "2026-10-05",
+    "tags": [
+      "research",
+      "checkpoints",
+      "experiments",
+      "provenance"
+    ],
+    "tools": [
+      "python"
+    ],
+    "route": "/build-logs/resumable-cases-and-frozen-experiment-inputs",
+    "current_state": "This is investigation infrastructure, not another live anomaly detector. Its case model stores an objective, registered tools, progress counters, artifact references, and an explicit resume point. It bounds list sizes and rejects artifact locations that escape the declared case workspace.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "thread-scoped experiments with container limits",
+    "slug": "thread-scoped-experiments-with-container-limits",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A research-agent adaptation adds thread-scoped experiment reservations, replay checks, and restricted container execution while keeping isolation claims provisional.",
+    "updated": "2026-10-05",
+    "tags": [
+      "research",
+      "sandboxing",
+      "provenance",
+      "execution-budgets"
+    ],
+    "tools": [
+      "python",
+      "sqlite",
+      "docker"
+    ],
+    "route": "/build-logs/thread-scoped-experiments-with-container-limits",
+    "current_state": "This implementation adapts an upstream agent and companion interface. It is documented as separate from the earlier investigation workbench, not a completed integration or a wholly original framework.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "versioned quote document engine",
+    "slug": "versioned-quote-document-engine",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A source review of related quotation prototypes: editable browser output, a quote repository, and a document engine that records payload revisions separately from artifacts.",
+    "updated": "2026-10-05",
+    "tags": [
+      "document-generation",
+      "revision-history",
+      "pdf-export"
+    ],
+    "tools": [
+      "typescript",
+      "python",
+      "sqlite",
+      "playwright"
+    ],
+    "route": "/build-logs/versioned-quote-document-engine",
+    "current_state": "Three related local implementations expose different boundaries. An editable HTML quotation uses browser export with a print fallback. A Python implementation persists quotes in SQLite and renders them through an HTML template. A TypeScript engine registers quote and service-scope packs, each with input normalization, ",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
+    "title": "wpf operations console shell",
+    "slug": "wpf-operations-console-shell",
+    "status": "working_note",
+    "confidence": "partial",
+    "summary": "A build log for a WPF desktop shell that frames navigation, settings, theme control, and future machine/API configuration before the real workflow arrives.",
+    "updated": "2026-10-05",
+    "tags": [
+      "desktop-app",
+      "wpf",
+      "operations-ui",
+      "settings",
+      "mvvm",
+      "prototype"
+    ],
+    "tools": [
+      "dotnet",
+      "wpf",
+      "wpf-ui",
+      "communitytoolkit-mvvm",
+      "microsoft-extensions-hosting"
+    ],
+    "route": "/build-logs/wpf-operations-console-shell",
+    "current_state": "A build log for a WPF desktop shell that frames navigation, settings, theme control, and future machine/API configuration before the real workflow arrives.",
+    "latest_update": "",
+    "next_move": ""
+  },
+  {
     "title": "adaptive oee reporting workbench",
     "slug": "adaptive-oee-reporting-workbench",
     "status": "working_note",
@@ -57,34 +564,6 @@
     "next_move": ""
   },
   {
-    "title": "desktop certificate and audit PDF generator",
-    "slug": "desktop-certificate-and-audit-pdf-generator",
-    "status": "working_note",
-    "confidence": "partial",
-    "summary": "A build log for a Windows desktop tool that turns calibration, audit, and service-work models into previewable PDFs with templates, local job history, and repeatable numbering.",
-    "updated": "2026-06-23",
-    "tags": [
-      "document-generation",
-      "windows-app",
-      "pdf-export",
-      "templates",
-      "local-storage",
-      "operations"
-    ],
-    "tools": [
-      "dotnet",
-      "winforms",
-      "razor",
-      "playwright",
-      "sqlite",
-      "webview2"
-    ],
-    "route": "/build-logs/desktop-certificate-and-audit-pdf-generator",
-    "current_state": "A build log for a Windows desktop tool that turns calibration, audit, and service-work models into previewable PDFs with templates, local job history, and repeatable numbering.",
-    "latest_update": "",
-    "next_move": ""
-  },
-  {
     "title": "edge log agent and central processor",
     "slug": "edge-log-agent-and-central-processor",
     "status": "working_note",
@@ -111,33 +590,6 @@
     ],
     "route": "/build-logs/edge-log-agent-and-central-processor",
     "current_state": "A build log for a two-part machine log collection system: an edge watcher that batches encoded records and a central processor that ingests, caches, stores, and serves them.",
-    "latest_update": "",
-    "next_move": ""
-  },
-  {
-    "title": "finished-batch packout report export",
-    "slug": "finished-batch-packout-report-export",
-    "status": "working_note",
-    "confidence": "partial",
-    "summary": "A build log for a Windows-first reporting tool that turns finished production batches into packout PDFs and CSVs, with a ledger so exports are not repeated.",
-    "updated": "2026-06-23",
-    "tags": [
-      "reporting",
-      "batch-processing",
-      "windows-service",
-      "exports",
-      "operations",
-      "data-quality"
-    ],
-    "tools": [
-      "dotnet",
-      "wpf",
-      "sql-server",
-      "sqlite",
-      "powershell"
-    ],
-    "route": "/build-logs/finished-batch-packout-report-export",
-    "current_state": "A build log for a Windows-first reporting tool that turns finished production batches into packout PDFs and CSVs, with a ledger so exports are not repeated.",
     "latest_update": "",
     "next_move": ""
   },
@@ -516,33 +968,6 @@
     ],
     "route": "/build-logs/workbook-row-to-packout-pdf",
     "current_state": "A build log for a Windows reporting bridge that turns formatted Excel workbooks and selected ledger rows into one-page operational PDFs.",
-    "latest_update": "",
-    "next_move": ""
-  },
-  {
-    "title": "wpf operations console shell",
-    "slug": "wpf-operations-console-shell",
-    "status": "working_note",
-    "confidence": "partial",
-    "summary": "A build log for a WPF desktop shell that frames navigation, settings, theme control, and future machine/API configuration before the real workflow arrives.",
-    "updated": "2026-06-23",
-    "tags": [
-      "desktop-app",
-      "wpf",
-      "operations-ui",
-      "settings",
-      "mvvm",
-      "prototype"
-    ],
-    "tools": [
-      "dotnet",
-      "wpf",
-      "wpf-ui",
-      "communitytoolkit-mvvm",
-      "microsoft-extensions-hosting"
-    ],
-    "route": "/build-logs/wpf-operations-console-shell",
-    "current_state": "A build log for a WPF desktop shell that frames navigation, settings, theme control, and future machine/API configuration before the real workflow arrives.",
     "latest_update": "",
     "next_move": ""
   }

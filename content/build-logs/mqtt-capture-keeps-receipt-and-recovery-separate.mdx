@@ -1,0 +1,43 @@
+---
+title: "mqtt capture keeps receipt and recovery separate"
+slug: "mqtt-capture-keeps-receipt-and-recovery-separate"
+type: "build_log"
+status: "working_note"
+confidence: "partial"
+summary: "A capture and offline profiling tool preserves message metadata while explicitly leaving reconnect recovery and live throughput unverified."
+created: "2026-10-05"
+updated: "2026-10-05"
+tags:
+  - "mqtt"
+  - "capture"
+  - "data-quality"
+tools:
+  - "python"
+  - "paho-mqtt"
+narrative_origin: "bounded source review"
+visibility: "public"
+related:
+  - "data-trust-ladder"
+points:
+  - "Reconnection does not establish recovery of a missing message interval."
+  - "Streaming input can still accumulate growing retained inventories."
+last_verified: "2026-10-05"
+source_context: "Source-review-only; runtime-unverified. No source applications or customer datasets were used."
+---
+
+# mqtt capture keeps receipt and recovery separate
+
+## current shape
+
+The inspected capture code subscribes over TLS, validates subscription acknowledgements, and writes message records containing receipt time, sequence, topic, delivery flags, and payload length. Invalid UTF-8 payloads also retain a base64 representation.
+
+Connection events are separate from message records. On reconnect, the event explicitly says replay recovery is not established. Reconnection is not silently presented as proof that the missing interval was recovered.
+
+The offline analyser reads records line by line, distinguishes typed values, checks timestamp forms, and derives receipt rates from capture timestamps rather than payload clocks. Its retained inventories grow with distinct values and occupied seconds, so streaming input does not mean constant memory.
+
+## verification boundary
+
+The useful design is preservation before interpretation: record what arrived, record gaps separately, then inspect the capture without requiring another broker connection.
+
+This is source-review-only, runtime-unverified. The source README also leaves real connection and live throughput verification open. No certificates, private configuration, captures, or live endpoints were accessed. The next step is a controlled synthetic disconnect fixture before any separately authorised field test.
+
